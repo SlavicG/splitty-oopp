@@ -24,7 +24,7 @@ Note taker:     {Miruna Coroi}
     - Deciding when to mark items as completed
  - Discuss about Sprints (3 min)
     - Discussing how long a sprint will take (suggestion 1 week)
- - Discuss Overall work-process (10 min)
+ - Discuss Overall work-process (5 min)
     - Testing: Do we want to use TDD?
     - Splitting into teams
     - Splitting work between team members
@@ -36,9 +36,8 @@ Note taker:     {Miruna Coroi}
         - Scrum Master?
         - Team Leader? (Team leader may be the chair of the week's meeting)
  - Discuss about starting the actual work part (7 min)
-# Questions for the TA
-*Your TA will visit you in the second half of the lab session. Note down all questions that you have so that you can ask them then.*
-
+# Questions for the TA (3 min)
+ 
 # Question round (2 min)
 If there are any questions, now is the time to ask them
 
