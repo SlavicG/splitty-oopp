@@ -43,3 +43,24 @@ If there are any questions, now is the time to ask them
 
 # Closing (1 min)
 Final remarks and conclusions.
+
+# Atendees
+   - Veaceslav Guzun
+   - Coroi Miruna
+   - Alpsoy Abdullah
+   - Gogoana David
+   - Kaczmarzyk Kinga
+   - Kiliç Ilker
+
+# Meeting Notes
+- We discussed the last part of the code of conduct (commitment).
+- We decided on some changes that will be made: minimum effort should be equivalent to a 10, add minute taker responsibilities, mention concrete ways to measure commitment.
+- We will organise the tasks in the backlog based on name, importance, estimated time, how to demo and description.
+-  We agreed that each sprint will take a week.
+- Splitting into teams: We will start from a bigger group and then progressively split it into smaller ones.
+- We will follow Oracle Code Conventions
+- We agreed on 2 accepts per merge
+- We won't have a person responsible only for testing, everyone will write tests by themselves.
+- The chair will be the team leader for the following week.
+
+
