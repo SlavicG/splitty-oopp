@@ -26,7 +26,7 @@ import java.util.List;
 
 import org.glassfish.jersey.client.ClientConfig;
 
-import commons.Quote;
+import commons.dto.Quote;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;

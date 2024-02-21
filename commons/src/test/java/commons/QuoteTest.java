@@ -19,6 +19,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import commons.dto.Person;
+import commons.dto.Quote;
 import org.junit.jupiter.api.Test;
 
 public class QuoteTest {
