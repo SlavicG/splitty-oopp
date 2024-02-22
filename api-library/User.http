@@ -1,0 +1,28 @@
+### Create User
+POST http://localhost:8080/rest/users
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Slavic",
+  "email": "V.Guzun-1@student.tudelft.nl"
+}
+
+### Update User
+PUT http://localhost:8080/rest/users/1
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Vlad",
+  "email": "V.Guzun-1@student.tudelft.nl"
+}
+
+### Get User
+GET http://localhost:8080/rest/users/1
+Accept: application/json
+
+### Get All Users
+GET http://localhost:8080/rest/users
+Accept: application/json

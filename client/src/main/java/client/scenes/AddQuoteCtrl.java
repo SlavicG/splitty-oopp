@@ -18,8 +18,8 @@ package client.scenes;
 import com.google.inject.Inject;
 
 import client.utils.ServerUtils;
-import commons.Person;
-import commons.Quote;
+import commons.dto.Person;
+import commons.dto.Quote;
 import jakarta.ws.rs.WebApplicationException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
