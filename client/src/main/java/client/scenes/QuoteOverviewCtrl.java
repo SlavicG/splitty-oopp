@@ -29,6 +29,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 
 public class QuoteOverviewCtrl implements Initializable {
 
@@ -36,6 +37,7 @@ public class QuoteOverviewCtrl implements Initializable {
     private final MainCtrl mainCtrl;
 
     private ObservableList<Quote> data;
+    private Stage primaryStage;
 
     @FXML
     private TableView<Quote> table;
@@ -47,9 +49,10 @@ public class QuoteOverviewCtrl implements Initializable {
     private TableColumn<Quote, String> colQuote;
 
     @Inject
-    public QuoteOverviewCtrl(ServerUtils server, MainCtrl mainCtrl) {
+    public QuoteOverviewCtrl(ServerUtils server, MainCtrl mainCtrl, Stage primaryStage) {
         this.server = server;
         this.mainCtrl = mainCtrl;
+        this.primaryStage = primaryStage;
     }
 
     @Override
@@ -67,5 +70,8 @@ public class QuoteOverviewCtrl implements Initializable {
         var quotes = server.getQuotes();
         data = FXCollections.observableList(quotes);
         table.setItems(data);
+    }
+    public void startPage() {
+        mainCtrl.startPage();
     }
 }
