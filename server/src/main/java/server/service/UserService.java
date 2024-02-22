@@ -12,7 +12,7 @@ import java.util.function.Function;
 @Service
 public class UserService {
     private UserRepository userRepository;
-    private Function<server.model.User, User> mapper = user -> new User(user.getId(), user.getName(), user.getEmail());
+    private Function<server.model.User, User> mapper = user -> new User(user.getId(), user.getName(), user.getEmail(), user.getIban(), user.getBic());
     protected UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -23,14 +23,14 @@ public class UserService {
         return userRepository.findById(id).map(mapper).orElse(null);
     }
     public User createUser(User user) {
-        server.model.User userEntity = new server.model.User(null, user.getName(), user.getEmail(), Collections.emptyList());
+        server.model.User userEntity = new server.model.User(null, user.getName(), user.getEmail(), user.getIban(), user.getBic(), Collections.emptyList());
         server.model.User createdUser = userRepository.save(userEntity);
-        return new User(createdUser.getId(), createdUser.getName(), createdUser.getEmail());
+        return new User(createdUser.getId(), createdUser.getName(), createdUser.getEmail(), user.getIban(), user.getBic());
     }
     public User updateUser(User user) {
         server.model.User existingUser = userRepository.findById(user.getId()).orElse(null);
         if (existingUser != null) {
-            server.model.User updatedUser = new server.model.User(existingUser.getId(), user.getName(), user.getEmail(), existingUser.getEvents());
+            server.model.User updatedUser = new server.model.User(existingUser.getId(), user.getName(), user.getEmail(), user.getIban(), user.getBic(), existingUser.getEvents());
             server.model.User savedUser = userRepository.save(updatedUser);
             return mapper.apply(savedUser);
         }
