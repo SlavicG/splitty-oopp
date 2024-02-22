@@ -8,19 +8,25 @@ import java.util.Objects;
 @Entity
 @Table(name = "users")
 public class User {
-    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id;
+    private @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id;
     private String name;
     private String email;
     private @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY) List<Event> events;
+    private String iban;
+    private String bic;
 
-    public User(){
+    public User() {
 
     }
-    public User(Integer id, String name, String email, List<Event> events) {
+
+    public User(Integer id, String name, String email, String iban, String bic, List<Event> events) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.events = events;
+        this.iban = iban;
+        this.bic = bic;
     }
 
     public Integer getId() {
@@ -55,16 +61,32 @@ public class User {
         this.events = events;
     }
 
+    public String getIban() {
+        return iban;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
+    }
+
+    public String getBic() {
+        return bic;
+    }
+
+    public void setBic(String bic) {
+        this.bic = bic;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(email, user.email) && Objects.equals(events, user.events);
+        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(email, user.email) && Objects.equals(events, user.events) && Objects.equals(iban, user.iban) && Objects.equals(bic, user.bic);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, events);
+        return Objects.hash(id, name, email, events, iban, bic);
     }
 }

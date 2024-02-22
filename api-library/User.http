@@ -5,7 +5,9 @@ Content-Type: application/json
 
 {
   "name": "Slavic",
-  "email": "V.Guzun-1@student.tudelft.nl"
+  "email": "V.Guzun-1@student.tudelft.nl",
+  "iban": "11111111",
+  "bic": "123"
 }
 
 ### Update User
@@ -16,7 +18,9 @@ Content-Type: application/json
 {
   "id": 1,
   "name": "Vlad",
-  "email": "V.Guzun-1@student.tudelft.nl"
+  "email": "V.Guzun-1@student.tudelft.nl",
+  "iban": "1234",
+  "bic": "456"
 }
 
 ### Get User
