@@ -16,6 +16,8 @@ public class OverviewPageCtrl implements Initializable {
     @FXML
     private Label from;
     @FXML
+    private Label participants;
+    @FXML
     private Label including;
     @FXML
     private ChoiceBox<String> box;
@@ -24,6 +26,9 @@ public class OverviewPageCtrl implements Initializable {
         this.server = server;
         this.mainCtrl = mainCtrl;
     }
+    public void startPage() {
+        mainCtrl.startPage();
+    }
 
     private String[] users = {"name1", "name2", "name3"};
 
@@ -31,12 +36,23 @@ public class OverviewPageCtrl implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         box.getItems().addAll(users);
         box.setOnAction(this::getUser);
+        String list = new String();
+        if (users.length > 0) list += users[0];
+        for (int i = 1; i < users.length; i++){
+            list +=  ", " + users[i];
+        }
+        participants.setText(list);
     }
 
-    private void getUser(javafx.event.ActionEvent actionEvent) {
+    public void getUser(javafx.event.ActionEvent actionEvent) {
         String user = box.getValue();
         from.setText("From "+user);
         including.setText("Including " + user);
+
     }
+    public void invitation() {
+        mainCtrl.invitationPage();
+    }
+
 
 }
