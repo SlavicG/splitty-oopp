@@ -2,7 +2,6 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
-import javafx.stage.Stage;
 
 public class StartPageCtrl {
     private final ServerUtils server;

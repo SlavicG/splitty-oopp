@@ -36,12 +36,12 @@ public class OverviewPageCtrl implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         box.getItems().addAll(users);
         box.setOnAction(this::getUser);
-        String list = new String();
-        if (users.length > 0) list += users[0];
+        StringBuilder list = new StringBuilder();
+        if (users.length > 0) list.append(users[0]);
         for (int i = 1; i < users.length; i++){
-            list +=  ", " + users[i];
+            list.append(", ").append(users[i]);
         }
-        participants.setText(list);
+        participants.setText(list.toString());
     }
 
     public void getUser(javafx.event.ActionEvent actionEvent) {
