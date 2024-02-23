@@ -1,0 +1,24 @@
+### Create User
+POST http://localhost:8080/rest/expenses
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id":1,
+  "amount": 25,
+  "description": "Taxi",
+  "payer": "11111111",
+  "date": "10/05/2010",
+  "event": "event"
+
+}
+
+
+
+### Get User
+GET http://localhost:8080/rest/users/1
+Accept: application/json
+
+### Get All Users
+GET http://localhost:8080/rest/users
+Accept: application/json
