@@ -32,6 +32,8 @@ public class MainCtrl {
     private Scene participantPage;
 
     private AddQuoteCtrl addCtrl;
+
+    private StartPageCtrl startPageCtrl;
     private Scene add;
 
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
@@ -79,5 +81,9 @@ public class MainCtrl {
     public void addParticipantPage() {
         primaryStage.setTitle("Add Participant Page");
         primaryStage.setScene(participantPage);
+    }
+    public void eventPage() {
+        primaryStage.setTitle("Overview Page");
+        primaryStage.setScene(overviewPage);
     }
 }
