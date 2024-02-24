@@ -1,0 +1,76 @@
+# Create event
+POST http://localhost:8080/rest/events
+Accept: application/json
+Content-Type: application/json
+
+{
+    "title":"New Year Party",
+    "users": ["John", "Chris", "Ana" ],
+    "expenses": [
+            {
+                  "id": 1,
+                  "amount": 28,
+                  "description": "Cake",
+                  "payer": null,
+                  "date": null,
+                  "event": null
+
+            },
+            {
+                  "id": 2,
+                  "amount": 28,
+                  "description": "Cake",
+                  "payer": null,
+                  "date": null,
+                  "event": null
+
+            }]
+}
+
+
+# Get Event
+GET http://localhost:8080/rest/events/1
+Accept: application/json
+
+# Get All Events
+GET http://localhost:8080/rest/events
+Accept: application/json
+
+#Update User
+PUT http://localhost:8080/rest/events/1
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": 3,
+  "title":"Birthday Party",
+  "users": ["John", "Chris", "Ana" ],
+  "expenses": [
+              {
+                    "id": 1,
+                    "amount": 28,
+                    "description": "Cake",
+                    "payer": null,
+                    "date": null,
+                    "event": null
+
+              },
+              {
+                    "id": 2,
+                    "amount": 28,
+                    "description": "Cake",
+                    "payer": null,
+                    "date": null,
+                    "event": null
+
+              }]
+
+}
+
+# Get user from event by id
+GET http://localhost:8080/rest/events/1/users/1
+Accept: application/json
+
+# Delete event
+DELETE http://localhost:8080/rest/events/
+Accept: application/json
