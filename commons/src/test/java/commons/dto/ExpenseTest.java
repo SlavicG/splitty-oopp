@@ -23,10 +23,14 @@ class ExpenseTest {
     @BeforeEach
     void setup() {
         user1 = new User(1, "Miruna", "mcoroi@tudelft.nl", "123", "567");
-        LocalDate date = LocalDate.of(2021, 04, 24);
+        user2 = new User(1, "Slavic", "slavic@tudelft.nl", "123", "567");
+        LocalDate date = LocalDate.of(2021, 10, 24);
         LocalTime time = LocalTime.of(10, 34);
         date1 = LocalDateTime.of(date, time);
+        time = LocalTime.of(11, 34);
+        date2 = LocalDateTime.of(date, time);
         event1 = new Event("1", "party", null, null);
+        event2 = new Event("2", "party2", null, null);
         expense1 = new Expense(1, 1.0, "description1", user1, date1, event1);
         expense2 = new Expense(1, 1.0, "description1", user1, date1, event1);
         expense3 = new Expense(1, 1.0, "description1", user2, date2, event2);
