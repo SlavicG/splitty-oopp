@@ -23,6 +23,12 @@ public class User {
         this.events = events;
     }
 
+    public User(Integer id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
+
     public Integer getId() {
         return id;
     }
