@@ -78,6 +78,18 @@ public class Expense {
     }
 
     @Override
+    public String toString() {
+        return "Expense{" +
+                "id=" + id +
+                ", amount=" + amount +
+                ", description='" + description + '\'' +
+                ", payer=" + payer +
+                ", date=" + date +
+                ", event=" + event +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
