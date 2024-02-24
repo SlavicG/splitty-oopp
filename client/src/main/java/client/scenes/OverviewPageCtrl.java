@@ -16,6 +16,8 @@ public class OverviewPageCtrl implements Initializable {
     @FXML
     private Label from;
     @FXML
+    private Label eventName;
+    @FXML
     private Label participants;
     @FXML
     private Label including;
@@ -42,6 +44,7 @@ public class OverviewPageCtrl implements Initializable {
             list.append(", ").append(users[i]);
         }
         participants.setText(list.toString());
+        eventName.setText("Party");
     }
 
     public void getUser(javafx.event.ActionEvent actionEvent) {
@@ -51,7 +54,7 @@ public class OverviewPageCtrl implements Initializable {
 
     }
     public void invitation() {
-        mainCtrl.invitationPage();
+        mainCtrl.invitationPage(eventName);
     }
     public void addParticipant() {
         mainCtrl.addParticipantPage();
