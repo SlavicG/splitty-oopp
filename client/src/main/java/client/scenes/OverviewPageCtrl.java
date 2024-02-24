@@ -53,6 +53,10 @@ public class OverviewPageCtrl implements Initializable {
     public void invitation() {
         mainCtrl.invitationPage();
     }
+    public void addParticipant() {
+        mainCtrl.addParticipantPage();
+    }
+
 
 
 }
