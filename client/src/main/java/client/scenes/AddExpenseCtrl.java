@@ -1,13 +1,19 @@
 package client.scenes;
 
 import com.google.inject.Inject;
-import javafx.scene.control.ComboBox;
+import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+
+import java.util.List;
 
 public class AddExpenseCtrl {
     private final MainCtrl mainCtrl;
-    public ComboBox whoPaid;
+    @FXML
+    public ChoiceBox<String> whoPaid;
+    @FXML
     public TextField whatFor;
+    @FXML
     public TextField howMuch;
 
     @Inject
@@ -20,5 +26,10 @@ public class AddExpenseCtrl {
     }
 
     public void onCreate() {
+    }
+
+    public void setUsers(List<String> users) {
+        whoPaid.getItems().clear();
+        whoPaid.getItems().addAll(users);
     }
 }

@@ -8,6 +8,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class OverviewPageCtrl implements Initializable {
@@ -63,6 +64,6 @@ public class OverviewPageCtrl implements Initializable {
 
 
     public void addExpense() {
-        mainCtrl.addExpensePage();
+        mainCtrl.addExpensePage(Arrays.asList(users));
     }
 }
