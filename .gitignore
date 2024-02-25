@@ -5,6 +5,9 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+# Configuration file
+config.properties
+
 **/*.mv.db
 /coverage/*
 **/*.swp
