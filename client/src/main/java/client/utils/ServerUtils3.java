@@ -68,46 +68,6 @@ public class ServerUtils3 {
                 });
     }
 
-    public User addUser(User user) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(SERVER).path("api/User") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .post(Entity.entity(user, APPLICATION_JSON), User.class);
-    }
-
-    public Expense addExpense(Expense expense) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(SERVER).path("api/Expense") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .post(Entity.entity(expense, APPLICATION_JSON), Expense.class);
-    }
-
-    public Debt addQuote(Debt debt) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(SERVER).path("api/Debt") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .post(Entity.entity(debt, APPLICATION_JSON), Debt.class);
-    }
-
-    public Event addEvent(Event event) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(SERVER).path("api/Debt") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .post(Entity.entity(event, APPLICATION_JSON), Event.class);
-    }
-
-    public Person addPerson(Person person) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(SERVER).path("api/Debt") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .post(Entity.entity(person, APPLICATION_JSON), Person.class);
-    }
-
     public Quote addQuote(Quote quote) {
         return ClientBuilder.newClient(new ClientConfig()) //
                 .target(SERVER).path("api/quotes") //
