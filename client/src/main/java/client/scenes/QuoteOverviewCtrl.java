@@ -21,14 +21,19 @@ import java.util.ResourceBundle;
 import com.google.inject.Inject;
 
 import client.utils.ServerUtils;
+import commons.dto.Person;
 import commons.dto.Quote;
+import jakarta.ws.rs.WebApplicationException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class QuoteOverviewCtrl implements Initializable {
@@ -41,6 +46,8 @@ public class QuoteOverviewCtrl implements Initializable {
 
     @FXML
     private TableView<Quote> table;
+    @FXML
+    private TextField eventName;
     @FXML
     private TableColumn<Quote, String> colFirstName;
     @FXML
@@ -62,16 +69,35 @@ public class QuoteOverviewCtrl implements Initializable {
         colQuote.setCellValueFactory(q -> new SimpleStringProperty(q.getValue().quote));
     }
 
-    public void addQuote() {
-        mainCtrl.showAdd();
-    }
-
     public void refresh() {
         var quotes = server.getQuotes();
         data = FXCollections.observableList(quotes);
         table.setItems(data);
     }
-    public void startPage() {
-        mainCtrl.startPage();
+
+    public void addEvent() {
+        try {
+            server.addQuote(getQuote2());
+        } catch (WebApplicationException e) {
+
+            var alert = new Alert(Alert.AlertType.ERROR);
+            alert.initModality(Modality.APPLICATION_MODAL);
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            return;
+        }
+
+        clearFields();
+        mainCtrl.showOverview();
+    }
+    private Quote getQuote2() {
+        var q = eventName.getText();
+        return new Quote(new Person(q, "no location added"), "No date added");
+    }
+    private void clearFields() {
+        eventName.clear();
+    }
+    public void eventPage() {
+        mainCtrl.eventPage();
     }
 }

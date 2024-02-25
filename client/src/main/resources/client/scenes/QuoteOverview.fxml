@@ -3,19 +3,34 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.QuoteOverviewCtrl">
    <children>
-      <Button layoutX="503.0" layoutY="360.0" mnemonicParsing="false" onAction="#addQuote" text="Add Quote" />
-      <Button layoutX="431.0" layoutY="360.0" mnemonicParsing="false" onAction="#refresh" text="Refresh" />
-      <Button layoutX="342.0" layoutY="360.0" mnemonicParsing="false" onAction="#startPage" text="Start Page" />
-      <TableView fx:id="table" layoutX="14.0" layoutY="14.0" prefHeight="337.0" prefWidth="572.0">
+      <Button layoutX="519.0" layoutY="352.0" mnemonicParsing="false" onAction="#refresh" text="Refresh" />
+      <TableView fx:id="table" layoutX="38.0" layoutY="182.0" onMouseClicked="#eventPage" prefHeight="204.0" prefWidth="458.0">
         <columns>
-          <TableColumn fx:id="colFirstName" prefWidth="113.0" text="First Name" />
-          <TableColumn fx:id="colLastName" prefWidth="114.0" text="Last Name" />
-            <TableColumn fx:id="colQuote" prefWidth="344.0" text="Quote" />
+          <TableColumn fx:id="colFirstName" prefWidth="453.60003662109375" text="Events" />
+          <TableColumn fx:id="colLastName" minWidth="0.0" prefWidth="0.0" text="Event Location" />
+            <TableColumn fx:id="colQuote" minWidth="0.0" prefWidth="0.0" text="Event date" />
         </columns>
       </TableView>
+      <Text layoutX="38.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create New Event" wrappingWidth="159.37347412109375">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Text>
+      <TextField fx:id="eventName" layoutX="38.0" layoutY="64.0" prefHeight="26.0" prefWidth="243.0" promptText="Enter Name" />
+      <Button layoutX="330.0" layoutY="64.0" mnemonicParsing="false" onAction="#addEvent" text="Create" />
+      <Text layoutX="38.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Join Event" wrappingWidth="159.37347412109375">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Text>
+      <TextField fx:id="eventName1" layoutX="38.0" layoutY="131.0" prefHeight="26.0" prefWidth="243.0" promptText="Enter Code" />
+      <Button layoutX="330.0" layoutY="131.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="50.0" text="Join" />
    </children>
 </AnchorPane>
