@@ -50,6 +50,6 @@ public class Main extends Application {
         var participantPage = FXML.load(ParticipantPageCtrl.class, bundle, "client", "scenes", "AddParticipantPage.fxml");
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, overview, add, startPage, overviewPage, invitationPage, participantPage);
+        mainCtrl.initialize(primaryStage, overview, add, startPage, overviewPage, invitationPage, participantPage, addExpensePage);
     }
 }
