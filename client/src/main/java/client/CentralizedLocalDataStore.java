@@ -1,27 +1,62 @@
 package client;
 
+import client.utils.ServerUtils;
 import commons.dto.*;
 import java.util.List;
 
-import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
-
 public class CentralizedLocalDataStore {
 
-    private List<User> users;
-    private List<Expense> expenses;
+    private List<Quote> users;
+    private List<Quote> expenses;
 
-    private List<Debt> debt;
-    private List<Event> events;
+    private List<Quote> debt;
+    private List<Quote> events;
     private List<Quote> quotes;
-    private List<Person> persons;
+    private List<Quote> persons;
 
-    public CentralizedLocalDataStore(List<User> users, List<Expense> expenses, List<Debt> debt, List<Event> events, List<Quote> quotes, List<Person> persons) {
+    public CentralizedLocalDataStore(List<Quote> users, List<Quote> expenses, List<Quote> debt, List<Quote> events, List<Quote> quotes, List<Quote> persons) {
         this.users = users;
         this.expenses = expenses;
         this.debt = debt;
         this.events = events;
         this.quotes = quotes;
         this.persons = persons;
+    }
+
+    public List<Quote> getUsers() {
+        ServerUtils server = new ServerUtils();
+        users = server.getUser();
+        return users;
+    }
+
+    public List<Quote> getExpenses() {
+        ServerUtils server = new ServerUtils();
+        expenses = server.getExpense();
+        return expenses;
+    }
+
+    public List<Quote> getDebt() {
+        ServerUtils server = new ServerUtils();
+        debt = server.getDebt();
+        return debt;
+    }
+
+    public List<Quote> getEvents() {
+        ServerUtils server = new ServerUtils();
+        events = server.getEvent();
+        return events;
+    }
+
+    public List<Quote> getQuotes() {
+        ServerUtils server = new ServerUtils();
+        quotes = server.getQuotes();
+        return quotes;
+    }
+
+    public List<Quote> getPersons() {
+        ServerUtils server = new ServerUtils();
+        persons = server.getPerson();
+        return persons;
     }
 }
 

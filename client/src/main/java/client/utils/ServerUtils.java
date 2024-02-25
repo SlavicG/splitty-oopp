@@ -24,9 +24,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import commons.dto.*;
 import org.glassfish.jersey.client.ClientConfig;
 
-import commons.dto.Quote;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
@@ -60,4 +60,99 @@ public class ServerUtils {
 				.accept(APPLICATION_JSON) //
 				.post(Entity.entity(quote, APPLICATION_JSON), Quote.class);
 	}
+
+	public List<Quote> getUser() {
+		return ClientBuilder.newClient(new ClientConfig()) //
+				.target(SERVER).path("api/User") //
+				.request(APPLICATION_JSON) //
+				.accept(APPLICATION_JSON) //
+				.get(new GenericType<List<Quote>>() {
+				});
+	}
+
+	public List<Quote> getEvent() {
+		return ClientBuilder.newClient(new ClientConfig()) //
+				.target(SERVER).path("api/Event") //
+				.request(APPLICATION_JSON) //
+				.accept(APPLICATION_JSON) //
+				.get(new GenericType<List<Quote>>() {
+				});
+	}
+
+	public List<Quote> getExpense() {
+		return ClientBuilder.newClient(new ClientConfig()) //
+				.target(SERVER).path("api/Expense") //
+				.request(APPLICATION_JSON) //
+				.accept(APPLICATION_JSON) //
+				.get(new GenericType<List<Quote>>() {
+				});
+	}
+
+	public List<Quote> getPerson() {
+		return ClientBuilder.newClient(new ClientConfig()) //
+				.target(SERVER).path("api/Person") //
+				.request(APPLICATION_JSON) //
+				.accept(APPLICATION_JSON) //
+				.get(new GenericType<List<Quote>>() {
+				});
+	}
+
+	public List<Quote> getDebt() {
+		return ClientBuilder.newClient(new ClientConfig()) //
+				.target(SERVER).path("api/Debt") //
+				.request(APPLICATION_JSON) //
+				.accept(APPLICATION_JSON) //
+				.get(new GenericType<List<Quote>>() {
+				});
+	}
+
+	public List<Quote> getQuote() {
+		return ClientBuilder.newClient(new ClientConfig()) //
+				.target(SERVER).path("api/Quote") //
+				.request(APPLICATION_JSON) //
+				.accept(APPLICATION_JSON) //
+				.get(new GenericType<List<Quote>>() {
+				});
+	}
+
+	public User addUser(User user) {
+		return ClientBuilder.newClient(new ClientConfig()) //
+				.target(SERVER).path("api/User") //
+				.request(APPLICATION_JSON) //
+				.accept(APPLICATION_JSON) //
+				.post(Entity.entity(user, APPLICATION_JSON), User.class);
+	}
+
+	public Expense addExpense(Expense expense) {
+		return ClientBuilder.newClient(new ClientConfig()) //
+				.target(SERVER).path("api/Expense") //
+				.request(APPLICATION_JSON) //
+				.accept(APPLICATION_JSON) //
+				.post(Entity.entity(expense, APPLICATION_JSON), Expense.class);
+	}
+
+	public Debt addQuote(Debt debt) {
+		return ClientBuilder.newClient(new ClientConfig()) //
+				.target(SERVER).path("api/Debt") //
+				.request(APPLICATION_JSON) //
+				.accept(APPLICATION_JSON) //
+				.post(Entity.entity(debt, APPLICATION_JSON), Debt.class);
+	}
+
+	public Event addEvent(Event event) {
+		return ClientBuilder.newClient(new ClientConfig()) //
+				.target(SERVER).path("api/Debt") //
+				.request(APPLICATION_JSON) //
+				.accept(APPLICATION_JSON) //
+				.post(Entity.entity(event, APPLICATION_JSON), Event.class);
+	}
+
+	public Person addPerson(Person person) {
+		return ClientBuilder.newClient(new ClientConfig()) //
+				.target(SERVER).path("api/Debt") //
+				.request(APPLICATION_JSON) //
+				.accept(APPLICATION_JSON) //
+				.post(Entity.entity(person, APPLICATION_JSON), Person.class);
+	}
+
 }
