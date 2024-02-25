@@ -29,6 +29,12 @@ public class User {
         this.bic = bic;
     }
 
+    public User(Integer id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
+
     public Integer getId() {
         return id;
     }
