@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class EventService {
     private EventRepository eventRepository;
 
-    private Function<server.model.User, User> userM = user -> new User(user.getId(), user.getName(), user.getEmail());
+    private Function<server.model.User, User> userM = user -> new User(user.getId(), user.getName(), user.getEmail(), user.getIban(), user.getBic());
     private Function<server.model.Expense, Expense> expenseM =
             expense -> new Expense(expense.getId(),  expense.getAmount(),expense.getDescription(),
                     userM.apply(expense.getPayer()),expense.getDate(), null);
