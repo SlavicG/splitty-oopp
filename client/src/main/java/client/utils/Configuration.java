@@ -16,6 +16,7 @@
 package client.utils;
 
 import java.io.*;
+import java.util.Locale;
 import java.util.Properties;
 
 public class Configuration {
@@ -56,6 +57,13 @@ public class Configuration {
     }
 
     /**
+     * @return Current locale selected by the user.
+     */
+    public Locale getLocale() {
+        return Locale.forLanguageTag(properties.getProperty("language.locale"));
+    }
+
+    /**
      * @return Properties object containing all default configuration options.
      */
     static private Properties getDefaultProperties() {
@@ -63,6 +71,7 @@ public class Configuration {
 
         // Set new (default) configuration properties here.
         defaults.setProperty("server.url", "http://localhost:8080/");
+        defaults.setProperty("language.locale", "en");
 
         return defaults;
     }
