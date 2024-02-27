@@ -32,6 +32,8 @@ public class Event {
         this.expenses = expenses;
     }
 
+
+
     public Integer getId() {
         return id;
     }
