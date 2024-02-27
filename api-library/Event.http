@@ -5,26 +5,8 @@ Content-Type: application/json
 
 {
     "title":"New Year Party",
-    "users": ["John", "Chris", "Ana" ],
-    "expenses": [
-            {
-                  "id": 1,
-                  "amount": 28,
-                  "description": "Cake",
-                  "payer": null,
-                  "date": null,
-                  "event": null
-
-            },
-            {
-                  "id": 2,
-                  "amount": 28,
-                  "description": "Cake",
-                  "payer": null,
-                  "date": null,
-                  "event": null
-
-            }]
+    "users": null,
+    "expenses": null
 }
 
 
@@ -42,28 +24,9 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "id": 3,
   "title":"Birthday Party",
-  "users": ["John", "Chris", "Ana" ],
-  "expenses": [
-              {
-                    "id": 1,
-                    "amount": 28,
-                    "description": "Cake",
-                    "payer": null,
-                    "date": null,
-                    "event": null
-
-              },
-              {
-                    "id": 2,
-                    "amount": 28,
-                    "description": "Cake",
-                    "payer": null,
-                    "date": null,
-                    "event": null
-
-              }]
+  "users": null,
+  "expenses":null
 
 }
 

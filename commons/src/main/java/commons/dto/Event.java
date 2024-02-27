@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Event {
-    private String id;
+    private Integer id;
     private String title;
     private List<User> users;
     private List<Expense> expenses;
@@ -13,18 +13,19 @@ public class Event {
 
     }
 
-    public Event(String id, String title, List<User> users, List<Expense> expenses) {
+    public Event(Integer id, String title, List<User> users, List<Expense> expenses) {
         this.id = id;
         this.title = title;
         this.users = users;
         this.expenses = expenses;
     }
 
-    public String getId() {
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

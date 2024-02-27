@@ -29,8 +29,8 @@ class ExpenseTest {
         date1 = LocalDateTime.of(date, time);
         time = LocalTime.of(11, 34);
         date2 = LocalDateTime.of(date, time);
-        event1 = new Event("1", "party", null, null);
-        event2 = new Event("2", "party2", null, null);
+        event1 = new Event(1, "party", null, null);
+        event2 = new Event(2, "party2", null, null);
         expense1 = new Expense(1, 1.0, "description1", user1, date1, event1);
         expense2 = new Expense(1, 1.0, "description1", user1, date1, event1);
         expense3 = new Expense(1, 1.0, "description1", user2, date2, event2);
