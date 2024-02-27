@@ -5,6 +5,7 @@ import commons.dto.Event;
 import commons.dto.User;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -21,12 +22,29 @@ public class EventController {
         this.eventService = eventService;
     }
 
-    @PostMapping
-    @ResponseBody
-    public Event createEvent(@RequestBody Event event) {
+//    @PostMapping
+//    @ResponseBody
+//    public Event createEvent(@RequestBody Event event) {
+//        System.out.println("Received event: " + event);
+//        return eventService.createEvent(event);
+//    }
+@PostMapping
+@ResponseBody
+public ResponseEntity<?> createEvent(@RequestBody Event event) {
+    try {
         System.out.println("Received event: " + event);
-        return eventService.createEvent(event);
+        Event createdEvent = eventService.createEvent(event);
+        return new ResponseEntity<>(createdEvent, HttpStatus.CREATED);
+    } catch (Exception e) {
+        // Log the exception details for debugging
+        e.printStackTrace();
+        // Return the actual error message to the client (for debugging purposes only, not for production use)
+        return new ResponseEntity<>("An error occurred while creating the event: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+}
+
+
     @GetMapping("/{id}/users/{user_id}")
     @ResponseBody
     public User getUserFromEvent(@PathVariable String id, @PathVariable Integer user_id){

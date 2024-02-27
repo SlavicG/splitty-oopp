@@ -6,6 +6,7 @@ import commons.dto.User;
 import org.springframework.stereotype.Service;
 import server.database.EventRepository;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -41,11 +42,14 @@ public class EventService {
     }
 
 public Event createEvent(Event event) {
+    List<User> users = event.getUsers();
+    if (users == null) {
+        users = new ArrayList<>();
+    }
     server.model.Event eventObj = new server.model.Event(
             null,
             event.getTitle(),
-            event.getUsers()
-                    .stream()
+            users.stream()
                     .map(user -> new server.model.User(user.getId(), user.getName(), user.getEmail()))
                     .collect(Collectors.toList()),
             Collections.emptyList()
@@ -72,7 +76,7 @@ public Event createEvent(Event event) {
     }
 
     public Event updateEvent(Event event){
-        Optional<server.model.Event> eventToUpdate = eventRepository.findById(event.getId());
+        Optional<server.model.Event> eventToUpdate = eventRepository.findById(String.valueOf(event.getId()));
         if (eventToUpdate.isPresent()) {
             server.model.Event eventEntity = eventToUpdate.get();
             eventEntity.setTitle(event.getTitle());
