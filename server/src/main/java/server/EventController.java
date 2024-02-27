@@ -22,27 +22,13 @@ public class EventController {
         this.eventService = eventService;
     }
 
-//    @PostMapping
-//    @ResponseBody
-//    public Event createEvent(@RequestBody Event event) {
-//        System.out.println("Received event: " + event);
-//        return eventService.createEvent(event);
-//    }
-@PostMapping
-@ResponseBody
-public ResponseEntity<?> createEvent(@RequestBody Event event) {
-    try {
+    @PostMapping
+    @ResponseBody
+    public Event createEvent(@RequestBody Event event) {
         System.out.println("Received event: " + event);
-        Event createdEvent = eventService.createEvent(event);
-        return new ResponseEntity<>(createdEvent, HttpStatus.CREATED);
-    } catch (Exception e) {
-        // Log the exception details for debugging
-        e.printStackTrace();
-        // Return the actual error message to the client (for debugging purposes only, not for production use)
-        return new ResponseEntity<>("An error occurred while creating the event: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return eventService.createEvent(event);
     }
 
-}
 
 
     @GetMapping("/{id}/users/{user_id}")
