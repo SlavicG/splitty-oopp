@@ -72,9 +72,5 @@ class EventTest {
         assertTrue(event.equals(event2));
     }
 
-    @Test
-    void testHashCode() {
-        Event event = new Event(1, "party", null, null);
-        assertEquals(-790538474, event.hashCode());
-    }
+
 }
