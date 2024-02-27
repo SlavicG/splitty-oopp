@@ -17,6 +17,7 @@ package client.scenes;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
@@ -32,6 +33,8 @@ public class MainCtrl {
     private Scene participantPage;
 
     private AddQuoteCtrl addCtrl;
+
+    private InvitationPageCtrl invitationPageCtrl;
     private Scene add;
 
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
@@ -48,6 +51,7 @@ public class MainCtrl {
         this.overviewPage = new Scene(overviewPage.getValue());
         this.invitationPage = new Scene((invitationPage.getValue()));
         this.participantPage = new Scene(participantPage.getValue());
+        this.invitationPageCtrl = invitationPage.getKey();
 
         showOverview();
         primaryStage.show();
@@ -72,12 +76,17 @@ public class MainCtrl {
         primaryStage.setTitle("Overview Page");
         primaryStage.setScene(overviewPage);
     }
-    public void invitationPage(){
+    public void invitationPage(Label name){
         primaryStage.setTitle("Invitation Page");
+        invitationPageCtrl.setName(name);
         primaryStage.setScene(invitationPage);
     }
     public void addParticipantPage() {
         primaryStage.setTitle("Add Participant Page");
         primaryStage.setScene(participantPage);
+    }
+    public void eventPage() {
+        primaryStage.setTitle("Overview Page");
+        primaryStage.setScene(overviewPage);
     }
 }

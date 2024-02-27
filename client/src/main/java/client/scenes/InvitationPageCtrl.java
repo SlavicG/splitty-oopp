@@ -14,6 +14,8 @@ public class InvitationPageCtrl implements Initializable {
     private final MainCtrl mainCtrl;
     @FXML
     private Label code;
+    @FXML
+    private Label eventName;
     @Inject
     public InvitationPageCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
@@ -26,5 +28,8 @@ public class InvitationPageCtrl implements Initializable {
     }
     public void overview() {
         mainCtrl.overviewPage();
+    }
+    public void setName(Label name) {
+        eventName.setText(name.getText());
     }
 }
