@@ -16,7 +16,7 @@
 package client.utils;
 
 import com.google.inject.Inject;
-import commons.dto.Quote;
+import commons.dto.*;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
@@ -30,6 +30,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
+
 
 public class ServerUtils {
 	private final Configuration configuration;
