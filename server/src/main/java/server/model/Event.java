@@ -26,7 +26,7 @@ public class Event {
     }
 
     public Event(Integer id, String title, List<User> users, List<Expense> expenses) {
-        this.id = Integer.valueOf(id);
+        this.id =id;
         this.title = title;
         this.users = users;
         this.expenses = expenses;
