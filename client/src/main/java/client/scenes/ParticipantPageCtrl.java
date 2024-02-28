@@ -5,8 +5,6 @@ import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class ParticipantPageCtrl  {
     private final ServerUtils server;
