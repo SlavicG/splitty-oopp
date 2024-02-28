@@ -15,7 +15,12 @@
  */
 package client.utils;
 
-import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
+import com.google.inject.Inject;
+import commons.dto.*;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.core.GenericType;
+import org.glassfish.jersey.client.ClientConfig;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,19 +29,20 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import commons.dto.*;
-import org.glassfish.jersey.client.ClientConfig;
+import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
-import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.client.Entity;
-import jakarta.ws.rs.core.GenericType;
 
 public class ServerUtils {
+	private final client.utils.Configuration configuration;
 
-	private static final String SERVER = "http://localhost:8080/";
+	@Inject
+	public ServerUtils(Configuration configuration) {
+		this.configuration = configuration;
+	}
+
 
 	public void getQuotesTheHardWay() throws IOException, URISyntaxException {
-		var url = new URI("http://localhost:8080/api/quotes").toURL();
+		var url = new URI(configuration.getServerURL() + "/api/quotes").toURL();
 		var is = url.openConnection().getInputStream();
 		var br = new BufferedReader(new InputStreamReader(is));
 		String line;
@@ -47,15 +53,16 @@ public class ServerUtils {
 
 	public List<Quote> getQuotes() {
 		return ClientBuilder.newClient(new ClientConfig()) //
-				.target(SERVER).path("api/quotes") //
+				.target(configuration.getServerURL()).path("api/Quote") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
-                .get(new GenericType<List<Quote>>() {});
+				.get(new GenericType<List<Quote>>() {
+				});
 	}
 
 	public Quote addQuote(Quote quote) {
 		return ClientBuilder.newClient(new ClientConfig()) //
-				.target(SERVER).path("api/quotes") //
+				.target(configuration.getServerURL()).path("api/quotes") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
 				.post(Entity.entity(quote, APPLICATION_JSON), Quote.class);
@@ -63,7 +70,7 @@ public class ServerUtils {
 
 	public List<Quote> getUser() {
 		return ClientBuilder.newClient(new ClientConfig()) //
-				.target(SERVER).path("api/User") //
+				.target(configuration.getServerURL()).path("api/User") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
 				.get(new GenericType<List<Quote>>() {
@@ -72,7 +79,7 @@ public class ServerUtils {
 
 	public List<Quote> getEvent() {
 		return ClientBuilder.newClient(new ClientConfig()) //
-				.target(SERVER).path("api/Event") //
+				.target(configuration.getServerURL()).path("api/Event") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
 				.get(new GenericType<List<Quote>>() {
@@ -81,7 +88,7 @@ public class ServerUtils {
 
 	public List<Quote> getExpense() {
 		return ClientBuilder.newClient(new ClientConfig()) //
-				.target(SERVER).path("api/Expense") //
+				.target(configuration.getServerURL()).path("api/Expense") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
 				.get(new GenericType<List<Quote>>() {
@@ -90,7 +97,7 @@ public class ServerUtils {
 
 	public List<Quote> getPerson() {
 		return ClientBuilder.newClient(new ClientConfig()) //
-				.target(SERVER).path("api/Person") //
+				.target(configuration.getServerURL()).path("api/Person") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
 				.get(new GenericType<List<Quote>>() {
@@ -99,16 +106,7 @@ public class ServerUtils {
 
 	public List<Quote> getDebt() {
 		return ClientBuilder.newClient(new ClientConfig()) //
-				.target(SERVER).path("api/Debt") //
-				.request(APPLICATION_JSON) //
-				.accept(APPLICATION_JSON) //
-				.get(new GenericType<List<Quote>>() {
-				});
-	}
-
-	public List<Quote> getQuote() {
-		return ClientBuilder.newClient(new ClientConfig()) //
-				.target(SERVER).path("api/Quote") //
+				.target(configuration.getServerURL()).path("api/Debt") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
 				.get(new GenericType<List<Quote>>() {
@@ -117,7 +115,7 @@ public class ServerUtils {
 
 	public User addUser(User user) {
 		return ClientBuilder.newClient(new ClientConfig()) //
-				.target(SERVER).path("api/User") //
+				.target(configuration.getServerURL()).path("api/User") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
 				.post(Entity.entity(user, APPLICATION_JSON), User.class);
@@ -125,7 +123,7 @@ public class ServerUtils {
 
 	public Expense addExpense(Expense expense) {
 		return ClientBuilder.newClient(new ClientConfig()) //
-				.target(SERVER).path("api/Expense") //
+				.target(configuration.getServerURL()).path("api/Expense") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
 				.post(Entity.entity(expense, APPLICATION_JSON), Expense.class);
@@ -133,7 +131,7 @@ public class ServerUtils {
 
 	public Debt addQuote(Debt debt) {
 		return ClientBuilder.newClient(new ClientConfig()) //
-				.target(SERVER).path("api/Debt") //
+				.target(configuration.getServerURL()).path("api/Debt") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
 				.post(Entity.entity(debt, APPLICATION_JSON), Debt.class);
@@ -141,7 +139,7 @@ public class ServerUtils {
 
 	public Event addEvent(Event event) {
 		return ClientBuilder.newClient(new ClientConfig()) //
-				.target(SERVER).path("api/Debt") //
+				.target(configuration.getServerURL()).path("api/Debt") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
 				.post(Entity.entity(event, APPLICATION_JSON), Event.class);
@@ -149,10 +147,9 @@ public class ServerUtils {
 
 	public Person addPerson(Person person) {
 		return ClientBuilder.newClient(new ClientConfig()) //
-				.target(SERVER).path("api/Debt") //
+				.target(configuration.getServerURL()).path("api/Debt") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
 				.post(Entity.entity(person, APPLICATION_JSON), Person.class);
 	}
-
 }
