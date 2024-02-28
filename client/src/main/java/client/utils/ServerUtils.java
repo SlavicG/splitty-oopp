@@ -15,7 +15,12 @@
  */
 package client.utils;
 
-import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
+import com.google.inject.Inject;
+import commons.dto.Quote;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.core.GenericType;
+import org.glassfish.jersey.client.ClientConfig;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,19 +29,18 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import org.glassfish.jersey.client.ClientConfig;
-
-import commons.dto.Quote;
-import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.client.Entity;
-import jakarta.ws.rs.core.GenericType;
+import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class ServerUtils {
+	private final Configuration configuration;
 
-	private static final String SERVER = "http://localhost:8080/";
+	@Inject
+	public ServerUtils(Configuration configuration) {
+		this.configuration = configuration;
+	}
 
 	public void getQuotesTheHardWay() throws IOException, URISyntaxException {
-		var url = new URI("http://localhost:8080/api/quotes").toURL();
+		var url = new URI(configuration.getServerURL() + "/api/quotes").toURL();
 		var is = url.openConnection().getInputStream();
 		var br = new BufferedReader(new InputStreamReader(is));
 		String line;
@@ -47,7 +51,7 @@ public class ServerUtils {
 
 	public List<Quote> getQuotes() {
 		return ClientBuilder.newClient(new ClientConfig()) //
-				.target(SERVER).path("api/quotes") //
+				.target(configuration.getServerURL()).path("api/quotes") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
                 .get(new GenericType<List<Quote>>() {});
@@ -55,7 +59,7 @@ public class ServerUtils {
 
 	public Quote addQuote(Quote quote) {
 		return ClientBuilder.newClient(new ClientConfig()) //
-				.target(SERVER).path("api/quotes") //
+				.target(configuration.getServerURL()).path("api/quotes") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
 				.post(Entity.entity(quote, APPLICATION_JSON), Quote.class);

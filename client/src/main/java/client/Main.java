@@ -15,38 +15,44 @@
  */
 package client;
 
-import static com.google.inject.Guice.createInjector;
+import client.scenes.*;
+import client.utils.Configuration;
+import com.google.inject.Injector;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ResourceBundle;
 
-import client.scenes.*;
-import com.google.inject.Injector;
-
-import javafx.application.Application;
-import javafx.stage.Stage;
+import static com.google.inject.Guice.createInjector;
 
 public class Main extends Application {
 
     private static final Injector INJECTOR = createInjector(new MyModule());
     private static final MyFXML FXML = new MyFXML(INJECTOR);
+    private static ResourceBundle bundle;
 
     public static void main(String[] args) throws URISyntaxException, IOException {
+        Configuration configuration = INJECTOR.getInstance(Configuration.class);
+        bundle = ResourceBundle.getBundle("client.language", configuration.getLocale());
         launch();
     }
 
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        var overview = FXML.load(QuoteOverviewCtrl.class, "client", "scenes", "QuoteOverview.fxml");
-        var add = FXML.load(AddQuoteCtrl.class, "client", "scenes", "AddQuote.fxml");
-        var startPage = FXML.load(StartPageCtrl.class, "client", "scenes", "StartPage.fxml");
-        var overviewPage = FXML.load(OverviewPageCtrl.class, "client", "scenes", "OverviewPage.fxml");
-        var invitationPage = FXML.load(InvitationPageCtrl.class, "client", "scenes","InvitationPage.fxml");
-        var participantPage = FXML.load(AddParticipantCtrl.class, "client", "scenes", "AddParticipantPage.fxml");
-        var editParticipantPage = FXML.load(ParticipantPageCtrl.class, "client", "scenes", "EditParticipant.fxml");
+        var overview = FXML.load(QuoteOverviewCtrl.class, bundle, "client", "scenes", "QuoteOverview.fxml");
+        var add = FXML.load(AddQuoteCtrl.class, bundle, "client", "scenes", "AddQuote.fxml");
+        var startPage = FXML.load(StartPageCtrl.class, bundle, "client", "scenes", "StartPage.fxml");
+        var overviewPage = FXML.load(OverviewPageCtrl.class, bundle, "client", "scenes", "OverviewPage.fxml");
+        var invitationPage = FXML.load(InvitationPageCtrl.class, bundle, "client", "scenes","InvitationPage.fxml");
+        var participantPage = FXML.load(AddParticipantCtrl.class, bundle, "client", "scenes", "AddParticipantPage.fxml");
+        var editParticipantPage = FXML.load(ParticipantPageCtrl.class, bundle, "client", "scenes", "EditParticipant.fxml");
+        var addExpensePage = FXML.load(AddExpenseCtrl.class, bundle, "client", "scenes", "AddExpense.fxml");
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, overview, add, startPage, overviewPage, invitationPage, participantPage, editParticipantPage);
+        mainCtrl.initialize(primaryStage, overview, add, startPage, overviewPage, invitationPage, participantPage, editParticipantPage, addExpensePage);
+
     }
 }

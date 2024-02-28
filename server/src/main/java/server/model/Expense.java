@@ -29,6 +29,16 @@ public class Expense {
         this.event = event;
     }
 
+    public Expense(Object o, Double amount, String description, User payer, LocalDateTime date) {
+        this.id = id;
+        this.amount = amount;
+        this.description = description;
+        this.payer = payer;
+        this.date = date;
+    }
+
+
+
     public Integer getId() {
         return id;
     }
