@@ -1,6 +1,7 @@
 package server;
 
 
+
 import server.model.Event;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
@@ -48,6 +49,7 @@ public class EventController {
         }
         return event;
     }
+
 
     @PutMapping("/{id}")
     @ResponseBody

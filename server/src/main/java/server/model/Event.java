@@ -79,4 +79,14 @@ public class Event {
         return Objects.hash(id, title, users, expenses);
     }
 
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", users=" + users +
+                ", expenses=" + expenses +
+                '}';
+    }
 }
+
