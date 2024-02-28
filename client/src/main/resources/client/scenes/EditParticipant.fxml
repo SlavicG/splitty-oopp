@@ -8,28 +8,28 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ParticipantPageCtrl">
    <children>
-      <Button layoutX="531.0" layoutY="34.0" mnemonicParsing="false" onAction="#overview" text="Back" />
-      <Text layoutX="71.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Participant" wrappingWidth="207.19769287109375">
+      <Button layoutX="531.0" layoutY="34.0" mnemonicParsing="false" onAction="#overview" text="%back" />
+      <Text layoutX="71.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%edit_participant" wrappingWidth="207.19769287109375">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <Text layoutX="57.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="40.799999999999955">
+      <Text layoutX="57.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%name" wrappingWidth="40.799999999999955">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Text>
-      <Text layoutX="57.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" wrappingWidth="40.799999999999955">
+      <Text layoutX="57.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%email" wrappingWidth="40.799999999999955">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Text>
-      <Text layoutX="57.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IBAN" wrappingWidth="40.799999999999955">
+      <Text layoutX="57.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%iban" wrappingWidth="40.799999999999955">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Text>
-      <Text layoutX="57.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BIC" wrappingWidth="40.799999999999955">
+      <Text layoutX="57.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%bic" wrappingWidth="40.799999999999955">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -38,7 +38,7 @@
       <TextField layoutX="129.0" layoutY="148.0" prefHeight="26.0" prefWidth="198.0" />
       <TextField layoutX="129.0" layoutY="187.0" prefHeight="26.0" prefWidth="198.0" />
       <TextField layoutX="129.0" layoutY="223.0" prefHeight="26.0" prefWidth="198.0" />
-      <Button layoutX="278.0" layoutY="277.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="51.0" text="Ok" />
-      <Button layoutX="212.0" layoutY="277.0" mnemonicParsing="false" onAction="#abort" prefHeight="26.0" prefWidth="51.0" text="Abort" />
+      <Button layoutX="278.0" layoutY="277.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="51.0" text="%ok" />
+      <Button layoutX="212.0" layoutY="277.0" mnemonicParsing="false" onAction="#abort" prefHeight="26.0" prefWidth="51.0" text="%abort" />
    </children>
 </AnchorPane>
