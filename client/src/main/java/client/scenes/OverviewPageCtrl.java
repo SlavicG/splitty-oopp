@@ -4,8 +4,11 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -18,7 +21,7 @@ public class OverviewPageCtrl implements Initializable {
     @FXML
     private Label eventName;
     @FXML
-    private Label participants;
+    private HBox participants;
     @FXML
     private Label including;
     @FXML
@@ -38,12 +41,24 @@ public class OverviewPageCtrl implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         box.getItems().addAll(users);
         box.setOnAction(this::getUser);
-        StringBuilder list = new StringBuilder();
-        if (users.length > 0) list.append(users[0]);
-        for (int i = 1; i < users.length; i++){
-            list.append(", ").append(users[i]);
+        if (users.length > 0) {
+            Button button = new Button(users[0]);
+            button.setBackground(null);
+            button.setOnAction((e)->{
+                editParticipant(users[0]);
+            });
+            participants.getChildren().add(button);
         }
-        participants.setText(list.toString());
+        for (int i = 1; i < users.length; i++){
+            Button button = new Button(users[i]);
+            button.setBackground(null);
+            int index = i;
+            button.setOnAction((e)->{
+                editParticipant(users[index].toString());
+            });
+            participants.getChildren().add(button);
+        }
+
         eventName.setText("Party");
     }
 
@@ -58,6 +73,10 @@ public class OverviewPageCtrl implements Initializable {
     }
     public void addParticipant() {
         mainCtrl.addParticipantPage();
+    }
+    public void editParticipant(String name) {
+        mainCtrl.editParticipantPage();
+        mainCtrl.setParticipantName(name);
     }
 
 

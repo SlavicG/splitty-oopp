@@ -6,6 +6,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -52,11 +54,12 @@
       <Label fx:id="from" alignment="CENTER" layoutX="236.0" layoutY="212.0" prefHeight="18.0" prefWidth="128.0" />
       <Label fx:id="including" alignment="CENTER" layoutX="367.0" layoutY="212.0" prefHeight="18.0" prefWidth="128.0" />
       <Button layoutX="433.0" layoutY="359.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="85.0" text="Settle Debts" />
-      <Label fx:id="participants" layoutX="88.0" layoutY="105.0" prefHeight="18.0" prefWidth="296.0" />
       <Label fx:id="eventName" layoutX="70.0" layoutY="34.0" text="Event Name">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
+      <VBox layoutX="88.0" layoutY="231.0" prefHeight="110.0" prefWidth="426.0" />
+      <HBox fx:id="participants" layoutX="79.0" layoutY="97.0" prefHeight="26.0" prefWidth="440.0" />
    </children>
 </AnchorPane>

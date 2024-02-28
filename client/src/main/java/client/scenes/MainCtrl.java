@@ -31,15 +31,18 @@ public class MainCtrl {
     private Scene overviewPage;
     private Scene invitationPage;
     private Scene participantPage;
+    private Scene editParticipantPage;
 
     private AddQuoteCtrl addCtrl;
+
+    private ParticipantPageCtrl participantCtrl;
 
     private InvitationPageCtrl invitationPageCtrl;
     private Scene add;
 
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
             Pair<AddQuoteCtrl, Parent> add, Pair<StartPageCtrl, Parent> startPage, Pair<OverviewPageCtrl, Parent> overviewPage, Pair<InvitationPageCtrl, Parent> invitationPage,
-                           Pair<ParticipantPageCtrl, Parent> participantPage) {
+                           Pair<AddParticipantCtrl, Parent> participantPage, Pair<ParticipantPageCtrl, Parent> editParticipantPage) {
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());
@@ -51,7 +54,9 @@ public class MainCtrl {
         this.overviewPage = new Scene(overviewPage.getValue());
         this.invitationPage = new Scene((invitationPage.getValue()));
         this.participantPage = new Scene(participantPage.getValue());
+        this.editParticipantPage = new Scene(editParticipantPage.getValue());
         this.invitationPageCtrl = invitationPage.getKey();
+        this.participantCtrl = editParticipantPage.getKey();
 
         showOverview();
         primaryStage.show();
@@ -84,6 +89,13 @@ public class MainCtrl {
     public void addParticipantPage() {
         primaryStage.setTitle("Add Participant Page");
         primaryStage.setScene(participantPage);
+    }
+    public void editParticipantPage() {
+        primaryStage.setTitle("Edit Participant Page");
+        primaryStage.setScene(editParticipantPage);
+    }
+    public void setParticipantName(String name) {
+        participantCtrl.setName(name);
     }
     public void eventPage() {
         primaryStage.setTitle("Overview Page");
