@@ -74,10 +74,11 @@ public class EventController {
         if(event == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        eventService.deleteEvent(id);
+        Event eventDeleted = eventService.deleteEvent(id);
 
-        return "Deleted event: " +eventService.getEvent()+
-                "successfully!";
+
+        return "Deleted event: " + eventDeleted+
+                " successfully!";
     }
 
 

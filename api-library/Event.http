@@ -2,11 +2,27 @@
 POST http://localhost:8080/rest/events
 Accept: application/json
 Content-Type: application/json
-
+//have to add the users before (put user with a give id)
 {
     "title":"New Year Party",
-    "users": null,
-    "expenses": null
+    "users":
+    [
+        {
+          "id":1,
+          "name": "Kinga",
+          "email": "Kinga@student.tudelft.nl",
+          "iban": "11111111",
+          "bic": "123"
+        }
+    ],
+    "expenses":
+    [{
+       "amount": 25,
+       "description": "Taxi",
+       "payer": null,
+       "date": null,
+       "event": null
+     }]
 }
 
 
