@@ -21,6 +21,8 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+import java.util.List;
+
 public class MainCtrl {
 
     private Stage primaryStage;
@@ -31,15 +33,17 @@ public class MainCtrl {
     private Scene overviewPage;
     private Scene invitationPage;
     private Scene participantPage;
+    private Scene addExpensePage;
 
     private AddQuoteCtrl addCtrl;
 
     private InvitationPageCtrl invitationPageCtrl;
+    private AddExpenseCtrl addExpenseCtrl;
     private Scene add;
 
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-            Pair<AddQuoteCtrl, Parent> add, Pair<StartPageCtrl, Parent> startPage, Pair<OverviewPageCtrl, Parent> overviewPage, Pair<InvitationPageCtrl, Parent> invitationPage,
-                           Pair<ParticipantPageCtrl, Parent> participantPage) {
+                           Pair<AddQuoteCtrl, Parent> add, Pair<StartPageCtrl, Parent> startPage, Pair<OverviewPageCtrl, Parent> overviewPage, Pair<InvitationPageCtrl, Parent> invitationPage,
+                           Pair<ParticipantPageCtrl, Parent> participantPage, Pair<AddExpenseCtrl, Parent> addExpensePage) {
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());
@@ -52,6 +56,8 @@ public class MainCtrl {
         this.invitationPage = new Scene((invitationPage.getValue()));
         this.participantPage = new Scene(participantPage.getValue());
         this.invitationPageCtrl = invitationPage.getKey();
+        this.addExpenseCtrl = addExpensePage.getKey();
+        this.addExpensePage = new Scene(addExpensePage.getValue());
 
         showOverview();
         primaryStage.show();
@@ -88,5 +94,11 @@ public class MainCtrl {
     public void eventPage() {
         primaryStage.setTitle("Overview Page");
         primaryStage.setScene(overviewPage);
+    }
+
+    public void addExpensePage(List<String> users) {
+        primaryStage.setTitle("Add Expense");
+        addExpenseCtrl.setUsers(users);
+        primaryStage.setScene(addExpensePage);
     }
 }

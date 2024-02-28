@@ -42,7 +42,7 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Text>
-      <Button layoutX="220.0" layoutY="139.0" mnemonicParsing="false" text="%add_expense" />
+      <Button layoutX="220.0" layoutY="139.0" mnemonicParsing="false" onAction="#addExpense" text="%add_expense" />
       <ChoiceBox fx:id="box" layoutX="79.0" layoutY="174.0" prefWidth="150.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="121.0" layoutX="79.0" layoutY="221.0" stroke="BLACK" strokeType="INSIDE" width="440.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="19.0" layoutX="115.0" layoutY="212.0" stroke="BLACK" strokeType="INSIDE" width="128.0" />

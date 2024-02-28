@@ -1,13 +1,14 @@
 package server;
 
 
-import commons.dto.Event;
-import commons.dto.User;
+import server.model.Event;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import server.model.User;
 import server.service.EventService;
 
 import java.util.List;
@@ -27,18 +28,21 @@ public class EventController {
         System.out.println("Received event: " + event);
         return eventService.createEvent(event);
     }
+
+
+
     @GetMapping("/{id}/users/{user_id}")
     @ResponseBody
     public User getUserFromEvent(@PathVariable String id, @PathVariable Integer user_id){
-        User user = eventService.getUserFromEventById(id,user_id);
+        server.model.User user = eventService.getUserFromEventById(id,user_id);
         return user;
     }
 
 
     @GetMapping("/{id}")
     @ResponseBody
-    public Event getEvent (@PathVariable String id) {
-        Event event = eventService.getEventById(id);
+    public server.model.Event getEvent (@PathVariable String id) {
+        server.model.Event event = eventService.getEventById(id);
         if(event == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
@@ -57,14 +61,14 @@ public class EventController {
 
     @GetMapping
     @ResponseBody
-    public List<Event> getEvent() {
+    public List<server.model.Event> getEvent() {
         return eventService.getEvent();
     }
 
     @DeleteMapping("/{id}")
     @ResponseBody
     public String deleteEvent(@PathVariable String id){
-        Event event = eventService.getEventById(id);
+        server.model.Event event = eventService.getEventById(id);
         if(event == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }

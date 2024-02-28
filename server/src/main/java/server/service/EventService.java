@@ -1,12 +1,13 @@
 package server.service;
 
-import commons.dto.Event;
-import commons.dto.Expense;
-import commons.dto.User;
+import server.model.Event;
+import server.model.Expense;
+import server.model.User;
 import org.springframework.stereotype.Service;
 import server.database.EventRepository;
 
-import java.util.Collections;
+import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -41,27 +42,21 @@ public class EventService {
     }
 
 public Event createEvent(Event event) {
+    List<User> users = event.getUsers();
+    if (users == null) {
+        users = new ArrayList<>();
+    }
     server.model.Event eventObj = new server.model.Event(
             null,
             event.getTitle(),
-            event.getUsers()
-                    .stream()
-                    .map(user -> new server.model.User(user.getId(), user.getName(), user.getEmail()))
-                    .collect(Collectors.toList()),
-            Collections.emptyList()
+            event.getUsers(),
+            event.getExpenses()
     );
     server.model.Event newEvent = eventRepository.save(eventObj);
-    List<commons.dto.User> convertedToDtoUsers = newEvent.getUsers()
-            .stream()
-            .map(userM)
-            .collect(Collectors.toList());
 
-    List<commons.dto.Expense> convertedToDtoExpenses = newEvent.getExpenses()
-            .stream()
-            .map(expenseM)
-            .collect(Collectors.toList());
 
-    return new Event(newEvent.getId(), newEvent.getTitle(), convertedToDtoUsers, convertedToDtoExpenses);
+
+    return newEvent;
 }
     public void deleteEvent(String  id){
         Optional<server.model.Event> eventToDelete  = eventRepository.findById(id);
@@ -72,7 +67,7 @@ public Event createEvent(Event event) {
     }
 
     public Event updateEvent(Event event){
-        Optional<server.model.Event> eventToUpdate = eventRepository.findById(event.getId());
+        Optional<server.model.Event> eventToUpdate = eventRepository.findById(String.valueOf(event.getId()));
         if (eventToUpdate.isPresent()) {
             server.model.Event eventEntity = eventToUpdate.get();
             eventEntity.setTitle(event.getTitle());
