@@ -12,14 +12,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.OverviewPageCtrl">
    <children>
-      <Text layoutX="64.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Text>
       <Button layoutX="534.0" layoutY="35.0" mnemonicParsing="false" onAction="#startPage" text="Back" />
       <Button layoutX="220.0" layoutY="35.0" mnemonicParsing="false" onAction="#invitation" prefHeight="26.0" prefWidth="85.0" text="Send Invites" />
-      <Text layoutX="79.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Participants" wrappingWidth="84.80000000000007">
+      <Text layoutX="79.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%participants" wrappingWidth="84.80000000000007">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -42,12 +37,12 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text layoutX="79.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expenses" wrappingWidth="102.0673828125">
+      <Text layoutX="79.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%expenses" wrappingWidth="102.0673828125">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Text>
-      <Button layoutX="220.0" layoutY="139.0" mnemonicParsing="false" text="Add Expense" />
+      <Button layoutX="220.0" layoutY="139.0" mnemonicParsing="false" onAction="#addExpense" text="%add_expense" />
       <ChoiceBox fx:id="box" layoutX="79.0" layoutY="174.0" prefWidth="150.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="121.0" layoutX="79.0" layoutY="221.0" stroke="BLACK" strokeType="INSIDE" width="440.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="19.0" layoutX="115.0" layoutY="212.0" stroke="BLACK" strokeType="INSIDE" width="128.0" />
@@ -56,7 +51,12 @@
       <Label layoutX="172.0" layoutY="212.0" text="All" />
       <Label fx:id="from" alignment="CENTER" layoutX="236.0" layoutY="212.0" prefHeight="18.0" prefWidth="128.0" />
       <Label fx:id="including" alignment="CENTER" layoutX="367.0" layoutY="212.0" prefHeight="18.0" prefWidth="128.0" />
-      <Button layoutX="433.0" layoutY="359.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="85.0" text="Settle Debts" />
+      <Button layoutX="433.0" layoutY="359.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="85.0" text="%settle_debts" />
       <Label fx:id="participants" layoutX="88.0" layoutY="105.0" prefHeight="18.0" prefWidth="296.0" />
+      <Label fx:id="eventName" layoutX="70.0" layoutY="34.0" text="%event_name">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

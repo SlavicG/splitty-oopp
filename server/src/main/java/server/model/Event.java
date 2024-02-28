@@ -8,7 +8,9 @@ import java.util.Objects;
 @Entity
 @Table(name = "events")
 public class Event {
-    private @Id String id;
+
+    private @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id;
     private String title;
     private @ManyToMany
     @JoinTable(
@@ -23,19 +25,21 @@ public class Event {
 
     }
 
-    public Event(String id, String title, List<User> users, List<Expense> expenses) {
-        this.id = id;
+    public Event(Integer id, String title, List<User> users, List<Expense> expenses) {
+        this.id =id;
         this.title = title;
         this.users = users;
         this.expenses = expenses;
     }
 
-    public String getId() {
+
+
+    public Integer getId() {
         return id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.id = Integer.valueOf(id);
     }
 
     public String getTitle() {

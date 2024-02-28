@@ -33,13 +33,12 @@ import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 
 public class ServerUtils {
-	private final client.utils.Configuration configuration;
+	private final Configuration configuration;
 
 	@Inject
 	public ServerUtils(Configuration configuration) {
 		this.configuration = configuration;
 	}
-
 
 	public void getQuotesTheHardWay() throws IOException, URISyntaxException {
 		var url = new URI(configuration.getServerURL() + "/api/quotes").toURL();
@@ -53,11 +52,10 @@ public class ServerUtils {
 
 	public List<Quote> getQuotes() {
 		return ClientBuilder.newClient(new ClientConfig()) //
-				.target(configuration.getServerURL()).path("api/Quote") //
+				.target(configuration.getServerURL()).path("api/quotes") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
-				.get(new GenericType<List<Quote>>() {
-				});
+				.get(new GenericType<List<Quote>>() {});
 	}
 
 	public Quote addQuote(Quote quote) {
@@ -67,6 +65,7 @@ public class ServerUtils {
 				.accept(APPLICATION_JSON) //
 				.post(Entity.entity(quote, APPLICATION_JSON), Quote.class);
 	}
+
 
 	public List<Quote> getUser() {
 		return ClientBuilder.newClient(new ClientConfig()) //
@@ -152,4 +151,6 @@ public class ServerUtils {
 				.accept(APPLICATION_JSON) //
 				.post(Entity.entity(person, APPLICATION_JSON), Person.class);
 	}
+
+
 }
