@@ -58,12 +58,14 @@ public Event createEvent(Event event) {
 
     return newEvent;
 }
-    public void deleteEvent(String  id){
+    public Event deleteEvent(String  id){
         Optional<server.model.Event> eventToDelete  = eventRepository.findById(id);
         if(eventToDelete.isPresent()){
             server.model.Event eventEntity= eventToDelete.get();
             eventRepository.delete(eventEntity);
+            return eventEntity;
         }
+        return null;
     }
 
     public Event updateEvent(Event event){

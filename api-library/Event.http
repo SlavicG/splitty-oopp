@@ -2,11 +2,27 @@
 POST http://localhost:8080/rest/events
 Accept: application/json
 Content-Type: application/json
-
+//have to add the users before (put user with a give id)
 {
     "title":"New Year Party",
-    "users": null,
-    "expenses": null
+    "users":
+    [
+        {
+          "id":1,
+          "name": "Kinga",
+          "email": "Kinga@student.tudelft.nl",
+          "iban": "11111111",
+          "bic": "123"
+        }
+    ],
+    "expenses":
+    [{
+       "amount": 25,
+       "description": "Taxi",
+       "payer": null,
+       "date": null,
+       "event": null
+     }]
 }
 
 
@@ -24,6 +40,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
+  "id":1,
   "title":"Birthday Party",
   "users": null,
   "expenses":null
@@ -34,6 +51,6 @@ Content-Type: application/json
 GET http://localhost:8080/rest/events/1/users/1
 Accept: application/json
 
-# Delete event
-DELETE http://localhost:8080/rest/events/
+# Delete event by id
+DELETE http://localhost:8080/rest/events/1
 Accept: application/json
