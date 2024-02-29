@@ -67,7 +67,12 @@ Note taker:     Kinga
 # Question round (2 min)
 *If there are any questions, now is the time to ask them.*
 
-#Meeting Notes
+# Closing
+1. Summary of what has been discussed and what we will be doing this week. (2 min)
+2. Confirm the date of the next meeting (1 min)
+
+
+# Meeting Notes
 1. We went through which merges should be approved and closed.
 2. We assigned the complexity to each issue base on how many steps should be execute to complete them. the values that have been assigned to individual tasks range from 2 to 8 for the most complicated one (Status for week 3). For backend issues the importance is 3 since we have to implement there just 2-4 methods.
 It will help us to then during next milestone predict how much time it'll take based on the difficulty of the issues.
@@ -80,6 +85,4 @@ It will help us to then during next milestone predict how much time it'll take b
 9. We discussed how we will be able to meet the knockout criteria related to sufficient lines in the coming weeks, once the backend is finished.
 10. On Friday, by which we are supposed to finish the backend, we will determine what the group that was mainly responsible for it will implement next.
 
-# Closing
-1. Summary of what has been discussed and what we will be doing this week. (2 min)
-2. Confirm the date of the next meeting (1 min)
+
