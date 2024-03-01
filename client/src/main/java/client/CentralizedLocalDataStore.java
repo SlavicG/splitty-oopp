@@ -2,44 +2,45 @@ package client;
 
 import client.utils.Configuration;
 import client.utils.ServerUtils;
-import commons.dto.Quote;
+import commons.dto.*;
 
+import java.util.Date;
 import java.util.List;
 
 public class CentralizedLocalDataStore {
 
-    private List<Quote> users;
-    private List<Quote> expenses;
-    private List<Quote> debt;
-    private List<Quote> events;
+    private List<User> users;
+    private List<Expense> expenses;
+    private List<Debt> debt;
+    private List<Event> events;
     private List<Quote> quotes;
-    private List<Quote> persons;
+    private List<Person> persons;
     private final client.utils.Configuration configuration;
 
     public CentralizedLocalDataStore(Configuration configuration) {
         ServerUtils server = new ServerUtils(configuration);
-        this.users = server.getUser();
-        this.expenses = server.getExpense();
+        this.users = server.getUsers();
+        this.expenses = server.getExpenses();
         this.debt = server.getDebt();
-        this.events = server.getEvent();
+        this.events = server.getEvents();
         this.quotes = server.getQuotes();
-        this.persons = server.getPerson();
+        this.persons = server.getPersons();
         this.configuration = configuration;
     }
 
-    public List<Quote> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
-    public List<Quote> getExpenses() {
+    public List<Expense> getExpenses() {
         return expenses;
     }
 
-    public List<Quote> getDebt() {
+    public List<Debt> getDebt() {
         return debt;
     }
 
-    public List<Quote> getEvents() {
+    public List<Event> getEvents() {
         return events;
     }
 
@@ -47,7 +48,7 @@ public class CentralizedLocalDataStore {
         return quotes;
     }
 
-    public List<Quote> getPersons() {
+    public List<Person> getPersons() {
         return persons;
     }
 }

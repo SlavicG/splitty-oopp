@@ -67,52 +67,52 @@ public class ServerUtils {
 	}
 
 
-	public List<Quote> getUser() {
+	public List<User> getUsers() {
 		return ClientBuilder.newClient(new ClientConfig()) //
 				.target(configuration.getServerURL()).path("api/User") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
-				.get(new GenericType<List<Quote>>() {
+				.get(new GenericType<List<User>>() {
 				});
 	}
 
-	public List<Quote> getEvent() {
+	public List<Event> getEvents() {
 		return ClientBuilder.newClient(new ClientConfig()) //
 				.target(configuration.getServerURL()).path("api/Event") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
-				.get(new GenericType<List<Quote>>() {
+				.get(new GenericType<List<Event>>() {
 				});
 	}
 
-	public List<Quote> getExpense() {
+	public List<Expense> getExpenses() {
 		return ClientBuilder.newClient(new ClientConfig()) //
 				.target(configuration.getServerURL()).path("api/Expense") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
-				.get(new GenericType<List<Quote>>() {
+				.get(new GenericType<List<Expense>>() {
 				});
 	}
 
-	public List<Quote> getPerson() {
+	public List<Person> getPersons() {
 		return ClientBuilder.newClient(new ClientConfig()) //
 				.target(configuration.getServerURL()).path("api/Person") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
-				.get(new GenericType<List<Quote>>() {
+				.get(new GenericType<List<Person>>() {
 				});
 	}
 
-	public List<Quote> getDebt() {
+	public List<Debt> getDebt() {
 		return ClientBuilder.newClient(new ClientConfig()) //
 				.target(configuration.getServerURL()).path("api/Debt") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
-				.get(new GenericType<List<Quote>>() {
+				.get(new GenericType<List<Debt>>() {
 				});
 	}
 
-	public User addUser(User user) {
+	public User addUsers(User user) {
 		return ClientBuilder.newClient(new ClientConfig()) //
 				.target(configuration.getServerURL()).path("api/User") //
 				.request(APPLICATION_JSON) //
