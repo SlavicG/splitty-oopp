@@ -3,8 +3,6 @@ package client;
 import client.utils.Configuration;
 import client.utils.ServerUtils;
 import commons.dto.*;
-
-import java.util.Date;
 import java.util.List;
 
 public class CentralizedLocalDataStore {
