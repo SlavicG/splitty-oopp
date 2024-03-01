@@ -16,49 +16,38 @@ public class CentralizedLocalDataStore {
     private List<Quote> persons;
     private final client.utils.Configuration configuration;
 
-    public CentralizedLocalDataStore(List<Quote> users, List<Quote> expenses, List<Quote> debt, List<Quote> events, List<Quote> quotes, List<Quote> persons, Configuration configuration) {
-        this.users = users;
-        this.expenses = expenses;
-        this.debt = debt;
-        this.events = events;
-        this.quotes = quotes;
-        this.persons = persons;
+    public CentralizedLocalDataStore(Configuration configuration) {
+        ServerUtils server = new ServerUtils(configuration);
+        this.users = server.getUser();
+        this.expenses = server.getExpense();
+        this.debt = server.getDebt();
+        this.events = server.getEvent();
+        this.quotes = server.getQuotes();
+        this.persons = server.getPerson();
         this.configuration = configuration;
     }
 
     public List<Quote> getUsers() {
-        ServerUtils server = new ServerUtils(configuration);
-        users = server.getUser();
         return users;
     }
 
     public List<Quote> getExpenses() {
-        ServerUtils server = new ServerUtils(configuration);
-        expenses = server.getExpense();
         return expenses;
     }
 
     public List<Quote> getDebt() {
-        ServerUtils server = new ServerUtils(configuration);
-        debt = server.getDebt();
         return debt;
     }
 
     public List<Quote> getEvents() {
-        ServerUtils server = new ServerUtils(configuration);
-        events = server.getEvent();
         return events;
     }
 
     public List<Quote> getQuotes() {
-        ServerUtils server = new ServerUtils(configuration);
-        quotes = server.getQuotes();
         return quotes;
     }
 
     public List<Quote> getPersons() {
-        ServerUtils server = new ServerUtils(configuration);
-        persons = server.getPerson();
         return persons;
     }
 }
