@@ -26,13 +26,11 @@ public class Event {
     }
 
     public Event(Integer id, String title, List<User> users, List<Expense> expenses) {
-        this.id =id;
+        this.id = id;
         this.title = title;
         this.users = users;
         this.expenses = expenses;
     }
-
-
 
     public Integer getId() {
         return id;

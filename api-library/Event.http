@@ -1,56 +1,37 @@
-# Create event
+### Create Event
 POST http://localhost:8080/rest/events
 Accept: application/json
 Content-Type: application/json
-//have to add the users before (put user with a give id)
+
 {
-    "title":"New Year Party",
-    "users":
-    [
-        {
-          "id":1,
-          "name": "Kinga",
-          "email": "Kinga@student.tudelft.nl",
-          "iban": "11111111",
-          "bic": "123"
-        }
-    ],
-    "expenses":
-    [{
-       "amount": 25,
-       "description": "Taxi",
-       "payer": null,
-       "date": null,
-       "event": null
-     }]
+  "title": "abc",
+  "users": [1]
 }
 
-
-# Get Event
-GET http://localhost:8080/rest/events/1
+### Get Event
+GET http://localhost:8080/rest/events/2
 Accept: application/json
 
-# Get All Events
+### Get All Events
 GET http://localhost:8080/rest/events
 Accept: application/json
 
-#Update User
-PUT http://localhost:8080/rest/events/1
+### Update Event
+PUT http://localhost:8080/rest/events/2
 Accept: application/json
 Content-Type: application/json
 
 {
-  "id":1,
-  "title":"Birthday Party",
-  "users": null,
-  "expenses":null
+  "id":2,
+  "userIds": [2, 3],
+  "title":"Birthday Party"
 
 }
 
-# Get user from event by id
+### Get user from event by id
 GET http://localhost:8080/rest/events/1/users/1
 Accept: application/json
 
-# Delete event by id
+### Delete event by id
 DELETE http://localhost:8080/rest/events/1
 Accept: application/json
