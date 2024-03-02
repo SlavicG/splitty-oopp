@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
 
-public class ParticipantPageCtrl  {
+public class AddParticipantCtrl  {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
 
@@ -15,7 +15,7 @@ public class ParticipantPageCtrl  {
     private String initialName;
 
     @Inject
-    public ParticipantPageCtrl(ServerUtils server, MainCtrl mainCtrl) {
+    public AddParticipantCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
         this.mainCtrl = mainCtrl;
     }
