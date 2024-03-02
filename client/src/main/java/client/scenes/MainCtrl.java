@@ -35,6 +35,7 @@ public class MainCtrl {
     private Scene participantPage;
     private Scene editParticipantPage;
     private Scene addExpensePage;
+    private Scene statisticsPage;
 
     private AddQuoteCtrl addCtrl;
 
@@ -46,7 +47,8 @@ public class MainCtrl {
 
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
             Pair<AddQuoteCtrl, Parent> add, Pair<StartPageCtrl, Parent> startPage, Pair<OverviewPageCtrl, Parent> overviewPage, Pair<InvitationPageCtrl, Parent> invitationPage,
-                           Pair<AddParticipantCtrl, Parent> participantPage, Pair<ParticipantPageCtrl, Parent> editParticipantPage,Pair<AddExpenseCtrl, Parent> addExpensePage) {
+                           Pair<AddParticipantCtrl, Parent> participantPage, Pair<ParticipantPageCtrl, Parent> editParticipantPage,Pair<AddExpenseCtrl, Parent> addExpensePage,
+                           Pair<StatisticsPageCtrl, Parent> statisticsPage) {
 
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
@@ -64,6 +66,7 @@ public class MainCtrl {
         this.addExpenseCtrl = addExpensePage.getKey();
         this.addExpensePage = new Scene(addExpensePage.getValue());
         this.participantCtrl = editParticipantPage.getKey();
+        this.statisticsPage = new Scene(statisticsPage.getValue());
 
         showOverview();
         primaryStage.show();
@@ -113,5 +116,9 @@ public class MainCtrl {
         primaryStage.setTitle("Add Expense");
         addExpenseCtrl.setUsers(users);
         primaryStage.setScene(addExpensePage);
+    }
+    public void statisticsPage() {
+        primaryStage.setTitle("Statistics Page");
+        primaryStage.setScene(statisticsPage);
     }
 }

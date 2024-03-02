@@ -84,4 +84,7 @@ public class OverviewPageCtrl implements Initializable {
     public void addExpense() {
         mainCtrl.addExpensePage(Arrays.asList(users));
     }
+    public void statisticsPage() {
+        mainCtrl.statisticsPage();
+    }
 }

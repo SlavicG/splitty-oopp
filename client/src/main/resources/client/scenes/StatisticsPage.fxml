@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="531.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.StatisticsPageCtrl">
+   <children>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Statistics" wrappingWidth="80.4305419921875">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <VBox.margin>
+            <Insets top="15.0" />
+         </VBox.margin>
+      </Text>
+      <HBox prefHeight="99.0" prefWidth="514.0">
+         <children>
+            <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%total_cost" textAlignment="RIGHT" wrappingWidth="185.65290069580078">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="32.0" prefWidth="31.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="300">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="32.0" prefWidth="190.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="€" wrappingWidth="32.0">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" />
+      <HBox alignment="CENTER" prefHeight="165.0" prefWidth="390.0">
+         <children>
+            <PieChart prefHeight="98.0" prefWidth="178.0" />
+         </children>
+      </HBox>
+      <HBox alignment="BOTTOM_RIGHT" prefHeight="97.0" prefWidth="278.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Button mnemonicParsing="false" onAction="#OverviewPage" text="%back">
+               <HBox.margin>
+                  <Insets bottom="20.0" right="30.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</VBox>
