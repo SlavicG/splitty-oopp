@@ -5,7 +5,7 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.stereotype.Service;
 import server.database.EventRepository;
 import server.database.UserRepository;
-import server.model.Event;
+
 
 import java.util.AbstractMap;
 import java.util.Collections;
