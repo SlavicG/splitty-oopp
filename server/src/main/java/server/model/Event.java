@@ -36,8 +36,8 @@ public class Event {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = Integer.valueOf(id);
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getTitle() {

@@ -61,8 +61,10 @@ public class EventService {
             return getEvent(x);
         }).orElse(null);
     }
-
-    private List<User> getUsers(List<Integer> userIds) {
+    private Event getEvent(server.model.Event it) {
+        return new Event(it.getId(), it.getTitle(), getUserIds(it.getUsers()), List.of());
+    }
+    public List<User> getUsers(List<Integer> userIds) {
         return userIds.stream().map(it -> getUserById(it)).toList();
     }
     
@@ -74,9 +76,6 @@ public class EventService {
 
     private static List<Integer> getUserIds(List<User> users) {
         return users.stream().map(it -> it.getId()).toList();
-    }
-    private static Event getEvent(server.model.Event it) {
-        return new Event(it.getId(), it.getTitle(), getUserIds(it.getUsers()), List.of());
     }
 }
 

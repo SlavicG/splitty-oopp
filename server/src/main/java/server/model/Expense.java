@@ -2,6 +2,7 @@ package server.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -11,8 +12,8 @@ public class Expense {
     private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id;
     private Double amount;
     private String description;
-    private @OneToOne User payer;
-    private LocalDateTime date;
+    private @ManyToOne User payer;
+    private LocalDate date;
     private @ManyToOne
     @JoinColumn(name = "event_id") Event event;
 
@@ -20,7 +21,7 @@ public class Expense {
 
     }
 
-    public Expense(Integer id, Double amount, String description, User payer, LocalDateTime date, Event event) {
+    public Expense(Integer id, Double amount, String description, User payer, LocalDate date, Event event) {
         this.id = id;
         this.amount = amount;
         this.description = description;
@@ -29,7 +30,7 @@ public class Expense {
         this.event = event;
     }
 
-    public Expense(Object o, Double amount, String description, User payer, LocalDateTime date) {
+    public Expense(Object o, Double amount, String description, User payer, LocalDate date) {
         this.id = id;
         this.amount = amount;
         this.description = description;
@@ -71,11 +72,11 @@ public class Expense {
         this.payer = payer;
     }
 
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

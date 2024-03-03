@@ -19,7 +19,6 @@ public class User {
     public User() {
 
     }
-
     public User(Integer id, String name, String email, String iban, String bic, List<Event> events) {
         this.id = id;
         this.name = name;
