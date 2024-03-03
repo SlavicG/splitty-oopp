@@ -1,28 +1,33 @@
 ### Create Expense
-POST http://localhost:8080/rest/expenses
+POST http://localhost:8080/rest/events/1/expenses
 Accept: application/json
 Content-Type: application/json
 
 {
   "amount": 25,
   "description": "Taxi",
-  "payer": null,
-  "date": null,
-  "event": null
+  "payerId": 1
 }
 
 ### Update Expense
-PUT http://localhost:8080/rest/expenses/1
+PUT http://localhost:8080/rest/events/1/expenses/1
 Accept: application/json
 Content-Type: application/json
 
 {
   "id": 1,
-  "amount": 28,
-  "description": "Cake",
-  "payer": null,
-  "date": null,
-  "event": null
+  "amount": 32,
+  "description": "salut",
+  "payerId": 1,
+  "date": "2024-03-28"
 }
 
+### Get Expenses
+GET http://localhost:8080/rest/events/1/expenses
+Accept: application/json
+Content-Type: application/json
 
+### Delete Expense
+DELETE  http://localhost:8080/rest/events/1/expenses/1
+Accept: application/json
+Content-Type: application/json

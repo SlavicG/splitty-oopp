@@ -1,22 +1,23 @@
 package commons.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Event {
     private Integer id;
     private String title;
-    private List<User> users;
-    private List<Expense> expenses;
+    private List<Integer> usersIds = new ArrayList<>();
+    private List<Expense> expenses = new ArrayList<>();
 
     public Event() {
 
     }
 
-    public Event(Integer id, String title, List<User> users, List<Expense> expenses) {
+    public Event(Integer id, String title, List<Integer> usersIds, List<Expense> expenses) {
         this.id = id;
         this.title = title;
-        this.users = users;
+        this.usersIds = usersIds;
         this.expenses = expenses;
     }
 
@@ -37,12 +38,12 @@ public class Event {
         this.title = title;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<Integer> getUserIds() {
+        return usersIds;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setUsers(List<Integer> usersIds) {
+        this.usersIds = usersIds;
     }
 
     public List<Expense> getExpenses() {
@@ -58,11 +59,11 @@ public class Event {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Event event = (Event) o;
-        return Objects.equals(id, event.id) && Objects.equals(title, event.title) && Objects.equals(users, event.users) && Objects.equals(expenses, event.expenses);
+        return Objects.equals(id, event.id) && Objects.equals(title, event.title) && Objects.equals(usersIds, event.usersIds) && Objects.equals(expenses, event.expenses);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, users, expenses);
+        return Objects.hash(id, title, usersIds, expenses);
     }
 }

@@ -1,4 +1,4 @@
-package server;
+package server.api;
 
 import commons.dto.User;
 import org.apache.coyote.BadRequestException;

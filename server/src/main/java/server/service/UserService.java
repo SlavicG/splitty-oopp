@@ -36,4 +36,7 @@ public class UserService {
         }
         return null;
     }
+    public static User getUser(server.model.User user) {
+        return new User(user.getId(), user.getName(), user.getEmail(), user.getIban(), user.getBic());
+    }
 }

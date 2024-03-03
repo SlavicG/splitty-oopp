@@ -11,16 +11,16 @@ Content-Type: application/json
 }
 
 ### Update User
-PUT http://localhost:8080/rest/users/1
+PUT http://localhost:8080/rest/users/2
 Accept: application/json
 Content-Type: application/json
 
 {
-  "id": 1,
-  "name": "Vlad",
-  "email": "V.Guzun-1@student.tudelft.nl",
-  "iban": "1234",
-  "bic": "456"
+  "id": 2,
+  "name": "Iulia",
+  "email": "iuliasl05@gmail.com",
+  "iban": "5",
+  "bic": "6"
 }
 
 ### Get User
