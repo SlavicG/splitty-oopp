@@ -17,7 +17,7 @@ class ServerUtilsTest {
     void constructorTest() {
         ServerUtils server1 = new ServerUtils(configuration);
     }
-    
+
     @Test
     void getAndAddUsers() {
         User user = new User(5, "Abdullah", "@email.com", "504", "2323");
