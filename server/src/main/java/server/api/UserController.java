@@ -42,10 +42,10 @@ public class UserController {
         return userService.getUsers();
     }
 
-    @GetMapping("/debts/{id}")
+    @GetMapping("/debts/{id}/events/{event_id}")
     @ResponseBody
-    public Double getDebtUser(@PathVariable Integer id){
-        return userService.getDebtOfaUser(id);
+    public Double getDebtUser(@PathVariable Integer id, @PathVariable Integer even_id){
+        return userService.getDebtOfaUser(id, even_id);
     }
 
 
