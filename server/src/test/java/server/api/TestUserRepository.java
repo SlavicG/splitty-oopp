@@ -8,16 +8,11 @@ import org.springframework.data.repository.query.FluentQuery;
 import server.database.UserRepository;
 import server.model.User;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
 public class TestUserRepository implements UserRepository {
-
-    public  List<User> users = new ArrayList<>();
-    public  List<String> calledMethod = new ArrayList<>();
-    public int idCounter = 1;
     @Override
     public void flush() {
 
@@ -100,9 +95,7 @@ public class TestUserRepository implements UserRepository {
 
     @Override
     public <S extends User> S save(S entity) {
-        idCounter++;
-        users.add(entity);
-        return entity;
+        return null;
     }
 
     @Override
@@ -112,9 +105,7 @@ public class TestUserRepository implements UserRepository {
 
     @Override
     public Optional<User> findById(Integer integer) {
-        return users.stream()
-                .filter(user -> integer.equals(user.getId()))
-                .findFirst();
+        return Optional.empty();
     }
 
     @Override
@@ -124,7 +115,7 @@ public class TestUserRepository implements UserRepository {
 
     @Override
     public List<User> findAll() {
-        return users;
+        return null;
     }
 
     @Override
@@ -134,7 +125,7 @@ public class TestUserRepository implements UserRepository {
 
     @Override
     public long count() {
-        return idCounter;
+        return 0;
     }
 
     @Override

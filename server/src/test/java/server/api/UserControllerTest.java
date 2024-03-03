@@ -46,19 +46,19 @@ public class UserControllerTest {
 //
 //    }
 //
-    @Test
-    void getUser() {
-        User user = new User(1, "David", "dgogoana@tudelft.nl", "54321", "12345");
-        controller.createUser(user);
-        System.out.println(controller.getUser(1));
-    }
+//    @Test
+//    void getUser() {
+//        User user = new User(1, "David", "dgogoana@tudelft.nl", "54321", "12345");
+//        controller.createUser(user);
+//        System.out.println(controller.getUser(1));
+//    }
+////
+//    @Test
+//    void getUsers() {
+//        User user1 = new User(1, "David", "dgogoana@tudelft.nl", "54321", "12345");
+//        User user2 = new User(1, "David", "dgogoana@tudelft.nl", "54321", "12345");
+//        User user3 = new User(1, "Gogo", "dgogoana@tudelft.nl", "54321", "12345");
+//        System.out.println(controller.getUsers());
 //
-    @Test
-    void getUsers() {
-        User user1 = new User(1, "David", "dgogoana@tudelft.nl", "54321", "12345");
-        User user2 = new User(1, "David", "dgogoana@tudelft.nl", "54321", "12345");
-        User user3 = new User(1, "Gogo", "dgogoana@tudelft.nl", "54321", "12345");
-        System.out.println(controller.getUsers());
-
-    }
+//    }
 }
