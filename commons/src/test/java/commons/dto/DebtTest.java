@@ -75,6 +75,10 @@ public class DebtTest {
     void testEquals(){
         assertEquals(d2,d3);
     }
+    @Test
+    void testHashCode(){
+        assertEquals(d2.hashCode(),d3.hashCode());
+    }
 
 
 }

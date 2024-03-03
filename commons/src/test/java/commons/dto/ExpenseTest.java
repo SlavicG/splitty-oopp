@@ -1,5 +1,6 @@
 package commons.dto;
 
+import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -62,4 +63,39 @@ class ExpenseTest {
         assertEquals("description2", expense1.getDescription());
     }
 
+    @Test
+    void getPayerId() {
+        assertEquals(3, expense1.getPayerId());
+    }
+
+    @Test
+    void setPayerId() {
+        expense1.setPayerId(5);
+        assertEquals(expense1.getPayerId(), 5);
+    }
+
+    @Test
+    void getDate() {
+        LocalDate date = LocalDate.of(2021, 10, 24);
+        assertEquals(date, expense1.getDate());
+    }
+
+    @Test
+    void setDate() {
+        LocalDate date = LocalDate.of(2021, 10, 25);
+        expense1.setDate(date);
+        assertEquals(date, expense1.getDate());
+    }
+
+    @Test
+    void testEquals() {
+        assertEquals(expense1, expense2);
+        assertEquals(expense2,expense3);
+    }
+
+    @Test
+    void testHashcode() {
+        assertEquals(expense1.hashCode(), expense2.hashCode());
+        assertEquals(expense2.hashCode(),expense3.hashCode());
+    }
 }
