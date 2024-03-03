@@ -1,5 +1,6 @@
 package server.service;
 
+import commons.dto.Event;
 import commons.dto.User;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.stereotype.Service;
@@ -48,16 +49,16 @@ public class UserService {
 
 
     //calculate a debt of a give user
-    public Double getDebtOfaUser(Integer id){
+    public Double getDebtOfaUser(Integer id,Integer event_id){
         double fullAmount = 0;
+        Event event;
         try {
-        //amount of money for all events that the person participated in/number of participants
-        fullAmount = eventRepository.findAll().stream().
-                filter(event -> event.getUsers().stream().
-                        anyMatch(user1 -> user1.getId().equals(id)))
-                .flatMap(event -> event.getExpenses().stream()
-                .map(expense -> new AbstractMap.SimpleEntry<>(expense, event.getUsers().size())))
-                .mapToDouble(entry -> entry.getKey().getAmount() / entry.getValue()).sum();
+            event = (Event) eventRepository.findAll().stream().
+                    filter(eventThis -> eventThis.getId().equals(event_id));
+            fullAmount = event.getExpenses().stream()
+                    .mapToDouble(expense -> expense.getAmount())
+                    .sum();
+            fullAmount = fullAmount/event.getUserIds().size();
 
         } catch (Exception e) {
             throw new ServiceException("error" + id,e);
@@ -65,13 +66,10 @@ public class UserService {
         double amountPayed = 0;
         //Amount of money spend on expenses in all the
         try {
-        amountPayed = eventRepository.findAll().stream().
-                filter(event -> event.getUsers().stream().
-                        anyMatch(user1 -> user1.getId().equals(id)))
-                .flatMap(event -> event.getExpenses().stream()
-                        .map(expense -> new AbstractMap.SimpleEntry<>(expense, event.getUsers().size())))
-                .filter(entry -> entry.getKey().getPayer().getId().equals(id)).
-                mapToDouble(entry -> entry.getKey().getAmount() / entry.getValue()).sum();
+            amountPayed = event.getExpenses().stream().
+                    filter(expense -> expense.getId().equals(id))
+                    .mapToDouble(expense -> expense.getAmount())
+                    .sum();
 
         } catch (Exception e) {
             throw new ServiceException("error" + id,e);
