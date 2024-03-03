@@ -2,6 +2,7 @@ package server.api;
 
 import commons.dto.User;
 import org.apache.coyote.BadRequestException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import server.service.UserService;
@@ -17,8 +18,11 @@ public class UserController {
     }
     @PostMapping
     @ResponseBody
-    public User createUser(@RequestBody User user) {
-        return userService.createUser(user);
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        if(user.equals(null) || user.getName()==null)
+            return ResponseEntity.badRequest().build();
+
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")
