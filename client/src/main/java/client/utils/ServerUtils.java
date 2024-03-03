@@ -129,7 +129,7 @@ public class ServerUtils {
 
 	public Debt addDebt(Debt debt) {
 		return ClientBuilder.newClient(new ClientConfig()) //
-				.target(configuration.getServerURL()).path("api/Quote") //
+				.target(configuration.getServerURL()).path("api/Debt") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
 				.post(Entity.entity(debt, APPLICATION_JSON), Debt.class);
