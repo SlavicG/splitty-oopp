@@ -41,4 +41,12 @@ public class UserController {
     public List<User> getUsers () {
         return userService.getUsers();
     }
+
+    @GetMapping("/debts/{id}")
+    @ResponseBody
+    public Double getDebtUser(@PathVariable Integer id){
+        return userService.getDebtOfaUser(id);
+    }
+
+
 }
