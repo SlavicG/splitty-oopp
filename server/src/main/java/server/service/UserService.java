@@ -19,7 +19,7 @@ public class UserService {
     private EventRepository eventRepository;
     private UserRepository userRepository;
     private Function<server.model.User, User> mapper = user -> new User(user.getId(), user.getName(), user.getEmail(), user.getIban(), user.getBic());
-    protected UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
     public List<User> getUsers() {
