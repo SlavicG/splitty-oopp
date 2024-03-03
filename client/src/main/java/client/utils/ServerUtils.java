@@ -68,7 +68,7 @@ public class ServerUtils {
 
 	public List<User> getUsers() {
 		return ClientBuilder.newClient(new ClientConfig()) //
-				.target(configuration.getServerURL()).path("api/User") //
+				.target(configuration.getServerURL()).path("rest/users") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
 				.get(new GenericType<List<User>>() {
