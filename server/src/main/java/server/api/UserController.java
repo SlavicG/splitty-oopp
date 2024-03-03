@@ -2,6 +2,7 @@ package server.api;
 
 import commons.dto.User;
 import org.apache.coyote.BadRequestException;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import server.service.UserService;
@@ -37,4 +38,12 @@ public class UserController {
     public List<User> getUsers () {
         return userService.getUsers();
     }
+
+    @GetMapping("/debts/{id}")
+    @ResponseBody
+    public Double getDebtUser(@PathVariable Integer id){
+        return userService.getDebtOfaUser(id);
+    }
+
+
 }
