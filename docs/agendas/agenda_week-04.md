@@ -2,8 +2,8 @@
 
 Date:           05-03-2024\
 Main focus:     This week's set of Issues and Deadlines\
-Chair:          David Gogoana\
-Note taker:     Veaceslav Guzun
+Chair:          David \
+Note taker:     Abdullah
 
 # Opening
 1. Presence: To be noted during the meeting. How is everyone doing? (1 min)
