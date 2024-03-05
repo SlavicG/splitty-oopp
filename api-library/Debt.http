@@ -1,0 +1,4 @@
+### Get debt - of a user with id 1 from event with id 1
+http://127.0.0.1:8080/rest/events/1/users/1/debt
+Accept: application/json
+

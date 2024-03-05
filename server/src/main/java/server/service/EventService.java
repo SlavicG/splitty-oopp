@@ -1,21 +1,29 @@
 package server.service;
 
+
 import org.springframework.stereotype.Service;
 import server.database.EventRepository;
 import commons.dto.Event;
+import commons.dto.Expense;
+import server.database.ExpenseRepository;
 import server.database.UserRepository;
+
 import server.model.User;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 @Service
 public class EventService {
     private final EventRepository eventRepository;
+
+    private final ExpenseRepository expenseRepository;
     private final UserRepository userRepository;
     
-    public EventService(EventRepository eventRepository, UserRepository userRepository) {
+    public EventService(EventRepository eventRepository, ExpenseRepository expenseRepository, UserRepository userRepository) {
         this.eventRepository = eventRepository;
+        this.expenseRepository = expenseRepository;
         this.userRepository = userRepository;
     }
     
@@ -27,6 +35,13 @@ public class EventService {
         Event returnEvent = getEvent(createdEvent);
         return returnEvent;
     }
+
+    private Function<server.model.Expense, Expense> mapper = expense -> new commons.dto.Expense(
+            expense.getId(),
+            expense.getAmount(),
+            expense.getDescription(),
+            expense.getPayer().getId(),
+            expense.getDate());
     
 
     public Event getEventById(Integer id) {
@@ -35,8 +50,13 @@ public class EventService {
         returnEvent.setId(event.getId());
         returnEvent.setTitle(event.getTitle());
         returnEvent.setUsers(getUserIds(event.getUsers()));
+        if(event.getExpenses()!=null){
+            returnEvent.setExpenses(expenseRepository.findAll().stream().map(mapper).toList());
+        }
         return returnEvent;
     }
+
+
 
     public Event updateEvent(Event event) {
         server.model.Event newEvent = eventRepository.getById(event.getId());
@@ -48,6 +68,8 @@ public class EventService {
         Event returnEvent = getEvent(updatedEvent);
         return returnEvent;
     }
+
+
 
     public List<Event> getAllEvents() {
         return eventRepository.findAll().stream().map(it -> getEvent(it)).toList();
@@ -67,7 +89,9 @@ public class EventService {
     public List<User> getUsers(List<Integer> userIds) {
         return userIds.stream().map(it -> getUserById(it)).toList();
     }
-    
+
+
+
     private User getUserById(Integer it) {
         User user = userRepository.getById(it);
         if(user == null) throw new IllegalArgumentException("User not found. ID: " + it);
@@ -77,6 +101,39 @@ public class EventService {
     private static List<Integer> getUserIds(List<User> users) {
         return users.stream().map(it -> it.getId()).toList();
     }
+
+
+
+
+    //calculate all debts between all users
+    public Double getAllDebtsInEvent(Integer event_id){
+        Event event = getEventById(event_id);
+        double sum = event.getExpenses().stream()
+                .mapToDouble(expense -> expense.getAmount())
+                .sum();
+        sum = sum/event.getUserIds().size();
+        return sum;
+    }
+    //calculate a debt of a give user
+    public Double getDebtOfaUser(Integer id,Integer event_id){
+        Event event = getEventById(event_id);
+        double fullAmount = event.getExpenses().stream()
+                .mapToDouble(expense -> expense.getAmount())
+                .sum();
+            fullAmount = fullAmount/event.getUserIds().size();
+
+
+
+        //Amount of money spend on expenses in all the
+        double amountPayed = event.getExpenses().stream().
+                filter(expense -> expense.getPayerId().equals(id))
+                .mapToDouble(expense -> expense.getAmount())
+                .sum();
+
+        double debt = fullAmount - amountPayed;
+        return debt;
+    }
+
 }
 
 
