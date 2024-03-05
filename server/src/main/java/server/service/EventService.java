@@ -1,6 +1,6 @@
 package server.service;
 
-import org.hibernate.service.spi.ServiceException;
+
 import org.springframework.stereotype.Service;
 import server.database.EventRepository;
 import commons.dto.Event;
