@@ -5,12 +5,15 @@ import org.springframework.stereotype.Service;
 import server.database.EventRepository;
 import commons.dto.Event;
 import commons.dto.Expense;
+
 import server.database.ExpenseRepository;
 import server.database.UserRepository;
 
 import server.model.User;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -106,13 +109,22 @@ public class EventService {
 
 
     //calculate all debts between all users
-    public Double getAllDebtsInEvent(Integer event_id){
+    public Map<Integer, Double> getAllDebtsInEvent(Integer event_id){
         Event event = getEventById(event_id);
-        double sum = event.getExpenses().stream()
-                .mapToDouble(expense -> expense.getAmount())
-                .sum();
-        sum = sum/event.getUserIds().size();
-        return sum;
+//        double sum = event.getExpenses().stream()
+//                .mapToDouble(expense -> expense.getAmount())
+//                .sum();
+//        sum = sum/event.getUserIds().size();
+
+//        Event event = getEventById(event_id);
+        server.model.Event eventForUsers = eventRepository.getById(event_id);
+        List<User> users = eventForUsers.getUsers();
+        List<Integer> userIds = event.getUserIds();
+        Map<Integer, Double> mapa = new HashMap<>();
+        for (int i=0;i<userIds.size();i++){
+            mapa.put(userIds.get(i), getDebtOfaUser(userIds.get(i), event_id));
+        }
+        return mapa;
     }
     //calculate a debt of a give user
     public Double getDebtOfaUser(Integer id,Integer event_id){
