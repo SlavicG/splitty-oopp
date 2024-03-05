@@ -1,5 +1,6 @@
 package server.service;
 
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.stereotype.Service;
 import server.database.EventRepository;
 import commons.dto.Event;
@@ -77,6 +78,46 @@ public class EventService {
     private static List<Integer> getUserIds(List<User> users) {
         return users.stream().map(it -> it.getId()).toList();
     }
+
+
+    //calculate all debts between all users
+    public Double getAllDebtsInEvent(Integer event_id){
+        Event event = getEventById(event_id);
+        double sum = event.getExpenses().stream()
+                .mapToDouble(expense -> expense.getAmount())
+                .sum();
+        return sum;
+    }
+    //calculate a debt of a give user
+    public Double getDebtOfaUser(Integer id,Integer event_id){
+        double fullAmount = 0;
+        server.model.Event event;
+        try {
+            event = (server.model.Event) eventRepository.findAll().stream().
+                    filter(eventThis -> eventThis.getId().equals(event_id));
+            fullAmount = event.getExpenses().stream()
+                    .mapToDouble(expense -> expense.getAmount())
+                    .sum();
+            fullAmount = fullAmount/event.getUsers().size();
+
+        } catch (Exception e) {
+            throw new ServiceException("error" + id,e);
+        }
+        double amountPayed = 0;
+        //Amount of money spend on expenses in all the
+        try {
+            amountPayed = event.getExpenses().stream().
+                    filter(expense -> expense.getId().equals(id))
+                    .mapToDouble(expense -> expense.getAmount())
+                    .sum();
+
+        } catch (Exception e) {
+            throw new ServiceException("error" + id,e);
+        }
+        double debt = fullAmount - amountPayed;
+        return debt;
+    }
+
 }
 
 

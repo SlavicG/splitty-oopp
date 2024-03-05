@@ -61,5 +61,15 @@ public class EventController {
        return eventService.deleteEvent(id);
     }
 
+    @GetMapping("/{event_id}/debts")
+    @ResponseBody
+    public Double getAllDebts(@PathVariable Integer event_id){
+        return eventService.getAllDebtsInEvent( event_id);
+    }
+    @GetMapping("/{id}/users/{user_id}/debt")
+    @ResponseBody
+    public Double getDebtUser(@PathVariable Integer user_id, @PathVariable Integer event_id){
+        return eventService.getDebtOfaUser(user_id, event_id);
+    }
 
 }

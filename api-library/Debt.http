@@ -1,0 +1,4 @@
+### Get debt - of a user with id 1 from event with id 1
+GET http://localhost:8080/rest/users/debts/1/events/1
+Accept: application/json
+
