@@ -16,7 +16,7 @@ Note taker:     Abdullah
 2. Are there any MR's left? Why are they still open and who should review them? (6 min)
 3. Move on from last week to week 4. What issues do we have open for this week? Are there enough issues for all of us? Should we add more? (6 min)
 4. Assigning issues to members of the team. (4 min)
-5. Reminder about Buddy Check deadline. (4 min) 
+5. Reminder about Buddy Check deadline + Checkstyle. (4 min) 
 6. Reminder about Tasks and Planning (2 min)
 
 # Action points for next week
