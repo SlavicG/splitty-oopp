@@ -54,6 +54,8 @@ public class Event {
         this.expenses = expenses;
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
