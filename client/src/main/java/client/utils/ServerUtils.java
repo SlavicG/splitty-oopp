@@ -66,10 +66,9 @@ public class ServerUtils {
 				.post(Entity.entity(quote, APPLICATION_JSON), Quote.class);
 	}
 
-
 	public List<User> getUsers() {
 		return ClientBuilder.newClient(new ClientConfig()) //
-				.target(configuration.getServerURL()).path("api/User") //
+				.target(configuration.getServerURL()).path("rest/users") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
 				.get(new GenericType<List<User>>() {
@@ -128,7 +127,7 @@ public class ServerUtils {
 				.post(Entity.entity(expense, APPLICATION_JSON), Expense.class);
 	}
 
-	public Debt addQuote(Debt debt) {
+	public Debt addDebt(Debt debt) {
 		return ClientBuilder.newClient(new ClientConfig()) //
 				.target(configuration.getServerURL()).path("api/Debt") //
 				.request(APPLICATION_JSON) //
