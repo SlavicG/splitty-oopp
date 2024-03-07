@@ -41,6 +41,7 @@ public class DebtTest {
     void getOwed() {
         assertEquals(owed, d1.getOwed());
     }
+
     @Test
     void setOwed() {
         User newOwed = new User(3, "Ilker", "Ilker@tudelft.nl", "321", "987");
@@ -52,6 +53,7 @@ public class DebtTest {
     void getIndebted() {
         assertEquals(indebted, d1.getIndebted());
     }
+
     @Test
     void setIndebted() {
         User user = new User(4, "Miruna", "miruna@tudelft.nl", "345", "178");
@@ -74,6 +76,11 @@ public class DebtTest {
     @Test
     void testEquals(){
         assertEquals(d2,d3);
+    }
+
+    @Test
+    void testHashCode(){
+        assertEquals(d2.hashCode(),d3.hashCode());
     }
 
 

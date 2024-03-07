@@ -80,4 +80,7 @@ public class QuoteControllerTest {
             return nextInt;
         }
     }
+
+    public static class TestEventRepository {
+    }
 }

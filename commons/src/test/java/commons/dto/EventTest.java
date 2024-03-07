@@ -2,6 +2,10 @@ package commons.dto;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class EventTest {
@@ -33,10 +37,49 @@ class EventTest {
     }
 
     @Test
+    void getUsersIds() {
+        Event event = new Event(1, "party", null, null);
+        assertEquals(null, event.getUserIds());
+    }
+
+    @Test
+    void setUserIds() {
+        Event event = new Event(1, "party", null, null);
+        List<Integer> userIds = new ArrayList<>();
+        userIds.add(5);
+        event.setUsers(userIds);
+        assertEquals(userIds, event.getUserIds());
+    }
+
+    @Test
+    void getExpenses() {
+        Event event = new Event(1, "party", null, null);
+        assertEquals(null, event.getExpenses());
+    }
+
+    @Test
+    void setExpenses() {
+        Event event = new Event(1, "party", null, null);
+        List<Expense> expenses = new ArrayList<>();
+        LocalDate date = LocalDate.of(2024, 3, 3);
+        Expense expense1 = new Expense(1, 20.0, "SnackBar", 3, date);
+        expenses.add(expense1);
+        event.setExpenses(expenses);
+        assertEquals(expenses, event.getExpenses());
+    }
+
+    @Test
     void testEquals() {
         Event event = new Event(1, "party", null, null);
         Event event2 = new Event(1, "party", null, null);
         assertTrue(event.equals(event2));
+    }
+
+    @Test
+    void testHashCode() {
+        Event event = new Event(1, "party", null, null);
+        Event event2 = new Event(1, "party", null, null);
+        assertEquals(event, event2);
     }
 
 
