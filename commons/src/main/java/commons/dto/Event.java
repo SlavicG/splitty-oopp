@@ -13,7 +13,7 @@ public class Event {
     public Event() {
 
     }
-    
+
     public Event(Integer id, String title, List<Integer> usersIds, List<Expense> expenses) {
         this.id = id;
         this.title = title;
