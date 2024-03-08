@@ -15,6 +15,10 @@ class TagTest {
 
     @BeforeEach
     void setup() {
+        color1 = new Color(255);
+        color2 = new Color(0);
+        tag1 = new Tag(1, "food", color1);
+        tag2 = new Tag(2, "travel", color2);
     }
 
     @Test
