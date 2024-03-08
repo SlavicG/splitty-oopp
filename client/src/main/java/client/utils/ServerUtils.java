@@ -152,13 +152,28 @@ public class ServerUtils {
 				});
 	}
 
-	public List<Person> getPersons() {
+	public Expense addExpense(Expense expense, int eventId) {
 		return ClientBuilder.newClient(new ClientConfig()) //
-				.target(configuration.getServerURL()).path("api/Person") //
+				.target(configuration.getServerURL()).path("/rest/events/" + eventId + "/expenses") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
-				.get(new GenericType<List<Person>>() {
-				});
+				.post(Entity.entity(expense, APPLICATION_JSON), Expense.class);
+	}
+
+	public Expense updateExpense(Expense expense, int eventId, int expenseId) {
+		return ClientBuilder.newClient(new ClientConfig()) //
+				.target(configuration.getServerURL()).path("/rest/events/" + eventId + "/expenses/" + expenseId) //
+				.request(APPLICATION_JSON) //
+				.accept(APPLICATION_JSON) //
+				.put(Entity.entity(expense, APPLICATION_JSON), Expense.class);
+	}
+
+	public Response deleteExpense(Expense expense, int eventId, int expenseId) {
+		return ClientBuilder.newClient(new ClientConfig()) //
+				.target(configuration.getServerURL()).path("/rest/events/" + eventId + "/expenses/" + expenseId) //
+				.request(APPLICATION_JSON) //
+				.accept(APPLICATION_JSON) //
+				.delete();
 	}
 
 	public List<Debt> getDebts(int eventId) {
@@ -170,17 +185,18 @@ public class ServerUtils {
 				});
 	}
 
-	public Expense addExpense(Expense expense, int eventId) {
+	public Debt getDebt(int eventId, int userId) {
 		return ClientBuilder.newClient(new ClientConfig()) //
-				.target(configuration.getServerURL()).path("/rest/events/" + eventId + "/expenses") //
+				.target(configuration.getServerURL()).path("/rest/events/" + eventId + "/users/" + userId +"/debt") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
-				.post(Entity.entity(expense, APPLICATION_JSON), Expense.class);
+				.get(new GenericType<Debt>() {
+				});
 	}
 
 	public Debt addDebt(Debt debt) {
 		return ClientBuilder.newClient(new ClientConfig()) //
-				.target(configuration.getServerURL()).path("api/Debt") //
+				.target(configuration.getServerURL()).path("/api/Debt") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
 				.post(Entity.entity(debt, APPLICATION_JSON), Debt.class);
@@ -192,5 +208,14 @@ public class ServerUtils {
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
 				.post(Entity.entity(person, APPLICATION_JSON), Person.class);
+	}
+
+	public List<Person> getPersons() {
+		return ClientBuilder.newClient(new ClientConfig()) //
+				.target(configuration.getServerURL()).path("api/Person") //
+				.request(APPLICATION_JSON) //
+				.accept(APPLICATION_JSON) //
+				.get(new GenericType<List<Person>>() {
+				});
 	}
 }
