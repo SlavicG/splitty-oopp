@@ -150,6 +150,4 @@ public class ServerUtils {
 				.accept(APPLICATION_JSON) //
 				.post(Entity.entity(person, APPLICATION_JSON), Person.class);
 	}
-
-
 }

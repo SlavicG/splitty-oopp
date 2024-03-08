@@ -36,3 +36,21 @@ Note taker:     Abdullah
 # Closing (2 min)
 1. Summary of what has been discussed and what we will be doing during this week. (1 min)
 2. Confirm the date of the next meeting. (1 min)
+
+# Meeting Notes
+1. Everyone was present.
+2. Abdullah passed his git assignment repair.
+3. Everyone passed their knockout criteria.
+4. There were MR's left by abdullah which had been closed or approved during the meeting.
+5. All issues of last week are done. Frontend view wise is done and backend is practically complete. Project backend is shown to Ta 
+6. The 2 teams(backend and frontend) will from now on be divided in to 3 teams of 1 frontend member and 1 backend member.
+7. A new checkstyle issue will be added. For this issue the oop checkstyle will be slightly changed and be added to our project.
+8. An offline meeting will be held at echo on 12:45.
+9. 4 issues were left, all of them are about hooking up backend and frontend. Hooking up expenses and events is assigned to miruna, Users to Slavic and Debt to Slavic.
+10. Bonus feature will be added as issues. 
+11. Ilker will rework Frontend.
+12. Buddy check is this friday.
+13. We asked the ta how the buddy check works.
+14. We asked about feedback and were told that we are on track.
+15. We got some git lab tricks from the Ta.
+16. For Friday Everyone comes up with at least 1 issue. Bonus issues in the backlog. 

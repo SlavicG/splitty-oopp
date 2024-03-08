@@ -23,7 +23,7 @@ class ServerUtilsTest {
         User user = new User(5, "Abdullah", "@email.com", "504", "2323");
         //server.addUsers(user);
         //List<User> user1 = server.getUsers();
-       // assertFalse(user1.contains(user));
+        // assertFalse(user1.contains(user));
     }
 
     @Test
