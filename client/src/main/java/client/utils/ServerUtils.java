@@ -20,6 +20,7 @@ import commons.dto.*;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.ClientConfig;
 
 import java.io.BufferedReader;
@@ -75,6 +76,31 @@ public class ServerUtils {
 				});
 	}
 
+	public User getUserById(int id) {
+		return ClientBuilder.newClient(new ClientConfig()) //
+				.target(configuration.getServerURL()).path("/rest/users/" + id) //
+				.request(APPLICATION_JSON) //
+				.accept(APPLICATION_JSON) //
+				.get(new GenericType<User>() {
+				});
+	}
+
+	public User addUsers(User user) {
+		return ClientBuilder.newClient(new ClientConfig()) //
+				.target(configuration.getServerURL()).path("/rest/users") //
+				.request(APPLICATION_JSON) //
+				.accept(APPLICATION_JSON) //
+				.post(Entity.entity(user, APPLICATION_JSON), User.class);
+	}
+
+	public User updateUser(User user, int id) {
+		return ClientBuilder.newClient(new ClientConfig()) //
+				.target(configuration.getServerURL()).path("/rest/users/" + id) //
+				.request(APPLICATION_JSON) //
+				.accept(APPLICATION_JSON) //
+				.put(Entity.entity(user, APPLICATION_JSON), User.class);
+	}
+
 	public List<Event> getEvents() {
 		return ClientBuilder.newClient(new ClientConfig()) //
 				.target(configuration.getServerURL()).path("/rest/events") //
@@ -82,6 +108,39 @@ public class ServerUtils {
 				.accept(APPLICATION_JSON) //
 				.get(new GenericType<List<Event>>() {
 				});
+	}
+
+	public Event getEventById(int id) {
+		return ClientBuilder.newClient(new ClientConfig()) //
+				.target(configuration.getServerURL()).path("/rest/events/" + id) //
+				.request(APPLICATION_JSON) //
+				.accept(APPLICATION_JSON) //
+				.get(new GenericType<Event>() {
+				});
+	}
+
+	public Event addEvent(Event event) {
+		return ClientBuilder.newClient(new ClientConfig()) //
+				.target(configuration.getServerURL()).path("/rest/events") //
+				.request(APPLICATION_JSON) //
+				.accept(APPLICATION_JSON) //
+				.post(Entity.entity(event, APPLICATION_JSON), Event.class);
+	}
+
+	public Event updateEvent(Event event, int id) {
+		return ClientBuilder.newClient(new ClientConfig()) //
+				.target(configuration.getServerURL()).path("/rest/events/" + id) //
+				.request(APPLICATION_JSON) //
+				.accept(APPLICATION_JSON) //
+				.post(Entity.entity(event, APPLICATION_JSON), Event.class);
+	}
+
+	public Response deleteEvent(int id) {
+		return ClientBuilder.newClient(new ClientConfig()) //
+				.target(configuration.getServerURL()).path("/rest/events/" + id) //
+				.request(APPLICATION_JSON) //
+				.accept(APPLICATION_JSON) //
+				.delete();
 	}
 
 	public List<Expense> getExpenses(int eventId) {
@@ -111,14 +170,6 @@ public class ServerUtils {
 				});
 	}
 
-	public User addUser(User user) {
-		return ClientBuilder.newClient(new ClientConfig()) //
-				.target(configuration.getServerURL()).path("/rest/users") //
-				.request(APPLICATION_JSON) //
-				.accept(APPLICATION_JSON) //
-				.post(Entity.entity(user, APPLICATION_JSON), User.class);
-	}
-
 	public Expense addExpense(Expense expense, int eventId) {
 		return ClientBuilder.newClient(new ClientConfig()) //
 				.target(configuration.getServerURL()).path("/rest/events/" + eventId + "/expenses") //
@@ -133,14 +184,6 @@ public class ServerUtils {
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
 				.post(Entity.entity(debt, APPLICATION_JSON), Debt.class);
-	}
-
-	public Event addEvent(Event event) {
-		return ClientBuilder.newClient(new ClientConfig()) //
-				.target(configuration.getServerURL()).path("/rest/events") //
-				.request(APPLICATION_JSON) //
-				.accept(APPLICATION_JSON) //
-				.post(Entity.entity(event, APPLICATION_JSON), Event.class);
 	}
 
 	public Person addPerson(Person person) {
