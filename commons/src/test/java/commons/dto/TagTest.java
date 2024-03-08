@@ -23,34 +23,45 @@ class TagTest {
 
     @Test
     void getId() {
-
+        assertEquals(1,tag1.getId());
     }
 
     @Test
     void getName() {
+        assertEquals("food", tag1.getName());
     }
 
     @Test
     void getColor() {
+        assertEquals(color1,tag1.getColor());
     }
 
     @Test
     void setId() {
+        tag1.setId(3);
+        assertEquals(3, tag1.getId());
     }
 
     @Test
     void setName() {
+        tag1.setName("food2");
+        assertEquals("food2", tag1.getName());
     }
 
     @Test
     void setColor() {
+        Color color3 = new Color(2);
+        tag1.setColor(color3);
+        assertEquals(color3, tag1.getColor());
     }
 
     @Test
     void testEquals() {
+        assertFalse(tag1.equals(tag2));
     }
 
     @Test
     void testHashCode() {
+        assertNotEquals(tag1.hashCode(), tag2.hashCode());
     }
 }
