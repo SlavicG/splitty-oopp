@@ -46,7 +46,7 @@ public class TestQuoteRepository implements QuoteRepository {
 
     @Override
     public List<Quote> findAll(Sort sort) {
-        // TODO Auto-generated method stub
+        // TODO Auto-generated method ststeaub
         return null;
     }
 

@@ -28,7 +28,6 @@ public class UserController {
 //
 //        return ResponseEntity.ok().build();
 //    }
-
     public User createUser(@RequestBody User user) {
         return userService.createUser(user);}
 

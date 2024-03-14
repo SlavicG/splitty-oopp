@@ -81,6 +81,4 @@ public class QuoteControllerTest {
         }
     }
 
-    public static class TestEventRepository {
-    }
 }
