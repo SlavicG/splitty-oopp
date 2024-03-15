@@ -71,7 +71,7 @@ public class MainCtrl {
         this.participantCtrl = editParticipantPage.getKey();
         this.statisticsPage = new Scene(statisticsPage.getValue());
 
-        showOverview();
+        startPage();
         primaryStage.show();
     }
 
