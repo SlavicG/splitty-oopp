@@ -23,12 +23,12 @@
          <children>
             <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Got an invite code?">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%got_an_invite_code">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Join an event">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%join_an_event">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font>
@@ -38,14 +38,14 @@
                   </Text>
                   <HBox prefWidth="200.0" spacing="10.0">
                      <children>
-                        <TextField fx:id="inviteCode" onAction="#onJoin" promptText="Invite Code" HBox.hgrow="ALWAYS" />
-                        <Button minWidth="100.0" mnemonicParsing="false" onAction="#onJoin" text="Join" />
+                        <TextField fx:id="inviteCode" onAction="#onJoin" promptText="%invite_code" HBox.hgrow="ALWAYS" />
+                        <Button minWidth="100.0" mnemonicParsing="false" onAction="#onJoin" text="%join" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </HBox>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Create a new event">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%create_new_event">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -55,8 +55,8 @@
                   </Text>
                   <HBox layoutX="10.0" layoutY="56.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
-                        <TextField fx:id="eventName" onAction="#onCreateEvent" promptText="Event Name" HBox.hgrow="ALWAYS" />
-                        <Button minWidth="100.0" mnemonicParsing="false" onAction="#onCreateEvent" text="Create" />
+                        <TextField fx:id="eventName" onAction="#onCreateEvent" promptText="%event_name" HBox.hgrow="ALWAYS" />
+                        <Button minWidth="100.0" mnemonicParsing="false" onAction="#onCreateEvent" text="%create" />
                      </children>
                   </HBox>
                   <Text fx:id="invalidEventName" fill="#ff2020" strokeType="OUTSIDE" strokeWidth="0.0" text="Event name may not be empty." visible="false">
@@ -71,7 +71,7 @@
             </VBox>
             <VBox maxWidth="200.0" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PLACEHOLDER EVENT LIST">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%placeholder_event_list">
                      <VBox.margin>
                         <Insets bottom="5.0" />
                      </VBox.margin></Text>
