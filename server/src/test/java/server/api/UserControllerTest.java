@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import server.service.UserService;
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class UserControllerTest {
 
@@ -27,7 +27,7 @@ class UserControllerTest {
         User user = new User();
         user.setName("David");
         server.model.User userEntity = new server.model.User(null, user.getName(), user.getEmail(), user.getIban(), user.getBic(), Collections.emptyList());
-        System.out.println(userController.createUser(user));
+        assertEquals(userController.createUser(user).toString(), "User{id=1, name='David', email='null', iban='null', bic='null'}");
     }
 
 //    @Test
@@ -54,7 +54,7 @@ class UserControllerTest {
         User user5 = new User();
         user5.setName("DavidGogoanaa");
         userController.createUser(user5);
-        System.out.println(userController.getUser(1).toString());
+        assertEquals(userController.getUser(1).toString(), "User{id=1, name='David', email='null', iban='null', bic='null'}");
     }
 
     @Test
@@ -63,7 +63,7 @@ class UserControllerTest {
         user1.setName("David");
         userController.createUser(user1);
         User user = new User();
-        user.setName("Slavic");
+        user.setName("SlavicG");
         userController.createUser(user);
         User user2 = new User();
         user2.setName("DavidGogoana");
@@ -77,6 +77,6 @@ class UserControllerTest {
         User user5 = new User();
         user5.setName("DavidGogoanaa");
         userController.createUser(user5);
-        System.out.println(userController.getUsers().toString());
+        assertEquals(userController.getUsers().toString(),"[User{id=1, name='David', email='null', iban='null', bic='null'}, User{id=2, name='SlavicG', email='null', iban='null', bic='null'}, User{id=3, name='DavidGogoana', email='null', iban='null', bic='null'}, User{id=4, name='DavidDavid', email='null', iban='null', bic='null'}, User{id=5, name='Slavicc', email='null', iban='null', bic='null'}, User{id=6, name='DavidGogoanaa', email='null', iban='null', bic='null'}]" );
     }
 }
