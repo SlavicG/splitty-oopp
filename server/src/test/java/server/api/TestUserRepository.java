@@ -8,11 +8,19 @@ import org.springframework.data.repository.query.FluentQuery;
 import server.database.UserRepository;
 import server.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
 public class TestUserRepository implements UserRepository {
+
+    public final List<User> users = new ArrayList<>();
+    public final List<String> calledMethods = new ArrayList<>();
+    public void call(String name)
+    {
+        calledMethods.add(name);
+    }
     @Override
     public void flush() {
 
@@ -95,7 +103,10 @@ public class TestUserRepository implements UserRepository {
 
     @Override
     public <S extends User> S save(S entity) {
-        return null;
+        call("save");
+        entity.setId(users.size()+1);
+        users.add(entity);
+        return entity;
     }
 
     @Override
@@ -105,7 +116,8 @@ public class TestUserRepository implements UserRepository {
 
     @Override
     public Optional<User> findById(Integer integer) {
-        return Optional.empty();
+        if(integer<=users.size() && integer>0);
+            return users.stream().filter(user -> integer.equals(user.getId())).findFirst();
     }
 
     @Override
@@ -115,7 +127,8 @@ public class TestUserRepository implements UserRepository {
 
     @Override
     public List<User> findAll() {
-        return null;
+        calledMethods.add("findAll");
+        return users;
     }
 
     @Override
