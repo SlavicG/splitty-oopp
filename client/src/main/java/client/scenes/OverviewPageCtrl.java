@@ -33,7 +33,7 @@ public class OverviewPageCtrl implements Initializable {
         this.mainCtrl = mainCtrl;
     }
     public void startPage() {
-        mainCtrl.showOverview();
+        mainCtrl.startPage();
     }
 
     private String[] users = {"name1", "name2", "name3"};

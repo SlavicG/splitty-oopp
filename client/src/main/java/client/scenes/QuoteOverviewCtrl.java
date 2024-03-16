@@ -15,12 +15,8 @@
  */
 package client.scenes;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import com.google.inject.Inject;
-
 import client.utils.ServerUtils;
+import com.google.inject.Inject;
 import commons.dto.Person;
 import commons.dto.Quote;
 import jakarta.ws.rs.WebApplicationException;
@@ -35,6 +31,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class QuoteOverviewCtrl implements Initializable {
 
@@ -90,14 +89,17 @@ public class QuoteOverviewCtrl implements Initializable {
         clearFields();
         mainCtrl.showOverview();
     }
+
     private Quote getQuote2() {
         var q = eventName.getText();
         return new Quote(new Person(q, "no location added"), "No date added");
     }
+
     private void clearFields() {
         eventName.clear();
     }
+
     public void eventPage() {
-        mainCtrl.eventPage();
+        mainCtrl.eventPage(null);
     }
 }

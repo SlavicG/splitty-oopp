@@ -2,19 +2,68 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
+import commons.dto.Event;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
-public class StartPageCtrl {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class StartPageCtrl implements Initializable {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
+
+    @FXML
+    private TextField inviteCode;
+    @FXML
+    private TextField eventName;
+    @FXML
+    private ListView<Event> eventList;
+    @FXML
+    private Text invalidEventName;
+
     @Inject
     public StartPageCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
         this.mainCtrl = mainCtrl;
     }
-    public void showOverview() {
-        mainCtrl.showOverview();
+
+    public void onJoin() {
+        // TODO: Get the event corresponding to this invite code.
+        mainCtrl.eventPage(null);
     }
-    public void OverviewPage(){
-        mainCtrl.overviewPage();
+
+    public void refresh() {
+        eventList.getItems().clear();
+        for (Event event : server.getEvents()) {
+            eventList.getItems().add(event);
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        refresh();
+    }
+
+    public void onEventSelected() {
+        Event selection = eventList.getSelectionModel().getSelectedItem();
+        mainCtrl.eventPage(selection);
+    }
+
+    public void onCreateEvent() {
+        // Make sure the event name isn't blank.
+        // This is probably better checked server-side, but this will do for now.
+        if (eventName.getText().isEmpty()) {
+            invalidEventName.setVisible(true);
+            return;
+        }
+        invalidEventName.setVisible(false);
+        Event event = new Event();
+        event.setTitle(eventName.getText());
+        server.addEvent(event);
+        mainCtrl.eventPage(event);
     }
 }

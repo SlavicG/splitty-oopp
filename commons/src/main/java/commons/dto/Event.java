@@ -68,4 +68,10 @@ public class Event {
     public int hashCode() {
         return Objects.hash(id, title, usersIds, expenses);
     }
+
+    // Used by the ListView on the startpage, hence the rather useless return value.
+    @Override
+    public String toString() {
+        return title;
+    }
 }
