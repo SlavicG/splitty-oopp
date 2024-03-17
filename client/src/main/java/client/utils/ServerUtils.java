@@ -152,6 +152,15 @@ public class ServerUtils {
 				});
 	}
 
+	public Expense getExpenseById(int eventId, int expenseId) {
+		return ClientBuilder.newClient(new ClientConfig()) //
+				.target(configuration.getServerURL()).path("/rest/events/" + eventId + "/expenses/" + expenseId) //
+				.request(APPLICATION_JSON) //
+				.accept(APPLICATION_JSON) //
+				.get(new GenericType<Expense>() {
+				});
+	}
+
 	public Expense addExpense(Expense expense, int eventId) {
 		return ClientBuilder.newClient(new ClientConfig()) //
 				.target(configuration.getServerURL()).path("/rest/events/" + eventId + "/expenses") //
