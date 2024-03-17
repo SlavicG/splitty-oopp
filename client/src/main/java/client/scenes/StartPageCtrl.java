@@ -33,7 +33,7 @@ public class StartPageCtrl implements Initializable {
 
     public void onJoin() {
         // TODO: Get the event corresponding to this invite code.
-        mainCtrl.eventPage(null);
+        inviteCode.setText(null);
     }
 
     public void refresh() {
