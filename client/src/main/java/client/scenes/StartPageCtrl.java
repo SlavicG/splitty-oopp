@@ -33,7 +33,7 @@ public class StartPageCtrl implements Initializable {
 
     public void onJoin() {
         // TODO: Get the event corresponding to this invite code.
-        mainCtrl.eventPage(null);
+        inviteCode.setText(null);
     }
 
     public void refresh() {
@@ -50,7 +50,10 @@ public class StartPageCtrl implements Initializable {
 
     public void onEventSelected() {
         Event selection = eventList.getSelectionModel().getSelectedItem();
-        mainCtrl.eventPage(selection);
+        if (selection == null) {
+            return;
+        }
+        mainCtrl.eventPage(selection.getId());
     }
 
     public void onCreateEvent() {
@@ -63,7 +66,8 @@ public class StartPageCtrl implements Initializable {
         invalidEventName.setVisible(false);
         Event event = new Event();
         event.setTitle(eventName.getText());
-        server.addEvent(event);
-        mainCtrl.eventPage(event);
+        Event finalEvent = server.addEvent(event);
+        mainCtrl.eventPage(finalEvent.getId());
+        eventName.setText(null);
     }
 }
