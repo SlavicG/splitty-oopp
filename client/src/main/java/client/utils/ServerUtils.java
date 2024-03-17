@@ -132,7 +132,7 @@ public class ServerUtils {
 				.target(configuration.getServerURL()).path("/rest/events/" + id) //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
-				.post(Entity.entity(event, APPLICATION_JSON), Event.class);
+				.put(Entity.entity(event, APPLICATION_JSON), Event.class);
 	}
 
 	public Response deleteEvent(int id) {

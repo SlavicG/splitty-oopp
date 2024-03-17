@@ -2,6 +2,7 @@ package commons.dto;
 
 import org.junit.jupiter.api.Test;
 
+import java.security.spec.ECField;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +21,18 @@ class EventTest {
     void setId() {
         Event event = new Event(1, "party", null, null);
         event.setId(2);
+        Event event1 = new Event();
+        event1.setId(1);
         assertEquals(2, event.getId());
+        assertEquals(1,event1.getId());
     }
 
     @Test
     void getTitle() {
         Event event = new Event(1, "party", null, null);
+        Event event1 = new Event();
+        event1.setId(1);
+        assertEquals(1,event1.getId());
         assertEquals("party", event.getTitle());
     }
 
@@ -33,7 +40,10 @@ class EventTest {
     void setTitle() {
         Event event = new Event(1, "party", null, null);
         event.setTitle("partyZ");
+        Event event1 = new Event();
+        event1.setTitle("snackbar visit");
         assertEquals("partyZ", event.getTitle());
+        assertEquals(event1.getTitle(), "snackbar visit");
     }
 
     @Test

@@ -14,6 +14,11 @@ public class Event {
 
     }
 
+    public Event(String title, List<Integer> usersIds) {
+        this.title = title;
+        this.usersIds = usersIds;
+    }
+
     public Event(Integer id, String title, List<Integer> usersIds, List<Expense> expenses) {
         this.id = id;
         this.title = title;
