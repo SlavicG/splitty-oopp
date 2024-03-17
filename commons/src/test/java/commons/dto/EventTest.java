@@ -82,13 +82,25 @@ class EventTest {
     void testEquals() {
         Event event = new Event(1, "party", null, null);
         Event event2 = new Event(1, "party", null, null);
-        assertTrue(event.equals(event2));
+        Event event1 = new Event();
+        event1.setTitle("party");
+        event1.setId(1);
+        event1.setExpenses(null);
+        event1.setUsers(null);
+        assertEquals(event1, event);
+        assertEquals(event, event2);
     }
 
     @Test
     void testHashCode() {
         Event event = new Event(1, "party", null, null);
         Event event2 = new Event(1, "party", null, null);
+        Event event1 = new Event();
+        event1.setTitle("party");
+        event1.setId(1);
+        event1.setExpenses(null);
+        event1.setUsers(null);
+        assertEquals(event1, event);
         assertEquals(event, event2);
     }
 
