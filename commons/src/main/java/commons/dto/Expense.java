@@ -10,7 +10,7 @@ public class Expense {
     private Double amount;
     private String description;
     private Integer payerId;
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
     public Expense(Integer id, Double amount, String description, Integer payerId, LocalDate date) {
@@ -70,7 +70,11 @@ public class Expense {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Expense expense = (Expense) o;
-        return Objects.equals(id, expense.id) && Objects.equals(amount, expense.amount) && Objects.equals(description, expense.description) && Objects.equals(payerId, expense.payerId) && Objects.equals(date, expense.date);
+        return Objects.equals(id, expense.id) &&
+                Objects.equals(amount, expense.amount) &&
+                Objects.equals(description, expense.description) &&
+                Objects.equals(payerId, expense.payerId) &&
+                Objects.equals(date, expense.date);
     }
 
     @Override

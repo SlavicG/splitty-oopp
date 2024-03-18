@@ -44,8 +44,12 @@ public class MainCtrl {
     private Scene add;
 
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-            Pair<AddQuoteCtrl, Parent> add, Pair<StartPageCtrl, Parent> startPage, Pair<OverviewPageCtrl, Parent> overviewPage, Pair<InvitationPageCtrl, Parent> invitationPage,
-                           Pair<AddParticipantCtrl, Parent> addParticipantPage,Pair<AddExpenseCtrl, Parent> addExpensePage,
+                           Pair<AddQuoteCtrl, Parent> add,
+                           Pair<StartPageCtrl, Parent> startPage,
+                           Pair<OverviewPageCtrl, Parent> overviewPage,
+                           Pair<InvitationPageCtrl, Parent> invitationPage,
+                           Pair<AddParticipantCtrl, Parent> addParticipantPage,
+                           Pair<AddExpenseCtrl, Parent> addExpensePage,
                            Pair<StatisticsPageCtrl, Parent> statisticsPage) {
 
         this.primaryStage = primaryStage;
@@ -82,20 +86,24 @@ public class MainCtrl {
         primaryStage.setScene(add);
         add.setOnKeyPressed(e -> addCtrl.keyPressed(e));
     }
+
     public void startPage() {
         primaryStage.setTitle("Start Page");
         primaryStage.setScene(startPage);
         startPageCtrl.refresh();
     }
-    public void overviewPage(){
+
+    public void overviewPage() {
         primaryStage.setTitle("Overview Page");
         primaryStage.setScene(overviewPage);
     }
-    public void invitationPage(Label name){
+
+    public void invitationPage(Label name) {
         primaryStage.setTitle("Invitation Page");
         invitationPageCtrl.setName(name);
         primaryStage.setScene(invitationPage);
     }
+
     public void addParticipantPage(Integer eventId, Integer userId) {
         primaryStage.setTitle("Add Participant Page");
         addParticipantPageCtrl.setEvent(eventId);
@@ -117,6 +125,7 @@ public class MainCtrl {
         addExpenseCtrl.setExpenseId(expenseId);
         primaryStage.setScene(addExpensePage);
     }
+
     public void statisticsPage() {
         primaryStage.setTitle("Statistics Page");
         primaryStage.setScene(statisticsPage);

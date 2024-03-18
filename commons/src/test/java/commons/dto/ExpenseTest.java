@@ -89,12 +89,12 @@ class ExpenseTest {
     @Test
     void testEquals() {
         assertEquals(expense1, expense2);
-        assertEquals(expense2,expense3);
+        assertEquals(expense2, expense3);
     }
 
     @Test
     void testHashcode() {
         assertEquals(expense1.hashCode(), expense2.hashCode());
-        assertEquals(expense2.hashCode(),expense3.hashCode());
+        assertEquals(expense2.hashCode(), expense3.hashCode());
     }
 }

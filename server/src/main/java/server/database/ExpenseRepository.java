@@ -6,7 +6,7 @@ import server.model.Expense;
 
 import java.util.List;
 
-public interface ExpenseRepository  extends JpaRepository<Expense, Integer> {
+public interface ExpenseRepository extends JpaRepository<Expense, Integer> {
     @Query("SELECT e FROM Expense e WHERE e.event.id = :eventId")
     List<Expense> findAllByEventId(Integer eventId);
 }

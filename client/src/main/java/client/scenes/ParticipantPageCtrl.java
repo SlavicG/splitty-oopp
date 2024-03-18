@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
 
-public class ParticipantPageCtrl  {
+public class ParticipantPageCtrl {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
 
@@ -19,13 +19,16 @@ public class ParticipantPageCtrl  {
         this.server = server;
         this.mainCtrl = mainCtrl;
     }
+
     public void setName(String name) {
         this.name.setText(name);
         initialName = name;
     }
+
     public void abort() {
         this.name.setText(initialName);
     }
+
     public void overview() {
         mainCtrl.overviewPage();
     }

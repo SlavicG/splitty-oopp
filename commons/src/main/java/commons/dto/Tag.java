@@ -42,7 +42,9 @@ public class Tag {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Tag tag)) return false;
-        return getId() == tag.getId() && Objects.equals(getName(), tag.getName()) && Objects.equals(getColor(), tag.getColor());
+        return getId() == tag.getId() &&
+                Objects.equals(getName(), tag.getName()) &&
+                Objects.equals(getColor(), tag.getColor());
     }
 
     @Override

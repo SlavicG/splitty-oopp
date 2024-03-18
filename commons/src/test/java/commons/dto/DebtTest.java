@@ -31,6 +31,7 @@ public class DebtTest {
     void getId() {
         assertEquals(1, d1.getId());
     }
+
     @Test
     void testSetId() {
         d1.setId(2);
@@ -62,25 +63,25 @@ public class DebtTest {
     }
 
     @Test
-    void getAmount(){
+    void getAmount() {
         assertEquals(amount, d1.getAmount());
     }
 
     @Test
-    void setAmount(){
+    void setAmount() {
         Double newAmount = 16.;
         d1.setAmount(newAmount);
-        assertEquals(d1.getAmount(),newAmount);
+        assertEquals(d1.getAmount(), newAmount);
     }
 
     @Test
-    void testEquals(){
-        assertEquals(d2,d3);
+    void testEquals() {
+        assertEquals(d2, d3);
     }
 
     @Test
-    void testHashCode(){
-        assertEquals(d2.hashCode(),d3.hashCode());
+    void testHashCode() {
+        assertEquals(d2.hashCode(), d3.hashCode());
     }
 
 

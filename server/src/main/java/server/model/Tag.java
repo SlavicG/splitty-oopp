@@ -10,11 +10,15 @@ import java.util.Objects;
 @Table(name = "tags")
 public class Tag {
     private @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id;
+        @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id;
     private String name;
     private Color color;
-    @OneToMany @JoinColumn(name ="expense_id") private List<Expense> expenses;
-    @ManyToOne @JoinColumn(name ="event_id") private Event event;
+    @OneToMany
+    @JoinColumn(name = "expense_id")
+    private List<Expense> expenses;
+    @ManyToOne
+    @JoinColumn(name = "event_id")
+    private Event event;
 
     public Tag(Integer id, String name, Color color, List<Expense> expenses, Event event) {
         this.id = id;
@@ -72,7 +76,11 @@ public class Tag {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Tag tag)) return false;
-        return Objects.equals(getId(), tag.getId()) && Objects.equals(getName(), tag.getName()) && Objects.equals(getColor(), tag.getColor()) && Objects.equals(getExpenses(), tag.getExpenses()) && Objects.equals(getEvent(), tag.getEvent());
+        return Objects.equals(getId(), tag.getId()) &&
+                Objects.equals(getName(), tag.getName()) &&
+                Objects.equals(getColor(), tag.getColor()) &&
+                Objects.equals(getExpenses(), tag.getExpenses()) &&
+                Objects.equals(getEvent(), tag.getEvent());
     }
 
     @Override
