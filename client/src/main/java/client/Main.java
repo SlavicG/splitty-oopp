@@ -45,13 +45,14 @@ public class Main extends Application {
         var add = FXML.load(AddQuoteCtrl.class, bundle, "client", "scenes", "AddQuote.fxml");
         var startPage = FXML.load(StartPageCtrl.class, bundle, "client", "scenes", "StartPage.fxml");
         var overviewPage = FXML.load(OverviewPageCtrl.class, bundle, "client", "scenes", "OverviewPage.fxml");
-        var invitationPage = FXML.load(InvitationPageCtrl.class, bundle, "client", "scenes","InvitationPage.fxml");
+        var invitationPage = FXML.load(InvitationPageCtrl.class, bundle, "client", "scenes", "InvitationPage.fxml");
         var addParticipant = FXML.load(AddParticipantCtrl.class, bundle, "client", "scenes", "AddParticipantPage.fxml");
         var addExpensePage = FXML.load(AddExpenseCtrl.class, bundle, "client", "scenes", "AddExpense.fxml");
         var statisticsPage = FXML.load(StatisticsPageCtrl.class, bundle, "client", "scenes", "StatisticsPage.fxml");
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, overview, add, startPage, overviewPage, invitationPage, addParticipant, addExpensePage, statisticsPage);
+        mainCtrl.initialize(primaryStage, overview, add, startPage, overviewPage, invitationPage,
+                addParticipant, addExpensePage, statisticsPage);
 
     }
 }

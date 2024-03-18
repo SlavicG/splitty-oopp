@@ -8,13 +8,14 @@ import java.util.Objects;
 @Entity
 @Table(name = "expenses")
 public class Expense {
-    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id;
+    private @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id;
     private Double amount;
     private String description;
     private @ManyToOne User payer;
     private LocalDate date;
     private @ManyToOne
-    @JoinColumn(name = "event_id") Event event;
+        @JoinColumn(name = "event_id") Event event;
 
     public Expense() {
 
@@ -36,7 +37,6 @@ public class Expense {
         this.payer = payer;
         this.date = date;
     }
-
 
 
     public Integer getId() {
@@ -104,7 +104,12 @@ public class Expense {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Expense expense = (Expense) o;
-        return Objects.equals(id, expense.id) && Objects.equals(amount, expense.amount) && Objects.equals(description, expense.description) && Objects.equals(payer, expense.payer) && Objects.equals(date, expense.date) && Objects.equals(event, expense.event);
+        return Objects.equals(id, expense.id) &&
+                Objects.equals(amount, expense.amount) &&
+                Objects.equals(description, expense.description) &&
+                Objects.equals(payer, expense.payer) &&
+                Objects.equals(date, expense.date) &&
+                Objects.equals(event, expense.event);
     }
 
     @Override

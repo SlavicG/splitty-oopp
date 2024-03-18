@@ -23,7 +23,7 @@ class TagTest {
 
     @Test
     void getId() {
-        assertEquals(1,tag1.getId());
+        assertEquals(1, tag1.getId());
     }
 
     @Test

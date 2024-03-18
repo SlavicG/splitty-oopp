@@ -17,10 +17,11 @@ public class TestUserRepository implements UserRepository {
 
     public final List<User> users = new ArrayList<>();
     public final List<String> calledMethods = new ArrayList<>();
-    public void call(String name)
-    {
+
+    public void call(String name) {
         calledMethods.add(name);
     }
+
     @Override
     public void flush() {
 
@@ -97,14 +98,15 @@ public class TestUserRepository implements UserRepository {
     }
 
     @Override
-    public <S extends User, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends User, R> R findBy(Example<S> example,
+                                        Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return null;
     }
 
     @Override
     public <S extends User> S save(S entity) {
         call("save");
-        entity.setId(users.size()+1);
+        entity.setId(users.size() + 1);
         users.add(entity);
         return entity;
     }
@@ -116,8 +118,8 @@ public class TestUserRepository implements UserRepository {
 
     @Override
     public Optional<User> findById(Integer integer) {
-        if(integer<=users.size() && integer>0);
-            return users.stream().filter(user -> integer.equals(user.getId())).findFirst();
+        if (integer <= users.size() && integer > 0) ;
+        return users.stream().filter(user -> integer.equals(user.getId())).findFirst();
     }
 
     @Override

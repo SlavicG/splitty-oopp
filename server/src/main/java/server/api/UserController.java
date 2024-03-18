@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import server.service.UserService;
 
 
-
 import java.util.List;
 
 @Controller
@@ -20,6 +19,7 @@ public class UserController {
         this.userService = userService;
 
     }
+
     @PostMapping
     @ResponseBody
 //    public ResponseEntity<User> createUser(@RequestBody User user) {
@@ -29,26 +29,27 @@ public class UserController {
 //        return ResponseEntity.ok().build();
 //    }
     public User createUser(@RequestBody User user) {
-        return userService.createUser(user);}
+        return userService.createUser(user);
+    }
 
     @PutMapping("/{id}")
     @ResponseBody
-    public User updateUser (@PathVariable Integer id, @RequestBody User user) throws BadRequestException{
-        if(user.getId() != id) throw new BadRequestException();
+    public User updateUser(@PathVariable Integer id, @RequestBody User user) throws BadRequestException {
+        if (user.getId() != id) throw new BadRequestException();
         return userService.updateUser(user);
     }
+
     @GetMapping("/{id}")
     @ResponseBody
-    public User getUser (@PathVariable Integer id) {
+    public User getUser(@PathVariable Integer id) {
         return userService.getUserById(id);
     }
+
     @GetMapping
     @ResponseBody
-    public List<User> getUsers () {
+    public List<User> getUsers() {
         return userService.getUsers();
     }
-
-
 
 
 }

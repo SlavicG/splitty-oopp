@@ -4,6 +4,7 @@ import commons.dto.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import server.service.UserService;
+
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,21 +17,24 @@ class UserControllerTest {
     private UserController userController;
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
         testUserRepository = new TestUserRepository();
         testEventRepository = new TestEventRepository();
         userService = new UserService(testEventRepository, testUserRepository);
         userController = new UserController(userService);
     }
+
     @Test
     void createUser() {
         User user = new User();
         user.setName("David");
-        server.model.User userEntity = new server.model.User(null, user.getName(), user.getEmail(), user.getIban(), user.getBic(), Collections.emptyList());
-        assertEquals(userController.createUser(user).toString(), "User{id=1, name='David', email='null', iban='null', bic='null'}");
+        server.model.User userEntity = new server.model.User(null,
+                user.getName(), user.getEmail(), user.getIban(), user.getBic(), Collections.emptyList());
+        assertEquals(userController.createUser(user).toString(),
+                "User{id=1, name='David', email='null', iban='null', bic='null'}");
     }
 
-//    @Test
+    //    @Test
 //    void updateUser() {
 //    }
 //
@@ -54,7 +58,8 @@ class UserControllerTest {
         User user5 = new User();
         user5.setName("DavidGogoanaa");
         userController.createUser(user5);
-        assertEquals(userController.getUser(1).toString(), "User{id=1, name='David', email='null', iban='null', bic='null'}");
+        assertEquals(userController.getUser(1).toString(),
+                "User{id=1, name='David', email='null', iban='null', bic='null'}");
     }
 
     @Test
@@ -77,6 +82,12 @@ class UserControllerTest {
         User user5 = new User();
         user5.setName("DavidGogoanaa");
         userController.createUser(user5);
-        assertEquals(userController.getUsers().toString(),"[User{id=1, name='David', email='null', iban='null', bic='null'}, User{id=2, name='SlavicG', email='null', iban='null', bic='null'}, User{id=3, name='DavidGogoana', email='null', iban='null', bic='null'}, User{id=4, name='DavidDavid', email='null', iban='null', bic='null'}, User{id=5, name='Slavicc', email='null', iban='null', bic='null'}, User{id=6, name='DavidGogoanaa', email='null', iban='null', bic='null'}]" );
+        assertEquals(userController.getUsers().toString(),
+                "[User{id=1, name='David', email='null', iban='null', bic='null'}, " +
+                        "User{id=2, name='SlavicG', email='null', iban='null', bic='null'}, " +
+                        "User{id=3, name='DavidGogoana', email='null', iban='null', bic='null'}, " +
+                        "User{id=4, name='DavidDavid', email='null', iban='null', bic='null'}, " +
+                        "User{id=5, name='Slavicc', email='null', iban='null', bic='null'}, " +
+                        "User{id=6, name='DavidGogoanaa', email='null', iban='null', bic='null'}]");
     }
 }
