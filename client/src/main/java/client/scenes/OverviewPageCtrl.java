@@ -86,7 +86,7 @@ public class OverviewPageCtrl implements Initializable {
     }
 
     public void invitation() {
-        mainCtrl.invitationPage(eventName);
+        mainCtrl.invitationPage(eventName, eventId);
     }
 
     public void addParticipant() {
