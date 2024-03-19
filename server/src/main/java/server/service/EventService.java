@@ -56,8 +56,8 @@ public class EventService {
         returnEvent.setTitle(event.getTitle());
         returnEvent.setUsers(getUserIds(event.getUsers()));
         if(event.getExpenses()!=null){
-            returnEvent.setExpenses
-                    (expenseRepository.findAll().stream().map(mapper).toList());
+            returnEvent.setExpenses(expenseRepository.findAll().stream().
+                    map(mapper).toList());
         }
         return returnEvent;
     }
