@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 import server.service.EventService;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/rest/events")
@@ -64,8 +65,9 @@ public class EventController {
 
     @GetMapping("/{event_id}/debts")
     @ResponseBody
-    public Double getAllDebts(@PathVariable Integer event_id){
-        return eventService.getAllDebtsInEvent( event_id);
+    public Map<Integer,Double> getAllDebts(@PathVariable Integer event_id){
+        Map<Integer,Double> mapa =  eventService.getAllDebtsInEvent( event_id);
+        return mapa;
     }
     @GetMapping("/{event_id}/users/{user_id}/debt")
     @ResponseBody
