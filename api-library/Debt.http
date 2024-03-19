@@ -1,6 +1,0 @@
-http://127.0.0.1:8080/rest/events/1/users/1/debt
-Accept: application/json
-
-### Get all debts from an event
-http://127.0.0.1:8080/rest/events/1/debts
-Accept: application/json
