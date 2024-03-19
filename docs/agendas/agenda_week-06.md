@@ -48,3 +48,21 @@ Note taker:     {Ilker kiliç}
 19. Confirm the date of the next meeting. (1 min)
 
 # Meeting Notes
+1. Everyone is present.
+2. Everyone completed
+3. Ilker: Frontend backend hook-up
+   Slavic: Checkstyle done
+4.  Reminder about HCI assigment: Usability & Accessibility features, fail/pass criteria.
+    Reminder about buddycheck feedback.
+5. Demo: E-mail & Frontend rework shown
+6. David takes over issue #18 (Admin view)>
+   Kinga is working on issues related to debts, one merge request is ready for review.
+   Miruna made Tag class, but Expense class still has to be modified to store Tags.
+   Slavic takes over issue #19 and will attempt creating the program live-update.
+   Ilker will continue frontend redesign. He will also create an 'add user' API in the Expense API path.
+7. Clarification on the product pitch assignment by TA: It is a draft of the final presentation, something like a script for how one would present/demo the program.
+    ADDENDUM: On Brightspace, there is now a description of the product pitch assignment. 
+8. Slavic will not be able to attend next tuesday's meeting.
+   TA clarifies moving the meeting not possible. Slavic will try to attend the meeting online, or else attempt to get an exemption.
+9. Team agrees that the mindset for this week is to accelerate work to catch up on the slow flow during midterm weeks to retain speed advantage.
+10. The team will meet again on friday: 12:30-13:35 at Sun, TU Delft Library.
