@@ -6,16 +6,30 @@ import commons.dto.Event;
 import server.database.UserRepository;
 import server.model.User;
 
+import commons.dto.Expense;
+import server.database.ExpenseRepository;
+
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 @Service
 public class EventService {
     private final EventRepository eventRepository;
+    private final ExpenseRepository expenseRepository;
     private final UserRepository userRepository;
-    
-    public EventService(EventRepository eventRepository, UserRepository userRepository) {
+
+
+    private Function<server.model.Expense, Expense> mapper = expense -> new commons.dto.Expense(
+            expense.getId(),
+            expense.getAmount(),
+            expense.getDescription(),
+            expense.getPayer().getId(),
+            expense.getDate());
+
+    public EventService(EventRepository eventRepository, ExpenseRepository expenseRepository, UserRepository userRepository) {
         this.eventRepository = eventRepository;
+        this.expenseRepository = expenseRepository;
         this.userRepository = userRepository;
     }
     
@@ -35,6 +49,9 @@ public class EventService {
         returnEvent.setId(event.getId());
         returnEvent.setTitle(event.getTitle());
         returnEvent.setUsers(getUserIds(event.getUsers()));
+        if(event.getExpenses()!=null){
+            returnEvent.setExpenses(expenseRepository.findAll().stream().map(mapper).toList());
+        }
         return returnEvent;
     }
 
@@ -77,6 +94,40 @@ public class EventService {
     private static List<Integer> getUserIds(List<User> users) {
         return users.stream().map(it -> it.getId()).toList();
     }
+
+
+
+
+    //calculate all debts between all users
+    public Double getAllDebtsInEvent(Integer event_id){
+        Event event = getEventById(event_id);
+        double sum = event.getExpenses().stream()
+                .mapToDouble(expense -> expense.getAmount())
+                .sum();
+        sum = sum/event.getUserIds().size();
+        return sum;
+    }
+    //calculate a debt of a give user
+    public Double getDebtOfaUser(Integer id,Integer event_id){
+        Event event = getEventById(event_id);
+        double fullAmount = event.getExpenses().stream()
+                .mapToDouble(expense -> expense.getAmount())
+                .sum();
+        fullAmount = fullAmount/event.getUserIds().size();
+
+
+
+        //Amount of money spend on expenses in all the
+        double amountPayed = event.getExpenses().stream().
+                filter(expense -> expense.getPayerId().equals(id))
+                .mapToDouble(expense -> expense.getAmount())
+                .sum();
+
+        double debt = fullAmount - amountPayed;
+        return debt;
+    }
+
+
 }
 
 
