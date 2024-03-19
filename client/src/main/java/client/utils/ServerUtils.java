@@ -111,7 +111,7 @@ public class ServerUtils {
                 });
     }
 
-    public Event getEventById(int id) {
+    public Event getEventById(Integer id) {
         return ClientBuilder.newClient(new ClientConfig()) //
                 .target(configuration.getServerURL()).path("/rest/events/" + id) //
                 .request(APPLICATION_JSON) //
@@ -227,5 +227,11 @@ public class ServerUtils {
                 .accept(APPLICATION_JSON) //
                 .get(new GenericType<List<Person>>() {
                 });
+    }
+    public Mail sendEmail(Mail mailRequest) {
+        return ClientBuilder.newClient(new ClientConfig()).
+                target(configuration.getServerURL())
+                .path("rest/mail").request(APPLICATION_JSON).accept(APPLICATION_JSON)
+                .post(Entity.entity(mailRequest, APPLICATION_JSON), Mail.class);
     }
 }

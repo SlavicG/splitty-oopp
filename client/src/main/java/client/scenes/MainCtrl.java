@@ -42,7 +42,6 @@ public class MainCtrl {
     private InvitationPageCtrl invitationPageCtrl;
     private AddExpenseCtrl addExpenseCtrl;
     private Scene add;
-
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
                            Pair<AddQuoteCtrl, Parent> add,
                            Pair<StartPageCtrl, Parent> startPage,
@@ -98,9 +97,12 @@ public class MainCtrl {
         primaryStage.setScene(overviewPage);
     }
 
-    public void invitationPage(Label name) {
+    public void invitationPage(Label name, Integer eventId) {
         primaryStage.setTitle("Invitation Page");
+        invitationPageCtrl.setEvent(eventId);
+        invitationPageCtrl.clear();
         invitationPageCtrl.setName(name);
+        invitationPageCtrl.refresh();
         primaryStage.setScene(invitationPage);
     }
 
