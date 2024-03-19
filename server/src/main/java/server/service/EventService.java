@@ -113,9 +113,10 @@ public class EventService {
     public Double getDebtOfaUser(Integer id,Integer event_id){
         Event event = getEventById(event_id);
         double fullAmount = event.getExpenses().stream()
-                .mapToDouble(expense -> expense.getAmount())
+                .filter(expense -> expense.getSplitBetween().contains(id))
+                .mapToDouble(expense -> expense.getAmount()/expense.getSplitBetween().size())
                 .sum();
-        fullAmount = fullAmount/event.getUserIds().size();
+//        fullAmount = fullAmount/event.getUserIds().size();
 
 
 
