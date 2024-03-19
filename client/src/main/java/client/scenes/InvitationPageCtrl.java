@@ -47,15 +47,18 @@ public class InvitationPageCtrl implements Initializable {
         this.event = server.getEventById(eventid);
     }
     public void sendEmails() {
-        String toEmail = emails_box.getText();
-        if(toEmail == null || toEmail.isBlank()) {
+        String toEmails = emails_box.getText();
+        if(toEmails == null || toEmails.isBlank()) {
             System.out.println("Bad email request");
             return;
         }
-        Mail mailRequest = new Mail(toEmail,
-                "Invite Code to Splitty!",
-                "Here is the invite code to the Event: " + code.getText());
-        server.sendEmail(mailRequest);
+        String[] emails = toEmails.split(System.lineSeparator());
+        for(int i = 0; i < emails.length; ++i) {
+            Mail mailRequest = new Mail(emails[i],
+                    "Invite Code to Splitty!",
+                    "Here is the invite code to the Event: " + code.getText());
+            server.sendEmail(mailRequest);
+        }
         emails_box.clear();
     }
     public void clear() {
