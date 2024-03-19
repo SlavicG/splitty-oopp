@@ -40,7 +40,9 @@ public class ExpenseService {
                 expense.getDate());
     }
 
-    protected ExpenseService(ExpenseRepository expenseRepository, UserRepository userRepository, EventRepository eventRepository) {
+    protected ExpenseService(ExpenseRepository expenseRepository,
+                             UserRepository userRepository,
+                             EventRepository eventRepository) {
         this.expenseRepository = expenseRepository;
         this.userRepository = userRepository;
         this.eventRepository = eventRepository;
@@ -57,16 +59,25 @@ public class ExpenseService {
     @Transactional
     public Expense createExpense(Integer eventId, Expense expense) {
         server.model.Event event = eventRepository.getById(eventId);
-        server.model.Expense expenseEntity = new server.model.Expense(null, expense.getAmount(), expense.getDescription(), getUserById(expense.getPayerId()), expense.getDate(), event);
+        server.model.Expense expenseEntity = new server.model.Expense(
+                null,
+                expense.getAmount(),
+                expense.getDescription(),
+                getUserById(expense.getPayerId()),
+                expense.getDate(),
+                event);
 //        event.getExpenses().add(expenseEntity);
         List<server.model.Expense> listExpensesPrev = event.getExpenses();
         listExpensesPrev.add(expenseEntity);
         event.setExpenses(listExpensesPrev);
 
-
         eventRepository.save(event);
         server.model.Expense createdEntity = expenseRepository.save(expenseEntity);
-        return new Expense(createdEntity.getId(), expense.getAmount(), expense.getDescription(), expense.getPayerId(), expense.getDate());
+        return new Expense(createdEntity.getId(),
+                expense.getAmount(),
+                expense.getDescription(),
+                expense.getPayerId(),
+                expense.getDate());
     }
 
     public Expense updateExpense(Integer eventId, Expense expense) {

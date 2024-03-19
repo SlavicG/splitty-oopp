@@ -1,5 +1,7 @@
 package commons.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -66,7 +68,10 @@ public class Event {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Event event = (Event) o;
-        return Objects.equals(id, event.id) && Objects.equals(title, event.title) && Objects.equals(usersIds, event.usersIds) && Objects.equals(expenses, event.expenses);
+        return Objects.equals(id, event.id) &&
+                Objects.equals(title, event.title) &&
+                Objects.equals(usersIds, event.usersIds) &&
+                Objects.equals(expenses, event.expenses);
     }
 
     @Override
@@ -78,5 +83,17 @@ public class Event {
     @Override
     public String toString() {
         return title;
+    }
+
+    @JsonIgnore
+    public String getCode() {
+        int x = this.getId();
+        String s = "";
+        for(int i = 0; i < 10; ++i) {
+            Character c = (char)('A' + x % 10);
+            x /= 10;
+            s = s + c.toString();
+        }
+        return s;
     }
 }

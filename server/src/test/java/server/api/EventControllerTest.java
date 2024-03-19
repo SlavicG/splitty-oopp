@@ -15,7 +15,7 @@ import java.util.function.Function;
 public class EventControllerTest implements EventRepository {
     @Override
     public void flush() {
-        
+
     }
 
     @Override
@@ -89,7 +89,8 @@ public class EventControllerTest implements EventRepository {
     }
 
     @Override
-    public <S extends Event, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends Event, R> R findBy(Example<S> example,
+                                         Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return null;
     }
 

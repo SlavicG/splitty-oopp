@@ -15,14 +15,11 @@
  */
 package client.scenes;
 
-import commons.dto.Event;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-
-import java.util.List;
 
 public class MainCtrl {
 
@@ -33,23 +30,25 @@ public class MainCtrl {
     private Scene startPage;
     private StartPageCtrl startPageCtrl;
     private Scene overviewPage;
+    private OverviewPageCtrl overviewPageCtrl;
     private Scene invitationPage;
-    private Scene participantPage;
-    private Scene editParticipantPage;
+    private Scene addParticipantPage;
+    private AddParticipantCtrl addParticipantPageCtrl;
     private Scene addExpensePage;
     private Scene statisticsPage;
 
     private AddQuoteCtrl addCtrl;
 
-    private ParticipantPageCtrl participantCtrl;
-
     private InvitationPageCtrl invitationPageCtrl;
     private AddExpenseCtrl addExpenseCtrl;
     private Scene add;
-
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-            Pair<AddQuoteCtrl, Parent> add, Pair<StartPageCtrl, Parent> startPage, Pair<OverviewPageCtrl, Parent> overviewPage, Pair<InvitationPageCtrl, Parent> invitationPage,
-                           Pair<AddParticipantCtrl, Parent> participantPage, Pair<ParticipantPageCtrl, Parent> editParticipantPage,Pair<AddExpenseCtrl, Parent> addExpensePage,
+                           Pair<AddQuoteCtrl, Parent> add,
+                           Pair<StartPageCtrl, Parent> startPage,
+                           Pair<OverviewPageCtrl, Parent> overviewPage,
+                           Pair<InvitationPageCtrl, Parent> invitationPage,
+                           Pair<AddParticipantCtrl, Parent> addParticipantPage,
+                           Pair<AddExpenseCtrl, Parent> addExpensePage,
                            Pair<StatisticsPageCtrl, Parent> statisticsPage) {
 
         this.primaryStage = primaryStage;
@@ -62,13 +61,13 @@ public class MainCtrl {
         this.startPage = new Scene(startPage.getValue());
         this.startPageCtrl = startPage.getKey();
         this.overviewPage = new Scene(overviewPage.getValue());
+        this.overviewPageCtrl = overviewPage.getKey();
         this.invitationPage = new Scene((invitationPage.getValue()));
-        this.participantPage = new Scene(participantPage.getValue());
-        this.editParticipantPage = new Scene(editParticipantPage.getValue());
+        this.addParticipantPage = new Scene(addParticipantPage.getValue());
+        this.addParticipantPageCtrl = addParticipantPage.getKey();
         this.invitationPageCtrl = invitationPage.getKey();
         this.addExpenseCtrl = addExpensePage.getKey();
         this.addExpensePage = new Scene(addExpensePage.getValue());
-        this.participantCtrl = editParticipantPage.getKey();
         this.statisticsPage = new Scene(statisticsPage.getValue());
 
         startPage();
@@ -86,42 +85,49 @@ public class MainCtrl {
         primaryStage.setScene(add);
         add.setOnKeyPressed(e -> addCtrl.keyPressed(e));
     }
+
     public void startPage() {
         primaryStage.setTitle("Start Page");
         primaryStage.setScene(startPage);
         startPageCtrl.refresh();
     }
-    public void overviewPage(){
+
+    public void overviewPage() {
         primaryStage.setTitle("Overview Page");
         primaryStage.setScene(overviewPage);
     }
-    public void invitationPage(Label name){
+
+    public void invitationPage(Label name, Integer eventId) {
         primaryStage.setTitle("Invitation Page");
+        invitationPageCtrl.setEvent(eventId);
+        invitationPageCtrl.clear();
         invitationPageCtrl.setName(name);
+        invitationPageCtrl.refresh();
         primaryStage.setScene(invitationPage);
     }
-    public void addParticipantPage() {
+
+    public void addParticipantPage(Integer eventId, Integer userId) {
         primaryStage.setTitle("Add Participant Page");
-        primaryStage.setScene(participantPage);
-    }
-    public void editParticipantPage() {
-        primaryStage.setTitle("Edit Participant Page");
-        primaryStage.setScene(editParticipantPage);
-    }
-    public void setParticipantName(String name) {
-        participantCtrl.setName(name);
+        addParticipantPageCtrl.setEvent(eventId);
+        addParticipantPageCtrl.clear();
+        addParticipantPageCtrl.setUser(userId);
+        primaryStage.setScene(addParticipantPage);
     }
 
-    public void eventPage(Event event) {
+    public void eventPage(Integer eventId) {
         primaryStage.setTitle("Overview Page");
         primaryStage.setScene(overviewPage);
+        overviewPageCtrl.setEventId(eventId);
     }
 
-    public void addExpensePage(List<String> users) {
+    public void addExpensePage(Integer eventId, Integer expenseId) {
         primaryStage.setTitle("Add Expense");
-        addExpenseCtrl.setUsers(users);
+        addExpenseCtrl.setEvent(eventId);
+        addExpenseCtrl.clear();
+        addExpenseCtrl.setExpenseId(expenseId);
         primaryStage.setScene(addExpensePage);
     }
+
     public void statisticsPage() {
         primaryStage.setTitle("Statistics Page");
         primaryStage.setScene(statisticsPage);

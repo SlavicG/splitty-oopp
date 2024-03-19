@@ -26,7 +26,9 @@ public class ExpenseController {
 
     @PutMapping("/{expense_id}")
     @ResponseBody
-    public Expense updateExpense(@PathVariable(name = "event_id") Integer eventId, @PathVariable(name = "expense_id") Integer expenseId, @RequestBody Expense expense) throws BadRequestException {
+    public Expense updateExpense(@PathVariable(name = "event_id") Integer eventId,
+                                 @PathVariable(name = "expense_id") Integer expenseId,
+                                 @RequestBody Expense expense) throws BadRequestException {
         if (expense.getId() != expenseId) throw new BadRequestException();
         return expenseService.updateExpense(eventId, expense);
     }
@@ -45,7 +47,8 @@ public class ExpenseController {
 
     @DeleteMapping("/{expense_id}")
     @ResponseBody
-    public Expense deleteExpense(@PathVariable(name = "event_id") Integer eventId, @PathVariable(name = "expense_id") Integer expenseId) {
+    public Expense deleteExpense(@PathVariable(name = "event_id") Integer eventId,
+                                 @PathVariable(name = "expense_id") Integer expenseId) {
         return expenseService.deleteExpense(eventId, expenseId);
     }
 

@@ -10,15 +10,14 @@ import java.util.Objects;
 public class Event {
 
     private @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id;
+        @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id;
     private String title;
     private @ManyToMany
-    @JoinTable(
+        @JoinTable(
             name = "event_user",
             joinColumns = @JoinColumn(name = "event_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    List<User> users;
+    ) List<User> users;
     private @OneToMany(mappedBy = "event", cascade = CascadeType.ALL) List<Expense> expenses;
 
     public Event() {
@@ -69,7 +68,10 @@ public class Event {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Event event = (Event) o;
-        return Objects.equals(id, event.id) && Objects.equals(title, event.title) && Objects.equals(users, event.users) && Objects.equals(expenses, event.expenses);
+        return Objects.equals(id, event.id) &&
+                Objects.equals(title, event.title) &&
+                Objects.equals(users, event.users) &&
+                Objects.equals(expenses, event.expenses);
     }
 
     @Override

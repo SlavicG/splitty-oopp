@@ -15,19 +15,13 @@
  */
 package server.api;
 
+import commons.dto.Quote;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import server.database.QuoteRepository;
+
 import java.util.List;
 import java.util.Random;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import commons.dto.Quote;
-import server.database.QuoteRepository;
 
 @RestController
 @RequestMapping("/api/quotes")
@@ -41,7 +35,7 @@ public class QuoteController {
         this.repo = repo;
     }
 
-    @GetMapping(path = { "", "/" })
+    @GetMapping(path = {"", "/"})
     public List<Quote> getAll() {
         return repo.findAll();
     }
@@ -54,7 +48,7 @@ public class QuoteController {
         return ResponseEntity.ok(repo.findById(id).get());
     }
 
-    @PostMapping(path = { "", "/" })
+    @PostMapping(path = {"", "/"})
     public ResponseEntity<Quote> add(@RequestBody Quote quote) {
 
         if (quote.person == null || isNullOrEmpty(quote.person.firstName) || isNullOrEmpty(quote.person.lastName)

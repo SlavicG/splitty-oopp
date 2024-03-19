@@ -2,89 +2,167 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
+import commons.dto.Event;
+import commons.dto.Expense;
+import commons.dto.User;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.util.StringConverter;
 
 import java.net.URL;
-import java.util.Arrays;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class OverviewPageCtrl implements Initializable {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
-
-    @FXML
-    private Label from;
+    private final HashMap<Integer, String> userNamesCache;
     @FXML
     private Label eventName;
     @FXML
     private HBox participants;
     @FXML
-    private Label including;
+    private ChoiceBox<Optional<User>> userFilter;
     @FXML
-    private ChoiceBox<String> box;
+    private TextField searchBox;
+    @FXML
+    private TableView<Expense> expenseTable;
+    @FXML
+    private TableColumn<Expense, String> descriptionColumn;
+    @FXML
+    private TableColumn<Expense, Double> amountColumn;
+    @FXML
+    private TableColumn<Expense, LocalDate> dateColumn;
+    @FXML
+    private TableColumn<Expense, String> payerColumn;
+    private Integer eventId;
+    private FilteredList<Expense> expenses;
+    private ResourceBundle resources;
+
     @Inject
     public OverviewPageCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
         this.mainCtrl = mainCtrl;
+        userNamesCache = new HashMap<>();
     }
+
     public void startPage() {
         mainCtrl.startPage();
     }
 
-    private String[] users = {"name1", "name2", "name3"};
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        box.getItems().addAll(users);
-        box.setOnAction(this::getUser);
-        if (users.length > 0) {
-            Button button = new Button(users[0]);
-            button.setBackground(null);
-            button.setOnAction((e)->{
-                editParticipant(users[0]);
-            });
-            participants.getChildren().add(button);
-        }
-        for (int i = 1; i < users.length; i++){
-            Button button = new Button(users[i]);
-            button.setBackground(null);
-            int index = i;
-            button.setOnAction((e)->{
-                editParticipant(users[index].toString());
-            });
-            participants.getChildren().add(button);
-        }
+        this.resources = resources;
+        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        payerColumn.setCellValueFactory(expense -> new ReadOnlyObjectWrapper<>(
+                userNamesCache.get(expense.getValue().getPayerId())));
 
-        eventName.setText("Party");
+        expenseTable.setPlaceholder(new Label(resources.getString("add_expense_hint")));
+        expenseTable.getSelectionModel().selectedItemProperty().addListener(((obs, old, selection) -> {
+            if (selection == null) {
+                return;
+            }
+            mainCtrl.addExpensePage(eventId, selection.getId());
+        }));
+
+        userFilter.setOnAction(actionEvent -> refreshFilter());
+        searchBox.textProperty().addListener(((observableValue, s, t1) -> refreshFilter()));
     }
 
-    public void getUser(javafx.event.ActionEvent actionEvent) {
-        String user = box.getValue();
-        from.setText("From "+user);
-        including.setText("Including " + user);
-
+    public void setEventId(Integer id) {
+        eventId = id;
+        refresh();
     }
+
     public void invitation() {
-        mainCtrl.invitationPage(eventName);
-    }
-    public void addParticipant() {
-        mainCtrl.addParticipantPage();
-    }
-    public void editParticipant(String name) {
-        mainCtrl.editParticipantPage();
-        mainCtrl.setParticipantName(name);
+        mainCtrl.invitationPage(eventName, eventId);
     }
 
+    public void addParticipant() {
+        mainCtrl.addParticipantPage(eventId, null);
+    }
+
+    public void editParticipant(User user) {
+        mainCtrl.addParticipantPage(eventId, user.getId());
+    }
 
     public void addExpense() {
-        mainCtrl.addExpensePage(Arrays.asList(users));
+        mainCtrl.addExpensePage(eventId, null);
     }
+
     public void statisticsPage() {
         mainCtrl.statisticsPage();
+    }
+
+    public void refresh() {
+        // Set up expenses table.
+        expenseTable.getSelectionModel().clearSelection();
+        Event event = server.getEventById(eventId);
+        expenses = new FilteredList<>(FXCollections.observableList(server.getExpenses(eventId)));
+        expenseTable.setItems(expenses);
+
+        eventName.setText(event.getTitle());
+
+        // Populate the userFilter ChoiceBox with all users that have paid for expense.
+        List<Optional<User>> users = event.getExpenses().stream()
+                .map(Expense::getPayerId).distinct().map(server::getUserById).map(Optional::of).toList();
+        // This cache is here, so we don't have to fetch usernames for every expense.
+        userNamesCache.clear();
+        users.forEach(user -> {
+            if (user.isEmpty()) {
+                return;
+            }
+            userNamesCache.put(user.get().getId(), user.get().getName());
+        });
+        userFilter.getItems().clear();
+        userFilter.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Optional<User> user) {
+                if (user == null || user.isEmpty()) {
+                    return resources.getString("everyone");
+                }
+                return user.get().getName();
+            }
+
+            @Override
+            public Optional<User> fromString(String s) {
+                return Optional.empty();
+            }
+        });
+        userFilter.getItems().addAll(users);
+
+        // This empty is the 'All Users' option
+        userFilter.getItems().addFirst(Optional.empty());
+        userFilter.setValue(userFilter.getItems().getFirst());
+
+        // Add 'edit' buttons for each user
+        participants.getChildren().clear();
+        for (Optional<User> user : users) {
+            if (user.isEmpty()) {
+                continue;
+            }
+            Button button = new Button(user.get().getName());
+            button.setBackground(null);
+            button.setOnAction(e -> editParticipant(user.get()));
+            participants.getChildren().add(button);
+        }
+    }
+
+    public void refreshFilter() {
+        Optional<User> user = userFilter.getValue();
+        String search = searchBox.getText();
+        expenses.setPredicate(expense -> expense.getDescription().toLowerCase().contains(search.toLowerCase())
+                && (user == null || user.isEmpty() || expense.getPayerId().equals(user.get().getId())));
     }
 }
