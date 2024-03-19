@@ -1,18 +1,18 @@
-package commons.dto;
+package server.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ExpenseTest {
+
     private User user1;
     private User user2;
-    private LocalDateTime date1;
-    private LocalDateTime date2;
+    private LocalDate date1;
+    private LocalDate date2;
     private Event event1;
     private Event event2;
     private Expense expense1;
@@ -21,12 +21,15 @@ class ExpenseTest {
 
     @BeforeEach
     void setup() {
-        LocalDate date = LocalDate.of(2021, 10, 24);
+        user1 = new User(1, "Miruna", "mcoroi@tudelft.nl", "123", "567");
+        user2 = new User(1, "Slavic", "slavic@tudelft.nl", "123", "567");
+        date1 = LocalDate.of(2021, 10, 24);
+        date2 = LocalDate.of(2022, 10, 24);
         event1 = new Event(1, "party", null, null);
         event2 = new Event(2, "party2", null, null);
-        expense1 = new Expense(1, 1.0, "description1", 3, date);
-        expense2 = new Expense(1, 1.0, "description1", 3, date);
-        expense3 = new Expense(1, 1.0, "description1", 3, date);
+        expense1 = new Expense(1, 1.0, "description1", user1, date1, event1);
+        expense2 = new Expense(1, 1.0, "description1", user1, date1, event1);
+        expense3 = new Expense(1, 1.0, "description1", user2, date2, event2);
     }
 
     @Test
@@ -63,38 +66,45 @@ class ExpenseTest {
     }
 
     @Test
-    void getPayerId() {
-        assertEquals(3, expense1.getPayerId());
+    void getPayer() {
+        assertEquals(user1, expense1.getPayer());
     }
 
     @Test
-    void setPayerId() {
-        expense1.setPayerId(5);
-        assertEquals(expense1.getPayerId(), 5);
+    void setPayer() {
+        expense1.setPayer(user2);
+        assertEquals(user2, expense1.getPayer());
     }
 
     @Test
     void getDate() {
-        LocalDate date = LocalDate.of(2021, 10, 24);
-        assertEquals(date, expense1.getDate());
+        assertEquals(date1, expense1.getDate());
     }
 
     @Test
     void setDate() {
-        LocalDate date = LocalDate.of(2021, 10, 25);
-        expense1.setDate(date);
-        assertEquals(date, expense1.getDate());
+        expense1.setDate(date2);
+        assertEquals(date2, expense1.getDate());
+    }
+
+    @Test
+    void getEvent() {
+        assertEquals(event1, expense1.getEvent());
+    }
+
+    @Test
+    void setEvent() {
+        expense1.setEvent(event2);
+        assertEquals(event2, expense1.getEvent());
     }
 
     @Test
     void testEquals() {
         assertEquals(expense1, expense2);
-        assertEquals(expense2, expense3);
     }
 
     @Test
-    void testHashcode() {
-        assertEquals(expense1.hashCode(), expense2.hashCode());
-        assertEquals(expense2.hashCode(), expense3.hashCode());
+    void testHashCode() {
+        assertNotEquals(expense1.hashCode(), expense3.hashCode());
     }
 }

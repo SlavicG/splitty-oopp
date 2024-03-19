@@ -31,6 +31,7 @@ public class DebtTest {
     void getId() {
         assertEquals(1, d1.getId());
     }
+
     @Test
     void testSetId() {
         d1.setId(2);
@@ -41,6 +42,7 @@ public class DebtTest {
     void getOwed() {
         assertEquals(owed, d1.getOwed());
     }
+
     @Test
     void setOwed() {
         User newOwed = new User(3, "Ilker", "Ilker@tudelft.nl", "321", "987");
@@ -52,6 +54,7 @@ public class DebtTest {
     void getIndebted() {
         assertEquals(indebted, d1.getIndebted());
     }
+
     @Test
     void setIndebted() {
         User user = new User(4, "Miruna", "miruna@tudelft.nl", "345", "178");
@@ -60,20 +63,25 @@ public class DebtTest {
     }
 
     @Test
-    void getAmount(){
+    void getAmount() {
         assertEquals(amount, d1.getAmount());
     }
 
     @Test
-    void setAmount(){
+    void setAmount() {
         Double newAmount = 16.;
         d1.setAmount(newAmount);
-        assertEquals(d1.getAmount(),newAmount);
+        assertEquals(d1.getAmount(), newAmount);
     }
 
     @Test
-    void testEquals(){
-        assertEquals(d2,d3);
+    void testEquals() {
+        assertEquals(d2, d3);
+    }
+
+    @Test
+    void testHashCode() {
+        assertEquals(d2.hashCode(), d3.hashCode());
     }
 
 

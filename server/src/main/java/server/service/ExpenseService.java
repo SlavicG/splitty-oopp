@@ -40,7 +40,9 @@ public class ExpenseService {
                 expense.getDate());
     }
 
-    protected ExpenseService(ExpenseRepository expenseRepository, UserRepository userRepository, EventRepository eventRepository) {
+    protected ExpenseService(ExpenseRepository expenseRepository,
+                             UserRepository userRepository,
+                             EventRepository eventRepository) {
         this.expenseRepository = expenseRepository;
         this.userRepository = userRepository;
         this.eventRepository = eventRepository;
@@ -65,7 +67,11 @@ public class ExpenseService {
 
         eventRepository.save(event);
         server.model.Expense createdEntity = expenseRepository.save(expenseEntity);
-        return new Expense(createdEntity.getId(), expense.getAmount(), expense.getDescription(), expense.getPayerId(), expense.getDate());
+        return new Expense(createdEntity.getId(),
+                expense.getAmount(),
+                expense.getDescription(),
+                expense.getPayerId(),
+                expense.getDate());
     }
 
     public Expense updateExpense(Integer eventId, Expense expense) {

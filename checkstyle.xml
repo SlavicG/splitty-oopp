@@ -3,11 +3,21 @@
         "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
         "https://checkstyle.org/dtds/configuration_1_3.dtd">
 
-<module name = "Checker">
-    <module name="TreeWalker">
-        <module name="UnusedImports" />
+<module name="Checker">
+    <module name="LineLength">
+        <property name="max" value="120"/>
     </module>
-
-    <!-- TODO: decide in your team with other checkers to add! -->
-
+    <module name="TreeWalker">
+        <module name="NoWhitespaceBefore"/>
+        <module name="ArrayTrailingComma"/>
+        <module name="NoWhitespaceBeforeCaseDefaultColon"/>
+        <module name="EqualsHashCode"/>
+        <module name="UnusedImports"/>
+        <module name="Indentation"/>
+        <module name="SingleSpaceSeparator"/>
+        <module name="TodoComment"/>
+        <module name="GenericWhitespace"/>
+        <module name="OneStatementPerLine"/>
+        <module name="NoWhitespaceAfter"/>
+    </module>
 </module>

@@ -1,9 +1,14 @@
 package server.service;
 
+
 import org.springframework.stereotype.Service;
 import server.database.EventRepository;
 import commons.dto.Event;
+import commons.dto.Expense;
+
+import server.database.ExpenseRepository;
 import server.database.UserRepository;
+
 import server.model.User;
 
 import commons.dto.Expense;
@@ -34,7 +39,7 @@ public class EventService {
         this.expenseRepository = expenseRepository;
         this.userRepository = userRepository;
     }
-    
+
     public Event createEvent(Event event) {
         server.model.Event newEvent = new server.model.Event();
         newEvent.setTitle(event.getTitle());
@@ -43,7 +48,14 @@ public class EventService {
         Event returnEvent = getEvent(createdEvent);
         return returnEvent;
     }
-    
+
+    private Function<server.model.Expense, Expense> mapper = expense -> new commons.dto.Expense(
+            expense.getId(),
+            expense.getAmount(),
+            expense.getDescription(),
+            expense.getPayer().getId(),
+            expense.getDate());
+
 
     public Event getEventById(Integer id) {
         server.model.Event event = eventRepository.getById(id);
@@ -57,16 +69,18 @@ public class EventService {
         return returnEvent;
     }
 
+
     public Event updateEvent(Event event) {
         server.model.Event newEvent = eventRepository.getById(event.getId());
         newEvent.setTitle(event.getTitle());
         newEvent.getUsers().clear();
         newEvent.getUsers().addAll(getUsers(event.getUserIds()));
         server.model.Event updatedEvent = eventRepository.save(newEvent);
-        
+
         Event returnEvent = getEvent(updatedEvent);
         return returnEvent;
     }
+
 
     public List<Event> getAllEvents() {
         return eventRepository.findAll().stream().map(it -> getEvent(it)).toList();
@@ -80,16 +94,19 @@ public class EventService {
             return getEvent(x);
         }).orElse(null);
     }
+
     private Event getEvent(server.model.Event it) {
         return new Event(it.getId(), it.getTitle(), getUserIds(it.getUsers()), List.of());
     }
+
     public List<User> getUsers(List<Integer> userIds) {
         return userIds.stream().map(it -> getUserById(it)).toList();
     }
-    
+
+
     private User getUserById(Integer it) {
         User user = userRepository.getById(it);
-        if(user == null) throw new IllegalArgumentException("User not found. ID: " + it);
+        if (user == null) throw new IllegalArgumentException("User not found. ID: " + it);
         return user;
     }
 

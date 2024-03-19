@@ -1,6 +1,7 @@
 package server.api;
 
 import commons.dto.Event;
+import commons.dto.User;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import server.service.EventService;
+import server.service.UserService;
 
 import java.util.List;
 import java.util.Map;
@@ -16,9 +18,11 @@ import java.util.Map;
 @RequestMapping("/rest/events")
 public class EventController {
     private final EventService eventService;
+    private final UserService userService;
 
-    public EventController(EventService eventService) {
+    public EventController(EventService eventService, UserService userService) {
         this.eventService = eventService;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -59,9 +63,29 @@ public class EventController {
         if (event == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-       return eventService.deleteEvent(id);
+        return eventService.deleteEvent(id);
     }
 
+    @GetMapping("/{event_id}/debts")
+    @ResponseBody
+    public Map<Integer, Double> getAllDebts(@PathVariable Integer event_id) {
+
+        Map<Integer, Double> mapa = eventService.getAllDebtsInEvent(event_id);
+        return mapa;
+    }
+
+    @GetMapping("/{event_id}/users/{user_id}/debt")
+    @ResponseBody
+    public Double getDebtUser(@PathVariable Integer user_id, @PathVariable Integer event_id) {
+        return eventService.getDebtOfaUser(user_id, event_id);
+    }
+
+    @GetMapping("/{event_id}/users")
+    @ResponseBody
+    public List<User> getAllUsers(@PathVariable Integer event_id) {
+        Event event = eventService.getEventById(event_id);
+        return event.getUserIds().stream().map(a -> userService.getUserById(a)).toList();
+    }
 
     @GetMapping("/{event_id}/debts")
     @ResponseBody

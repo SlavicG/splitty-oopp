@@ -8,7 +8,7 @@ import java.util.Objects;
 @Table(name = "debts")
 public class Debt {
     private @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id;
+        @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id;
     private @OneToOne User owed;
     private @OneToOne User indebted;
     private Double amount;
@@ -61,7 +61,10 @@ public class Debt {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Debt debt = (Debt) o;
-        return Objects.equals(id, debt.id) && Objects.equals(owed, debt.owed) && Objects.equals(indebted, debt.indebted) && Objects.equals(amount, debt.amount);
+        return Objects.equals(id, debt.id) &&
+                Objects.equals(owed, debt.owed) &&
+                Objects.equals(indebted, debt.indebted) &&
+                Objects.equals(amount, debt.amount);
     }
 
     @Override
