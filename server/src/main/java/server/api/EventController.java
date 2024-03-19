@@ -77,7 +77,7 @@ public class EventController {
     @GetMapping("/{event_id}/debts")
     @ResponseBody
     public Map<Integer,Double> getAllDebts(@PathVariable Integer event_id){
-        Map<Integer,Double> mapa =  eventService.getAllDebtsInEvent( event_id);
+        Map<Integer,Double> mapa = eventService.getAllDebtsInEvent( event_id);
         return mapa;
     }
     @GetMapping("/{event_id}/users/{user_id}/debt")

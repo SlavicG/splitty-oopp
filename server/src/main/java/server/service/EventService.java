@@ -32,7 +32,8 @@ public class EventService {
             expense.getPayer().getId(),
             expense.getDate());
 
-    public EventService(EventRepository eventRepository, ExpenseRepository expenseRepository, UserRepository userRepository) {
+    public EventService(EventRepository eventRepository, ExpenseRepository expenseRepository,
+                        UserRepository userRepository) {
         this.eventRepository = eventRepository;
         this.expenseRepository = expenseRepository;
         this.userRepository = userRepository;
@@ -55,7 +56,8 @@ public class EventService {
         returnEvent.setTitle(event.getTitle());
         returnEvent.setUsers(getUserIds(event.getUsers()));
         if(event.getExpenses()!=null){
-            returnEvent.setExpenses(expenseRepository.findAll().stream().map(mapper).toList());
+            returnEvent.setExpenses
+                    (expenseRepository.findAll().stream().map(mapper).toList());
         }
         return returnEvent;
     }
@@ -130,7 +132,7 @@ public class EventService {
     public Map<Integer, Double> getAllDebtsInEvent(Integer event_id) {
         Event event = getEventById(event_id);
         server.model.Event eventForUsers = eventRepository.getById(event_id);
-        List<User> users = eventForUsers.getUsers();
+//        List<User> users = eventForUsers.getUsers();
         List<Integer> userIds = event.getUserIds();
         Map<Integer, Double> mapa = new HashMap<>();
         for (int i = 0; i < userIds.size(); i++) {
