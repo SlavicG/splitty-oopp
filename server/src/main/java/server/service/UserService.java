@@ -16,6 +16,7 @@ import java.util.function.Function;
 @Service
 public class UserService {
     private EventRepository eventRepository;
+
     private UserRepository userRepository;
 
     public UserService(EventRepository eventRepository, UserRepository userRepository) {

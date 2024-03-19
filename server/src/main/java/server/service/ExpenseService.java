@@ -59,16 +59,17 @@ public class ExpenseService {
     @Transactional
     public Expense createExpense(Integer eventId, Expense expense) {
         server.model.Event event = eventRepository.getById(eventId);
-        server.model.Expense expenseEntity = new server.model.Expense(null,
+        server.model.Expense expenseEntity = new server.model.Expense(
+                null,
                 expense.getAmount(),
                 expense.getDescription(),
                 getUserById(expense.getPayerId()),
-                expense.getDate(), event);
+                expense.getDate(),
+                event);
 //        event.getExpenses().add(expenseEntity);
         List<server.model.Expense> listExpensesPrev = event.getExpenses();
         listExpensesPrev.add(expenseEntity);
         event.setExpenses(listExpensesPrev);
-
 
         eventRepository.save(event);
         server.model.Expense createdEntity = expenseRepository.save(expenseEntity);
