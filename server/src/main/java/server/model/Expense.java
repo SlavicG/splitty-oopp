@@ -26,7 +26,8 @@ public class Expense {
 
     }
 
-    public Expense(Integer id, Double amount, String description, User payer, LocalDate date, Event event, List<Integer> splitBetween) {
+    public Expense(Integer id, Double amount, String description, User payer,
+                   LocalDate date, Event event, List<Integer> splitBetween) {
         this.id = id;
         this.amount = amount;
         this.description = description;
