@@ -1,8 +1,10 @@
 package server.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +16,9 @@ public class Expense {
     private String description;
     private @ManyToOne User payer;
     private LocalDate date;
+    @JsonProperty("split-between")
+    private List<Integer> splitBetween;
+
     private @ManyToOne
         @JoinColumn(name = "event_id") Event event;
 
@@ -21,13 +26,22 @@ public class Expense {
 
     }
 
-    public Expense(Integer id, Double amount, String description, User payer, LocalDate date, Event event) {
+    public Expense(Integer id, Double amount, String description, User payer, LocalDate date, Event event, List<Integer> splitBetween) {
         this.id = id;
         this.amount = amount;
         this.description = description;
         this.payer = payer;
         this.date = date;
         this.event = event;
+        this.splitBetween = splitBetween;
+    }
+
+    public void setSplitBetween(List<Integer> splitBetween) {
+        this.splitBetween = splitBetween;
+    }
+
+    public List<Integer> getSplitBetween() {
+        return splitBetween;
     }
 
     public Expense(Object o, Double amount, String description, User payer, LocalDate date) {
@@ -116,4 +130,6 @@ public class Expense {
     public int hashCode() {
         return Objects.hash(id, amount, description, payer, date, event);
     }
+
+
 }

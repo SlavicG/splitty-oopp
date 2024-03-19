@@ -30,7 +30,8 @@ public class EventService {
             expense.getAmount(),
             expense.getDescription(),
             expense.getPayer().getId(),
-            expense.getDate());
+            expense.getDate(),
+            expense.getSplitBetween());
 
     public EventService(EventRepository eventRepository, ExpenseRepository expenseRepository,
                         UserRepository userRepository) {

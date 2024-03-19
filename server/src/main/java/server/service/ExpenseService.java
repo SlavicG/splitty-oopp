@@ -23,7 +23,8 @@ public class ExpenseService {
             expense.getAmount(),
             expense.getDescription(),
             expense.getPayer().getId(),
-            expense.getDate());
+            expense.getDate(),
+            expense.getSplitBetween());
     private Function<Expense, server.model.Expense> mapperInv = expense -> new server.model.Expense(
             expense.getId(),
             expense.getAmount(),
@@ -65,7 +66,8 @@ public class ExpenseService {
                 expense.getDescription(),
                 getUserById(expense.getPayerId()),
                 expense.getDate(),
-                event);
+                event,
+                expense.getSplitBetween());
 //        event.getExpenses().add(expenseEntity);
         List<server.model.Expense> listExpensesPrev = event.getExpenses();
         listExpensesPrev.add(expenseEntity);
@@ -77,7 +79,8 @@ public class ExpenseService {
                 expense.getAmount(),
                 expense.getDescription(),
                 expense.getPayerId(),
-                expense.getDate());
+                expense.getDate(),
+                expense.getSplitBetween());
     }
 
     public Expense updateExpense(Integer eventId, Expense expense) {
