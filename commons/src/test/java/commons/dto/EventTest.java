@@ -62,7 +62,7 @@ class EventTest {
         Event event = new Event(1, "party", null, null);
         List<Expense> expenses = new ArrayList<>();
         LocalDate date = LocalDate.of(2024, 3, 3);
-        Expense expense1 = new Expense(1, 20.0, "SnackBar", 3, date);
+        Expense expense1 = new Expense(1, 20.0, "SnackBar", 3, date, new ArrayList<>());
         expenses.add(expense1);
         event.setExpenses(expenses);
         assertEquals(expenses, event.getExpenses());
