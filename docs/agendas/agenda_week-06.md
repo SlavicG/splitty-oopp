@@ -12,7 +12,7 @@ Note taker:     {Ilker kiliç}
 4. Announcements by the TA (2 mins)
 
 
-# Agenda Items
+# Agenda Items (7 min)
 
 5. Perform a demo run
 6. Discuss our issues and what we haven't managed to complete
@@ -22,11 +22,13 @@ Note taker:     {Ilker kiliç}
 10. Discuss our product pitch
 
 
-# Action points for next week (5 min)
+# Action points for next week (7 min)
+
 11. Continuing with issues from last week
 12. Moving issues that we did not manage to do from last week to this week.
 13. setting up new issues
 14. preparing for project pitch
+15. Splitting tasks in order to complete admin view
 
 
 # Any other business (2 min)
