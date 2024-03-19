@@ -66,19 +66,6 @@ public class EventController {
         return eventService.deleteEvent(id);
     }
 
-    @GetMapping("/{event_id}/debts")
-    @ResponseBody
-    public Map<Integer, Double> getAllDebts(@PathVariable Integer event_id) {
-
-        Map<Integer, Double> mapa = eventService.getAllDebtsInEvent(event_id);
-        return mapa;
-    }
-
-    @GetMapping("/{event_id}/users/{user_id}/debt")
-    @ResponseBody
-    public Double getDebtUser(@PathVariable Integer user_id, @PathVariable Integer event_id) {
-        return eventService.getDebtOfaUser(user_id, event_id);
-    }
 
     @GetMapping("/{event_id}/users")
     @ResponseBody

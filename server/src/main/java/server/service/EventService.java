@@ -11,8 +11,6 @@ import server.database.UserRepository;
 
 import server.model.User;
 
-import commons.dto.Expense;
-import server.database.ExpenseRepository;
 
 import java.util.HashMap;
 import java.util.List;
@@ -48,13 +46,6 @@ public class EventService {
         Event returnEvent = getEvent(createdEvent);
         return returnEvent;
     }
-
-    private Function<server.model.Expense, Expense> mapper = expense -> new commons.dto.Expense(
-            expense.getId(),
-            expense.getAmount(),
-            expense.getDescription(),
-            expense.getPayer().getId(),
-            expense.getDate());
 
 
     public Event getEventById(Integer id) {
