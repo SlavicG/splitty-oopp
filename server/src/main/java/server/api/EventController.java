@@ -1,6 +1,7 @@
 package server.api;
 
 import commons.dto.Event;
+import commons.dto.Expense;
 import commons.dto.User;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
@@ -85,5 +86,13 @@ public class EventController {
     public Double getDebtUser(@PathVariable Integer user_id, @PathVariable Integer event_id){
         return eventService.getDebtOfaUser(user_id, event_id);
     }
+
+    // expenses for which user_id paid
+    @GetMapping("/{event_id}/paid/{user_id}")
+    @ResponseBody
+    public List<Expense> getExpensesForUser(@PathVariable Integer user_id, @PathVariable Integer event_id){
+        return eventService.showAllExpensesPersonPaid(user_id, event_id);
+    }
+
 
 }
