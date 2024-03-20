@@ -88,10 +88,17 @@ public class EventController {
     }
 
     // expenses for which user_id paid
-    @GetMapping("/{event_id}/paid/{user_id}")
+    @GetMapping("/{event_id}/paid/user/{user_id}")
     @ResponseBody
-    public List<Expense> getExpensesForUser(@PathVariable Integer user_id, @PathVariable Integer event_id){
-        return eventService.showAllExpensesPersonPaid(user_id, event_id);
+    public List<Expense> getExpensesUserPaid(@PathVariable Integer user_id, @PathVariable Integer event_id){
+        return eventService.expensesUserPaid(user_id, event_id);
+    }
+
+    // expenses that include user_id
+    @GetMapping("/{event_id}/include/user/{user_id}")
+    @ResponseBody
+    public List<Expense> getExpenseIncludeUser(@PathVariable Integer user_id, @PathVariable Integer event_id){
+        return eventService.expenseIncludeUser(user_id, event_id);
     }
 
 

@@ -139,13 +139,19 @@ public class EventService {
     }
 
     //Expenses for which some person paid in an event
-    public List<Expense> showAllExpensesPersonPaid(Integer id, Integer event_id){
+    public List<Expense> expensesUserPaid(Integer id, Integer event_id){
         Event event = getEventById(event_id);
         List<Expense> listOfExpenses = event.getExpenses().stream().
                 filter(expense -> expense.getPayerId().equals(id)).collect(Collectors.toList());
         return listOfExpenses;
+    }
 
-
+    //Expenses that include a person in an event
+    public List<Expense> expenseIncludeUser(Integer id, Integer event_id){
+        Event event = getEventById(event_id);
+        List<Expense> listOfExpenses = event.getExpenses().stream().
+                filter(expense -> expense.getSplitBetween().contains(id)).collect(Collectors.toList());
+        return listOfExpenses;
     }
 
 }

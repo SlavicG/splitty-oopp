@@ -7,6 +7,10 @@ http://127.0.0.1:8080/rest/events/1/debts
 Accept: application/json
 
 ### Get all expense for which user 1 paid in event 1
-http://127.0.0.1:8080/rest/events/1/paid/1
+http://127.0.0.1:8080/rest/events/1/paid/user/1
+Accept: application/json
+
+### Get all expense that include user 1 in event 1
+http://127.0.0.1:8080/rest/events/1/include/user/1
 Accept: application/json
 
