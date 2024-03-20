@@ -12,11 +12,9 @@ import server.database.UserRepository;
 import server.model.User;
 
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class EventService {
@@ -116,9 +114,6 @@ public class EventService {
                 .filter(expense -> expense.getSplitBetween().contains(id))
                 .mapToDouble(expense -> expense.getAmount()/expense.getSplitBetween().size())
                 .sum();
-//        fullAmount = fullAmount/event.getUserIds().size();
-
-
 
         //Amount of money spend on expenses in all the
         double amountPayed = event.getExpenses().stream().
@@ -134,13 +129,38 @@ public class EventService {
     public Map<Integer, Double> getAllDebtsInEvent(Integer event_id) {
         Event event = getEventById(event_id);
         server.model.Event eventForUsers = eventRepository.getById(event_id);
-//        List<User> users = eventForUsers.getUsers();
         List<Integer> userIds = event.getUserIds();
         Map<Integer, Double> mapa = new HashMap<>();
         for (int i = 0; i < userIds.size(); i++) {
             mapa.put(userIds.get(i), getDebtOfaUser(userIds.get(i), event_id));
         }
         return mapa;
-    }}
+    }
+
+    //Expenses for which some person paid in an event
+    public List<Expense> expensesUserPaid(Integer id, Integer event_id){
+        Event event = getEventById(event_id);
+        List<Expense> listOfExpenses = event.getExpenses().stream().
+                filter(expense -> expense.getPayerId().equals(id)).collect(Collectors.toList());
+        return listOfExpenses;
+    }
+
+    //Expenses that include a person in an event
+    public List<Expense> expenseIncludeUser(Integer id, Integer event_id){
+        Event event = getEventById(event_id);
+        List<Expense> listOfExpenses = event.getExpenses().stream().
+                filter(expense -> expense.getSplitBetween().contains(id)).collect(Collectors.toList());
+        return listOfExpenses;
+    }
+
+    // All expenses in an event
+    public List<Expense> allExpenses(Integer event_id){
+        Event event = getEventById(event_id);
+        List<Expense> listOfExpenses = event.getExpenses();
+        return listOfExpenses;
+    }
+
+
+}
 
 
