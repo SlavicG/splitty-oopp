@@ -109,7 +109,17 @@ public class EventController {
         return eventService.expenseIncludeUser(user_id, event_id);
     }
 
+    @PostMapping("/{event_id}/add_user/{user_id}")
+    @ResponseBody
+    public Event addUser(@PathVariable(name = "event_id") Integer event_id,
+                         @PathVariable(name = "user_id") Integer user_id) {
+        return eventService.addUser(event_id, user_id);
+    }
 
-
-
+    @DeleteMapping("/{event_id}/add_user/{user_id}")
+    @ResponseBody
+    public Event removeUser(@PathVariable(name = "event_id") Integer event_id,
+                         @PathVariable(name = "user_id") Integer user_id) {
+        return eventService.removeUser(event_id, user_id);
+    }
 }

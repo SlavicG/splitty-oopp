@@ -88,7 +88,8 @@ public class EventService {
     }
 
     private Event getEvent(server.model.Event it) {
-        return new Event(it.getId(), it.getTitle(), getUserIds(it.getUsers()), List.of());
+
+        return new Event(it.getId(), it.getTitle(), getUserIds(it.getUsers()), new ArrayList<>());
     }
 
     public List<User> getUsers(List<Integer> userIds) {
@@ -97,7 +98,7 @@ public class EventService {
 
 
     private User getUserById(Integer it) {
-        User user = userRepository.getById(it);
+        User user = userRepository.findById(it).orElse(null);
         if (user == null) throw new IllegalArgumentException("User not found. ID: " + it);
         return user;
     }
@@ -160,7 +161,41 @@ public class EventService {
         return listOfExpenses;
     }
 
-
+    public Event addUser(Integer event_id, Integer user_id) {
+        server.model.Event newEvent = eventRepository.findById(event_id).orElse(null);
+        boolean performed = false;
+        if(!newEvent.getUsers().contains(getUserById(user_id))) {
+            newEvent.getUsers().add(getUserById(user_id));
+            performed = true;
+        }
+        server.model.Event updatedEvent = eventRepository.save(newEvent);
+        Event returnEvent = getEvent(updatedEvent);
+        if(performed) {
+            User user = getUserById(user_id);
+            user.getEvents().add(newEvent);
+            userRepository.save(user);
+        }
+        return returnEvent;
+    }
+    public Event removeUser(Integer event_id, Integer user_id) {
+        server.model.Event newEvent = eventRepository.findById(event_id).orElse(null);
+        if(newEvent == null) {
+            throw new IllegalArgumentException("Event with given Id does not exist!");
+        }
+        boolean performed = false;
+        if(newEvent.getUsers().contains(getUserById(user_id))) {
+            newEvent.getUsers().remove(getUserById(user_id));
+            performed = true;
+        }
+        server.model.Event updatedEvent = eventRepository.save(newEvent);
+        Event returnEvent = getEvent(updatedEvent);
+        if(performed) {
+            User user = getUserById(user_id);
+            user.getEvents().remove(newEvent);
+            userRepository.save(user);
+        }
+        return returnEvent;
+    }
 }
 
 
