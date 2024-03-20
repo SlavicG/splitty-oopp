@@ -129,7 +129,6 @@ public class EventService {
     public Map<Integer, Double> getAllDebtsInEvent(Integer event_id) {
         Event event = getEventById(event_id);
         server.model.Event eventForUsers = eventRepository.getById(event_id);
-//        List<User> users = eventForUsers.getUsers();
         List<Integer> userIds = event.getUserIds();
         Map<Integer, Double> mapa = new HashMap<>();
         for (int i = 0; i < userIds.size(); i++) {
@@ -153,6 +152,14 @@ public class EventService {
                 filter(expense -> expense.getSplitBetween().contains(id)).collect(Collectors.toList());
         return listOfExpenses;
     }
+
+    // All expenses in an event
+    public List<Expense> allExpenses(Integer event_id){
+        Event event = getEventById(event_id);
+        List<Expense> listOfExpenses = event.getExpenses();
+        return listOfExpenses;
+    }
+
 
 }
 

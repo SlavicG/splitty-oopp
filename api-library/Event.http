@@ -31,3 +31,7 @@ Content-Type: application/json
 ### Delete event by id
 DELETE http://localhost:8080/rest/events/1
 Accept: application/json
+
+### Get all expenses in an event
+GET http://localhost:8080/rest/events/1/allexpenses
+Accept: application/json

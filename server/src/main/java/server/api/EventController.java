@@ -67,6 +67,14 @@ public class EventController {
         return eventService.deleteEvent(id);
     }
 
+    // show all expenses
+    @GetMapping("/{event_id}/allexpenses")
+    @ResponseBody
+    public List<Expense> getExpenses(@PathVariable Integer event_id){
+        return eventService.allExpenses( event_id);
+    }
+
+
 
     @GetMapping("/{event_id}/users")
     @ResponseBody
@@ -100,6 +108,8 @@ public class EventController {
     public List<Expense> getExpenseIncludeUser(@PathVariable Integer user_id, @PathVariable Integer event_id){
         return eventService.expenseIncludeUser(user_id, event_id);
     }
+
+
 
 
 }
