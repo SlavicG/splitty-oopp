@@ -115,8 +115,8 @@ public class OverviewPageCtrl implements Initializable {
         eventName.setText(event.getTitle());
 
         // Populate the userFilter ChoiceBox with all users that have paid for expense.
-        List<Optional<User>> users = event.getExpenses().stream()
-                .map(Expense::getPayerId).distinct().map(server::getUserById).map(Optional::of).toList();
+        List<Optional<User>> users = event.getUserIds().stream()
+                .distinct().map(server::getUserById).map(Optional::of).toList();
         // This cache is here, so we don't have to fetch usernames for every expense.
         userNamesCache.clear();
         users.forEach(user -> {

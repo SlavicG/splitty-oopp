@@ -44,6 +44,9 @@ public class Event {
         return usersIds;
     }
 
+    public void addUser(Integer userId) {
+        this.usersIds.add(userId);
+    }
     public void setUsers(List<Integer> usersIds) {
         this.usersIds = usersIds;
     }

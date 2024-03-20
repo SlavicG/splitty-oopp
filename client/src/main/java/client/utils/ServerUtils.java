@@ -234,4 +234,12 @@ public class ServerUtils {
                 .path("rest/mail").request(APPLICATION_JSON).accept(APPLICATION_JSON)
                 .post(Entity.entity(mailRequest, APPLICATION_JSON), Mail.class);
     }
+
+    public Event addUserToEvent(Event event, int event_id, User user, int user_id) {
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(configuration.getServerURL()).path("/rest/events/" + event_id + "/add_user/" + user_id) //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .post(Entity.entity(event, APPLICATION_JSON), Event.class);
+    }
 }
