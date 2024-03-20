@@ -20,6 +20,7 @@ import client.utils.Configuration;
 import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -50,9 +51,10 @@ public class Main extends Application {
         var addExpensePage = FXML.load(AddExpenseCtrl.class, bundle, "client", "scenes", "AddExpense.fxml");
         var statisticsPage = FXML.load(StatisticsPageCtrl.class, bundle, "client", "scenes", "StatisticsPage.fxml");
         var loginPage = FXML.load(LoginPageCtrl.class, bundle,"client", "scenes", "AdminLogin.fxml");
+        var adminPage = FXML.load(AdminDashboardCtrl.class, bundle, "client", "scenes", "AdminDashboard.fxml");
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, overview, add, startPage, overviewPage, invitationPage,
-                addParticipant, addExpensePage, statisticsPage, loginPage);
+                addParticipant, addExpensePage, statisticsPage, loginPage, adminPage);
 
     }
 }

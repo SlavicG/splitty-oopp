@@ -42,6 +42,8 @@ public class MainCtrl {
     private InvitationPageCtrl invitationPageCtrl;
     private AddExpenseCtrl addExpenseCtrl;
     private LoginPageCtrl loginPageCtrl;
+    private AdminDashboardCtrl adminDashboardCtrl;
+    private Scene adminPage;
     private Scene loginPage;
     private Scene add;
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
@@ -52,7 +54,8 @@ public class MainCtrl {
                            Pair<AddParticipantCtrl, Parent> addParticipantPage,
                            Pair<AddExpenseCtrl, Parent> addExpensePage,
                            Pair<StatisticsPageCtrl, Parent> statisticsPage,
-                           Pair<LoginPageCtrl, Parent> loginPage) {
+                           Pair<LoginPageCtrl, Parent> loginPage,
+                           Pair<AdminDashboardCtrl, Parent> adminPage) {
 
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
@@ -74,6 +77,8 @@ public class MainCtrl {
         this.statisticsPage = new Scene(statisticsPage.getValue());
         this.loginPage = new Scene(loginPage.getValue());
         this.loginPageCtrl = loginPage.getKey();
+        this.adminPage = new Scene(adminPage.getValue());
+        this.adminDashboardCtrl = adminPage.getKey();
 
         startPage();
         primaryStage.show();
@@ -140,5 +145,10 @@ public class MainCtrl {
     public void loginPage(){
         primaryStage.setTitle("Login Page");
         primaryStage.setScene(loginPage);
+    }
+    public void adminPage()
+    {
+        primaryStage.setTitle("Admin Dashboard");
+        primaryStage.setScene(adminPage);
     }
 }

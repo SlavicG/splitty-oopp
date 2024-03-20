@@ -34,7 +34,7 @@ public class LoginPageCtrl {
         // You'd replace this with actual logic to send a request to your backend.
         boolean isAuthenticated = server.login(username, password);
         if (isAuthenticated) {
-            // Logic to switch to the Admin Dashboard scene goes here
+            mainCtrl.adminPage();
         } else {
             showAlert("Login Failed", "Invalid username or password.");
         }
