@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/admin")
 public class AdminController {
 
-    @Value("admin")
+    @Value("{admin}")
     private String adminUsername;
 
-    @Value("password")
+    @Value("{password}")
     private String adminPassword;
 
     @PostMapping("/login")
