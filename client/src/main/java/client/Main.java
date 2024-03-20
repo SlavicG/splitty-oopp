@@ -49,10 +49,10 @@ public class Main extends Application {
         var addParticipant = FXML.load(AddParticipantCtrl.class, bundle, "client", "scenes", "AddParticipantPage.fxml");
         var addExpensePage = FXML.load(AddExpenseCtrl.class, bundle, "client", "scenes", "AddExpense.fxml");
         var statisticsPage = FXML.load(StatisticsPageCtrl.class, bundle, "client", "scenes", "StatisticsPage.fxml");
-
+        var loginPage = FXML.load(LoginPageCtrl.class, bundle,"client", "scenes", "AdminLogin.fxml");
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, overview, add, startPage, overviewPage, invitationPage,
-                addParticipant, addExpensePage, statisticsPage);
+                addParticipant, addExpensePage, statisticsPage, loginPage);
 
     }
 }
