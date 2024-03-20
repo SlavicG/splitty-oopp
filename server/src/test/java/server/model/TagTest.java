@@ -36,8 +36,8 @@ class TagTest {
         user2 = new User(1, "Slavic", "slavic@tudelft.nl", "123", "567");
         date1 = LocalDate.of(2021, 10, 24);
         date2 = LocalDate.of(2022, 10, 24);
-        expense1 = new Expense(1, 1.0, "description1", user1, date1, event1);
-        expense2 = new Expense(1, 1.0, "description1", user1, date1, event1);
+        expense1 = new Expense(1, 1.0, "description1", user1, date1, event1, new ArrayList<>());
+        expense2 = new Expense(1, 1.0, "description1", user1, date1, event1, new ArrayList<>());
         expenses1 = new ArrayList<>();
         expenses2 = new ArrayList<>();
         expenses1.add(expense1);
