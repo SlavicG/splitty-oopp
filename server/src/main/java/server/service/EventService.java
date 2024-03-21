@@ -1,18 +1,19 @@
 package server.service;
 
 
-import org.springframework.stereotype.Service;
-import server.database.EventRepository;
 import commons.dto.Event;
 import commons.dto.Expense;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.async.DeferredResult;
+import server.database.EventRepository;
 import server.database.ExpenseRepository;
 import server.database.UserRepository;
-
 import server.model.User;
 
-
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,7 @@ public class EventService {
     private final ExpenseRepository expenseRepository;
     private final UserRepository userRepository;
 
+    private Map<Object, Consumer<Event>> listeners = new HashMap<>();
 
     private Function<server.model.Expense, Expense> mapper = expense -> new commons.dto.Expense(
             expense.getId(),
@@ -38,13 +40,16 @@ public class EventService {
         this.userRepository = userRepository;
     }
 
-    public Event createEvent(Event event) {
+    public ResponseEntity<Event> createEvent(Event event) {
         server.model.Event newEvent = new server.model.Event();
         newEvent.setTitle(event.getTitle());
         newEvent.setUsers(getUsers(event.getUserIds()));
         server.model.Event createdEvent = eventRepository.save(newEvent);
         Event returnEvent = getEvent(createdEvent);
-        return returnEvent;
+        listeners.forEach((k, l) -> {
+            l.accept(returnEvent);
+        });
+        return ResponseEntity.ok(returnEvent);
     }
 
 
@@ -164,18 +169,25 @@ public class EventService {
     public Event addUser(Integer event_id, Integer user_id) {
         server.model.Event newEvent = eventRepository.findById(event_id).orElse(null);
         boolean performed = false;
-        if(!newEvent.getUsers().contains(getUserById(user_id))) {
-            newEvent.getUsers().add(getUserById(user_id));
-            performed = true;
+        boolean have = false;
+        for(server.model.User user: newEvent.getUsers()) {
+            if (user.getId().equals(user_id)) {
+                have = true;
+                break;
+            }
         }
-        server.model.Event updatedEvent = eventRepository.save(newEvent);
-        Event returnEvent = getEvent(updatedEvent);
-        if(performed) {
+        if(have == false) {
+            newEvent.getUsers().add(getUserById(user_id));
+            server.model.Event updatedEvent = eventRepository.save(newEvent);
+            Event returnEvent = getEvent(updatedEvent);
             User user = getUserById(user_id);
             user.getEvents().add(newEvent);
             userRepository.save(user);
+            return returnEvent;
+        } else {
+            throw new IllegalArgumentException("User already exists in event");
         }
-        return returnEvent;
+
     }
     public Event removeUser(Integer event_id, Integer user_id) {
         server.model.Event newEvent = eventRepository.findById(event_id).orElse(null);
@@ -195,6 +207,19 @@ public class EventService {
             userRepository.save(user);
         }
         return returnEvent;
+    }
+
+    public DeferredResult<ResponseEntity<Event>> getUpdates() {
+        var noContent = ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        var res = new DeferredResult<ResponseEntity<Event>>(5000L, noContent);
+        var key = new Object();
+        listeners.put(key, q -> {
+            res.setResult(ResponseEntity.ok(q));
+        });
+        res.onCompletion(() -> {
+            listeners.remove(key);
+        });
+        return res;
     }
 }
 
