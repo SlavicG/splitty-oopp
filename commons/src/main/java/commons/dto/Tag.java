@@ -8,6 +8,10 @@ public class Tag {
     private String name;
     private Color color;
 
+    public Tag() {
+
+    }
+
     public Tag(int id, String name, Color color) {
         this.id = id;
         this.name = name;
