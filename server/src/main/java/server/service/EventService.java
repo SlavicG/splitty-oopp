@@ -94,7 +94,7 @@ public class EventService {
 
     private Event getEvent(server.model.Event it) {
 
-        return new Event(it.getId(), it.getTitle(), getUserIds(it.getUsers()), new ArrayList<>());
+        return new Event(it.getId(), it.getTitle(), getUserIds(it.getUsers()), new ArrayList<>(), new ArrayList<>());
     }
 
     public List<User> getUsers(List<Integer> userIds) {

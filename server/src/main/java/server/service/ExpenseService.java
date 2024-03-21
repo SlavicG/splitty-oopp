@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import server.database.EventRepository;
 import server.database.ExpenseRepository;
 import commons.dto.Expense;
+import server.database.TagRepository;
 import server.database.UserRepository;
 import server.model.User;
 
@@ -18,13 +19,15 @@ public class ExpenseService {
     private ExpenseRepository expenseRepository;
     private UserRepository userRepository;
     private EventRepository eventRepository;
+    private TagRepository tagRepository;
     private Function<server.model.Expense, Expense> mapper = expense -> new commons.dto.Expense(
             expense.getId(),
             expense.getAmount(),
             expense.getDescription(),
             expense.getPayer().getId(),
             expense.getDate(),
-            expense.getSplitBetween());
+            expense.getSplitBetween(),
+            expense.getTag().getId());
     private Function<Expense, server.model.Expense> mapperInv = expense -> new server.model.Expense(
             expense.getId(),
             expense.getAmount(),
@@ -43,10 +46,12 @@ public class ExpenseService {
 
     protected ExpenseService(ExpenseRepository expenseRepository,
                              UserRepository userRepository,
-                             EventRepository eventRepository) {
+                             EventRepository eventRepository,
+                             TagRepository tagRepository) {
         this.expenseRepository = expenseRepository;
         this.userRepository = userRepository;
         this.eventRepository = eventRepository;
+        this.tagRepository = tagRepository;
     }
 
     public List<Expense> getExpenses() {
@@ -67,7 +72,8 @@ public class ExpenseService {
                 getUserById(expense.getPayerId()),
                 expense.getDate(),
                 event,
-                expense.getSplitBetween());
+                expense.getSplitBetween(),
+                tagRepository.getById(expense.getTagId()));
 //        event.getExpenses().add(expenseEntity);
         List<server.model.Expense> listExpensesPrev = event.getExpenses();
         listExpensesPrev.add(expenseEntity);
@@ -80,7 +86,8 @@ public class ExpenseService {
                 expense.getDescription(),
                 expense.getPayerId(),
                 expense.getDate(),
-                expense.getSplitBetween());
+                expense.getSplitBetween(),
+                expense.getTagId());
     }
 
     public Expense updateExpense(Integer eventId, Expense expense) {
@@ -122,10 +129,6 @@ public class ExpenseService {
 
     private List<server.model.Expense> getExpenses(List<commons.dto.Expense> expenses) {
         return expenses.stream().map(mapperInv).toList();
-    }
-
-    private Event getEvent(server.model.Event it) {
-        return new Event(it.getId(), it.getTitle(), getUserIds(it.getUsers()), List.of());
     }
 
     private server.model.Event getModelEvent(Event event) {
