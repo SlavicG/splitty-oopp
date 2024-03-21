@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -239,44 +240,34 @@ public class ServerUtils {
                 .post(Entity.entity(mailRequest, APPLICATION_JSON), Mail.class);
     }
 
-//    public static boolean login(String username, String password)
-//    {
-//        try {
-//            HttpClient client = HttpClient.newHttpClient();
-//            HttpRequest request = HttpRequest.newBuilder()
-//                    .uri(URI.create("http://localhost:8080/admin"))
-//                    .header("Content-Type", "application/json")
-//                    .POST(HttpRequest.BodyPublishers.ofString(
-//                            "{\"username\":\"" + username + "\", \"password\":\"" + password + "\"}"))
-//                    .build();
-//            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-//            return response.statusCode() == 200;
-//        } catch(Exception e)
-//        {
-//            e.printStackTrace();
-//            return false;
-//        }
-//    }
-public static boolean login(String username, String password) {
-    try {
-        String auth = username + ":" + password;
-        String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes());
-        String authHeader = "Basic " + encodedAuth;
-
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(SERVER_URL + "/admin/dashboard")) // Change to a valid protected endpoint under /admin
-                .header("Authorization", authHeader)
-                .GET() // Or POST, if you're testing a specific action
-                .build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        // Success if we get a response code of 200 OK, indicating that the credentials are correct
-        return response.statusCode() == 200;
-    } catch (Exception e) {
-        e.printStackTrace();
-        return false;
+    public Event addUserToEvent(Event event, int event_id, User user, int user_id) {
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(configuration.getServerURL()).path("/rest/events/" + event_id + "/add_user/" + user_id) //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .post(Entity.entity(event, APPLICATION_JSON), Event.class);
     }
-}
+
+    public static boolean login(String username, String password) {
+        try {
+            String auth = username + ":" + password;
+            String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes());
+            String authHeader = "Basic " + encodedAuth;
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(SERVER_URL + "/admin/dashboard")) // Change to a valid protected endpoint under /admin
+                    .header("Authorization", authHeader)
+                    .GET() // Or POST, if you're testing a specific action
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Success if we get a response code of 200 OK, indicating that the credentials are correct
+            return response.statusCode() == 200;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

@@ -12,11 +12,9 @@ import server.database.UserRepository;
 import server.model.User;
 
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class EventService {
@@ -30,7 +28,8 @@ public class EventService {
             expense.getAmount(),
             expense.getDescription(),
             expense.getPayer().getId(),
-            expense.getDate());
+            expense.getDate(),
+            expense.getSplitBetween());
 
     public EventService(EventRepository eventRepository, ExpenseRepository expenseRepository,
                         UserRepository userRepository) {
@@ -89,7 +88,8 @@ public class EventService {
     }
 
     private Event getEvent(server.model.Event it) {
-        return new Event(it.getId(), it.getTitle(), getUserIds(it.getUsers()), List.of());
+
+        return new Event(it.getId(), it.getTitle(), getUserIds(it.getUsers()), new ArrayList<>());
     }
 
     public List<User> getUsers(List<Integer> userIds) {
@@ -98,7 +98,7 @@ public class EventService {
 
 
     private User getUserById(Integer it) {
-        User user = userRepository.getById(it);
+        User user = userRepository.findById(it).orElse(null);
         if (user == null) throw new IllegalArgumentException("User not found. ID: " + it);
         return user;
     }
@@ -112,11 +112,9 @@ public class EventService {
     public Double getDebtOfaUser(Integer id,Integer event_id){
         Event event = getEventById(event_id);
         double fullAmount = event.getExpenses().stream()
-                .mapToDouble(expense -> expense.getAmount())
+                .filter(expense -> expense.getSplitBetween().contains(id))
+                .mapToDouble(expense -> expense.getAmount()/expense.getSplitBetween().size())
                 .sum();
-        fullAmount = fullAmount/event.getUserIds().size();
-
-
 
         //Amount of money spend on expenses in all the
         double amountPayed = event.getExpenses().stream().
@@ -132,13 +130,72 @@ public class EventService {
     public Map<Integer, Double> getAllDebtsInEvent(Integer event_id) {
         Event event = getEventById(event_id);
         server.model.Event eventForUsers = eventRepository.getById(event_id);
-//        List<User> users = eventForUsers.getUsers();
         List<Integer> userIds = event.getUserIds();
         Map<Integer, Double> mapa = new HashMap<>();
         for (int i = 0; i < userIds.size(); i++) {
             mapa.put(userIds.get(i), getDebtOfaUser(userIds.get(i), event_id));
         }
         return mapa;
-    }}
+    }
+
+    //Expenses for which some person paid in an event
+    public List<Expense> expensesUserPaid(Integer id, Integer event_id){
+        Event event = getEventById(event_id);
+        List<Expense> listOfExpenses = event.getExpenses().stream().
+                filter(expense -> expense.getPayerId().equals(id)).collect(Collectors.toList());
+        return listOfExpenses;
+    }
+
+    //Expenses that include a person in an event
+    public List<Expense> expenseIncludeUser(Integer id, Integer event_id){
+        Event event = getEventById(event_id);
+        List<Expense> listOfExpenses = event.getExpenses().stream().
+                filter(expense -> expense.getSplitBetween().contains(id)).collect(Collectors.toList());
+        return listOfExpenses;
+    }
+
+    // All expenses in an event
+    public List<Expense> allExpenses(Integer event_id){
+        Event event = getEventById(event_id);
+        List<Expense> listOfExpenses = event.getExpenses();
+        return listOfExpenses;
+    }
+
+    public Event addUser(Integer event_id, Integer user_id) {
+        server.model.Event newEvent = eventRepository.findById(event_id).orElse(null);
+        boolean performed = false;
+        if(!newEvent.getUsers().contains(getUserById(user_id))) {
+            newEvent.getUsers().add(getUserById(user_id));
+            performed = true;
+        }
+        server.model.Event updatedEvent = eventRepository.save(newEvent);
+        Event returnEvent = getEvent(updatedEvent);
+        if(performed) {
+            User user = getUserById(user_id);
+            user.getEvents().add(newEvent);
+            userRepository.save(user);
+        }
+        return returnEvent;
+    }
+    public Event removeUser(Integer event_id, Integer user_id) {
+        server.model.Event newEvent = eventRepository.findById(event_id).orElse(null);
+        if(newEvent == null) {
+            throw new IllegalArgumentException("Event with given Id does not exist!");
+        }
+        boolean performed = false;
+        if(newEvent.getUsers().contains(getUserById(user_id))) {
+            newEvent.getUsers().remove(getUserById(user_id));
+            performed = true;
+        }
+        server.model.Event updatedEvent = eventRepository.save(newEvent);
+        Event returnEvent = getEvent(updatedEvent);
+        if(performed) {
+            User user = getUserById(user_id);
+            user.getEvents().remove(newEvent);
+            userRepository.save(user);
+        }
+        return returnEvent;
+    }
+}
 
 

@@ -4,12 +4,19 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "title": "abc",
-  "users": [1]
+  "title": "abc"
 }
 
+### Add User to Event
+POST http://localhost:8080/rest/events/1/add_user/1
+Accept: application/json
+
+### Delete User from Event
+DELETE http://localhost:8080/rest/events/1/add_user/1
+Accept: application/json
+
 ### Get Event
-GET http://localhost:8080/rest/events/2
+GET http://localhost:8080/rest/events/1
 Accept: application/json
 
 ### Get All Events
@@ -30,4 +37,8 @@ Content-Type: application/json
 
 ### Delete event by id
 DELETE http://localhost:8080/rest/events/1
+Accept: application/json
+
+### Get all expenses in an event
+GET http://localhost:8080/rest/events/1/allexpenses
 Accept: application/json

@@ -64,11 +64,14 @@ public class AddParticipantCtrl implements Initializable {
             return;
         }
         if (user == null) {
-            server.addUsers(new User(null, name.getText(), email.getText(), iban.getText(), bic.getText()));
+            User userResult =
+                    server.addUsers(new User(null, name.getText(), email.getText(), iban.getText(), bic.getText()));
+            Event changedEvent = server.addUserToEvent(event, event.getId(), userResult, userResult.getId());
         } else {
-            server.updateUser(new User(user.getId(),
+            User userResult = server.updateUser(new User(user.getId(),
                     name.getText(),
                     email.getText(), iban.getText(), bic.getText()), user.getId());
+            Event changedEvent = server.addUserToEvent(event, event.getId(), userResult, userResult.getId());
         }
         mainCtrl.eventPage(event.getId());
     }

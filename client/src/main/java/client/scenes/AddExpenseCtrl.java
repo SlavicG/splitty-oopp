@@ -14,6 +14,7 @@ import javafx.util.StringConverter;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AddExpenseCtrl implements Initializable {
@@ -34,8 +35,11 @@ public class AddExpenseCtrl implements Initializable {
     @FXML
     public Button create;
 
+
     private Event event;
     private Integer expenseId;
+
+    private List<Integer> splitBetweenId;
     private ResourceBundle resourceBundle;
 
     @Inject
@@ -68,12 +72,15 @@ public class AddExpenseCtrl implements Initializable {
         }
         invalid.setVisible(false);
         Expense newExpense = new Expense(
-                expenseId, howMuch.getValue(), whatFor.getText(), whoPaid.getValue().getId(), when.getValue());
+                expenseId, howMuch.getValue(), whatFor.getText(), whoPaid.getValue().getId(), when.getValue(),
+                splitBetweenId);
         if (expenseId == null) {
             server.addExpense(newExpense, event.getId());
         } else {
             server.updateExpense(newExpense, event.getId(), expenseId);
         }
+
+
         mainCtrl.eventPage(event.getId());
     }
 

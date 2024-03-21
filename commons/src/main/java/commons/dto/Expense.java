@@ -1,8 +1,10 @@
 package commons.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 public class Expense {
@@ -10,15 +12,21 @@ public class Expense {
     private Double amount;
     private String description;
     private Integer payerId;
+
+    @JsonProperty("split-between")
+    private List<Integer> splitBetween;
+
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
-    public Expense(Integer id, Double amount, String description, Integer payerId, LocalDate date) {
+    public Expense(Integer id, Double amount, String description,
+                   Integer payerId, LocalDate date, List<Integer> splitBetween ) {
         this.id = id;
         this.amount = amount;
         this.description = description;
         this.payerId = payerId;
         this.date = date;
+        this.splitBetween = splitBetween;
     }
 
     public Expense() {
@@ -27,6 +35,14 @@ public class Expense {
 
     public Integer getId() {
         return id;
+    }
+
+    public List<Integer> getSplitBetween() {
+        return splitBetween;
+    }
+
+    public void setSplitBetween(List<Integer> splitBetween) {
+        this.splitBetween = splitBetween;
     }
 
     public void setId(Integer id) {
@@ -65,20 +81,23 @@ public class Expense {
         this.date = date;
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Expense expense = (Expense) o;
-        return Objects.equals(id, expense.id) &&
-                Objects.equals(amount, expense.amount) &&
-                Objects.equals(description, expense.description) &&
-                Objects.equals(payerId, expense.payerId) &&
-                Objects.equals(date, expense.date);
+        return Objects.equals(id, expense.id)
+                && Objects.equals(amount, expense.amount)
+                && Objects.equals(description, expense.description)
+                && Objects.equals(payerId, expense.payerId)
+                && Objects.equals(splitBetween, expense.splitBetween)
+                && Objects.equals(date, expense.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, amount, description, payerId, date);
+        return Objects.hash(id, amount, description, payerId, date, splitBetween);
     }
 }

@@ -1,6 +1,7 @@
 package server.api;
 
 import commons.dto.Event;
+import commons.dto.Expense;
 import commons.dto.User;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
@@ -66,6 +67,14 @@ public class EventController {
         return eventService.deleteEvent(id);
     }
 
+    // show all expenses
+    @GetMapping("/{event_id}/allexpenses")
+    @ResponseBody
+    public List<Expense> getExpenses(@PathVariable Integer event_id){
+        return eventService.allExpenses( event_id);
+    }
+
+
 
     @GetMapping("/{event_id}/users")
     @ResponseBody
@@ -86,4 +95,31 @@ public class EventController {
         return eventService.getDebtOfaUser(user_id, event_id);
     }
 
+    // expenses for which user_id paid
+    @GetMapping("/{event_id}/paid/user/{user_id}")
+    @ResponseBody
+    public List<Expense> getExpensesUserPaid(@PathVariable Integer user_id, @PathVariable Integer event_id){
+        return eventService.expensesUserPaid(user_id, event_id);
+    }
+
+    // expenses that include user_id
+    @GetMapping("/{event_id}/include/user/{user_id}")
+    @ResponseBody
+    public List<Expense> getExpenseIncludeUser(@PathVariable Integer user_id, @PathVariable Integer event_id){
+        return eventService.expenseIncludeUser(user_id, event_id);
+    }
+
+    @PostMapping("/{event_id}/add_user/{user_id}")
+    @ResponseBody
+    public Event addUser(@PathVariable(name = "event_id") Integer event_id,
+                         @PathVariable(name = "user_id") Integer user_id) {
+        return eventService.addUser(event_id, user_id);
+    }
+
+    @DeleteMapping("/{event_id}/add_user/{user_id}")
+    @ResponseBody
+    public Event removeUser(@PathVariable(name = "event_id") Integer event_id,
+                         @PathVariable(name = "user_id") Integer user_id) {
+        return eventService.removeUser(event_id, user_id);
+    }
 }
