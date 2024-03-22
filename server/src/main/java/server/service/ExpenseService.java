@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import server.database.EventRepository;
 import server.database.ExpenseRepository;
 import commons.dto.Expense;
-import server.database.TagRepository;
 import server.database.UserRepository;
 import server.model.User;
 

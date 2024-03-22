@@ -1,13 +1,10 @@
 package server.service;
 
 import commons.dto.Event;
-import commons.dto.Expense;
 import commons.dto.Tag;
 import jakarta.transaction.Transactional;
-import org.springframework.core.metrics.StartupStep;
 import org.springframework.stereotype.Service;
 import server.database.EventRepository;
-import server.database.ExpenseRepository;
 import server.database.TagRepository;
 import server.database.UserRepository;
 import server.model.User;
@@ -70,9 +67,9 @@ public class TagService {
         eventRepository.save(event);
         server.model.Tag createdEntity = tagRepository.save(tagEntity);
         return new Tag(createdEntity.getId(),
-                tag.getName(),
-                tag.getColor(),
-                tag.getEventId());
+                createdEntity.getName(),
+                createdEntity.getColor(),
+                createdEntity.getEvent().getId());
     }
 
     public Tag updateTag(Integer eventId, Tag tag) {

@@ -4,7 +4,6 @@ import commons.dto.Tag;
 import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import commons.dto.Expense;
 import server.service.TagService;
 
 import java.util.List;
