@@ -58,13 +58,13 @@ public class EventService {
 
         server.model.Event createdEvent = eventRepository.save(newEvent);
 
-        TagService tagService = new TagService(tagRepository, eventRepository, userRepository);
-        tagService.createTag(createdEvent.getId(), new commons.dto.Tag(1, "food",
-                new Color(50,205,50), createdEvent.getId()));
-        tagService.createTag(createdEvent.getId(), new commons.dto.Tag(2, "entrance fees",
-                new Color(30,144,255), createdEvent.getId()));
-        tagService.createTag(createdEvent.getId(), new commons.dto.Tag(3, "travel",
-                new Color(255,0,0), createdEvent.getId()));
+//        TagService tagService = new TagService(tagRepository, eventRepository, userRepository);
+//        tagService.createTag(createdEvent.getId(), new commons.dto.Tag(1, "food",
+//                new Color(0), createdEvent.getId()));
+//        tagService.createTag(createdEvent.getId(), new commons.dto.Tag(2, "entrance fees",
+//                new Color(0), createdEvent.getId()));
+//        tagService.createTag(createdEvent.getId(), new commons.dto.Tag(3, "travel",
+//                new Color(0), createdEvent.getId()));
         Event returnEvent = getEvent(createdEvent);
 
         listeners.forEach((k, l) -> {

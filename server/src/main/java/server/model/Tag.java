@@ -1,6 +1,10 @@
 package server.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
+import commons.dto.ColorDeserializer;
 
 import java.awt.*;
 import java.util.Objects;
@@ -11,6 +15,7 @@ public class Tag {
     private @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id;
     private String name;
+    @JsonDeserialize(using = ColorDeserializer.class)
     private Color color;
     @ManyToOne
     @JoinColumn(name = "event_id")
