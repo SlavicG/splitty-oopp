@@ -9,10 +9,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.async.DeferredResult;
 import server.database.EventRepository;
 import server.database.ExpenseRepository;
+import server.database.TagRepository;
 import server.database.UserRepository;
 import server.model.User;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -22,6 +25,7 @@ public class EventService {
     private final EventRepository eventRepository;
     private final ExpenseRepository expenseRepository;
     private final UserRepository userRepository;
+    private final TagRepository tagRepository;
 
     private Map<Object, Consumer<Event>> listeners = new HashMap<>();
 
@@ -31,21 +35,38 @@ public class EventService {
             expense.getDescription(),
             expense.getPayer().getId(),
             expense.getDate(),
-            expense.getSplitBetween());
+            expense.getSplitBetween(),
+            0);
+    private Function<server.model.Tag, commons.dto.Tag> mapper2 = tag -> new commons.dto.Tag(
+            tag.getId(),
+            tag.getName(),
+            tag.getColor(),
+            tag.getEvent().getId());
 
     public EventService(EventRepository eventRepository, ExpenseRepository expenseRepository,
-                        UserRepository userRepository) {
+                        UserRepository userRepository, TagRepository tagRepository) {
         this.eventRepository = eventRepository;
         this.expenseRepository = expenseRepository;
         this.userRepository = userRepository;
+        this.tagRepository = tagRepository;
     }
 
     public ResponseEntity<Event> createEvent(Event event) {
         server.model.Event newEvent = new server.model.Event();
         newEvent.setTitle(event.getTitle());
         newEvent.setUsers(getUsers(event.getUserIds()));
+
         server.model.Event createdEvent = eventRepository.save(newEvent);
+
+//        TagService tagService = new TagService(tagRepository, eventRepository, userRepository);
+//        tagService.createTag(createdEvent.getId(), new commons.dto.Tag(1, "food",
+//                new Color(0), createdEvent.getId()));
+//        tagService.createTag(createdEvent.getId(), new commons.dto.Tag(2, "entrance fees",
+//                new Color(0), createdEvent.getId()));
+//        tagService.createTag(createdEvent.getId(), new commons.dto.Tag(3, "travel",
+//                new Color(0), createdEvent.getId()));
         Event returnEvent = getEvent(createdEvent);
+
         listeners.forEach((k, l) -> {
             l.accept(returnEvent);
         });
@@ -62,6 +83,10 @@ public class EventService {
         if(event.getExpenses()!=null){
             returnEvent.setExpenses(expenseRepository.findAll().stream().
                     map(mapper).toList());
+        }
+        if (event.getTags() != null){
+            returnEvent.setTags(tagRepository.findAll().stream().
+                    map(mapper2).toList());
         }
         return returnEvent;
     }
@@ -94,7 +119,8 @@ public class EventService {
 
     private Event getEvent(server.model.Event it) {
 
-        return new Event(it.getId(), it.getTitle(), getUserIds(it.getUsers()), new ArrayList<>());
+        return new Event(it.getId(), it.getTitle(), getUserIds(it.getUsers()), new ArrayList<>(),
+                tagRepository.findAll().stream().map(mapper2).toList());
     }
 
     public List<User> getUsers(List<Integer> userIds) {
@@ -107,6 +133,10 @@ public class EventService {
         if (user == null) throw new IllegalArgumentException("User not found. ID: " + it);
         return user;
     }
+
+//    //private static List<Tag> getTags(List<Tag> tags) {
+//        return tags.stream().map(it -> it.getId()).toList();
+//    }
 
     private static List<Integer> getUserIds(List<User> users) {
         return users.stream().map(it -> it.getId()).toList();

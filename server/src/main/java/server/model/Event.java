@@ -19,16 +19,18 @@ public class Event {
             inverseJoinColumns = @JoinColumn(name = "user_id")
     ) List<User> users;
     private @OneToMany(mappedBy = "event", cascade = CascadeType.ALL) List<Expense> expenses;
+    private @OneToMany(mappedBy = "event", cascade = CascadeType.ALL) List<Tag> tags;
 
     public Event() {
 
     }
 
-    public Event(Integer id, String title, List<User> users, List<Expense> expenses) {
+    public Event(Integer id, String title, List<User> users, List<Expense> expenses, List<Tag> tags) {
         this.id = id;
         this.title = title;
         this.users = users;
         this.expenses = expenses;
+        this.tags = tags;
     }
 
     public Integer getId() {
@@ -61,6 +63,14 @@ public class Event {
 
     public void setExpenses(List<Expense> expenses) {
         this.expenses = expenses;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 
     @Override

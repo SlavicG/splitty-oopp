@@ -1,0 +1,35 @@
+### Create Tag
+POST http://localhost:8080/rest/events/1/tags
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Travel2",
+  "color": null
+}
+
+### Update Tag
+PUT http://localhost:8080/rest/events/2/tags/2
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "fosfksok",
+  "color": null
+}
+
+### Get Tags
+GET http://localhost:8080/rest/events/1/tags
+Accept: application/json
+Content-Type: application/json
+
+### Get Tag
+GET http://localhost:8080/rest/events/2/tags/2
+Accept: application/json
+Content-Type: application/json
+
+### Delete Tag
+DELETE  http://localhost:8080/rest/events/2/tags/2
+Accept: application/json
+Content-Type: application/json
