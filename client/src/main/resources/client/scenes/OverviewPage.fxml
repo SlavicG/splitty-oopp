@@ -7,16 +7,25 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="386.0" prefWidth="642.0" spacing="10.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.OverviewPageCtrl">
+<VBox prefHeight="450.0" prefWidth="773.0" spacing="10.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.OverviewPageCtrl">
    <children>
       <HBox alignment="CENTER_LEFT" prefWidth="200.0" spacing="10.0">
          <children>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#startPage" text="%back" />
-            <Label fx:id="eventName" contentDisplay="CENTER" text="[EVENT NAME]">
+            <Button accessibleText="Back" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#startPage" prefHeight="32.0" prefWidth="32.0" styleClass="button-icon">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/arrow-left.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Label fx:id="eventName" contentDisplay="CENTER" styleClass="header" text="[EVENT NAME]">
       
                      <font>
                   <Font name="System Bold" size="25.0" />
@@ -29,10 +38,31 @@
       </HBox>
       <HBox spacing="20.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#invitation" text="%send_invites" />
-            <Button mnemonicParsing="false" onAction="#statisticsPage" text="%statistics" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#invitation" text="%send_invites">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/send.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button mnemonicParsing="false" onAction="#statisticsPage" text="%statistics">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/pie-chart.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
       
-            <Button mnemonicParsing="false" text="%settle_debts" />
+            <Button mnemonicParsing="false" styleClass="button-green" text="%settle_debts">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/hand-coins.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
          </children>
          <VBox.margin>
             <Insets />
@@ -40,31 +70,61 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
-            <Label text="%participants" />
+            <Label styleClass="paragraph" text="%participants" />
             <HBox fx:id="participants" />
-            <Button mnemonicParsing="false" onAction="#addParticipant" text="%add_participant" />
+            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addParticipant" prefHeight="32.0" prefWidth="32.0" styleClass="button-icon">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/user-round-plus.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" spacing="10.0">
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="inner-pannel" VBox.vgrow="ALWAYS">
          <children>
-            <Label text="%payer_colon" />
-            <ChoiceBox fx:id="userFilter" prefWidth="150.0" />
-            <Label text="%search_colon" />
-            <TextField fx:id="searchBox" promptText="%search_description" HBox.hgrow="ALWAYS" />
-            <Button fx:id="including" mnemonicParsing="false" onAction="#addExpense" text="%add_expense" HBox.hgrow="ALWAYS" />
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <Label styleClass="paragraph" text="%payer_colon" />
+                  <ChoiceBox fx:id="userFilter" prefWidth="150.0" />
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/search.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <TextField fx:id="searchBox" accessibleText="Search Bar" promptText="%search_description" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="including" accessibleText="New Expense" minHeight="32.0" minWidth="32.0" mnemonicParsing="false" onAction="#addExpense" prefHeight="32.0" prefWidth="32.0" styleClass="button-green" HBox.hgrow="ALWAYS">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/plus.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <TableView fx:id="expenseTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="amountColumn" editable="false" prefWidth="92.0" text="%amount" />
+                <TableColumn fx:id="descriptionColumn" prefWidth="250.0" text="%description" />
+                  <TableColumn fx:id="dateColumn" prefWidth="118.0" text="%date" />
+                  <TableColumn fx:id="payerColumn" prefWidth="139.0" text="%payer" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
          </children>
-      </HBox>
-      <TableView fx:id="expenseTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-        <columns>
-          <TableColumn fx:id="amountColumn" editable="false" prefWidth="92.0" text="%amount" />
-          <TableColumn fx:id="descriptionColumn" prefWidth="250.0" text="%description" />
-            <TableColumn fx:id="dateColumn" prefWidth="118.0" text="%date" />
-            <TableColumn fx:id="payerColumn" prefWidth="139.0" text="%payer" />
-        </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
