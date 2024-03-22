@@ -21,8 +21,7 @@ public class Expense {
 
     private @ManyToOne
         @JoinColumn(name = "event_id") Event event;
-    private @ManyToOne
-    @JoinColumn(name = "event_id") Tag tag;
+    private @ManyToOne Tag tag = null;
 
     public Expense() {
 
@@ -38,6 +37,16 @@ public class Expense {
         this.event = event;
         this.splitBetween = splitBetween;
         this.tag = tag;
+    }
+    public Expense(Integer id, Double amount, String description, User payer,
+                   LocalDate date, Event event, List<Integer> splitBetween) {
+        this.id = id;
+        this.amount = amount;
+        this.description = description;
+        this.payer = payer;
+        this.date = date;
+        this.event = event;
+        this.splitBetween = splitBetween;
     }
 
     public void setSplitBetween(List<Integer> splitBetween) {

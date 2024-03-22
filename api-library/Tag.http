@@ -1,5 +1,5 @@
 ### Create Tag
-POST http://localhost:8080/rest/events/2/tags
+POST http://localhost:8080/rest/events/3/tags
 Accept: application/json
 Content-Type: application/json
 
@@ -20,7 +20,7 @@ Content-Type: application/json
 }
 
 ### Get Tag
-GET http://localhost:8080/rest/events/2/tags
+GET http://localhost:8080/rest/events/1/tags
 Accept: application/json
 Content-Type: application/json
 

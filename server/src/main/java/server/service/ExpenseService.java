@@ -19,7 +19,6 @@ public class ExpenseService {
     private ExpenseRepository expenseRepository;
     private UserRepository userRepository;
     private EventRepository eventRepository;
-    private TagRepository tagRepository;
     private Function<server.model.Expense, Expense> mapper = expense -> new commons.dto.Expense(
             expense.getId(),
             expense.getAmount(),
@@ -27,7 +26,7 @@ public class ExpenseService {
             expense.getPayer().getId(),
             expense.getDate(),
             expense.getSplitBetween(),
-            expense.getTag().getId());
+            0);
     private Function<Expense, server.model.Expense> mapperInv = expense -> new server.model.Expense(
             expense.getId(),
             expense.getAmount(),
@@ -46,12 +45,10 @@ public class ExpenseService {
 
     protected ExpenseService(ExpenseRepository expenseRepository,
                              UserRepository userRepository,
-                             EventRepository eventRepository,
-                             TagRepository tagRepository) {
+                             EventRepository eventRepository) {
         this.expenseRepository = expenseRepository;
         this.userRepository = userRepository;
         this.eventRepository = eventRepository;
-        this.tagRepository = tagRepository;
     }
 
     public List<Expense> getExpenses() {
@@ -72,8 +69,7 @@ public class ExpenseService {
                 getUserById(expense.getPayerId()),
                 expense.getDate(),
                 event,
-                expense.getSplitBetween(),
-                tagRepository.getById(expense.getTagId()));
+                expense.getSplitBetween());
 //        event.getExpenses().add(expenseEntity);
         List<server.model.Expense> listExpensesPrev = event.getExpenses();
         listExpensesPrev.add(expenseEntity);
@@ -86,8 +82,9 @@ public class ExpenseService {
                 expense.getDescription(),
                 expense.getPayerId(),
                 expense.getDate(),
-                expense.getSplitBetween(),
-                expense.getTagId());
+                expense.getSplitBetween());
+
+
     }
 
     public Expense updateExpense(Integer eventId, Expense expense) {
@@ -109,6 +106,7 @@ public class ExpenseService {
     public List<Expense> getExpenses(Integer eventId) {
         return expenseRepository.findAllByEventId(eventId).stream().map(mapper).toList();
     }
+
 
     public Expense deleteExpense(Integer eventId, Integer expenseId) {
         Optional<server.model.Expense> expense = expenseRepository.findById(expenseId);
