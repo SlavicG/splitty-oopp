@@ -38,6 +38,11 @@ public class EventService {
             expense.getDate(),
             expense.getSplitBetween(),
             0);
+    private Function<server.model.Tag, commons.dto.Tag> mapper2 = tag -> new commons.dto.Tag(
+            tag.getId(),
+            tag.getName(),
+            tag.getColor(),
+            tag.getEvent().getId());
 
     public EventService(EventRepository eventRepository, ExpenseRepository expenseRepository,
                         UserRepository userRepository, TagRepository tagRepository) {
@@ -52,16 +57,14 @@ public class EventService {
         newEvent.setTitle(event.getTitle());
         newEvent.setUsers(getUsers(event.getUserIds()));
 
-        server.model.Tag tag1 = new server.model.Tag();
-        tag1.setName("Food");
-        tag1.setColor(new Color(0,128,0));
-        tagRepository.save(tag1);
-
-        List<Tag> tags = new ArrayList<>();
-        tags.add(tag1);
-        newEvent.setTags(tags);
         server.model.Event createdEvent = eventRepository.save(newEvent);
+
+        TagService tagService = new TagService(tagRepository, eventRepository, userRepository);
+        tagService.createTag(createdEvent.getId(), new commons.dto.Tag(1, "food", new Color(50,205,50), createdEvent.getId()));
+        tagService.createTag(createdEvent.getId(), new commons.dto.Tag(2, "entrance fees", new Color(30,144,255), createdEvent.getId()));
+        tagService.createTag(createdEvent.getId(), new commons.dto.Tag(3, "travel", new Color(255,0,0), createdEvent.getId()));
         Event returnEvent = getEvent(createdEvent);
+
         listeners.forEach((k, l) -> {
             l.accept(returnEvent);
         });
@@ -78,6 +81,10 @@ public class EventService {
         if(event.getExpenses()!=null){
             returnEvent.setExpenses(expenseRepository.findAll().stream().
                     map(mapper).toList());
+        }
+        if (event.getTags() != null){
+            returnEvent.setTags(tagRepository.findAll().stream().
+                    map(mapper2).toList());
         }
         return returnEvent;
     }
@@ -110,7 +117,8 @@ public class EventService {
 
     private Event getEvent(server.model.Event it) {
 
-        return new Event(it.getId(), it.getTitle(), getUserIds(it.getUsers()), new ArrayList<>(), new ArrayList<>());
+        return new Event(it.getId(), it.getTitle(), getUserIds(it.getUsers()), new ArrayList<>(), tagRepository.findAll().stream().
+                map(mapper2).toList());
     }
 
     public List<User> getUsers(List<Integer> userIds) {

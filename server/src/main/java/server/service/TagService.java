@@ -61,8 +61,10 @@ public class TagService {
                 tag.getColor(),
                 event);
         List<server.model.Tag> listTagsPrev = event.getTags();
-        listTagsPrev.add(tagEntity);
-        event.setTags(listTagsPrev);
+        if (listTagsPrev != null) {
+            listTagsPrev.add(tagEntity);
+            event.setTags(listTagsPrev);
+        }
 
         eventRepository.save(event);
         server.model.Tag createdEntity = tagRepository.save(tagEntity);
