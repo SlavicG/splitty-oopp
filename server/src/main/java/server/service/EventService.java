@@ -11,7 +11,6 @@ import server.database.EventRepository;
 import server.database.ExpenseRepository;
 import server.database.TagRepository;
 import server.database.UserRepository;
-import server.model.Tag;
 import server.model.User;
 
 import java.awt.*;
@@ -60,9 +59,12 @@ public class EventService {
         server.model.Event createdEvent = eventRepository.save(newEvent);
 
         TagService tagService = new TagService(tagRepository, eventRepository, userRepository);
-        tagService.createTag(createdEvent.getId(), new commons.dto.Tag(1, "food", new Color(50,205,50), createdEvent.getId()));
-        tagService.createTag(createdEvent.getId(), new commons.dto.Tag(2, "entrance fees", new Color(30,144,255), createdEvent.getId()));
-        tagService.createTag(createdEvent.getId(), new commons.dto.Tag(3, "travel", new Color(255,0,0), createdEvent.getId()));
+        tagService.createTag(createdEvent.getId(), new commons.dto.Tag(1, "food",
+                new Color(50,205,50), createdEvent.getId()));
+        tagService.createTag(createdEvent.getId(), new commons.dto.Tag(2, "entrance fees",
+                new Color(30,144,255), createdEvent.getId()));
+        tagService.createTag(createdEvent.getId(), new commons.dto.Tag(3, "travel",
+                new Color(255,0,0), createdEvent.getId()));
         Event returnEvent = getEvent(createdEvent);
 
         listeners.forEach((k, l) -> {
@@ -117,8 +119,8 @@ public class EventService {
 
     private Event getEvent(server.model.Event it) {
 
-        return new Event(it.getId(), it.getTitle(), getUserIds(it.getUsers()), new ArrayList<>(), tagRepository.findAll().stream().
-                map(mapper2).toList());
+        return new Event(it.getId(), it.getTitle(), getUserIds(it.getUsers()), new ArrayList<>(),
+                tagRepository.findAll().stream().map(mapper2).toList());
     }
 
     public List<User> getUsers(List<Integer> userIds) {
