@@ -34,7 +34,7 @@ class ServerUtilsTest {
         userIds.add(6);
         List<Expense> expenses = new ArrayList<>();
         expenses.add(new Expense());
-        Event event = new Event(5, "patat", userIds, expenses);
+        Event event = new Event(5, "patat", userIds, expenses, null);
         //server.addEvent(event);
         //List<Event> events1 = server.getEvents();
         //assertTrue(events1.contains(event));
@@ -45,7 +45,7 @@ class ServerUtilsTest {
         LocalDateTime now = LocalDateTime.now();
         List<Integer> users = new ArrayList<>();
         List<Expense> expenses = new ArrayList<>();
-        Event event = new Event(5, "patat", users, expenses);
+        Event event = new Event(5, "patat", users, expenses, null);
         Expense expense = new Expense();
         expenses.add(expense);
         //server.addEvent(event);

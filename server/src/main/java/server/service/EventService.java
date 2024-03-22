@@ -9,10 +9,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.async.DeferredResult;
 import server.database.EventRepository;
 import server.database.ExpenseRepository;
+import server.database.TagRepository;
 import server.database.UserRepository;
+import server.model.Tag;
 import server.model.User;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -22,6 +26,7 @@ public class EventService {
     private final EventRepository eventRepository;
     private final ExpenseRepository expenseRepository;
     private final UserRepository userRepository;
+    private final TagRepository tagRepository;
 
     private Map<Object, Consumer<Event>> listeners = new HashMap<>();
 
@@ -35,16 +40,26 @@ public class EventService {
             0);
 
     public EventService(EventRepository eventRepository, ExpenseRepository expenseRepository,
-                        UserRepository userRepository) {
+                        UserRepository userRepository, TagRepository tagRepository) {
         this.eventRepository = eventRepository;
         this.expenseRepository = expenseRepository;
         this.userRepository = userRepository;
+        this.tagRepository = tagRepository;
     }
 
     public ResponseEntity<Event> createEvent(Event event) {
         server.model.Event newEvent = new server.model.Event();
         newEvent.setTitle(event.getTitle());
         newEvent.setUsers(getUsers(event.getUserIds()));
+
+        server.model.Tag tag1 = new server.model.Tag();
+        tag1.setName("Food");
+        tag1.setColor(new Color(0,128,0));
+        tagRepository.save(tag1);
+
+        List<Tag> tags = new ArrayList<>();
+        tags.add(tag1);
+        newEvent.setTags(tags);
         server.model.Event createdEvent = eventRepository.save(newEvent);
         Event returnEvent = getEvent(createdEvent);
         listeners.forEach((k, l) -> {
@@ -108,6 +123,10 @@ public class EventService {
         if (user == null) throw new IllegalArgumentException("User not found. ID: " + it);
         return user;
     }
+
+//    //private static List<Tag> getTags(List<Tag> tags) {
+//        return tags.stream().map(it -> it.getId()).toList();
+//    }
 
     private static List<Integer> getUserIds(List<User> users) {
         return users.stream().map(it -> it.getId()).toList();

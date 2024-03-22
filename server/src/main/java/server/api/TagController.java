@@ -43,7 +43,7 @@ public class TagController {
     @GetMapping
     @ResponseBody
     public List<Tag> getTags(@PathVariable(name = "event_id") Integer eventId) {
-        return tagService.getTags(eventId);
+        return tagService.getTag(eventId);
     }
 
     @DeleteMapping("/{tag_id}")

@@ -24,7 +24,7 @@ public class Tag {
         this.event = event;
     }
 
-    protected Tag() {
+    public Tag() {
 
     }
 
