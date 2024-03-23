@@ -131,13 +131,13 @@ public class ServerUtils {
                 .post(Entity.entity(event, APPLICATION_JSON), Event.class);
     }
 
-	public Event updateEvent(Event event, int id) {
-		return ClientBuilder.newClient(new ClientConfig()) //
+    public Event updateEvent(Event event, int id) {
+        return ClientBuilder.newClient(new ClientConfig()) //
 				.target(configuration.getServerURL()).path("/rest/events/" + id) //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
 				.put(Entity.entity(event, APPLICATION_JSON), Event.class);
-	}
+    }
 
     public Response deleteEvent(int id) {
         return ClientBuilder.newClient(new ClientConfig()) //
