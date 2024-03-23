@@ -5,8 +5,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
-import java.net.URL;
-import java.util.ResourceBundle;
+
 
 public class LoginPageCtrl {
 

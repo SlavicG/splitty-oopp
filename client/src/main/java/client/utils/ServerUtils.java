@@ -259,7 +259,7 @@ public class ServerUtils {
 
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(SERVER_URL + "/admin/dashboard")) // Change to a valid protected endpoint under /admin
+                    .uri(URI.create(SERVER_URL + "/admin/dashboard")) 
                     .header("Authorization", authHeader)
                     .GET() // Or POST, if you're testing a specific action
                     .build();
