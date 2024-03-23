@@ -20,12 +20,18 @@ class EventTest {
     void setId() {
         Event event = new Event(1, "party", null, null, null);
         event.setId(2);
+        Event event1 = new Event();
+        event1.setId(1);
         assertEquals(2, event.getId());
+        assertEquals(1,event1.getId());
     }
 
     @Test
     void getTitle() {
         Event event = new Event(1, "party", null, null, null);
+        Event event1 = new Event();
+        event1.setId(1);
+        assertEquals(1,event1.getId());
         assertEquals("party", event.getTitle());
     }
 
@@ -33,12 +39,15 @@ class EventTest {
     void setTitle() {
         Event event = new Event(1, "party", null, null, null);
         event.setTitle("partyZ");
+        Event event1 = new Event();
+        event1.setTitle("snackbar visit");
         assertEquals("partyZ", event.getTitle());
+        assertEquals(event1.getTitle(), "snackbar visit");
     }
 
     @Test
     void getUsersIds() {
-        Event event = new Event(1, "party", null, null,null);
+        Event event = new Event(1, "party", null, null, null);
         assertEquals(null, event.getUserIds());
     }
 
@@ -70,15 +79,27 @@ class EventTest {
 
     @Test
     void testEquals() {
-        Event event = new Event(1, "party", null, null,null);
-        Event event2 = new Event(1, "party", null, null,null);
-        assertTrue(event.equals(event2));
+        Event event = new Event(1, "party", null, null, null);
+        Event event2 = new Event(1, "party", null, null, null);
+        Event event1 = new Event();
+        event1.setTitle("party");
+        event1.setId(1);
+        event1.setExpenses(null);
+        event1.setUsers(null);
+        assertEquals(event1, event);
+        assertEquals(event, event2);
     }
 
     @Test
     void testHashCode() {
-        Event event = new Event(1, "party", null, null,null);
-        Event event2 = new Event(1, "party", null, null,null);
+        Event event = new Event(1, "party", null, null, null);
+        Event event2 = new Event(1, "party", null, null, null);
+        Event event1 = new Event();
+        event1.setTitle("party");
+        event1.setId(1);
+        event1.setExpenses(null);
+        event1.setUsers(null);
+        assertEquals(event1, event);
         assertEquals(event, event2);
     }
 
