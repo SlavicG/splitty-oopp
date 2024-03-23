@@ -28,7 +28,7 @@ class EventTest {
 
     @Test
     void getTitle() {
-        Event event = new Event(1, "party", null, null);
+        Event event = new Event(1, "party", null, null, null);
         Event event1 = new Event();
         event1.setId(1);
         assertEquals(1,event1.getId());
@@ -79,8 +79,8 @@ class EventTest {
 
     @Test
     void testEquals() {
-        Event event = new Event(1, "party", null, null);
-        Event event2 = new Event(1, "party", null, null);
+        Event event = new Event(1, "party", null, null, null);
+        Event event2 = new Event(1, "party", null, null, null);
         Event event1 = new Event();
         event1.setTitle("party");
         event1.setId(1);
@@ -92,8 +92,8 @@ class EventTest {
 
     @Test
     void testHashCode() {
-        Event event = new Event(1, "party", null, null);
-        Event event2 = new Event(1, "party", null, null);
+        Event event = new Event(1, "party", null, null, null);
+        Event event2 = new Event(1, "party", null, null, null);
         Event event1 = new Event();
         event1.setTitle("party");
         event1.setId(1);
