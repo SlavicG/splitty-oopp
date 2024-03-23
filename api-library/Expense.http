@@ -1,5 +1,5 @@
 ### Create Expense
-POST http://localhost:8080/rest/events/1/expenses
+POST http://localhost:8080/rest/events/2/expenses
 Accept: application/json
 Content-Type: application/json
 
@@ -24,7 +24,7 @@ Content-Type: application/json
 }
 
 ### Get Expenses
-GET http://localhost:8080/rest/events/1/expenses
+GET http://localhost:8080/rest/events/2/expenses
 Accept: application/json
 Content-Type: application/json
 

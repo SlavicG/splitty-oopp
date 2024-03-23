@@ -46,31 +46,20 @@ public class Event {
         return usersIds;
     }
 
-    public void addUser(Integer userId) {
-        this.usersIds.add(userId);
-    }
     public void setUsers(List<Integer> usersIds) {
         this.usersIds = usersIds;
     }
 
     public List<Expense> getExpenses() {
-        return expenses;
+        return this.expenses;
     }
 
     public void setExpenses(List<Expense> expenses) {
         this.expenses = expenses;
     }
 
-    public List<Integer> getUsersIds() {
-        return usersIds;
-    }
-
     public List<Tag> getTags() {
         return tags;
-    }
-
-    public void setUsersIds(List<Integer> usersIds) {
-        this.usersIds = usersIds;
     }
 
     public void setTags(List<Tag> tags) {
