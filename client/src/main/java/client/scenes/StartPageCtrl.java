@@ -3,6 +3,9 @@ package client.scenes;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.dto.Event;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
@@ -15,6 +18,8 @@ import java.util.ResourceBundle;
 public class StartPageCtrl implements Initializable {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
+
+    private ObservableList<Event> data;
 
     @FXML
     private TextField inviteCode;
@@ -37,15 +42,21 @@ public class StartPageCtrl implements Initializable {
     }
 
     public void refresh() {
-        eventList.getItems().clear();
-        for (Event event : server.getEvents()) {
-            eventList.getItems().add(event);
-        }
+        var events = server.getEvents();
+        data = FXCollections.observableList(events);
+        eventList.setItems(data);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        refresh();
+        server.registerForUpdates(q -> {
+            Platform.runLater(() -> {
+                data.add(q);
+            });
+        });
+    }
+    public void stop() {
+        server.stop();
     }
 
     public void onEventSelected() {

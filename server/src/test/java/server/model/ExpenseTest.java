@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,11 +26,11 @@ class ExpenseTest {
         user2 = new User(1, "Slavic", "slavic@tudelft.nl", "123", "567");
         date1 = LocalDate.of(2021, 10, 24);
         date2 = LocalDate.of(2022, 10, 24);
-        event1 = new Event(1, "party", null, null);
-        event2 = new Event(2, "party2", null, null);
-        expense1 = new Expense(1, 1.0, "description1", user1, date1, event1);
-        expense2 = new Expense(1, 1.0, "description1", user1, date1, event1);
-        expense3 = new Expense(1, 1.0, "description1", user2, date2, event2);
+        event1 = new Event(1, "party", null, null, null);
+        event2 = new Event(2, "party2", null, null, null);
+        expense1 = new Expense(1, 1.0, "description1", user1, date1, event1, new ArrayList<>(), null);
+        expense2 = new Expense(1, 1.0, "description1", user1, date1, event1, new ArrayList<>(), null);
+        expense3 = new Expense(1, 1.0, "description1", user2, date2, event2, new ArrayList<>(), null);
     }
 
     @Test

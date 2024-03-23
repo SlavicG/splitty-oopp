@@ -29,6 +29,9 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.function.Consumer;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
@@ -233,5 +236,34 @@ public class ServerUtils {
                 target(configuration.getServerURL())
                 .path("rest/mail").request(APPLICATION_JSON).accept(APPLICATION_JSON)
                 .post(Entity.entity(mailRequest, APPLICATION_JSON), Mail.class);
+    }
+
+    public Event addUserToEvent(Event event, int event_id, User user, int user_id) {
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(configuration.getServerURL()).path("/rest/events/" + event_id + "/add_user/" + user_id) //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .post(Entity.entity(event, APPLICATION_JSON), Event.class);
+    }
+
+    private static final ExecutorService EXEC = Executors.newSingleThreadExecutor();
+    public void registerForUpdates(Consumer<Event> consumer) {
+        EXEC.submit(() -> {
+            while(!Thread.interrupted()) {
+                var res = ClientBuilder.newClient(new ClientConfig()) //
+                        .target(configuration.getServerURL()).path("/rest/events/updates") //
+                        .request(APPLICATION_JSON) //
+                        .accept(APPLICATION_JSON) //
+                        .get(Response.class);
+                if(res.getStatus() == 204) {
+                    continue;
+                }
+                var e = res.readEntity(Event.class);
+                consumer.accept(e);
+            }
+        });
+    }
+    public void stop() {
+        EXEC.shutdown();
     }
 }

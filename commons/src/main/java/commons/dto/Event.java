@@ -11,6 +11,7 @@ public class Event {
     private String title;
     private List<Integer> usersIds = new ArrayList<>();
     private List<Expense> expenses = new ArrayList<>();
+    private List<Tag> tags = new ArrayList<>();
 
     public Event() {
 
@@ -26,6 +27,7 @@ public class Event {
         this.title = title;
         this.usersIds = usersIds;
         this.expenses = expenses;
+        this.tags = tags;
     }
 
 
@@ -49,6 +51,9 @@ public class Event {
         return usersIds;
     }
 
+    public void addUser(Integer userId) {
+        this.usersIds.add(userId);
+    }
     public void setUsers(List<Integer> usersIds) {
         this.usersIds = usersIds;
     }
@@ -61,7 +66,21 @@ public class Event {
         this.expenses = expenses;
     }
 
+    public List<Integer> getUsersIds() {
+        return usersIds;
+    }
 
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setUsersIds(List<Integer> usersIds) {
+        this.usersIds = usersIds;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -2,13 +2,11 @@ package server.service;
 
 
 import commons.dto.User;
-
 import org.springframework.stereotype.Service;
 import server.database.EventRepository;
 import server.database.UserRepository;
 
-
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
@@ -45,7 +43,7 @@ public class UserService {
                 user.getEmail(),
                 user.getIban(),
                 user.getBic(),
-                Collections.emptyList());
+                new ArrayList<>());
         server.model.User createdUser = userRepository.save(userEntity);
         return new User(createdUser.getId(),
                 createdUser.getName(),

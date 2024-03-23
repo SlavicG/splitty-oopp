@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,11 +23,11 @@ class ExpenseTest {
     @BeforeEach
     void setup() {
         LocalDate date = LocalDate.of(2021, 10, 24);
-        event1 = new Event(1, "party", null, null);
-        event2 = new Event(2, "party2", null, null);
-        expense1 = new Expense(1, 1.0, "description1", 3, date);
-        expense2 = new Expense(1, 1.0, "description1", 3, date);
-        expense3 = new Expense(1, 1.0, "description1", 3, date);
+        event1 = new Event(1, "party", null, null, null);
+        event2 = new Event(2, "party2", null, null, null);
+        expense1 = new Expense(1, 1.0, "description1", 3, date, new ArrayList<>(), 1);
+        expense2 = new Expense(1, 1.0, "description1", 3, date, new ArrayList<>(),1);
+        expense3 = new Expense(1, 1.0, "description1", 3, date, new ArrayList<>(), 1);
     }
 
     @Test

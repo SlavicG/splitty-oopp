@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,8 +20,6 @@ class TagTest {
     private Color color2;
     private Tag tag1;
     private Tag tag2;
-    private Expense expense1;
-    private Expense expense2;
     private List<Expense> expenses1;
     private List<Expense> expenses2;
 
@@ -30,20 +27,14 @@ class TagTest {
     void setup() {
         color1 = new Color(255);
         color2 = new Color(0);
-        event1 = new Event(1, "party", null, null);
-        event2 = new Event(2, "party2", null, null);
+        event1 = new Event(1, "party", null, null,null);
+        event2 = new Event(2, "party2", null, null, null);
         user1 = new User(1, "Miruna", "mcoroi@tudelft.nl", "123", "567");
         user2 = new User(1, "Slavic", "slavic@tudelft.nl", "123", "567");
         date1 = LocalDate.of(2021, 10, 24);
         date2 = LocalDate.of(2022, 10, 24);
-        expense1 = new Expense(1, 1.0, "description1", user1, date1, event1);
-        expense2 = new Expense(1, 1.0, "description1", user1, date1, event1);
-        expenses1 = new ArrayList<>();
-        expenses2 = new ArrayList<>();
-        expenses1.add(expense1);
-        expenses2.add(expense2);
-        tag1 = new Tag(1, "food", color1, expenses1, event1);
-        tag2 = new Tag(2, "travel", color2, expenses2, event2);
+        tag1 = new Tag(1, "food", color1, event1);
+        tag2 = new Tag(2, "travel", color2, event2);
     }
     @Test
     void getId() {
@@ -98,16 +89,5 @@ class TagTest {
     @Test
     void testHashCode() {
         assertNotEquals(tag1.hashCode(), tag2.hashCode());
-    }
-
-    @Test
-    void getExpenses() {
-        assertEquals(expenses1, tag1.getExpenses());
-    }
-
-    @Test
-    void setExpenses() {
-        tag1.setExpenses(expenses2);
-        assertEquals(expenses2, tag1.getExpenses());
     }
 }
