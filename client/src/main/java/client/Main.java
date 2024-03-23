@@ -20,7 +20,7 @@ import client.utils.Configuration;
 import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+
 
 import java.io.IOException;
 import java.net.URISyntaxException;
