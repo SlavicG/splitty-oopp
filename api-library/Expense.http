@@ -1,13 +1,13 @@
 ### Create Expense
-POST http://localhost:8080/rest/events/2/expenses
+POST http://localhost:8080/rest/events/1/expenses
 Accept: application/json
 Content-Type: application/json
 
 {
-  "amount": 25,
-  "description": "Taxi",
-  "payerId": 1,
-  "split-between": [1,2]
+  "amount": 9,
+  "description": "pivo",
+  "payerId": 2,
+  "split-between": [1, 2, 3]
 }
 
 ### Update Expense

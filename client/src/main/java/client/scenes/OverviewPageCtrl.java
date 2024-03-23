@@ -5,8 +5,10 @@ import com.google.inject.Inject;
 import commons.dto.Event;
 import commons.dto.Expense;
 import commons.dto.User;
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -45,6 +47,7 @@ public class OverviewPageCtrl implements Initializable {
     @FXML
     private TableColumn<Expense, String> payerColumn;
     private Integer eventId;
+    private ObservableList<User> data;
     private FilteredList<Expense> expenses;
     private ResourceBundle resources;
 
@@ -53,6 +56,7 @@ public class OverviewPageCtrl implements Initializable {
         this.server = server;
         this.mainCtrl = mainCtrl;
         userNamesCache = new HashMap<>();
+        data = FXCollections.observableArrayList();
     }
 
     public void startPage() {
@@ -69,15 +73,19 @@ public class OverviewPageCtrl implements Initializable {
                 userNamesCache.get(expense.getValue().getPayerId())));
 
         expenseTable.setPlaceholder(new Label(resources.getString("add_expense_hint")));
-        expenseTable.getSelectionModel().selectedItemProperty().addListener(((obs, old, selection) -> {
-            if (selection == null) {
-                return;
-            }
-            mainCtrl.addExpensePage(eventId, selection.getId());
-        }));
 
+        // Listen for new users received through WebSocket
+        server.registerForMessages("/topic/users", User.class, this::handleNewUser);
+
+        // Listen for changes in the user filter and search box
         userFilter.setOnAction(actionEvent -> refreshFilter());
         searchBox.textProperty().addListener(((observableValue, s, t1) -> refreshFilter()));
+    }
+
+    private void handleNewUser(User newUser) {
+        Platform.runLater(() -> {
+            refresh();
+        });
     }
 
     public void setEventId(Integer id) {
@@ -111,7 +119,6 @@ public class OverviewPageCtrl implements Initializable {
         Event event = server.getEventById(eventId);
         expenses = new FilteredList<>(FXCollections.observableList(server.getExpenses(eventId)));
         expenseTable.setItems(expenses);
-
         eventName.setText(event.getTitle());
 
         // Populate the userFilter ChoiceBox with all users that have paid for expense.
