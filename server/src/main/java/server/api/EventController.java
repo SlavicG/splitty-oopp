@@ -5,9 +5,10 @@ import commons.dto.Expense;
 import commons.dto.User;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
-
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.server.ResponseStatusException;
 import server.service.EventService;
 import server.service.UserService;
@@ -34,7 +35,7 @@ public class EventController {
 
     @PostMapping
     @ResponseBody
-    public Event createEvent(@RequestBody Event event) {
+    public ResponseEntity<Event> createEvent(@RequestBody Event event) {
         return eventService.createEvent(event);
     }
 
@@ -121,5 +122,11 @@ public class EventController {
     public Event removeUser(@PathVariable(name = "event_id") Integer event_id,
                          @PathVariable(name = "user_id") Integer user_id) {
         return eventService.removeUser(event_id, user_id);
+    }
+
+
+    @GetMapping("/updates")
+    public DeferredResult<ResponseEntity<Event>> getUpdates() {
+        return eventService.getUpdates();
     }
 }

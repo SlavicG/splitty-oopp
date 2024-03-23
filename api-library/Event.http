@@ -8,7 +8,7 @@ Content-Type: application/json
 }
 
 ### Add User to Event
-POST http://localhost:8080/rest/events/1/add_user/1
+POST http://localhost:8080/rest/events/2/add_user/1
 Accept: application/json
 
 ### Delete User from Event

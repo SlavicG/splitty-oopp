@@ -1,9 +1,10 @@
 package server.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
+import commons.dto.ColorDeserializer;
 
 import java.awt.*;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,23 +13,20 @@ public class Tag {
     private @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id;
     private String name;
+    @JsonDeserialize(using = ColorDeserializer.class)
     private Color color;
-    @OneToMany
-    @JoinColumn(name = "expense_id")
-    private List<Expense> expenses;
     @ManyToOne
     @JoinColumn(name = "event_id")
     private Event event;
 
-    public Tag(Integer id, String name, Color color, List<Expense> expenses, Event event) {
+    public Tag(Integer id, String name, Color color, Event event) {
         this.id = id;
         this.name = name;
         this.color = color;
-        this.expenses = expenses;
         this.event = event;
     }
 
-    protected Tag() {
+    public Tag() {
 
     }
 
@@ -64,13 +62,6 @@ public class Tag {
         this.event = event;
     }
 
-    public List<Expense> getExpenses() {
-        return expenses;
-    }
-
-    public void setExpenses(List<Expense> expenses) {
-        this.expenses = expenses;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -79,12 +70,11 @@ public class Tag {
         return Objects.equals(getId(), tag.getId()) &&
                 Objects.equals(getName(), tag.getName()) &&
                 Objects.equals(getColor(), tag.getColor()) &&
-                Objects.equals(getExpenses(), tag.getExpenses()) &&
                 Objects.equals(getEvent(), tag.getEvent());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getColor(), getExpenses(), getEvent());
+        return Objects.hash(getId(), getName(), getColor(), getEvent());
     }
 }

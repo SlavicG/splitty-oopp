@@ -12,6 +12,7 @@ public class Expense {
     private Double amount;
     private String description;
     private Integer payerId;
+    private Integer tagId;
 
     @JsonProperty("split-between")
     private List<Integer> splitBetween;
@@ -19,6 +20,16 @@ public class Expense {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
+    public Expense(Integer id, Double amount, String description,
+                   Integer payerId, LocalDate date, List<Integer> splitBetween, Integer tagId ) {
+        this.id = id;
+        this.amount = amount;
+        this.description = description;
+        this.payerId = payerId;
+        this.date = date;
+        this.splitBetween = splitBetween;
+        this.tagId = tagId;
+    }
     public Expense(Integer id, Double amount, String description,
                    Integer payerId, LocalDate date, List<Integer> splitBetween ) {
         this.id = id;
@@ -81,7 +92,13 @@ public class Expense {
         this.date = date;
     }
 
+    public Integer getTagId() {
+        return tagId;
+    }
 
+    public void setTagId(Integer tagId) {
+        this.tagId = tagId;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -93,11 +110,12 @@ public class Expense {
                 && Objects.equals(description, expense.description)
                 && Objects.equals(payerId, expense.payerId)
                 && Objects.equals(splitBetween, expense.splitBetween)
-                && Objects.equals(date, expense.date);
+                && Objects.equals(date, expense.date)
+                && Objects.equals(tagId, expense.tagId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, amount, description, payerId, date, splitBetween);
+        return Objects.hash(id, amount, description, payerId, date, splitBetween, tagId);
     }
 }

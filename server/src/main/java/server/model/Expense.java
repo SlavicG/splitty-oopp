@@ -21,11 +21,23 @@ public class Expense {
 
     private @ManyToOne
         @JoinColumn(name = "event_id") Event event;
+    private @ManyToOne Tag tag = null;
 
     public Expense() {
 
     }
 
+    public Expense(Integer id, Double amount, String description, User payer,
+                   LocalDate date, Event event, List<Integer> splitBetween, Tag tag) {
+        this.id = id;
+        this.amount = amount;
+        this.description = description;
+        this.payer = payer;
+        this.date = date;
+        this.event = event;
+        this.splitBetween = splitBetween;
+        this.tag = tag;
+    }
     public Expense(Integer id, Double amount, String description, User payer,
                    LocalDate date, Event event, List<Integer> splitBetween) {
         this.id = id;
@@ -102,6 +114,14 @@ public class Expense {
         this.event = event;
     }
 
+    public Tag getTag() {
+        return tag;
+    }
+
+    public void setTag(Tag tag) {
+        this.tag = tag;
+    }
+
     @Override
     public String toString() {
         return "Expense{" +
@@ -110,7 +130,9 @@ public class Expense {
                 ", description='" + description + '\'' +
                 ", payer=" + payer +
                 ", date=" + date +
+                ", splitBetween=" + splitBetween +
                 ", event=" + event +
+                ", tag=" + tag +
                 '}';
     }
 
@@ -124,12 +146,13 @@ public class Expense {
                 Objects.equals(description, expense.description) &&
                 Objects.equals(payer, expense.payer) &&
                 Objects.equals(date, expense.date) &&
-                Objects.equals(event, expense.event);
+                Objects.equals(event, expense.event) &&
+                Objects.equals(tag, expense.tag);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, amount, description, payer, date, event);
+        return Objects.hash(id, amount, description, payer, date, event, tag);
     }
 
 

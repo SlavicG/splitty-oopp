@@ -7,11 +7,17 @@ public class Tag {
     private int id;
     private String name;
     private Color color;
+    private int eventId;
 
-    public Tag(int id, String name, Color color) {
+    public Tag() {
+
+    }
+
+    public Tag(int id, String name, Color color, int eventId) {
         this.id = id;
         this.name = name;
         this.color = color;
+        this.eventId = eventId;
     }
 
     public int getId() {
@@ -36,6 +42,14 @@ public class Tag {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public int getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(int eventId) {
+        this.eventId = eventId;
     }
 
     @Override

@@ -24,7 +24,8 @@ public class ExpenseService {
             expense.getDescription(),
             expense.getPayer().getId(),
             expense.getDate(),
-            expense.getSplitBetween());
+            expense.getSplitBetween(),
+            0);
     private Function<Expense, server.model.Expense> mapperInv = expense -> new server.model.Expense(
             expense.getId(),
             expense.getAmount(),
@@ -81,6 +82,8 @@ public class ExpenseService {
                 expense.getPayerId(),
                 expense.getDate(),
                 expense.getSplitBetween());
+
+
     }
 
     public Expense updateExpense(Integer eventId, Expense expense) {
@@ -103,6 +106,7 @@ public class ExpenseService {
         return expenseRepository.findAllByEventId(eventId).stream().map(mapper).toList();
     }
 
+
     public Expense deleteExpense(Integer eventId, Integer expenseId) {
         Optional<server.model.Expense> expense = expenseRepository.findById(expenseId);
         return expense.map(value -> {
@@ -122,10 +126,6 @@ public class ExpenseService {
 
     private List<server.model.Expense> getExpenses(List<commons.dto.Expense> expenses) {
         return expenses.stream().map(mapperInv).toList();
-    }
-
-    private Event getEvent(server.model.Event it) {
-        return new Event(it.getId(), it.getTitle(), getUserIds(it.getUsers()), List.of());
     }
 
     private server.model.Event getModelEvent(Event event) {
