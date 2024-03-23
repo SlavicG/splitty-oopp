@@ -17,12 +17,7 @@ public class Event {
 
     }
 
-    public Event(String title, List<Integer> usersIds) {
-        this.title = title;
-        this.usersIds = usersIds;
-    }
-
-    public Event(Integer id, String title, List<Integer> usersIds, List<Expense> expenses) {
+    public Event(Integer id, String title, List<Integer> usersIds, List<Expense> expenses, List<Tag> tags) {
         this.id = id;
         this.title = title;
         this.usersIds = usersIds;
@@ -51,31 +46,20 @@ public class Event {
         return usersIds;
     }
 
-    public void addUser(Integer userId) {
-        this.usersIds.add(userId);
-    }
     public void setUsers(List<Integer> usersIds) {
         this.usersIds = usersIds;
     }
 
     public List<Expense> getExpenses() {
-        return expenses;
+        return this.expenses;
     }
 
     public void setExpenses(List<Expense> expenses) {
         this.expenses = expenses;
     }
 
-    public List<Integer> getUsersIds() {
-        return usersIds;
-    }
-
     public List<Tag> getTags() {
         return tags;
-    }
-
-    public void setUsersIds(List<Integer> usersIds) {
-        this.usersIds = usersIds;
     }
 
     public void setTags(List<Tag> tags) {
