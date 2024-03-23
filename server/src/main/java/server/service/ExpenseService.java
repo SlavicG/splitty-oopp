@@ -1,11 +1,10 @@
 package server.service;
 
 import commons.dto.Event;
-import jakarta.transaction.Transactional;
+import commons.dto.Expense;
 import org.springframework.stereotype.Service;
 import server.database.EventRepository;
 import server.database.ExpenseRepository;
-import commons.dto.Expense;
 import server.database.UserRepository;
 import server.model.User;
 
@@ -58,9 +57,8 @@ public class ExpenseService {
         return expenseRepository.findById(id).map(mapper).orElse(null);
     }
 
-    @Transactional
     public Expense createExpense(Integer eventId, Expense expense) {
-        server.model.Event event = eventRepository.getById(eventId);
+        server.model.Event event = eventRepository.findById(eventId).orElse(null);
         server.model.Expense expenseEntity = new server.model.Expense(
                 null,
                 expense.getAmount(),
@@ -70,11 +68,6 @@ public class ExpenseService {
                 event,
                 expense.getSplitBetween());
 //        event.getExpenses().add(expenseEntity);
-        List<server.model.Expense> listExpensesPrev = event.getExpenses();
-        listExpensesPrev.add(expenseEntity);
-        event.setExpenses(listExpensesPrev);
-
-        eventRepository.save(event);
         server.model.Expense createdEntity = expenseRepository.save(expenseEntity);
         return new Expense(createdEntity.getId(),
                 expense.getAmount(),
@@ -87,7 +80,7 @@ public class ExpenseService {
     }
 
     public Expense updateExpense(Integer eventId, Expense expense) {
-        server.model.Event event = eventRepository.getById(eventId);
+        server.model.Event event = eventRepository.findById(eventId).orElse(null);
         server.model.Expense existingExpense = expenseRepository.findById(expense.getId()).orElse(null);
         if (existingExpense.getEvent().getId() != eventId)
             throw new IllegalArgumentException("Expense doesn't belong with provided event");
@@ -119,7 +112,7 @@ public class ExpenseService {
     }
 
     private User getUserById(Integer it) {
-        User user = userRepository.getById(it);
+        User user = userRepository.findById(it).orElse(null);
         if (user == null) throw new IllegalArgumentException("User not found. ID: " + it);
         return user;
     }

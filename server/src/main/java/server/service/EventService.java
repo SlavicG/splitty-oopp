@@ -13,9 +13,7 @@ import server.database.TagRepository;
 import server.database.UserRepository;
 import server.model.User;
 
-import java.awt.*;
 import java.util.*;
-import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -75,14 +73,14 @@ public class EventService {
 
 
     public Event getEventById(Integer id) {
-        server.model.Event event = eventRepository.getById(id);
+        server.model.Event event = eventRepository.findById(id).orElse(null);
         Event returnEvent = new Event();
         returnEvent.setId(event.getId());
         returnEvent.setTitle(event.getTitle());
         returnEvent.setUsers(getUserIds(event.getUsers()));
         if(event.getExpenses()!=null){
-            returnEvent.setExpenses(expenseRepository.findAll().stream().
-                    map(mapper).toList());
+            returnEvent.setExpenses(event.getExpenses().stream()
+                    .map(mapper).toList());
         }
         if (event.getTags() != null){
             returnEvent.setTags(tagRepository.findAll().stream().
@@ -93,7 +91,7 @@ public class EventService {
 
 
     public Event updateEvent(Event event) {
-        server.model.Event newEvent = eventRepository.getById(event.getId());
+        server.model.Event newEvent = eventRepository.findById(event.getId()).orElse(null);
         newEvent.setTitle(event.getTitle());
         newEvent.getUsers().clear();
         newEvent.getUsers().addAll(getUsers(event.getUserIds()));
@@ -119,7 +117,8 @@ public class EventService {
 
     private Event getEvent(server.model.Event it) {
 
-        return new Event(it.getId(), it.getTitle(), getUserIds(it.getUsers()), new ArrayList<>(),
+        return new Event(it.getId(), it.getTitle(), getUserIds(it.getUsers()),
+                it.getExpenses().stream().map(mapperExpense).toList(),
                 tagRepository.findAll().stream().map(mapper2).toList());
     }
 
@@ -251,6 +250,14 @@ public class EventService {
         });
         return res;
     }
+    private Function<server.model.Expense, Expense> mapperExpense = expense -> new commons.dto.Expense(
+            expense.getId(),
+            expense.getAmount(),
+            expense.getDescription(),
+            expense.getPayer().getId(),
+            expense.getDate(),
+            expense.getSplitBetween(),
+            0);
 }
 
 
