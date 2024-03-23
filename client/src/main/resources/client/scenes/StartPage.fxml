@@ -72,7 +72,7 @@
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/settings.png" />
+                                    <Image url="@/client/images/settings.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -81,7 +81,7 @@
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/shield-ellipsis.png" />
+                                    <Image url="@/client/images/shield-ellipsis.png" />
                                  </image>
                               </ImageView>
                            </graphic>

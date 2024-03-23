@@ -42,7 +42,7 @@
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/send.png" />
+                        <Image url="@/client/images/send.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
@@ -50,7 +50,7 @@
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/pie-chart.png" />
+                        <Image url="@/client/images/pie-chart.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
@@ -59,7 +59,7 @@
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/hand-coins.png" />
+                        <Image url="@/client/images/hand-coins.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
@@ -76,7 +76,7 @@
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/user-round-plus.png" />
+                        <Image url="@/client/images/user-round-plus.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -91,7 +91,7 @@
                   <ChoiceBox fx:id="userFilter" prefWidth="150.0" />
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/search.png" />
+                        <Image url="@/client/images/search.png" />
                      </image>
                      <HBox.margin>
                         <Insets left="10.0" />
@@ -102,7 +102,7 @@
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/plus.png" />
+                              <Image url="@/client/images/plus.png" />
                            </image>
                         </ImageView>
                      </graphic>
