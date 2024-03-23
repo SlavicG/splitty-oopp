@@ -81,4 +81,7 @@ public class StartPageCtrl implements Initializable {
         mainCtrl.eventPage(finalEvent.getId());
         eventName.setText(null);
     }
+    public void onAdminButton(){
+        mainCtrl.loginPage();
+    }
 }

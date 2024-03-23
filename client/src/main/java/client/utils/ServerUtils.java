@@ -28,6 +28,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
+
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.Base64;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -38,7 +43,7 @@ import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class ServerUtils {
     private final Configuration configuration;
-
+    private static final String SERVER_URL = "http://localhost:8080";
     @Inject
     public ServerUtils(Configuration configuration) {
         this.configuration = configuration;
@@ -246,6 +251,29 @@ public class ServerUtils {
                 .post(Entity.entity(event, APPLICATION_JSON), Event.class);
     }
 
+    public static boolean login(String username, String password) {
+        try {
+            String auth = username + ":" + password;
+            String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes());
+            String authHeader = "Basic " + encodedAuth;
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(SERVER_URL + "/admin/dashboard"))
+                    .header("Authorization", authHeader)
+                    .GET() // Or POST, if you're testing a specific action
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Success if we get a response code of 200 OK, indicating that the credentials are correct
+            return response.statusCode() == 200;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     private static final ExecutorService EXEC = Executors.newSingleThreadExecutor();
     public void registerForUpdates(Consumer<Event> consumer) {
         EXEC.submit(() -> {
@@ -266,4 +294,7 @@ public class ServerUtils {
     public void stop() {
         EXEC.shutdown();
     }
+
+
+
 }
