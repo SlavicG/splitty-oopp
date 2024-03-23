@@ -56,11 +56,11 @@ class ServerUtilsTest {
         userIds.add(2);
         List<Expense> expenses = new ArrayList<>();
         expenses.add(new Expense());
-        Event event = new Event(1,"patat", userIds,expenses);
+        Event event = new Event(1,"patat", userIds,expenses, null);
         //Event event1 = server.addEvent(event);
         //List<Event> events = server.getEvents();
         //assertTrue(events.contains(event1));
-        Event event3 = new Event(1,"patat123", userIds, expenses);
+        Event event3 = new Event(1,"patat123", userIds, expenses, null);
         //server.updateEvent(event3,1);
         //Event event2 = server.getEventById(1);
         //assertEquals(event3.getTitle(),event2.getTitle());
@@ -73,7 +73,7 @@ class ServerUtilsTest {
         LocalDateTime now = LocalDateTime.now();
         List<Integer> users = new ArrayList<>();
         List<Expense> expenses = new ArrayList<>();
-        Event event = new Event( 1,"patat", users, expenses);
+        Event event = new Event( 1,"patat", users, expenses, null);
         Expense expense = new Expense();
         expenses.add(expense);
         //server.addEvent(event);
