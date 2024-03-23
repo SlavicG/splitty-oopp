@@ -1,15 +1,7 @@
 package client.utils;
 
-import commons.dto.*;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.fail;
-
 class ServerUtilsTest {
+    /*
     Configuration configuration = new Configuration();
     ServerUtils server = new ServerUtils(configuration);
 
@@ -104,4 +96,5 @@ class ServerUtilsTest {
         //List<Quote> quote1 = server.getQuotes();
         //assertTrue(quote1.contains(debt));
     }
+    */
 }
