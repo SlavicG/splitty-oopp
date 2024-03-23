@@ -84,46 +84,8 @@ public class OverviewPageCtrl implements Initializable {
 
     private void handleNewUser(User newUser) {
         Platform.runLater(() -> {
-            data.add(newUser);
-            refreshUsers();
+            refresh();
         });
-    }
-
-    private void refreshUsers() {
-        // Populate the userFilter ChoiceBox with all users
-        List<Optional<User>> users = data.stream().map(Optional::of).toList();
-        userFilter.getItems().clear();
-        userFilter.setConverter(new StringConverter<>() {
-            @Override
-            public String toString(Optional<User> user) {
-                if (user == null || user.isEmpty()) {
-                    return resources.getString("everyone");
-                }
-                return user.get().getName();
-            }
-
-            @Override
-            public Optional<User> fromString(String s) {
-                return Optional.empty();
-            }
-        });
-        userFilter.getItems().addAll(users);
-
-        // This empty is the 'All Users' option
-        userFilter.getItems().add(0, Optional.empty());
-        userFilter.setValue(userFilter.getItems().get(0));
-
-        // Add 'edit' buttons for each user
-        participants.getChildren().clear();
-        for (Optional<User> user : users) {
-            if (user.isEmpty()) {
-                continue;
-            }
-            Button button = new Button(user.get().getName());
-            button.setBackground(null);
-            button.setOnAction(e -> editParticipant(user.get()));
-            participants.getChildren().add(button);
-        }
     }
 
     public void setEventId(Integer id) {

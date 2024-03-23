@@ -53,8 +53,8 @@ public class UserController {
 
     @MessageMapping("/users")
     @SendTo("/topic/users")
-    public User addMessage(User user) {
-        User retUser = createUser(user);
-        return retUser;
+    public User addMessage(User user) throws BadRequestException {
+        User updatedUser = updateUser(user.getId(), user);
+        return updatedUser;
     }
 }
