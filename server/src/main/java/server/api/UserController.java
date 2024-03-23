@@ -2,11 +2,11 @@ package server.api;
 
 import commons.dto.User;
 import org.apache.coyote.BadRequestException;
-
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import server.service.UserService;
-
 
 import java.util.List;
 
@@ -51,5 +51,10 @@ public class UserController {
         return userService.getUsers();
     }
 
-
+    @MessageMapping("/users")
+    @SendTo("/topic/users")
+    public User addMessage(User user) {
+        User retUser = createUser(user);
+        return retUser;
+    }
 }
