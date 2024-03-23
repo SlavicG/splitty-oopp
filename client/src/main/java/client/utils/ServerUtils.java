@@ -294,4 +294,46 @@ public class ServerUtils {
     public void stop() {
         EXEC.shutdown();
     }
+
+    public List<Tag> getTags(int eventId) {
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(configuration.getServerURL()).path("/rest/events/"  + eventId + "/tags") //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .get(new GenericType<List<Tag>>() {
+                });
+    }
+
+    public Tag getTagById(int eventId, int tagId) {
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(configuration.getServerURL()).path("/rest/events/"  + eventId + "/tags" + tagId) //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .get(new GenericType<Tag>() {
+                });
+    }
+
+    public Tag addEvent(Tag tag, int eventId) {
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags") //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .post(Entity.entity(tag, APPLICATION_JSON), Tag.class);
+    }
+
+    public Tag updateTag(Tag event, int eventId, int tagId) {
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags/" + tagId) //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .put(Entity.entity(event, APPLICATION_JSON), Tag.class);
+    }
+
+    public Response deleteTag(int eventId, int tagId) {
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags/" + tagId) //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .delete();
+    }
 }
