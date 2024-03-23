@@ -295,24 +295,6 @@ public class ServerUtils {
         EXEC.shutdown();
     }
 
-    private static final ExecutorService EXEC = Executors.newSingleThreadExecutor();
-    public void registerForUpdates(Consumer<Event> consumer) {
-        EXEC.submit(() -> {
-            while(!Thread.interrupted()) {
-                var res = ClientBuilder.newClient(new ClientConfig()) //
-                        .target(configuration.getServerURL()).path("/rest/events/updates") //
-                        .request(APPLICATION_JSON) //
-                        .accept(APPLICATION_JSON) //
-                        .get(Response.class);
-                if(res.getStatus() == 204) {
-                    continue;
-                }
-                var e = res.readEntity(Event.class);
-                consumer.accept(e);
-            }
-        });
-    }
-    public void stop() {
-        EXEC.shutdown();
-    }
+
+
 }

@@ -56,7 +56,6 @@ public class Main extends Application {
         mainCtrl.initialize(primaryStage, overview, add, startPage, overviewPage, invitationPage,
                 addParticipant, addExpensePage, statisticsPage, loginPage, adminPage);
 
-                addParticipant, addExpensePage, statisticsPage);
         primaryStage.setOnCloseRequest(e -> {
             startPage.getKey().stop();
         });
