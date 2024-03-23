@@ -310,6 +310,48 @@ public class ServerUtils {
         EXEC.shutdown();
     }
 
+    public List<Tag> getTags(int eventId) {
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags") //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .get(new GenericType<List<Tag>>() {
+                });
+    }
+
+    public Tag getTagById(int eventId, int tagId) {
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags" + tagId) //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .get(new GenericType<Tag>() {
+                });
+    }
+
+    public Tag addTag(Tag tag, int eventId) {
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags") //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .post(Entity.entity(tag, APPLICATION_JSON), Tag.class);
+    }
+
+    public Tag updateTag(Tag event, int eventId, int tagId) {
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags/" + tagId) //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .put(Entity.entity(event, APPLICATION_JSON), Tag.class);
+    }
+
+    public Response deleteTag(int eventId, int tagId) {
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags/" + tagId) //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .delete();
+    }            
+
     private StompSession session = connect("ws://localhost:8080/websocket");
     private StompSession connect(String url) {
         var client = new StandardWebSocketClient();
@@ -324,6 +366,7 @@ public class ServerUtils {
         }
         throw new IllegalStateException();
     }
+
     public <T> void registerForMessages(String dest, Class<T> type, Consumer<T> consumer) {
         session.subscribe(dest, new StompFrameHandler() {
             @Override
@@ -338,6 +381,7 @@ public class ServerUtils {
             }
         });
     }
+    
     public void send(String dest, Object o) {
         session.send(dest, o);
     }
