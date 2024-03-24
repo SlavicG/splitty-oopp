@@ -194,7 +194,7 @@ public class ServerUtils {
                 .put(Entity.entity(expense, APPLICATION_JSON), Expense.class);
     }
 
-    public Response deleteExpense(Expense expense, int eventId, int expenseId) {
+    public Response deleteExpense(int eventId, int expenseId) {
         return ClientBuilder.newClient(new ClientConfig()) //
                 .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/expenses/" + expenseId) //
                 .request(APPLICATION_JSON) //
