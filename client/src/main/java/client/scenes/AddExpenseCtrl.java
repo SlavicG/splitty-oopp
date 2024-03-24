@@ -78,13 +78,13 @@ public class AddExpenseCtrl implements Initializable {
 
         if (expenseId == null) {
             Expense result = server.addExpense(newExpense, event.getId());
-            mainCtrl.addUndoFunction(() -> server.deleteExpense(event.getId(), result.getId()));
+            mainCtrl.addUndoFunction(() -> server.deleteExpense(result, event.getId()));
 
         } else {
             int oldExpenseId = expenseId;
             Expense oldExpense = server.getExpenseById(event.getId(), oldExpenseId);
-            server.updateExpense(newExpense, event.getId(), oldExpenseId);
-            mainCtrl.addUndoFunction(() -> server.updateExpense(oldExpense, event.getId(), oldExpenseId));
+            server.updateExpense(newExpense, event.getId());
+            mainCtrl.addUndoFunction(() -> server.updateExpense(oldExpense, event.getId()));
         }
 
         mainCtrl.eventPage(event.getId());
