@@ -27,9 +27,7 @@ import javafx.util.Pair;
 import java.util.Stack;
 
 public class MainCtrl {
-
     private Stage primaryStage;
-
     private QuoteOverviewCtrl overviewCtrl;
     private Scene overview;
     private Scene startPage;
@@ -152,10 +150,12 @@ public class MainCtrl {
         primaryStage.setTitle("Statistics Page");
         primaryStage.setScene(statisticsPage);
     }
+
     public void loginPage(){
         primaryStage.setTitle("Login Page");
         primaryStage.setScene(loginPage);
     }
+
     public void adminPage()
     {
         primaryStage.setTitle("Admin Dashboard");

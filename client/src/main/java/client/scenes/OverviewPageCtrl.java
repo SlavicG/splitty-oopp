@@ -68,8 +68,8 @@ public class OverviewPageCtrl implements Initializable {
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-        payerColumn.setCellValueFactory(expense -> new ReadOnlyObjectWrapper<>(
-                userNamesCache.get(expense.getValue().getPayerId())));
+        payerColumn.setCellValueFactory(
+            expense -> new ReadOnlyObjectWrapper<>(userNamesCache.get(expense.getValue().getPayerId())));
 
         expenseTable.setPlaceholder(new Label(resources.getString("add_expense_hint")));
 
@@ -158,8 +158,8 @@ public class OverviewPageCtrl implements Initializable {
         eventName.setText(event.getTitle());
 
         // Populate the userFilter ChoiceBox with all users that have paid for expense.
-        List<Optional<User>> users = event.getUserIds().stream()
-                .distinct().map(server::getUserById).map(Optional::of).toList();
+        List<Optional<User>> users =
+            event.getUserIds().stream().distinct().map(server::getUserById).map(Optional::of).toList();
         // This cache is here, so we don't have to fetch usernames for every expense.
         userNamesCache.clear();
         users.forEach(user -> {
@@ -205,7 +205,7 @@ public class OverviewPageCtrl implements Initializable {
     public void refreshFilter() {
         Optional<User> user = userFilter.getValue();
         String search = searchBox.getText();
-        expenses.setPredicate(expense -> expense.getDescription().toLowerCase().contains(search.toLowerCase())
-                && (user == null || user.isEmpty() || expense.getPayerId().equals(user.get().getId())));
+        expenses.setPredicate(expense -> expense.getDescription().toLowerCase().contains(search.toLowerCase()) &&
+            (user == null || user.isEmpty() || expense.getPayerId().equals(user.get().getId())));
     }
 }
