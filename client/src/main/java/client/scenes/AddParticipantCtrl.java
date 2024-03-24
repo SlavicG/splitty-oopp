@@ -66,14 +66,17 @@ public class AddParticipantCtrl implements Initializable {
         if (user == null) {
             User newUser =
                     server.addUsers(new User(null, name.getText(), email.getText(), iban.getText(), bic.getText()));
-            Event changedEvent = server.addUserToEvent(event, event.getId(), newUser, newUser.getId());
+            server.addUserToEvent(event, event.getId(), newUser.getId());
             server.send("/app/users", newUser);
+            mainCtrl.addUndoFunction(() -> server.removeUserFromEvent(event.getId(), newUser.getId()));
             user = null;
         } else {
-            User changedUser = server.updateUser(new User(user.getId(),
+            User oldUser = new User(user);
+            User changedUser = server.updateUser(new User(oldUser.getId(),
                     name.getText(),
-                    email.getText(), iban.getText(), bic.getText()), user.getId());
+                    email.getText(), iban.getText(), bic.getText()), oldUser.getId());
             server.send("/app/users", changedUser);
+            mainCtrl.addUndoFunction(() -> server.updateUser(oldUser, oldUser.getId()));
             user = null;
         }
         mainCtrl.eventPage(event.getId());

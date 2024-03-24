@@ -194,7 +194,7 @@ public class ServerUtils {
                 .put(Entity.entity(expense, APPLICATION_JSON), Expense.class);
     }
 
-    public Response deleteExpense(Expense expense, int eventId, int expenseId) {
+    public Response deleteExpense(int eventId, int expenseId) {
         return ClientBuilder.newClient(new ClientConfig()) //
                 .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/expenses/" + expenseId) //
                 .request(APPLICATION_JSON) //
@@ -251,7 +251,7 @@ public class ServerUtils {
                 .post(Entity.entity(mailRequest, APPLICATION_JSON), Mail.class);
     }
 
-    public Event addUserToEvent(Event event, int event_id, User user, int user_id) {
+    public Event addUserToEvent(Event event, int event_id, int user_id) {
         return ClientBuilder.newClient(new ClientConfig()) //
                 .target(configuration.getServerURL()).path("/rest/events/" + event_id + "/add_user/" + user_id) //
                 .request(APPLICATION_JSON) //
@@ -264,6 +264,14 @@ public class ServerUtils {
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .post(Entity.entity(getEventById(event_id), APPLICATION_JSON), Event.class);
+    }
+
+    public Response removeUserFromEvent(int eventId, int userId) {
+        return ClientBuilder.newClient(new ClientConfig()) //
+            .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/add_user/" + userId) //
+            .request(APPLICATION_JSON) //
+            .accept(APPLICATION_JSON) //
+            .delete();
     }
 
     public static boolean login(String username, String password) {

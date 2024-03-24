@@ -21,6 +21,14 @@ public class User {
         this.bic = bic;
     }
 
+    public User(User user) {
+        this.id = user.getId();
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.iban = user.getIban();
+        this.bic = user.getBic();
+    }
+
     public Integer getId() {
         return id;
     }

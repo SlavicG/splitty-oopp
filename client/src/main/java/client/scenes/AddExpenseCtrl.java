@@ -71,15 +71,21 @@ public class AddExpenseCtrl implements Initializable {
             return;
         }
         invalid.setVisible(false);
+
         Expense newExpense = new Expense(
                 expenseId, howMuch.getValue(), whatFor.getText(), whoPaid.getValue().getId(), when.getValue(),
                 splitBetweenId);
-        if (expenseId == null) {
-            server.addExpense(newExpense, event.getId());
-        } else {
-            server.updateExpense(newExpense, event.getId(), expenseId);
-        }
 
+        if (expenseId == null) {
+            Expense result = server.addExpense(newExpense, event.getId());
+            mainCtrl.addUndoFunction(() -> server.deleteExpense(event.getId(), result.getId()));
+
+        } else {
+            int oldExpenseId = expenseId;
+            Expense oldExpense = server.getExpenseById(event.getId(), oldExpenseId);
+            server.updateExpense(newExpense, event.getId(), oldExpenseId);
+            mainCtrl.addUndoFunction(() -> server.updateExpense(oldExpense, event.getId(), oldExpenseId));
+        }
 
         mainCtrl.eventPage(event.getId());
     }
