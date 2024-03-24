@@ -18,6 +18,9 @@ package client.scenes;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
@@ -73,6 +76,8 @@ public class MainCtrl {
         this.startPageCtrl = startPage.getKey();
         this.overviewPage = new Scene(overviewPage.getValue());
         this.overviewPageCtrl = overviewPage.getKey();
+        this.overviewPage.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN), this::undo);
         this.invitationPage = new Scene((invitationPage.getValue()));
         this.addParticipantPage = new Scene(addParticipantPage.getValue());
         this.addParticipantPageCtrl = addParticipantPage.getKey();
