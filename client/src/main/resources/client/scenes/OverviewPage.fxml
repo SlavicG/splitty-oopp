@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="450.0" prefWidth="773.0" spacing="10.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.OverviewPageCtrl">
+<VBox prefHeight="450.0" prefWidth="773.0" spacing="10.0" stylesheets="@/client/css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.OverviewPageCtrl">
    <children>
       <HBox alignment="CENTER_LEFT" prefWidth="200.0" spacing="10.0">
          <children>
@@ -42,7 +42,7 @@
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/send.png" />
+                        <Image url="@/client/images/send.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
@@ -50,7 +50,7 @@
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/pie-chart.png" />
+                        <Image url="@/client/images/pie-chart.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
@@ -59,7 +59,7 @@
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/hand-coins.png" />
+                        <Image url="@/client/images/hand-coins.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
@@ -85,7 +85,7 @@
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/user-round-plus.png" />
+                        <Image url="@/client/images/user-round-plus.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -100,7 +100,7 @@
                   <ChoiceBox fx:id="userFilter" prefWidth="150.0" />
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/search.png" />
+                        <Image url="@/client/images/search.png" />
                      </image>
                      <HBox.margin>
                         <Insets left="10.0" />
@@ -111,7 +111,7 @@
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/plus.png" />
+                              <Image url="@/client/images/plus.png" />
                            </image>
                         </ImageView>
                      </graphic>
