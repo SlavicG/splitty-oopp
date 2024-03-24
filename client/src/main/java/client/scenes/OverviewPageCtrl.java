@@ -14,6 +14,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.util.StringConverter;
 
@@ -73,6 +75,41 @@ public class OverviewPageCtrl implements Initializable {
                 userNamesCache.get(expense.getValue().getPayerId())));
 
         expenseTable.setPlaceholder(new Label(resources.getString("add_expense_hint")));
+
+        // Add column with a button to edit the expense.
+        TableColumn<Expense, Expense> editExpenseColumn = new TableColumn<>("");
+        editExpenseColumn.setPrefWidth(30);
+        editExpenseColumn.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>(data.getValue()));
+        editExpenseColumn.setCellFactory(param -> {
+            ImageView image = new ImageView(new Image("/client/images/pencil.png"));
+            int size = 24;
+            image.setFitHeight(size);
+            image.setPreserveRatio(true);
+            Button editButton = new Button();
+            editButton.setGraphic(image);
+            editButton.setPrefSize(size, size);
+            editButton.getStyleClass().add("button-icon");
+            editButton.setMaxSize(size, size);
+            editButton.setMinSize(size, size);
+            editButton.setAccessibleText("Edit Expense");
+            return new TableCell<>() {
+                @Override
+                protected void updateItem(Expense s, boolean b) {
+                    super.updateItem(s, b);
+                    if (b) {
+                        setGraphic(null);
+                        return;
+                    }
+
+                    editButton.setOnAction(event -> {
+                        mainCtrl.addExpensePage(eventId, getItem().getId());
+                    });
+
+                    setGraphic(editButton);
+                }
+            };
+        });
+        expenseTable.getColumns().add(editExpenseColumn);
 
         // Listen for new users received through WebSocket
         server.registerForMessages("/topic/users", User.class, this::handleNewUser);
