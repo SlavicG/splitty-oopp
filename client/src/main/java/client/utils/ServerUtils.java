@@ -251,7 +251,7 @@ public class ServerUtils {
                 .post(Entity.entity(mailRequest, APPLICATION_JSON), Mail.class);
     }
 
-    public Event addUserToEvent(Event event, int event_id, User user, int user_id) {
+    public Event addUserToEvent(Event event, int event_id, int user_id) {
         return ClientBuilder.newClient(new ClientConfig()) //
                 .target(configuration.getServerURL()).path("/rest/events/" + event_id + "/add_user/" + user_id) //
                 .request(APPLICATION_JSON) //

@@ -66,7 +66,7 @@ public class AddParticipantCtrl implements Initializable {
         if (user == null) {
             User newUser =
                     server.addUsers(new User(null, name.getText(), email.getText(), iban.getText(), bic.getText()));
-            Event changedEvent = server.addUserToEvent(event, event.getId(), newUser, newUser.getId());
+            server.addUserToEvent(event, event.getId(), newUser.getId());
             server.send("/app/users", newUser);
             user = null;
         } else {
