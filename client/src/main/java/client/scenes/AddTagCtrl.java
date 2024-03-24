@@ -60,7 +60,8 @@ public class AddTagCtrl {
             Tag newTag = server.addTag(new Tag(null, name.getText(), awtColor, event.getId()), event.getId());
         }
         else {
-            Tag changedTag = server.updateTag(new Tag(tag.getId(), name.getText(), awtColor, event.getId()), event.getId(), tag.getId());
+            Tag changedTag = server.updateTag(new Tag(tag.getId(), name.getText(), 
+            awtColor, event.getId()), event.getId(), tag.getId());
             tag = null;
         }
         mainCtrl.eventPage(event.getId());
