@@ -21,6 +21,8 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+import java.util.Stack;
+
 public class MainCtrl {
 
     private Stage primaryStage;
@@ -46,6 +48,9 @@ public class MainCtrl {
     private Scene adminPage;
     private Scene loginPage;
     private Scene add;
+
+    private final Stack<Runnable> undoFunctionHistory = new Stack<>();
+
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
                            Pair<AddQuoteCtrl, Parent> add,
                            Pair<StartPageCtrl, Parent> startPage,
@@ -150,5 +155,21 @@ public class MainCtrl {
     {
         primaryStage.setTitle("Admin Dashboard");
         primaryStage.setScene(adminPage);
+    }
+
+    public void addUndoFunction(Runnable undoFunction) {
+        undoFunctionHistory.push(undoFunction);
+    }
+
+    public void undo() {
+        if (undoFunctionHistory.isEmpty()) {
+            return;
+        }
+        undoFunctionHistory.pop().run();
+        overviewPageCtrl.refresh();
+    }
+
+    public void clearUndoStack() {
+        undoFunctionHistory.clear();
     }
 }

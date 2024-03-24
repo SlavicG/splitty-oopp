@@ -114,6 +114,8 @@ public class OverviewPageCtrl implements Initializable {
         // Listen for changes in the user filter and search box
         userFilter.setOnAction(actionEvent -> refreshFilter());
         searchBox.textProperty().addListener(((observableValue, s, t1) -> refreshFilter()));
+
+        mainCtrl.clearUndoStack();
     }
 
     private void handleNewUser(User newUser) {
