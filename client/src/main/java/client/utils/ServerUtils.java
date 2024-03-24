@@ -266,6 +266,14 @@ public class ServerUtils {
                 .post(Entity.entity(getEventById(event_id), APPLICATION_JSON), Event.class);
     }
 
+    public Response removeUserFromEvent(int eventId, int userId) {
+        return ClientBuilder.newClient(new ClientConfig()) //
+            .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/add_user/" + userId) //
+            .request(APPLICATION_JSON) //
+            .accept(APPLICATION_JSON) //
+            .delete();
+    }
+
     public static boolean login(String username, String password) {
         try {
             String auth = username + ":" + password;
