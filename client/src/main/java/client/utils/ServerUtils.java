@@ -318,15 +318,6 @@ public class ServerUtils {
                 });
     }
 
-    public List<Tag> getTags(int eventId) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .get(new GenericType<List<Tag>>() {
-                });
-    }
-
     public Tag getTagById(int eventId, int tagId) {
         return ClientBuilder.newClient(new ClientConfig()) //
                 .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags" + tagId) //
