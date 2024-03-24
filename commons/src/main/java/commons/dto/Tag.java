@@ -13,7 +13,7 @@ public class Tag {
 
     }
 
-    public Tag(int id, String name, Color color, int eventId) {
+    public Tag(Integer id, String name, Color color, int eventId) {
         this.id = id;
         this.name = name;
         this.color = color;

@@ -104,6 +104,9 @@ public class OverviewPageCtrl implements Initializable {
     public void statisticsPage() {
         mainCtrl.statisticsPage();
     }
+    public void addTagPage() {
+        mainCtrl.addTagPage(eventId, null);
+    }
 
     public void refresh() {
         // Set up expenses table.

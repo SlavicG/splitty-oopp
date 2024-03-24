@@ -36,7 +36,7 @@
             <Insets />
          </VBox.margin>
       </HBox>
-      <HBox spacing="20.0">
+      <HBox alignment="TOP_CENTER" spacing="20.0">
          <children>
             <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#invitation" text="%send_invites">
                <graphic>
@@ -63,6 +63,15 @@
                      </image>
                   </ImageView>
                </graphic></Button>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#addTagPage" prefHeight="35.0" prefWidth="14.0" textFill="#234021">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../Downloads/price-tag.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
          <VBox.margin>
             <Insets />

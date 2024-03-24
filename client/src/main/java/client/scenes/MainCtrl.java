@@ -36,7 +36,8 @@ public class MainCtrl {
     private AddParticipantCtrl addParticipantPageCtrl;
     private Scene addExpensePage;
     private Scene statisticsPage;
-
+    private Scene addTagPage;
+    private AddTagCtrl addTagCtrl;
     private AddQuoteCtrl addCtrl;
 
     private InvitationPageCtrl invitationPageCtrl;
@@ -55,7 +56,7 @@ public class MainCtrl {
                            Pair<AddExpenseCtrl, Parent> addExpensePage,
                            Pair<StatisticsPageCtrl, Parent> statisticsPage,
                            Pair<LoginPageCtrl, Parent> loginPage,
-                           Pair<AdminDashboardCtrl, Parent> adminPage) {
+                           Pair<AdminDashboardCtrl, Parent> adminPage, Pair<AddTagCtrl, Parent> addTagPage) {
 
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
@@ -72,6 +73,8 @@ public class MainCtrl {
         this.addParticipantPage = new Scene(addParticipantPage.getValue());
         this.addParticipantPageCtrl = addParticipantPage.getKey();
         this.invitationPageCtrl = invitationPage.getKey();
+        this.addTagPage = new Scene(addTagPage.getValue());
+        this.addTagCtrl = addTagPage.getKey();
         this.addExpenseCtrl = addExpensePage.getKey();
         this.addExpensePage = new Scene(addExpensePage.getValue());
         this.statisticsPage = new Scene(statisticsPage.getValue());
@@ -150,5 +153,11 @@ public class MainCtrl {
     {
         primaryStage.setTitle("Admin Dashboard");
         primaryStage.setScene(adminPage);
+    }
+    public void addTagPage(Integer eventId, Integer tagId) {
+        primaryStage.setTitle("AddTag Page");
+        addTagCtrl.setEvent(eventId);
+        addTagCtrl.setTag(tagId);
+        primaryStage.setScene(addTagPage);
     }
 }
