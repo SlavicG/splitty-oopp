@@ -63,7 +63,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#addTagPage" prefHeight="35.0" prefWidth="14.0" textFill="#234021">
+            <Button alignment="CENTER" mnemonicParsing="false"  prefHeight="35.0" prefWidth="14.0" textFill="#234021">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
