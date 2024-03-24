@@ -93,9 +93,9 @@ public class ServerUtils {
                 });
     }
 
-    public User getUserById(int id) {
+    public User getUserById(int userId) {
         return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/users/" + id) //
+                .target(configuration.getServerURL()).path("/rest/users/" + userId) //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .get(new GenericType<User>() {
@@ -110,9 +110,9 @@ public class ServerUtils {
                 .post(Entity.entity(user, APPLICATION_JSON), User.class);
     }
 
-    public User updateUser(User user, int id) {
+    public User updateUser(User user) {
         return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/users/" + id) //
+                .target(configuration.getServerURL()).path("/rest/users/" + user.getId()) //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .put(Entity.entity(user, APPLICATION_JSON), User.class);
@@ -127,12 +127,12 @@ public class ServerUtils {
                 });
     }
 
-    public Event getEventById(Integer id) {
+    public Event getEventById(int eventId) {
         return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events/" + id) //
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId) //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
-                .get(new GenericType<Event>() {
+                .get(new GenericType<>() {
                 });
     }
 
@@ -144,17 +144,17 @@ public class ServerUtils {
                 .post(Entity.entity(event, APPLICATION_JSON), Event.class);
     }
 
-    public Event updateEvent(Event event, int id) {
+    public Event updateEvent(Event event) {
         return ClientBuilder.newClient(new ClientConfig()) //
-				.target(configuration.getServerURL()).path("/rest/events/" + id) //
+				.target(configuration.getServerURL()).path("/rest/events/" + event.getId()) //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
 				.put(Entity.entity(event, APPLICATION_JSON), Event.class);
     }
 
-    public Response deleteEvent(int id) {
+    public Response deleteEvent(int eventId) {
         return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events/" + id) //
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId) //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .delete();
@@ -186,17 +186,19 @@ public class ServerUtils {
                 .post(Entity.entity(expense, APPLICATION_JSON), Expense.class);
     }
 
-    public Expense updateExpense(Expense expense, int eventId, int expenseId) {
+    public Expense updateExpense(Expense expense, int eventId) {
         return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/expenses/" + expenseId) //
+                .target(configuration.getServerURL()).path(
+                    "/rest/events/" + eventId + "/expenses/" + expense.getId()) //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .put(Entity.entity(expense, APPLICATION_JSON), Expense.class);
     }
 
-    public Response deleteExpense(int eventId, int expenseId) {
+    public Response deleteExpense(Expense expense, int eventId) {
         return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/expenses/" + expenseId) //
+                .target(configuration.getServerURL()).path(
+                    "/rest/events/" + eventId + "/expenses/" + expense.getId()) //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .delete();
@@ -251,19 +253,20 @@ public class ServerUtils {
                 .post(Entity.entity(mailRequest, APPLICATION_JSON), Mail.class);
     }
 
-    public Event addUserToEvent(Event event, int event_id, int user_id) {
+    public Event addUserToEvent(Event event, int userId) {
         return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events/" + event_id + "/add_user/" + user_id) //
+                .target(configuration.getServerURL()).path(
+                    "/rest/events/" + event.getId() + "/add_user/" + userId) //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .post(Entity.entity(event, APPLICATION_JSON), Event.class);
     }
-    public Event addUserToEvent(int event_id, int user_id) {
+    public Event addUserToEvent(int eventId, int userId) {
         return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events/" + event_id + "/add_user/" + user_id) //
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/add_user/" + userId) //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
-                .post(Entity.entity(getEventById(event_id), APPLICATION_JSON), Event.class);
+                .post(Entity.entity(getEventById(eventId), APPLICATION_JSON), Event.class);
     }
 
     public Response removeUserFromEvent(int eventId, int userId) {
@@ -344,12 +347,12 @@ public class ServerUtils {
                 .post(Entity.entity(tag, APPLICATION_JSON), Tag.class);
     }
 
-    public Tag updateTag(Tag event, int eventId, int tagId) {
+    public Tag updateTag(Tag tag, int eventId) {
         return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags/" + tagId) //
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags/" + tag.getId()) //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
-                .put(Entity.entity(event, APPLICATION_JSON), Tag.class);
+                .put(Entity.entity(tag, APPLICATION_JSON), Tag.class);
     }
 
     public Response deleteTag(int eventId, int tagId) {
