@@ -56,13 +56,13 @@ public class EventService {
 
         server.model.Event createdEvent = eventRepository.save(newEvent);
 
-//        TagService tagService = new TagService(tagRepository, eventRepository, userRepository);
-//        tagService.createTag(createdEvent.getId(), new commons.dto.Tag(1, "food",
-//                new Color(0), createdEvent.getId()));
-//        tagService.createTag(createdEvent.getId(), new commons.dto.Tag(2, "entrance fees",
-//                new Color(0), createdEvent.getId()));
-//        tagService.createTag(createdEvent.getId(), new commons.dto.Tag(3, "travel",
-//                new Color(0), createdEvent.getId()));
+        TagService tagService = new TagService(tagRepository, eventRepository, userRepository);
+        tagService.createTag(createdEvent.getId(), new commons.dto.Tag(1, "food",
+                null, createdEvent.getId()));
+        tagService.createTag(createdEvent.getId(), new commons.dto.Tag(2, "entrance fees",
+                null, createdEvent.getId()));
+        tagService.createTag(createdEvent.getId(), new commons.dto.Tag(3, "travel",
+                null, createdEvent.getId()));
         Event returnEvent = getEvent(createdEvent);
 
         listeners.forEach((k, l) -> {
@@ -84,7 +84,7 @@ public class EventService {
         }
         if (event.getTags() != null){
             returnEvent.setTags(tagRepository.findAll().stream().
-                    map(mapper2).toList());
+                    filter(x -> x.getEvent().getId() == id).map(mapper2).toList());
         }
         return returnEvent;
     }
@@ -119,7 +119,7 @@ public class EventService {
 
         return new Event(it.getId(), it.getTitle(), getUserIds(it.getUsers()),
                 it.getExpenses().stream().map(mapperExpense).toList(),
-                tagRepository.findAll().stream().map(mapper2).toList());
+                tagRepository.findAll().stream().filter(x -> x.getEvent().getId() == it.getId()).map(mapper2).toList());
     }
 
     public List<User> getUsers(List<Integer> userIds) {
