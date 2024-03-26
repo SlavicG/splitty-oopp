@@ -36,7 +36,7 @@ Note taker:     David
 1. Summary of what has been discussed and what we will be doing during this week. (1 min)
 2. Confirm the date of the next meeting. (1 min)
 
-#Meeting Notes
+# Meeting Notes
 1. Presence: everyone is here except Slavic. 
 2. Almost everyone has managed to finish their last week's issues. Uncompleted issues are moved in this week's priority list.
 3. Discussing this week's issues: Kinga will continue working on the Debts + ServiceLayer (Backend), IIker will work on Users, trying to implement them locally (Backend), Abdullah will work on Statistics + Tags (Frontend), David will continue with implementing features in the Admin Dashboard (Frontend + Backend).
