@@ -20,7 +20,16 @@ public class User {
 
     }
 
-    public User(Integer id, String name, String email, String iban, String bic, List<Event> events) {
+    public User(commons.dto.User user, Event event) {
+        this.id = user.getId();
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.event = event;
+        this.iban = user.getIban();
+        this.bic = user.getBic();
+    }
+
+    public User(Integer id, String name, String email, String iban, String bic, Event event) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -41,6 +50,16 @@ public class User {
         this.email = email;
         this.iban = iban;
         this.bic = bic;
+    }
+
+    public commons.dto.User toCommonUser() {
+        return new commons.dto.User(
+            getId(),
+            getName(),
+            getEmail(),
+            getIban(),
+            getBic()
+        );
     }
 
     public Integer getId() {
