@@ -52,7 +52,7 @@ public class EventService {
     public ResponseEntity<Event> createEvent(Event event) {
         server.model.Event newEvent = new server.model.Event();
         newEvent.setTitle(event.getTitle());
-        newEvent.setUsers(getUsers(event.getUserIds()));
+        newEvent.setUsers(new ArrayList<>());
 
         server.model.Event createdEvent = eventRepository.save(newEvent);
 
@@ -74,17 +74,20 @@ public class EventService {
 
     public Event getEventById(Integer id) {
         server.model.Event event = eventRepository.findById(id).orElse(null);
+        if (event == null) {
+            throw new IllegalArgumentException("Event with given ID does not exist.");
+        }
         Event returnEvent = new Event();
         returnEvent.setId(event.getId());
         returnEvent.setTitle(event.getTitle());
-        returnEvent.setUsers(getUserIds(event.getUsers()));
+        returnEvent.setUsers(event.getUsers().stream().map(User::getId).toList());
         if(event.getExpenses()!=null){
             returnEvent.setExpenses(event.getExpenses().stream()
                     .map(mapper).toList());
         }
         if (event.getTags() != null){
             returnEvent.setTags(tagRepository.findAll().stream().
-                    filter(x -> x.getEvent().getId() == id).map(mapper2).toList());
+                    filter(x -> Objects.equals(x.getEvent().getId(), id)).map(mapper2).toList());
         }
         return returnEvent;
     }
@@ -92,13 +95,13 @@ public class EventService {
 
     public Event updateEvent(Event event) {
         server.model.Event newEvent = eventRepository.findById(event.getId()).orElse(null);
+        if (newEvent == null) {
+            throw new IllegalArgumentException("Event with given ID does not exist.");
+        }
         newEvent.setTitle(event.getTitle());
-        newEvent.getUsers().clear();
-        newEvent.getUsers().addAll(getUsers(event.getUserIds()));
         server.model.Event updatedEvent = eventRepository.save(newEvent);
 
-        Event returnEvent = getEvent(updatedEvent);
-        return returnEvent;
+        return getEvent(updatedEvent);
     }
 
 
@@ -117,28 +120,9 @@ public class EventService {
 
     private Event getEvent(server.model.Event it) {
 
-        return new Event(it.getId(), it.getTitle(), getUserIds(it.getUsers()),
+        return new Event(it.getId(), it.getTitle(), it.getUsers().stream().map(User::getId).toList(),
                 it.getExpenses().stream().map(mapperExpense).toList(),
                 tagRepository.findAll().stream().filter(x -> x.getEvent().getId() == it.getId()).map(mapper2).toList());
-    }
-
-    public List<User> getUsers(List<Integer> userIds) {
-        return userIds.stream().map(it -> getUserById(it)).toList();
-    }
-
-
-    private User getUserById(Integer it) {
-        User user = userRepository.findById(it).orElse(null);
-        if (user == null) throw new IllegalArgumentException("User not found. ID: " + it);
-        return user;
-    }
-
-//    //private static List<Tag> getTags(List<Tag> tags) {
-//        return tags.stream().map(it -> it.getId()).toList();
-//    }
-
-    private static List<Integer> getUserIds(List<User> users) {
-        return users.stream().map(it -> it.getId()).toList();
     }
 
 
@@ -195,47 +179,67 @@ public class EventService {
         return listOfExpenses;
     }
 
-    public Event addUser(Integer event_id, Integer user_id) {
-        server.model.Event newEvent = eventRepository.findById(event_id).orElse(null);
-        boolean performed = false;
-        boolean have = false;
-        for(server.model.User user: newEvent.getUsers()) {
-            if (user.getId().equals(user_id)) {
-                have = true;
-                break;
-            }
+    public commons.dto.User addUser(Integer eventId, commons.dto.User user) {
+        server.model.Event event = eventRepository.findById(eventId).orElse(null);
+        if (event == null) {
+            throw new IllegalArgumentException("Event with provided ID does not exist.");
         }
-        if(have == false) {
-            newEvent.getUsers().add(getUserById(user_id));
-            server.model.Event updatedEvent = eventRepository.save(newEvent);
-            Event returnEvent = getEvent(updatedEvent);
-            User user = getUserById(user_id);
-            user.getEvents().add(newEvent);
-            userRepository.save(user);
-            return returnEvent;
-        } else {
-            throw new IllegalArgumentException("User already exists in event");
-        }
-
+        User dbUser = new User(user, event);
+        event.getUsers().add(dbUser);
+        eventRepository.save(event);
+        user.setId(dbUser.getId());
+        return user;
     }
-    public Event removeUser(Integer event_id, Integer user_id) {
-        server.model.Event newEvent = eventRepository.findById(event_id).orElse(null);
-        if(newEvent == null) {
-            throw new IllegalArgumentException("Event with given Id does not exist!");
+
+    public void removeUser(Integer eventId, Integer userId) {
+        server.model.Event event = eventRepository.findById(eventId).orElse(null);
+        if (event == null) {
+            throw new IllegalArgumentException("Event with provided ID does not exist.");
         }
-        boolean performed = false;
-        if(newEvent.getUsers().contains(getUserById(user_id))) {
-            newEvent.getUsers().remove(getUserById(user_id));
-            performed = true;
+        userRepository.deleteById(userId);
+    }
+
+    public commons.dto.User getUser(Integer eventId, Integer userId) {
+        server.model.Event event = eventRepository.findById(eventId).orElse(null);
+        if (event == null) {
+            throw new IllegalArgumentException("Event with provided ID does not exist.");
         }
-        server.model.Event updatedEvent = eventRepository.save(newEvent);
-        Event returnEvent = getEvent(updatedEvent);
-        if(performed) {
-            User user = getUserById(user_id);
-            user.getEvents().remove(newEvent);
-            userRepository.save(user);
+        var user = event.getUsers().stream().filter(u -> u.getId().equals(userId)).findAny().orElse(null);
+        if (user == null) {
+            throw new IllegalArgumentException("User with provided ID does not exist or is not part of this event.");
         }
-        return returnEvent;
+        return new commons.dto.User(
+            user.getId(),
+            user.getName(),
+            user.getEmail(),
+            user.getIban(),
+            user.getBic()
+        );
+    }
+
+    public List<commons.dto.User> getUsers(Integer eventId) {
+        server.model.Event event = eventRepository.findById(eventId).orElse(null);
+        if (event == null) {
+            throw new IllegalArgumentException("Event with provided ID does not exist.");
+        }
+        return event.getUsers().stream().map(User::toCommonUser).toList();
+    }
+
+    public commons.dto.User updateUser(Integer eventId, Integer userId, commons.dto.User user) {
+        server.model.Event event = eventRepository.findById(eventId).orElse(null);
+        if (event == null) {
+            throw new IllegalArgumentException("Event with provided ID does not exist.");
+        }
+        var oldUser = event.getUsers().stream().filter(u -> u.getId().equals(userId)).findAny().orElse(null);
+        if (oldUser == null) {
+            throw new IllegalArgumentException("User with provided ID does not exist or is not part of this event.");
+        }
+        oldUser.setName(user.getName());
+        oldUser.setEmail(user.getEmail());
+        oldUser.setIban(user.getIban());
+        oldUser.setBic(user.getBic());
+        userRepository.save(oldUser);
+        return oldUser.toCommonUser();
     }
 
     public DeferredResult<ResponseEntity<Event>> getUpdates() {

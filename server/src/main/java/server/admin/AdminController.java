@@ -1,27 +1,28 @@
 package server.admin;
-import commons.dto.User;
-import org.springframework.web.bind.annotation.*;
-import server.service.EventService;
-import server.service.UserService;
 
+import commons.dto.User;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import server.service.EventService;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
 
-    private final EventService eventService;
-    private final UserService userService;
-
-    public AdminController(EventService eventService, UserService userService)
+    public AdminController(EventService eventService)
     {
-        this.eventService=eventService;
-        this.userService=userService;
+
     }
+
     @GetMapping("/dashboard")
     public List<User> getUser()
     {
-        return userService.getUsers();
+        // Replacement of placeholder that used a removed method
+        return new ArrayList<>();
     }
 
 

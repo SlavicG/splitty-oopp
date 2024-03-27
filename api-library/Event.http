@@ -7,14 +7,6 @@ Content-Type: application/json
   "title": "abc"
 }
 
-### Add User to Event
-POST http://localhost:8080/rest/events/1/add_user/1
-Accept: application/json
-
-### Delete User from Event
-DELETE http://localhost:8080/rest/events/2/add_user/2
-Accept: application/json
-
 ### Get Event
 GET http://localhost:8080/rest/events/1
 Accept: application/json
@@ -41,4 +33,30 @@ Accept: application/json
 
 ### Get all expenses in an event
 GET http://localhost:8080/rest/events/1/allexpenses
+Accept: application/json
+
+
+### Add user to event
+POST http://localhost:8080/rest/events/1/users
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Mik Mettemaker",
+  "email": "mik@example.com",
+  "iban": "ibann",
+  "bic": "bicc"
+}
+
+
+### Delete user from event
+DELETE http://localhost:8080/rest/events/1/users/1
+Accept: application/json
+
+### Get all users in event
+GET http://localhost:8080/rest/events/1/users
+Accept: application/json
+
+### Get specific user in event
+GET http://localhost:8080/rest/events/1/users/1
 Accept: application/json

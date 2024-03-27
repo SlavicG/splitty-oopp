@@ -108,7 +108,7 @@ public class AddExpenseCtrl implements Initializable {
                 return null;
             }
         });
-        whoPaid.getItems().addAll(server.getUsers());
+        whoPaid.getItems().addAll(server.getUserByEvent(eventId));
     }
 
     public void setExpenseId(Integer id) {
@@ -119,7 +119,7 @@ public class AddExpenseCtrl implements Initializable {
             return;
         }
         Expense expense = server.getExpenseById(event.getId(), expenseId);
-        whoPaid.setValue(server.getUserById(expense.getPayerId()));
+        whoPaid.setValue(server.getUserById(event.getId(), expense.getPayerId()));
         whatFor.setText(expense.getDescription());
         howMuch.getValueFactory().setValue(expense.getAmount());
         when.setValue(expense.getDate());
