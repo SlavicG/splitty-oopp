@@ -84,38 +84,46 @@ public class ServerUtils {
                 .post(Entity.entity(quote, APPLICATION_JSON), Quote.class);
     }
 
-    public List<User> getUsers() {
-        return ClientBuilder.newClient(new ClientConfig()) 
-                .target(configuration.getServerURL()).path("/rest/users") 
-                .request(APPLICATION_JSON) 
-                .accept(APPLICATION_JSON) 
-                .get(new GenericType<List<User>>() {
-                });
+    public User getUserById(int eventId, int userId) {
+        return ClientBuilder.newClient(new ClientConfig())
+            .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/users/" + userId)
+            .request(APPLICATION_JSON)
+            .accept(APPLICATION_JSON)
+            .get(new GenericType<>() {
+            });
     }
 
-    public User getUserById(int userId) {
-        return ClientBuilder.newClient(new ClientConfig()) 
-                .target(configuration.getServerURL()).path("/rest/users/" + userId) 
-                .request(APPLICATION_JSON) 
-                .accept(APPLICATION_JSON) 
-                .get(new GenericType<User>() {
-                });
+    public User createUser(int eventId, User user) {
+        return ClientBuilder.newClient(new ClientConfig())
+            .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/users")
+            .request(APPLICATION_JSON)
+            .accept(APPLICATION_JSON)
+            .post(Entity.entity(user, APPLICATION_JSON), User.class);
     }
 
-    public User addUsers(User user) {
-        return ClientBuilder.newClient(new ClientConfig()) 
-                .target(configuration.getServerURL()).path("/rest/users") 
-                .request(APPLICATION_JSON) 
-                .accept(APPLICATION_JSON) 
-                .post(Entity.entity(user, APPLICATION_JSON), User.class);
+    public User updateUser(int eventId, User user) {
+        return ClientBuilder.newClient(new ClientConfig())
+            .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/users/" + user.getId())
+            .request(APPLICATION_JSON)
+            .accept(APPLICATION_JSON)
+            .put(Entity.entity(user, APPLICATION_JSON), User.class);
     }
 
-    public User updateUser(User user) {
-        return ClientBuilder.newClient(new ClientConfig()) 
-                .target(configuration.getServerURL()).path("/rest/users/" + user.getId()) 
-                .request(APPLICATION_JSON) 
-                .accept(APPLICATION_JSON) 
-                .put(Entity.entity(user, APPLICATION_JSON), User.class);
+    public List<User> getUserByEvent(int eventId) {
+        return ClientBuilder.newClient(new ClientConfig())
+            .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/users")
+            .request(APPLICATION_JSON)
+            .accept(APPLICATION_JSON)
+            .get(new GenericType<>() {
+            });
+    }
+
+    public Response deleteUser(int eventId, int userId) {
+        return ClientBuilder.newClient(new ClientConfig())
+            .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/users/" + userId)
+            .request(APPLICATION_JSON)
+            .accept(APPLICATION_JSON)
+            .delete();
     }
 
     public List<Event> getEvents() {
@@ -253,29 +261,6 @@ public class ServerUtils {
                 .post(Entity.entity(mailRequest, APPLICATION_JSON), Mail.class);
     }
 
-    public Event addUserToEvent(Event event, int userId) {
-        return ClientBuilder.newClient(new ClientConfig()) 
-                .target(configuration.getServerURL()).path(
-                    "/rest/events/" + event.getId() + "/add_user/" + userId) 
-                .request(APPLICATION_JSON) 
-                .accept(APPLICATION_JSON) 
-                .post(Entity.entity(event, APPLICATION_JSON), Event.class);
-    }
-    public Event addUserToEvent(int eventId, int userId) {
-        return ClientBuilder.newClient(new ClientConfig()) 
-                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/add_user/" + userId) 
-                .request(APPLICATION_JSON) 
-                .accept(APPLICATION_JSON) 
-                .post(Entity.entity(getEventById(eventId), APPLICATION_JSON), Event.class);
-    }
-
-    public Response removeUserFromEvent(int eventId, int userId) {
-        return ClientBuilder.newClient(new ClientConfig()) 
-            .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/add_user/" + userId) 
-            .request(APPLICATION_JSON) 
-            .accept(APPLICATION_JSON) 
-            .delete();
-    }
 
     public static boolean login(String username, String password) {
         try {

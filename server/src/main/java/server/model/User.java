@@ -2,7 +2,6 @@ package server.model;
 
 import jakarta.persistence.*;
 
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,7 +11,7 @@ public class User {
         @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id;
     private String name;
     private String email;
-    private @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY) List<Event> events;
+    private @ManyToOne(fetch = FetchType.EAGER) Event event;
     private String iban;
     private String bic;
 
@@ -33,7 +32,7 @@ public class User {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.events = events;
+        this.event = event;
         this.iban = iban;
         this.bic = bic;
     }
@@ -74,8 +73,8 @@ public class User {
         return email;
     }
 
-    public List<Event> getEvents() {
-        return events;
+    public Event getEvent() {
+        return event;
     }
 
     public void setId(Integer id) {
@@ -90,8 +89,8 @@ public class User {
         this.email = email;
     }
 
-    public void setEvents(List<Event> events) {
-        this.events = events;
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
     public String getIban() {
@@ -120,6 +119,6 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, events, iban, bic);
+        return Objects.hash(id, name, email, event, iban, bic);
     }
 }
