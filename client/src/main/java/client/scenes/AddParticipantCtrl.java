@@ -46,7 +46,7 @@ public class AddParticipantCtrl implements Initializable {
         if (userId == null) {
             return;
         }
-        user = server.getUserById(userId);
+        user = server.getUserById(event.getId(), userId);
         name.setText(user.getName());
         email.setText(user.getEmail());
         iban.setText(user.getIban());
@@ -65,15 +65,18 @@ public class AddParticipantCtrl implements Initializable {
         }
         if (user == null) {
             User newUser =
-                    server.addUsers(new User(null, name.getText(), email.getText(), iban.getText(), bic.getText()));
-            Event changedEvent = server.addUserToEvent(event, event.getId(), newUser, newUser.getId());
+                    server.createUser(event.getId(),
+                        new User(null, name.getText(), email.getText(), iban.getText(), bic.getText()));
             server.send("/app/users", newUser);
+            mainCtrl.addUndoFunction(() -> server.deleteUser(event.getId(), newUser.getId()));
             user = null;
         } else {
-            User changedUser = server.updateUser(new User(user.getId(),
+            User oldUser = new User(user);
+            User changedUser = server.updateUser(event.getId(), new User(oldUser.getId(),
                     name.getText(),
-                    email.getText(), iban.getText(), bic.getText()), user.getId());
+                    email.getText(), iban.getText(), bic.getText()));
             server.send("/app/users", changedUser);
+            mainCtrl.addUndoFunction(() -> server.updateUser(event.getId(), oldUser));
             user = null;
         }
         mainCtrl.eventPage(event.getId());

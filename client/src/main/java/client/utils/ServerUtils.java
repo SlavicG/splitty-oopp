@@ -68,179 +68,189 @@ public class ServerUtils {
     }
 
     public List<Quote> getQuotes() {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("api/quotes") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
+        return ClientBuilder.newClient(new ClientConfig()) 
+                .target(configuration.getServerURL()).path("api/quotes") 
+                .request(APPLICATION_JSON) 
+                .accept(APPLICATION_JSON) 
                 .get(new GenericType<List<Quote>>() {
                 });
     }
 
     public Quote addQuote(Quote quote) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("api/quotes") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
+        return ClientBuilder.newClient(new ClientConfig()) 
+                .target(configuration.getServerURL()).path("api/quotes") 
+                .request(APPLICATION_JSON) 
+                .accept(APPLICATION_JSON) 
                 .post(Entity.entity(quote, APPLICATION_JSON), Quote.class);
     }
 
-    public List<User> getUsers() {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/users") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .get(new GenericType<List<User>>() {
-                });
+    public User getUserById(int eventId, int userId) {
+        return ClientBuilder.newClient(new ClientConfig())
+            .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/users/" + userId)
+            .request(APPLICATION_JSON)
+            .accept(APPLICATION_JSON)
+            .get(new GenericType<>() {
+            });
     }
 
-    public User getUserById(int id) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/users/" + id) //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .get(new GenericType<User>() {
-                });
+    public User createUser(int eventId, User user) {
+        return ClientBuilder.newClient(new ClientConfig())
+            .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/users")
+            .request(APPLICATION_JSON)
+            .accept(APPLICATION_JSON)
+            .post(Entity.entity(user, APPLICATION_JSON), User.class);
     }
 
-    public User addUsers(User user) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/users") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .post(Entity.entity(user, APPLICATION_JSON), User.class);
+    public User updateUser(int eventId, User user) {
+        return ClientBuilder.newClient(new ClientConfig())
+            .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/users/" + user.getId())
+            .request(APPLICATION_JSON)
+            .accept(APPLICATION_JSON)
+            .put(Entity.entity(user, APPLICATION_JSON), User.class);
     }
 
-    public User updateUser(User user, int id) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/users/" + id) //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .put(Entity.entity(user, APPLICATION_JSON), User.class);
+    public List<User> getUserByEvent(int eventId) {
+        return ClientBuilder.newClient(new ClientConfig())
+            .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/users")
+            .request(APPLICATION_JSON)
+            .accept(APPLICATION_JSON)
+            .get(new GenericType<>() {
+            });
+    }
+
+    public Response deleteUser(int eventId, int userId) {
+        return ClientBuilder.newClient(new ClientConfig())
+            .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/users/" + userId)
+            .request(APPLICATION_JSON)
+            .accept(APPLICATION_JSON)
+            .delete();
     }
 
     public List<Event> getEvents() {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
+        return ClientBuilder.newClient(new ClientConfig()) 
+                .target(configuration.getServerURL()).path("/rest/events") 
+                .request(APPLICATION_JSON) 
+                .accept(APPLICATION_JSON) 
                 .get(new GenericType<List<Event>>() {
                 });
     }
 
-    public Event getEventById(Integer id) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events/" + id) //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .get(new GenericType<Event>() {
+    public Event getEventById(int eventId) {
+        return ClientBuilder.newClient(new ClientConfig()) 
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId) 
+                .request(APPLICATION_JSON) 
+                .accept(APPLICATION_JSON) 
+                .get(new GenericType<>() {
                 });
     }
 
     public Event addEvent(Event event) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
+        return ClientBuilder.newClient(new ClientConfig()) 
+                .target(configuration.getServerURL()).path("/rest/events") 
+                .request(APPLICATION_JSON) 
+                .accept(APPLICATION_JSON) 
                 .post(Entity.entity(event, APPLICATION_JSON), Event.class);
     }
 
-    public Event updateEvent(Event event, int id) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-				.target(configuration.getServerURL()).path("/rest/events/" + id) //
-				.request(APPLICATION_JSON) //
-				.accept(APPLICATION_JSON) //
+    public Event updateEvent(Event event) {
+        return ClientBuilder.newClient(new ClientConfig()) 
+				.target(configuration.getServerURL()).path("/rest/events/" + event.getId()) 
+				.request(APPLICATION_JSON) 
+				.accept(APPLICATION_JSON) 
 				.put(Entity.entity(event, APPLICATION_JSON), Event.class);
     }
 
-    public Response deleteEvent(int id) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events/" + id) //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
+    public Response deleteEvent(int eventId) {
+        return ClientBuilder.newClient(new ClientConfig()) 
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId) 
+                .request(APPLICATION_JSON) 
+                .accept(APPLICATION_JSON) 
                 .delete();
     }
 
     public List<Expense> getExpenses(int eventId) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/expenses") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
+        return ClientBuilder.newClient(new ClientConfig()) 
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/expenses") 
+                .request(APPLICATION_JSON) 
+                .accept(APPLICATION_JSON) 
                 .get(new GenericType<List<Expense>>() {
                 });
     }
 
     public Expense getExpenseById(int eventId, int expenseId) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/expenses/" + expenseId) //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
+        return ClientBuilder.newClient(new ClientConfig()) 
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/expenses/" + expenseId) 
+                .request(APPLICATION_JSON) 
+                .accept(APPLICATION_JSON) 
                 .get(new GenericType<Expense>() {
                 });
     }
 
     public Expense addExpense(Expense expense, int eventId) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/expenses") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
+        return ClientBuilder.newClient(new ClientConfig()) 
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/expenses") 
+                .request(APPLICATION_JSON) 
+                .accept(APPLICATION_JSON) 
                 .post(Entity.entity(expense, APPLICATION_JSON), Expense.class);
     }
 
-    public Expense updateExpense(Expense expense, int eventId, int expenseId) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/expenses/" + expenseId) //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
+    public Expense updateExpense(Expense expense, int eventId) {
+        return ClientBuilder.newClient(new ClientConfig()) 
+                .target(configuration.getServerURL()).path(
+                    "/rest/events/" + eventId + "/expenses/" + expense.getId()) 
+                .request(APPLICATION_JSON) 
+                .accept(APPLICATION_JSON) 
                 .put(Entity.entity(expense, APPLICATION_JSON), Expense.class);
     }
 
-    public Response deleteExpense(Expense expense, int eventId, int expenseId) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/expenses/" + expenseId) //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
+    public Response deleteExpense(Expense expense, int eventId) {
+        return ClientBuilder.newClient(new ClientConfig()) 
+                .target(configuration.getServerURL()).path(
+                    "/rest/events/" + eventId + "/expenses/" + expense.getId()) 
+                .request(APPLICATION_JSON) 
+                .accept(APPLICATION_JSON) 
                 .delete();
     }
 
     public List<Debt> getDebts(int eventId) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/debts") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
+        return ClientBuilder.newClient(new ClientConfig()) 
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/debts") 
+                .request(APPLICATION_JSON) 
+                .accept(APPLICATION_JSON) 
                 .get(new GenericType<List<Debt>>() {
                 });
     }
 
     public Debt getDebt(int eventId, int userId) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/users/" + userId + "/debt") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
+        return ClientBuilder.newClient(new ClientConfig()) 
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/users/" + userId + "/debt") 
+                .request(APPLICATION_JSON) 
+                .accept(APPLICATION_JSON) 
                 .get(new GenericType<Debt>() {
                 });
     }
 
     public Debt addDebt(Debt debt) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/api/Debt") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
+        return ClientBuilder.newClient(new ClientConfig()) 
+                .target(configuration.getServerURL()).path("/api/Debt") 
+                .request(APPLICATION_JSON) 
+                .accept(APPLICATION_JSON) 
                 .post(Entity.entity(debt, APPLICATION_JSON), Debt.class);
     }
 
     public Person addPerson(Person person) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("api/Person") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
+        return ClientBuilder.newClient(new ClientConfig()) 
+                .target(configuration.getServerURL()).path("api/Person") 
+                .request(APPLICATION_JSON) 
+                .accept(APPLICATION_JSON) 
                 .post(Entity.entity(person, APPLICATION_JSON), Person.class);
     }
 
     public List<Person> getPersons() {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("api/Person") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
+        return ClientBuilder.newClient(new ClientConfig()) 
+                .target(configuration.getServerURL()).path("api/Person") 
+                .request(APPLICATION_JSON) 
+                .accept(APPLICATION_JSON) 
                 .get(new GenericType<List<Person>>() {
                 });
     }
@@ -251,20 +261,6 @@ public class ServerUtils {
                 .post(Entity.entity(mailRequest, APPLICATION_JSON), Mail.class);
     }
 
-    public Event addUserToEvent(Event event, int event_id, User user, int user_id) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events/" + event_id + "/add_user/" + user_id) //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .post(Entity.entity(event, APPLICATION_JSON), Event.class);
-    }
-    public Event addUserToEvent(int event_id, int user_id) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events/" + event_id + "/add_user/" + user_id) //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .post(Entity.entity(getEventById(event_id), APPLICATION_JSON), Event.class);
-    }
 
     public static boolean login(String username, String password) {
         try {
@@ -293,10 +289,10 @@ public class ServerUtils {
     public void registerForUpdates(Consumer<Event> consumer) {
         EXEC.submit(() -> {
             while(!Thread.interrupted()) {
-                var res = ClientBuilder.newClient(new ClientConfig()) //
-                        .target(configuration.getServerURL()).path("/rest/events/updates") //
-                        .request(APPLICATION_JSON) //
-                        .accept(APPLICATION_JSON) //
+                var res = ClientBuilder.newClient(new ClientConfig()) 
+                        .target(configuration.getServerURL()).path("/rest/events/updates") 
+                        .request(APPLICATION_JSON) 
+                        .accept(APPLICATION_JSON) 
                         .get(Response.class);
                 if(res.getStatus() == 204) {
                     continue;
@@ -310,44 +306,44 @@ public class ServerUtils {
         EXEC.shutdown();
     }
     public List<Tag> getTags(int eventId) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
+        return ClientBuilder.newClient(new ClientConfig()) 
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags") 
+                .request(APPLICATION_JSON) 
+                .accept(APPLICATION_JSON) 
                 .get(new GenericType<List<Tag>>() {
                 });
     }
 
     public Tag getTagById(int eventId, int tagId) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags" + tagId) //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
+        return ClientBuilder.newClient(new ClientConfig()) 
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags" + tagId) 
+                .request(APPLICATION_JSON) 
+                .accept(APPLICATION_JSON) 
                 .get(new GenericType<Tag>() {
                 });
     }
 
     public Tag addTag(Tag tag, int eventId) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
+        return ClientBuilder.newClient(new ClientConfig()) 
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags") 
+                .request(APPLICATION_JSON) 
+                .accept(APPLICATION_JSON) 
                 .post(Entity.entity(tag, APPLICATION_JSON), Tag.class);
     }
 
-    public Tag updateTag(Tag event, int eventId, int tagId) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags/" + tagId) //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .put(Entity.entity(event, APPLICATION_JSON), Tag.class);
+    public Tag updateTag(Tag tag, int eventId) {
+        return ClientBuilder.newClient(new ClientConfig()) 
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags/" + tag.getId()) 
+                .request(APPLICATION_JSON) 
+                .accept(APPLICATION_JSON) 
+                .put(Entity.entity(tag, APPLICATION_JSON), Tag.class);
     }
 
     public Response deleteTag(int eventId, int tagId) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags/" + tagId) //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
+        return ClientBuilder.newClient(new ClientConfig()) 
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags/" + tagId) 
+                .request(APPLICATION_JSON) 
+                .accept(APPLICATION_JSON) 
                 .delete();
     }            
 

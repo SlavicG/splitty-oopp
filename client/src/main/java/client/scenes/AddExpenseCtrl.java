@@ -71,15 +71,21 @@ public class AddExpenseCtrl implements Initializable {
             return;
         }
         invalid.setVisible(false);
+
         Expense newExpense = new Expense(
                 expenseId, howMuch.getValue(), whatFor.getText(), whoPaid.getValue().getId(), when.getValue(),
-                splitBetweenId);
-        if (expenseId == null) {
-            server.addExpense(newExpense, event.getId());
-        } else {
-            server.updateExpense(newExpense, event.getId(), expenseId);
-        }
+                splitBetweenId,1);
 
+        if (expenseId == null) {
+            Expense result = server.addExpense(newExpense, event.getId());
+            mainCtrl.addUndoFunction(() -> server.deleteExpense(result, event.getId()));
+
+        } else {
+            int oldExpenseId = expenseId;
+            Expense oldExpense = server.getExpenseById(event.getId(), oldExpenseId);
+            server.updateExpense(newExpense, event.getId());
+            mainCtrl.addUndoFunction(() -> server.updateExpense(oldExpense, event.getId()));
+        }
 
         mainCtrl.eventPage(event.getId());
     }
@@ -102,7 +108,7 @@ public class AddExpenseCtrl implements Initializable {
                 return null;
             }
         });
-        whoPaid.getItems().addAll(server.getUsers());
+        whoPaid.getItems().addAll(server.getUserByEvent(eventId));
     }
 
     public void setExpenseId(Integer id) {
@@ -113,7 +119,7 @@ public class AddExpenseCtrl implements Initializable {
             return;
         }
         Expense expense = server.getExpenseById(event.getId(), expenseId);
-        whoPaid.setValue(server.getUserById(expense.getPayerId()));
+        whoPaid.setValue(server.getUserById(event.getId(), expense.getPayerId()));
         whatFor.setText(expense.getDescription());
         howMuch.getValueFactory().setValue(expense.getAmount());
         when.setValue(expense.getDate());

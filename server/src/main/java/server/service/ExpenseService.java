@@ -5,7 +5,9 @@ import commons.dto.Expense;
 import org.springframework.stereotype.Service;
 import server.database.EventRepository;
 import server.database.ExpenseRepository;
+import server.database.TagRepository;
 import server.database.UserRepository;
+import server.model.Tag;
 import server.model.User;
 
 import java.util.List;
@@ -17,6 +19,7 @@ public class ExpenseService {
     private ExpenseRepository expenseRepository;
     private UserRepository userRepository;
     private EventRepository eventRepository;
+    private TagRepository tagRepository;
     private Function<server.model.Expense, Expense> mapper = expense -> new commons.dto.Expense(
             expense.getId(),
             expense.getAmount(),
@@ -24,7 +27,7 @@ public class ExpenseService {
             expense.getPayer().getId(),
             expense.getDate(),
             expense.getSplitBetween(),
-            0);
+            expense.getTag().getId());
     private Function<Expense, server.model.Expense> mapperInv = expense -> new server.model.Expense(
             expense.getId(),
             expense.getAmount(),
@@ -43,10 +46,12 @@ public class ExpenseService {
 
     protected ExpenseService(ExpenseRepository expenseRepository,
                              UserRepository userRepository,
-                             EventRepository eventRepository) {
+                             EventRepository eventRepository,
+                             TagRepository tagRepository) {
         this.expenseRepository = expenseRepository;
         this.userRepository = userRepository;
         this.eventRepository = eventRepository;
+        this.tagRepository = tagRepository;
     }
 
     public List<Expense> getExpenses() {
@@ -66,7 +71,8 @@ public class ExpenseService {
                 getUserById(expense.getPayerId()),
                 expense.getDate(),
                 event,
-                expense.getSplitBetween());
+                expense.getSplitBetween(),
+                getTagById(expense.getTagId()));
 //        event.getExpenses().add(expenseEntity);
         server.model.Expense createdEntity = expenseRepository.save(expenseEntity);
         return new Expense(createdEntity.getId(),
@@ -74,7 +80,8 @@ public class ExpenseService {
                 expense.getDescription(),
                 expense.getPayerId(),
                 expense.getDate(),
-                expense.getSplitBetween());
+                expense.getSplitBetween(),
+                expense.getTagId());
 
 
     }
@@ -89,6 +96,7 @@ public class ExpenseService {
             existingExpense.setDate(expense.getDate());
             existingExpense.setDescription(expense.getDescription());
             existingExpense.setPayer(getUserById(expense.getPayerId()));
+            existingExpense.setTag(getTagById(expense.getTagId()));
             server.model.Expense savedExpense = expenseRepository.save(existingExpense);
             return mapper.apply(savedExpense);
         }
@@ -115,6 +123,12 @@ public class ExpenseService {
         User user = userRepository.findById(it).orElse(null);
         if (user == null) throw new IllegalArgumentException("User not found. ID: " + it);
         return user;
+    }
+
+    private Tag getTagById(Integer it) {
+        Tag tag = tagRepository.findById(it).orElse(null);
+        if (tag == null) throw new IllegalArgumentException("Tag not found. ID: " + it);
+        return tag;
     }
 
     private List<server.model.Expense> getExpenses(List<commons.dto.Expense> expenses) {

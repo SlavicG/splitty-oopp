@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.server.ResponseStatusException;
 import server.service.EventService;
-import server.service.UserService;
 
 import java.util.List;
 import java.util.Map;
@@ -20,11 +19,9 @@ import java.util.Map;
 @RequestMapping("/rest/events")
 public class EventController {
     private final EventService eventService;
-    private final UserService userService;
 
-    public EventController(EventService eventService, UserService userService) {
+    public EventController(EventService eventService) {
         this.eventService = eventService;
-        this.userService = userService;
     }
 
     @GetMapping
@@ -75,15 +72,6 @@ public class EventController {
         return eventService.allExpenses( event_id);
     }
 
-
-
-    @GetMapping("/{event_id}/users")
-    @ResponseBody
-    public List<User> getAllUsers(@PathVariable Integer event_id) {
-        Event event = eventService.getEventById(event_id);
-        return event.getUserIds().stream().map(a -> userService.getUserById(a)).toList();
-    }
-
     @GetMapping("/{event_id}/debts")
     @ResponseBody
     public Map<Integer,Double> getAllDebts(@PathVariable Integer event_id){
@@ -110,20 +98,40 @@ public class EventController {
         return eventService.expenseIncludeUser(user_id, event_id);
     }
 
-    @PostMapping("/{event_id}/add_user/{user_id}")
+    @PostMapping("/{event_id}/users")
     @ResponseBody
-    public Event addUser(@PathVariable(name = "event_id") Integer event_id,
-                         @PathVariable(name = "user_id") Integer user_id) {
-        return eventService.addUser(event_id, user_id);
+    public User addUser(@PathVariable(name = "event_id") Integer event_id, @RequestBody User user) {
+        return eventService.addUser(event_id, user);
     }
 
-    @DeleteMapping("/{event_id}/add_user/{user_id}")
+    @DeleteMapping("/{event_id}/users/{user_id}")
     @ResponseBody
-    public Event removeUser(@PathVariable(name = "event_id") Integer event_id,
-                         @PathVariable(name = "user_id") Integer user_id) {
-        return eventService.removeUser(event_id, user_id);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removeUser(@PathVariable(name = "event_id") Integer eventId,
+                         @PathVariable(name = "user_id") Integer userId) {
+        eventService.removeUser(eventId, userId);
     }
 
+    @GetMapping("/{event_id}/users/{user_id}")
+    @ResponseBody
+    public User getUser(@PathVariable(name = "event_id") Integer eventId,
+                        @PathVariable(name = "user_id") Integer userId) {
+        return eventService.getUser(eventId, userId);
+    }
+
+    @GetMapping("/{event_id}/users")
+    @ResponseBody
+    public List<User> getUsers(@PathVariable(name = "event_id") Integer eventId) {
+        return eventService.getUsers(eventId);
+    }
+
+    @PutMapping("/{event_id}/users/{user_id}")
+    @ResponseBody
+    public User updateUser(@PathVariable(name = "event_id") Integer eventId,
+                           @PathVariable(name = "user_id") Integer userId,
+                           @RequestBody User user) {
+        return eventService.updateUser(eventId, userId, user);
+    }
 
     @GetMapping("/updates")
     public DeferredResult<ResponseEntity<Event>> getUpdates() {

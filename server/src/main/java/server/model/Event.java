@@ -13,13 +13,9 @@ public class Event {
     private @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id;
     private String title;
-    private @ManyToMany
-        @JoinTable(
-            name = "event_user",
-            joinColumns = @JoinColumn(name = "event_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    ) List<User> users;
-    private @OneToMany(mappedBy = "event", cascade = CascadeType.ALL) List<Expense> expenses = new ArrayList<>();
+    private @OneToMany(mappedBy = "event", cascade = CascadeType.ALL) List<User> users;
+    private @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+        List<Expense> expenses = new ArrayList<>();
     private @OneToMany(mappedBy = "event", cascade = CascadeType.ALL) List<Tag> tags = new ArrayList<>();
 
     public Event() {

@@ -6,8 +6,9 @@ Content-Type: application/json
 {
   "amount": 9,
   "description": "pivo",
-  "payerId": 2,
-  "split-between": [1, 2, 3]
+  "payerId": 1,
+  "split-between": [1, 2, 3],
+  "tagId": 1
 }
 
 ### Update Expense
@@ -20,7 +21,8 @@ Content-Type: application/json
   "amount": 32,
   "description": "salut",
   "payerId": 1,
-  "date": "2024-03-28"
+  "date": "2024-03-28",
+  "tagId": 2
 }
 
 ### Get Expenses
