@@ -45,7 +45,7 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="298.0" prefWidth="480.0" spacing="10.0" stylesheets="/client/css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AddTagCtrl">
    <children>
-      <Button mnemonicParsing="false" onAction="#OverviewPage" stylesheets="@../css/style.css" text="back" />
+      <Button mnemonicParsing="false" onAction="#OverviewPage" stylesheets="/css/style.css" text="back" />
       <HBox alignment="TOP_CENTER" prefHeight="111.0" prefWidth="414.0" spacing="10.0">
          <children>
             <VBox alignment="TOP_RIGHT" prefHeight="111.0" prefWidth="150.0" spacing="10.0" stylesheets="/client/css/style.css">
