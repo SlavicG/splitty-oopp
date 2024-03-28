@@ -160,8 +160,7 @@ public class MainCtrl {
         primaryStage.setScene(loginPage);
     }
 
-    public void adminPage()
-    {
+    public void adminPage() {
         primaryStage.setTitle("Admin Dashboard");
         primaryStage.setScene(adminPage);
     }
@@ -171,6 +170,7 @@ public class MainCtrl {
         addTagCtrl.setEvent(eventId);
         addTagCtrl.setTag(tagId);
         primaryStage.setScene(addTagPage);
+    }
 
     public void addUndoFunction(Runnable undoFunction) {
         undoFunctionHistory.push(undoFunction);
