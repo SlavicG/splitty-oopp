@@ -4,6 +4,7 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.dto.Event;
 import commons.dto.Expense;
+import commons.dto.Tag;
 import commons.dto.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,6 +23,8 @@ public class AddExpenseCtrl implements Initializable {
     private final MainCtrl mainCtrl;
     @FXML
     public ChoiceBox<User> whoPaid;
+    @FXML
+    public ChoiceBox<Tag> tag;
     @FXML
     public TextField whatFor;
     @FXML
@@ -66,6 +69,10 @@ public class AddExpenseCtrl implements Initializable {
             invalid.setText(resourceBundle.getString("invalid_expense_payer"));
             return;
         }
+        if (tag.getValue() == null) {
+            invalid.setText(resourceBundle.getString("invalid_tag"));
+            return;
+        }
         if (when.getValue() == null) {
             invalid.setText(resourceBundle.getString("invalid_expense_date"));
             return;
@@ -74,7 +81,7 @@ public class AddExpenseCtrl implements Initializable {
 
         Expense newExpense = new Expense(
                 expenseId, howMuch.getValue(), whatFor.getText(), whoPaid.getValue().getId(), when.getValue(),
-                splitBetweenId,1);
+                splitBetweenId, tag.getValue().getId());
 
         if (expenseId == null) {
             Expense result = server.addExpense(newExpense, event.getId());
@@ -109,6 +116,22 @@ public class AddExpenseCtrl implements Initializable {
             }
         });
         whoPaid.getItems().addAll(server.getUserByEvent(eventId));
+        tag.getItems().clear();
+        tag.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Tag tag) {
+                if (tag == null) {
+                    return "";
+                }
+                return tag.getName();
+            }
+
+            @Override
+            public Tag fromString(String s) {
+                return null;
+            }
+        });
+        tag.getItems().addAll(server.getTags(eventId));
     }
 
     public void setExpenseId(Integer id) {
@@ -123,6 +146,7 @@ public class AddExpenseCtrl implements Initializable {
         whatFor.setText(expense.getDescription());
         howMuch.getValueFactory().setValue(expense.getAmount());
         when.setValue(expense.getDate());
+        tag.setValue(server.getTagById(event.getId(), expense.getTagId()));
     }
 
     @Override
@@ -170,6 +194,7 @@ public class AddExpenseCtrl implements Initializable {
         whatFor.setText(null);
         howMuch.getValueFactory().setValue(0.0);
         when.setValue(null);
+        tag.setValue(null);
         invalid.setVisible(false);
     }
 }

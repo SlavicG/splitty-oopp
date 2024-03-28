@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="298.0" prefWidth="480.0" spacing="10.0" stylesheets="@/client/css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AddExpenseCtrl">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="362.0" prefWidth="523.0" spacing="10.0" stylesheets="@/client/css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AddExpenseCtrl">
    <children>
       <Text fx:id="title" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="header" text="%new_expense">
          <font>
@@ -32,9 +32,10 @@
                   <Label alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" styleClass="paragraph" text="%what_for" />
                   <Label alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" styleClass="paragraph" text="%how_much" textAlignment="RIGHT" />
                   <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="104.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" styleClass="paragraph" text="%when" textAlignment="RIGHT" />
+                  <Label styleClass="paragraph" text="Tag" />
                </children>
             </VBox>
-            <VBox maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" spacing="10.0">
+            <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="269.0" prefWidth="250.0" spacing="10.0">
                <children>
                   <ChoiceBox fx:id="whoPaid" prefHeight="30.0" prefWidth="200.0" />
                   <TextField fx:id="whatFor" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" promptText="Party Gear" />
@@ -49,6 +50,7 @@
                      </children>
                   </HBox>
                   <DatePicker fx:id="when" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" />
+                  <ChoiceBox fx:id="tag" prefHeight="30.0" prefWidth="200.0" />
                </children>
             </VBox>
          </children>
