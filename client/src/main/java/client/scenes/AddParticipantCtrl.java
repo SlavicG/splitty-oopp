@@ -49,6 +49,7 @@ public class AddParticipantCtrl implements Initializable {
 
     public void setUser(Integer userId) {
         if (userId == null) {
+            user = null;
             title.setText(resourceBundle.getString("add_participant"));
             confirm.setText(resourceBundle.getString("ok"));
             return;
