@@ -4,7 +4,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "name": "Travel2",
+  "name": "Drinks",
   "color": null
 }
 
@@ -14,8 +14,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "id": 2,
-  "name": "fosfksok",
+  "id": 4,
+  "name": "Drinks2",
   "color": null
 }
 
@@ -25,7 +25,7 @@ Accept: application/json
 Content-Type: application/json
 
 ### Get Tag
-GET http://localhost:8080/rest/events/2/tags/2
+GET http://localhost:8080/rest/events/1/tags/2
 Accept: application/json
 Content-Type: application/json
 

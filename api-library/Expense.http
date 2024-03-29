@@ -26,7 +26,7 @@ Content-Type: application/json
 }
 
 ### Get Expenses
-GET http://localhost:8080/rest/events/2/expenses
+GET http://localhost:8080/rest/events/1/expenses
 Accept: application/json
 Content-Type: application/json
 
