@@ -71,7 +71,7 @@
       <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
             <Label styleClass="paragraph" text="%participants" />
-            <HBox fx:id="participants" />
+            <HBox fx:id="participants" spacing="5.0" />
             <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addParticipant" prefHeight="32.0" prefWidth="32.0" styleClass="button-icon">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
