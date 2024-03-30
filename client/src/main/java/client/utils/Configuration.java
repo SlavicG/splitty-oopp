@@ -75,4 +75,24 @@ public class Configuration {
 
         return defaults;
     }
+    public void setLangConfig(String language) {
+        properties.setProperty("language.locale", language);
+        try (OutputStream out = new FileOutputStream("config.properties")) {
+            properties.store(out, "Set Language");
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public String getLangConfig() {
+        try {
+            String lang = properties.getProperty("language.locale");
+            if (lang == null || lang.isBlank()) {
+                throw new Error();
+            }
+            return lang;
+        } catch (Error e) {
+            System.out.println("Something went wrong. Using Default Language");
+            return "en";
+        }
+    }
 }
