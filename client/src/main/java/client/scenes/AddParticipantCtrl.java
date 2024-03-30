@@ -6,6 +6,7 @@ import commons.dto.Event;
 import commons.dto.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -27,6 +28,10 @@ public class AddParticipantCtrl implements Initializable {
     private TextField bic;
     @FXML
     private Label invalid;
+    @FXML
+    private Label title;
+    @FXML
+    private Button confirm;
 
     private Event event;
     private User user;
@@ -44,6 +49,9 @@ public class AddParticipantCtrl implements Initializable {
 
     public void setUser(Integer userId) {
         if (userId == null) {
+            user = null;
+            title.setText(resourceBundle.getString("add_participant"));
+            confirm.setText(resourceBundle.getString("ok"));
             return;
         }
         user = server.getUserById(event.getId(), userId);
@@ -51,6 +59,8 @@ public class AddParticipantCtrl implements Initializable {
         email.setText(user.getEmail());
         iban.setText(user.getIban());
         bic.setText(user.getBic());
+        title.setText(resourceBundle.getString("edit_participant"));
+        confirm.setText(resourceBundle.getString("edit"));
     }
 
     public void onCancel() {

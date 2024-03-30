@@ -12,7 +12,7 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="272.0" prefWidth="400.0" spacing="10.0" stylesheets="@/client/css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AddParticipantCtrl">
    <children>
-      <Label styleClass="header" text="%add_participant">
+      <Label fx:id="title" styleClass="header" text="%add_participant">
          <font>
             <Font size="25.0" />
          </font>
@@ -50,7 +50,7 @@
                </graphic>
             </Button>
             <Button minHeight="32.0" mnemonicParsing="false" onAction="#onCancel" text="%cancel" />
-            <Button minHeight="32.0" mnemonicParsing="false" onAction="#onOk" styleClass="button-green" text="%ok" />
+            <Button fx:id="confirm" minHeight="32.0" mnemonicParsing="false" onAction="#onOk" styleClass="button-green" text="%ok" />
          </children>
       </HBox>
    </children>
