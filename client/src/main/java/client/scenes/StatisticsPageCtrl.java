@@ -5,7 +5,6 @@ import com.google.inject.Inject;
 import commons.dto.Event;
 import commons.dto.Expense;
 import commons.dto.Tag;
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,8 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.HashMap;
