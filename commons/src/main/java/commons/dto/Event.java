@@ -112,8 +112,8 @@ public class Event {
         Integer eventId = 0;
         for(int i = 0; i < 10; ++i) {
             Character c = code.charAt(i);
-            if (c != 'A')
-                eventId = eventId * 10 + (c - 'A') ;
+            if (c > 'A' && c <= 'Z')
+                eventId = eventId * 10 + (c - 'A');
         }
         return eventId;
     }

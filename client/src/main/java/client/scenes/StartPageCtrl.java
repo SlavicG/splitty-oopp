@@ -80,6 +80,12 @@ public class StartPageCtrl implements Initializable {
             invalidInviteCode.setVisible(true);
             return;
         }
+        String text = inviteCode.getText();
+        for(int i = 0; i < 10; ++i)
+            if (text.charAt(i) < 'A' || text.charAt(i) > 'Z') {
+                invalidInviteCode.setVisible(true);
+                return;
+            }
         invalidInviteCode.setVisible(false);
         Integer eventId = Event.getIdFromCode(inviteCode.getText());
         List<Integer> ids = server.getEvents().stream().map(x -> x.getId()).toList();

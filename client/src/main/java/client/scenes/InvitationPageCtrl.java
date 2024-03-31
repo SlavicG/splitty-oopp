@@ -13,6 +13,8 @@ import javafx.scene.control.TextArea;
 import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class InvitationPageCtrl implements Initializable {
     private final ServerUtils server;
@@ -27,6 +29,7 @@ public class InvitationPageCtrl implements Initializable {
     private Event event;
     @FXML
     Button send_emails;
+    private Executor mc;
     @Inject
     public InvitationPageCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
@@ -34,6 +37,7 @@ public class InvitationPageCtrl implements Initializable {
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        mc = Executors.newVirtualThreadPerTaskExecutor();
         String s = "ABCDE";
         if(event != null) s = event.getCode();
         code.setText(s);
@@ -58,7 +62,7 @@ public class InvitationPageCtrl implements Initializable {
             Mail mailRequest = new Mail(email,
                     "Invite Code to Splitty!",
                     "Here is the invite code to the Event: " + code.getText());
-            server.sendEmail(mailRequest);
+            mc.execute(() -> server.sendEmail(mailRequest));
             String nickName = email.split("@")[0];
             User user = new User();
             user.setName(nickName);
@@ -67,6 +71,7 @@ public class InvitationPageCtrl implements Initializable {
             server.createUser(event.getId(), user);
         }
         emails_box.clear();
+        mainCtrl.overviewPage();
     }
     public void clear() {
         eventName.setText(null);
