@@ -21,10 +21,11 @@ import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.prefs.BackingStoreException;
 
 import static com.google.inject.Guice.createInjector;
 
@@ -59,5 +60,24 @@ public class Main extends Application {
         primaryStage.setOnCloseRequest(e -> {
             startPage.getKey().stop();
         });
+    }
+
+    public static String getLocalizedString(String key) {
+        if (bundle != null && bundle.containsKey(key)) {
+            return bundle.getString(key);
+        } else {
+            return "**Missing Key: " + key + "**";
+        }
+    }
+
+    public static void switchLocale(String languageCode) throws BackingStoreException {
+        if (languageCode != null) {
+            Configuration uc = new Configuration();
+            uc.setLangConfig(languageCode);
+            Locale locale = new Locale(languageCode);
+            bundle = ResourceBundle.getBundle("client.language", locale);
+        } else {
+            bundle = ResourceBundle.getBundle("client.language", Locale.getDefault());
+        }
     }
 }
