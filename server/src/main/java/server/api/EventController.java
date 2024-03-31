@@ -6,6 +6,8 @@ import commons.dto.User;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -150,4 +152,9 @@ public class EventController {
         return eventService.settleDebtUser(eventId, userId);
     }
 
+    @MessageMapping("/users")
+    @SendTo("/topic/users")
+    public User addMessage(User user) throws BadRequestException {
+        return user;
+    }
 }
