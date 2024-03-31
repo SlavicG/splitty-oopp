@@ -262,9 +262,9 @@ public class ServerUtils {
     }
 
 
-    public static boolean login(String username, String password) {
+    public static boolean login(String password) {
         try {
-            String auth = username + ":" + password;
+            String auth = "user" + ":" + password;
             String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes());
             String authHeader = "Basic " + encodedAuth;
 
@@ -306,17 +306,17 @@ public class ServerUtils {
         EXEC.shutdown();
     }
     public List<Tag> getTags(int eventId) {
-        return ClientBuilder.newClient(new ClientConfig()) 
-                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags") 
-                .request(APPLICATION_JSON) 
-                .accept(APPLICATION_JSON) 
-                .get(new GenericType<List<Tag>>() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<>() {
                 });
     }
 
     public Tag getTagById(int eventId, int tagId) {
         return ClientBuilder.newClient(new ClientConfig()) 
-                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags" + tagId) 
+                .target(configuration.getServerURL()).path("/rest/events/" + eventId + "/tags/" + tagId)
                 .request(APPLICATION_JSON) 
                 .accept(APPLICATION_JSON) 
                 .get(new GenericType<Tag>() {

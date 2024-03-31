@@ -41,6 +41,7 @@ public class MainCtrl {
     private Scene statisticsPage;
     private Scene addTagPage;
     private AddTagCtrl addTagCtrl;
+    private Scene editEventNamePage;
 
     private AddQuoteCtrl addCtrl;
 
@@ -48,6 +49,7 @@ public class MainCtrl {
     private AddExpenseCtrl addExpenseCtrl;
     private LoginPageCtrl loginPageCtrl;
     private AdminDashboardCtrl adminDashboardCtrl;
+    private EditEventNameCtrl editEventNameCtrl;
     private Scene adminPage;
     private Scene loginPage;
     private Scene add;
@@ -63,7 +65,8 @@ public class MainCtrl {
                            Pair<AddExpenseCtrl, Parent> addExpensePage,
                            Pair<StatisticsPageCtrl, Parent> statisticsPage,
                            Pair<LoginPageCtrl, Parent> loginPage,
-                           Pair<AdminDashboardCtrl, Parent> adminPage, Pair<AddTagCtrl, Parent> addTagPage) {
+                           Pair<AdminDashboardCtrl, Parent> adminPage,
+                           Pair<EditEventNameCtrl, Parent> editEventNamePage, Pair<AddTagCtrl, Parent> addTagPage) {
 
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
@@ -91,6 +94,8 @@ public class MainCtrl {
         this.loginPageCtrl = loginPage.getKey();
         this.adminPage = new Scene(adminPage.getValue());
         this.adminDashboardCtrl = adminPage.getKey();
+        this.editEventNamePage = new Scene(editEventNamePage.getValue());
+        this.editEventNameCtrl = editEventNamePage.getKey();
 
         startPage();
         primaryStage.show();
@@ -163,6 +168,13 @@ public class MainCtrl {
     public void adminPage() {
         primaryStage.setTitle("Admin Dashboard");
         primaryStage.setScene(adminPage);
+        if(adminDashboardCtrl != null)
+            adminDashboardCtrl.refresh();
+    }
+    public void editEventName(Integer eventId) {
+        primaryStage.setTitle("Edit Event Name");
+        primaryStage.setScene(editEventNamePage);
+        editEventNameCtrl.setEvent(eventId);
     }
 
     public void addTagPage(Integer eventId, Integer tagId) {

@@ -40,6 +40,16 @@ public class Expense {
         this.splitBetween = splitBetween;
     }
 
+    public Expense(Expense expense) {
+        this.id = expense.getId();
+        this.amount = expense.getAmount();
+        this.description = expense.getDescription();
+        this.payerId = expense.getPayerId();
+        this.date = expense.getDate();
+        this.splitBetween = expense.getSplitBetween();
+        this.tagId = expense.getTagId();
+    }
+
     public Expense() {
 
     }

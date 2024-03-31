@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="272.0" prefWidth="400.0" spacing="10.0" stylesheets="@/client/css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AddParticipantCtrl">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="211.0" prefWidth="400.0" spacing="10.0" stylesheets="@/client/css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.EditEventNameCtrl">
    <children>
-      <Label fx:id="title" styleClass="header" text="%add_participant">
+      <Label fx:id="title" styleClass="header" text="%edit_name">
          <font>
             <Font size="25.0" />
          </font>
@@ -22,25 +22,19 @@
             <VBox alignment="CENTER_RIGHT" prefWidth="100.0" spacing="10.0">
                <children>
                   <Label prefHeight="30.0" styleClass="paragraph" text="%name" />
-                  <Label layoutX="10.0" layoutY="10.0" prefHeight="30.0" styleClass="paragraph" text="%email" />
-                  <Label layoutX="10.0" layoutY="46.0" prefHeight="30.0" styleClass="paragraph" text="%iban" />
-                  <Label layoutX="10.0" layoutY="82.0" prefHeight="30.0" styleClass="paragraph" text="%bic" />
                </children>
             </VBox>
             <VBox layoutX="10.0" layoutY="10.0" prefWidth="200.0" spacing="10.0">
                <children>
                   <TextField fx:id="name" />
-                  <TextField fx:id="email" layoutX="10.0" layoutY="10.0" />
-                  <TextField fx:id="iban" layoutX="10.0" layoutY="36.0" />
-                  <TextField fx:id="bic" layoutX="10.0" layoutY="62.0" />
                </children>
             </VBox>
          </children>
       </HBox>
-      <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
+      <HBox alignment="BOTTOM_RIGHT" prefHeight="176.0" prefWidth="379.0" spacing="10.0">
          <children>
             <Label fx:id="invalid" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="26.0" text="Label" textFill="#c30606" visible="false" />
-            <Button fx:id="remove" layoutX="241.0" layoutY="26.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onRemove" prefHeight="32.0" styleClass="button-red" text="%remove">
+            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#clear" prefHeight="32.0" styleClass="button-red" text="%remove">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -50,7 +44,7 @@
                </graphic>
             </Button>
             <Button minHeight="32.0" mnemonicParsing="false" onAction="#onCancel" text="%cancel" />
-            <Button fx:id="confirm" minHeight="32.0" mnemonicParsing="false" onAction="#onOk" styleClass="button-green" text="%ok" />
+            <Button fx:id="confirm1" minHeight="32.0" mnemonicParsing="false" onAction="#onOk" styleClass="button-green" text="%ok" />
          </children>
       </HBox>
    </children>

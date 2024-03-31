@@ -4,6 +4,7 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.dto.Event;
 import commons.dto.Expense;
+import commons.dto.Tag;
 import commons.dto.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,6 +24,8 @@ public class AddExpenseCtrl implements Initializable {
     @FXML
     public ChoiceBox<User> whoPaid;
     @FXML
+    public ChoiceBox<Tag> tag;
+    @FXML
     public TextField whatFor;
     @FXML
     public Spinner<Double> howMuch;
@@ -34,10 +37,12 @@ public class AddExpenseCtrl implements Initializable {
     public Text title;
     @FXML
     public Button create;
+    @FXML
+    public Button remove;
 
 
     private Event event;
-    private Integer expenseId;
+    private Expense expense;
 
     private List<Integer> splitBetweenId;
     private ResourceBundle resourceBundle;
@@ -66,6 +71,10 @@ public class AddExpenseCtrl implements Initializable {
             invalid.setText(resourceBundle.getString("invalid_expense_payer"));
             return;
         }
+        if (tag.getValue() == null) {
+            invalid.setText(resourceBundle.getString("invalid_tag"));
+            return;
+        }
         if (when.getValue() == null) {
             invalid.setText(resourceBundle.getString("invalid_expense_date"));
             return;
@@ -73,20 +82,39 @@ public class AddExpenseCtrl implements Initializable {
         invalid.setVisible(false);
 
         Expense newExpense = new Expense(
-                expenseId, howMuch.getValue(), whatFor.getText(), whoPaid.getValue().getId(), when.getValue(),
-                splitBetweenId,1);
+            expense == null ? null : expense.getId(), howMuch.getValue(), whatFor.getText(), whoPaid.getValue().getId(),
+                when.getValue(), splitBetweenId, tag.getValue().getId());
 
-        if (expenseId == null) {
+        if (expense == null) {
             Expense result = server.addExpense(newExpense, event.getId());
             mainCtrl.addUndoFunction(() -> server.deleteExpense(result, event.getId()));
 
-        } else {
-            int oldExpenseId = expenseId;
-            Expense oldExpense = server.getExpenseById(event.getId(), oldExpenseId);
+        } else {;
             server.updateExpense(newExpense, event.getId());
-            mainCtrl.addUndoFunction(() -> server.updateExpense(oldExpense, event.getId()));
+            Expense oldExpense = new Expense(expense);
+            mainCtrl.addUndoFunction(() -> {
+                try {
+                    server.updateExpense(oldExpense, event.getId());
+                }
+                catch (RuntimeException e) {
+                    var alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Could not undo edit operation.");
+                    alert.setHeaderText("Undo of expense edit not possible anymore.");
+                    alert.setContentText(
+                        "Undoing an expense edit is no longer possible after previously deleting that expense.");
+                    alert.show();
+                }
+            });
         }
 
+        mainCtrl.eventPage(event.getId());
+    }
+
+    public void onRemove() {
+        assert(expense != null);
+        server.deleteExpense(expense, event.getId());
+        Expense oldExpense = new Expense(expense);
+        mainCtrl.addUndoFunction(() -> server.addExpense(oldExpense, event.getId()));
         mainCtrl.eventPage(event.getId());
     }
 
@@ -109,20 +137,38 @@ public class AddExpenseCtrl implements Initializable {
             }
         });
         whoPaid.getItems().addAll(server.getUserByEvent(eventId));
+        tag.getItems().clear();
+        tag.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Tag tag) {
+                if (tag == null) {
+                    return "";
+                }
+                return tag.getName();
+            }
+
+            @Override
+            public Tag fromString(String s) {
+                return null;
+            }
+        });
+        tag.getItems().addAll(server.getTags(eventId));
     }
 
     public void setExpenseId(Integer id) {
-        expenseId = id;
         title.setText(resourceBundle.getString(id == null ? "new_expense" : "edit_expense"));
         create.setText(resourceBundle.getString(id == null ? "create" : "edit"));
+        remove.setVisible(id != null);
         if (id == null) {
+            expense = null;
             return;
         }
-        Expense expense = server.getExpenseById(event.getId(), expenseId);
+        expense = server.getExpenseById(event.getId(), id);
         whoPaid.setValue(server.getUserById(event.getId(), expense.getPayerId()));
         whatFor.setText(expense.getDescription());
         howMuch.getValueFactory().setValue(expense.getAmount());
         when.setValue(expense.getDate());
+        tag.setValue(server.getTagById(event.getId(), expense.getTagId()));
     }
 
     @Override
@@ -170,6 +216,7 @@ public class AddExpenseCtrl implements Initializable {
         whatFor.setText(null);
         howMuch.getValueFactory().setValue(0.0);
         when.setValue(null);
+        tag.setValue(null);
         invalid.setVisible(false);
     }
 }

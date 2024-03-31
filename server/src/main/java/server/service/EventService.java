@@ -184,7 +184,10 @@ public class EventService {
         if (event == null) {
             throw new IllegalArgumentException("Event with provided ID does not exist.");
         }
+
         User dbUser = new User(user, event);
+        dbUser.setDebt(0.0);
+        user.setDebt(0.0);
         event.getUsers().add(dbUser);
         eventRepository.save(event);
         user.setId(dbUser.getId());
@@ -213,7 +216,8 @@ public class EventService {
             user.getName(),
             user.getEmail(),
             user.getIban(),
-            user.getBic()
+            user.getBic(),
+            user.getDebt()
         );
     }
 
@@ -262,6 +266,63 @@ public class EventService {
             expense.getDate(),
             expense.getSplitBetween(),
             0);
+
+    //settle all debts in an event
+    public List<commons.dto.User> settleAllDebtsEvent(Integer eventId){
+        List<commons.dto.User> userList = getUsers(eventId);
+        userList.forEach(user -> user.setDebt(0.0));
+        List<User> usersDatabase = new ArrayList<>();
+        for(int i=0;i<userList.size();i++){
+            User user = userRepository.findById(userList.get(i).getId()).orElse(null);
+            assert user != null;
+            user.setDebt(0.0);
+            usersDatabase.add(user);
+
+        }
+        userRepository.saveAll(usersDatabase);
+        return userList;
+    }
+    // update all users
+    public void updateAllDebtsInEvent(Integer event_id) {
+        Event event = getEventById(event_id);
+        List<Integer> userIds = event.getUserIds();
+        for (int i = 0; i < userIds.size(); i++) {
+            User user = userRepository.findById(userIds.get(i)).orElse(null);
+            double newDebt = getDebtOfaUser(userIds.get(i), event_id);
+            user.setDebt(newDebt);
+            userRepository.save(user);
+        }
+    }
+
+    //settle all debts for a given user in an event
+    public commons.dto.User settleDebtUser(Integer eventId, Integer userId){
+
+        commons.dto.User userC = getUser(eventId,userId);
+
+        Event event = getEventById(eventId);
+        List<Expense> listOfExpenses = event.getExpenses().stream().
+                filter(expense -> expense.getSplitBetween().contains(userId)).
+                filter(expense -> !expense.getPayerId().equals(userId)).
+                collect(Collectors.toList());
+
+        for(Expense e: listOfExpenses){
+            Double debtInExpense = e.getAmount()/e.getSplitBetween().size();
+            commons.dto.User userToUpdateDto = getUser(eventId, e.getPayerId());
+            userToUpdateDto.setDebt(userToUpdateDto.getDebt() + debtInExpense);
+            User userToUpdate = userRepository.findById(e.getPayerId()).orElse(null);
+            userToUpdate.setDebt(userToUpdate.getDebt() + debtInExpense);
+            userRepository.save(userToUpdate);
+
+        }
+        Double debtRn = userC.getDebt()>0?0.0:userC.getDebt();
+        userC.setDebt(debtRn);
+        User userToUpdate = userRepository.findById(userId).orElse(null);
+        userToUpdate.setDebt(debtRn);
+        userRepository.save(userToUpdate);
+        return userC;
+
+
+    }
 }
 
 

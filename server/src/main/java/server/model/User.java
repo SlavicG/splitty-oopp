@@ -15,9 +15,13 @@ public class User {
     private String iban;
     private String bic;
 
+    private Double debt;
+
     public User() {
 
     }
+
+
 
     public User(commons.dto.User user, Event event) {
         this.id = user.getId();
@@ -26,6 +30,8 @@ public class User {
         this.event = event;
         this.iban = user.getIban();
         this.bic = user.getBic();
+        this.debt = user.getDebt();
+
     }
 
     public User(Integer id, String name, String email, String iban, String bic, Event event) {
@@ -35,6 +41,15 @@ public class User {
         this.event = event;
         this.iban = iban;
         this.bic = bic;
+    }
+    public User(Integer id, String name, String email, String iban, String bic, Event event, Double debt) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.event = event;
+        this.iban = iban;
+        this.bic = bic;
+        this.debt = debt;
     }
 
     public User(Integer id, String name, String email) {
@@ -57,12 +72,20 @@ public class User {
             getName(),
             getEmail(),
             getIban(),
-            getBic()
+            getBic(),
+            getDebt()
         );
     }
 
     public Integer getId() {
         return id;
+    }
+    public void setDebt(Double debt) {
+        this.debt = debt;
+    }
+
+    public Double getDebt() {
+        return debt;
     }
 
     public String getName() {
@@ -119,6 +142,6 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, event, iban, bic);
+        return Objects.hash(id, name, email, event, iban, bic, debt);
     }
 }

@@ -4,6 +4,7 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.dto.Event;
 import commons.dto.Expense;
+import commons.dto.Tag;
 import commons.dto.User;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -27,6 +28,7 @@ public class OverviewPageCtrl implements Initializable {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     private final HashMap<Integer, String> userNamesCache;
+    private final HashMap<Integer, String> tagCache;
     @FXML
     private Label eventName;
     @FXML
@@ -45,6 +47,8 @@ public class OverviewPageCtrl implements Initializable {
     private TableColumn<Expense, LocalDate> dateColumn;
     @FXML
     private TableColumn<Expense, String> payerColumn;
+    @FXML
+    private TableColumn<Expense, String> tagColumn;
     private Integer eventId;
     private ObservableList<User> data;
     private FilteredList<Expense> expenses;
@@ -55,6 +59,7 @@ public class OverviewPageCtrl implements Initializable {
         this.server = server;
         this.mainCtrl = mainCtrl;
         userNamesCache = new HashMap<>();
+        tagCache = new HashMap<>();
         data = FXCollections.observableArrayList();
     }
 
@@ -69,7 +74,10 @@ public class OverviewPageCtrl implements Initializable {
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         payerColumn.setCellValueFactory(
-            expense -> new ReadOnlyObjectWrapper<>(userNamesCache.get(expense.getValue().getPayerId())));
+                expense -> new ReadOnlyObjectWrapper<>(userNamesCache.get(expense.getValue().getPayerId())));
+
+        tagColumn.setCellValueFactory(
+                expense -> new ReadOnlyObjectWrapper<>(tagCache.get(expense.getValue().getTagId())));
 
         expenseTable.setPlaceholder(new Label(resources.getString("add_expense_hint")));
 
@@ -149,8 +157,13 @@ public class OverviewPageCtrl implements Initializable {
         mainCtrl.statisticsPage();
     }
 
+
     public void addTagPage() {
         mainCtrl.addTagPage(eventId, null);
+    }
+
+    public void editEventName() {
+        mainCtrl.editEventName(eventId);
     }
 
     public void refresh() {
@@ -160,6 +173,15 @@ public class OverviewPageCtrl implements Initializable {
         expenses = new FilteredList<>(FXCollections.observableList(server.getExpenses(eventId)));
         expenseTable.setItems(expenses);
         eventName.setText(event.getTitle());
+
+        List<Optional<Tag>> tags = server.getTags(eventId).stream().map(Optional::of).toList();
+        tagCache.clear();
+        tags.forEach(user -> {
+            if (user.isEmpty()) {
+                return;
+            }
+            tagCache.put(user.get().getId(), user.get().getName());
+        });
 
         // Populate the userFilter ChoiceBox with all users that have paid for expense.
         List<Optional<User>> users = server.getUserByEvent(eventId).stream().map(Optional::of).toList();
@@ -209,6 +231,6 @@ public class OverviewPageCtrl implements Initializable {
         Optional<User> user = userFilter.getValue();
         String search = searchBox.getText();
         expenses.setPredicate(expense -> expense.getDescription().toLowerCase().contains(search.toLowerCase()) &&
-            (user == null || user.isEmpty() || expense.getPayerId().equals(user.get().getId())));
+                (user == null || user.isEmpty() || expense.getPayerId().equals(user.get().getId())));
     }
 }

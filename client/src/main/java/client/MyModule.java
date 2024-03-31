@@ -15,9 +15,7 @@
  */
 package client;
 
-import client.scenes.AddQuoteCtrl;
-import client.scenes.MainCtrl;
-import client.scenes.QuoteOverviewCtrl;
+import client.scenes.*;
 import client.utils.Configuration;
 import com.google.inject.Binder;
 import com.google.inject.Module;
@@ -31,5 +29,16 @@ public class MyModule implements Module {
         binder.bind(AddQuoteCtrl.class).in(Scopes.SINGLETON);
         binder.bind(QuoteOverviewCtrl.class).in(Scopes.SINGLETON);
         binder.bind(Configuration.class).in(Scopes.SINGLETON);
+
+        binder.bind(AddParticipantCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(AdminDashboardCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(InvitationPageCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(LoginPageCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(OverviewPageCtrl.class).in(Scopes.SINGLETON);
+
+        binder.bind(ParticipantPageCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(StartPageCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(StatisticsPageCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(AddExpenseCtrl.class).in(Scopes.SINGLETON);
     }
 }

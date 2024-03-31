@@ -8,9 +8,19 @@ public class User {
     private String email;
     private String iban;
     private String bic;
+    private Double debt;
 
     public User() {
 
+    }
+
+    public User(Integer id, String name, String email, String iban, String bic, Double debt) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.iban = iban;
+        this.bic = bic;
+        this.debt = debt;
     }
 
     public User(Integer id, String name, String email, String iban, String bic) {
@@ -27,6 +37,17 @@ public class User {
         this.email = user.getEmail();
         this.iban = user.getIban();
         this.bic = user.getBic();
+        this.debt = user.getDebt();
+
+    }
+
+
+    public Double getDebt() {
+        return debt;
+    }
+
+    public void setDebt(Double debt) {
+        this.debt = debt;
     }
 
     public Integer getId() {
@@ -78,12 +99,13 @@ public class User {
                 Objects.equals(name, user.name) &&
                 Objects.equals(email, user.email) &&
                 Objects.equals(iban, user.iban) &&
-                Objects.equals(bic, user.bic);
+                Objects.equals(bic, user.bic) &&
+                Objects.equals(debt, user.debt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, iban, bic);
+        return Objects.hash(id, name, email, iban, bic, debt);
     }
 
     @Override
@@ -94,6 +116,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", iban='" + iban + '\'' +
                 ", bic='" + bic + '\'' +
+                ", debt='" + debt + '\'' +
                 '}';
     }
 }

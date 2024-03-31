@@ -4,7 +4,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "title": "abc"
+  "title": "EasterParty"
 }
 
 ### Get Event
@@ -28,7 +28,7 @@ Content-Type: application/json
 }
 
 ### Delete event by id
-DELETE http://localhost:8080/rest/events/1
+DELETE http://localhost:8080/rest/events/3
 Accept: application/json
 
 ### Get all expenses in an event
@@ -59,4 +59,16 @@ Accept: application/json
 
 ### Get specific user in event
 GET http://localhost:8080/rest/events/1/users/1
+Accept: application/json
+
+### Get all tags in event
+GET http://localhost:8080/rest/events/1/tags
+Accept: application/json
+
+### Settle debts for all users in an event
+GET http://localhost:8080/rest/events/1/settle_debts
+Accept: application/json
+
+### Settle debts for a given user in an event
+GET http://localhost:8080/rest/events/1/settle_debts/users/1
 Accept: application/json
