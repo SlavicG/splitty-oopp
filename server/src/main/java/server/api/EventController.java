@@ -137,4 +137,11 @@ public class EventController {
     public DeferredResult<ResponseEntity<Event>> getUpdates() {
         return eventService.getUpdates();
     }
+
+    @GetMapping("/{event_id}/settle_debts")
+    @ResponseBody
+    public List<User> settleAllUsers(@PathVariable(name = "event_id") Integer eventId) {
+        return eventService.settleAllDebtsEvent(eventId);
+    }
+
 }

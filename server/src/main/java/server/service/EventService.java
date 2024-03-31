@@ -267,6 +267,23 @@ public class EventService {
             expense.getSplitBetween(),
             0);
 
+    //settle all debts in an event
+    public List<commons.dto.User> settleAllDebtsEvent(Integer eventId){
+        List<commons.dto.User> userList = getUsers(eventId);
+        userList.forEach(user -> user.setDebt(0.0));
+        List<User> usersDatabase = new ArrayList<>();
+        for(int i=0;i<userList.size();i++){
+            User user = userRepository.findById(userList.get(i).getId()).orElse(null);
+            assert user != null;
+            user.setDebt(0.0);
+            usersDatabase.add(user);
+
+        }
+        userRepository.saveAll(usersDatabase);
+        return userList;
+
+
+    }
 
 }
 
