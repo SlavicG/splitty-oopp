@@ -96,7 +96,7 @@ public class StatisticsPageCtrl implements Initializable {
         pieChart.setData(pieChartData);
         pieChart.setTitle("TotalCost per Tag");
         pieChart.getData().forEach(data -> {
-            String percentage = String.format("%.2f%%",((data.getPieValue()/5000)*100));
+            String percentage = String.format("%.2f%%",((data.getPieValue()/totalCost())*100));
             Tooltip tooltip = new Tooltip(percentage);
             Tooltip.install(data.getNode(), tooltip);
         });
