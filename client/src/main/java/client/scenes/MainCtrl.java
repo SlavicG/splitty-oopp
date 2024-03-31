@@ -118,6 +118,7 @@ public class MainCtrl {
     public void overviewPage() {
         primaryStage.setTitle("Overview Page");
         primaryStage.setScene(overviewPage);
+        overviewPageCtrl.refresh();
     }
 
     public void invitationPage(Label name, Integer eventId) {

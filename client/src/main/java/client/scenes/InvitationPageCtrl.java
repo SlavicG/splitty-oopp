@@ -4,6 +4,7 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.dto.Event;
 import commons.dto.Mail;
+import commons.dto.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -12,6 +13,8 @@ import javafx.scene.control.TextArea;
 import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class InvitationPageCtrl implements Initializable {
     private final ServerUtils server;
@@ -26,6 +29,7 @@ public class InvitationPageCtrl implements Initializable {
     private Event event;
     @FXML
     Button send_emails;
+    private Executor mc;
     @Inject
     public InvitationPageCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
@@ -33,6 +37,7 @@ public class InvitationPageCtrl implements Initializable {
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        mc = Executors.newVirtualThreadPerTaskExecutor();
         String s = "ABCDE";
         if(event != null) s = event.getCode();
         code.setText(s);
@@ -53,13 +58,20 @@ public class InvitationPageCtrl implements Initializable {
             return;
         }
         String[] emails = toEmails.split(System.lineSeparator());
-        for(int i = 0; i < emails.length; ++i) {
-            Mail mailRequest = new Mail(emails[i],
+        for(String email : emails) {
+            Mail mailRequest = new Mail(email,
                     "Invite Code to Splitty!",
                     "Here is the invite code to the Event: " + code.getText());
-            server.sendEmail(mailRequest);
+            mc.execute(() -> server.sendEmail(mailRequest));
+            String nickName = email.split("@")[0];
+            User user = new User();
+            user.setName(nickName);
+            System.out.println(nickName);
+            user.setEmail(email);
+            server.createUser(event.getId(), user);
         }
         emails_box.clear();
+        mainCtrl.overviewPage();
     }
     public void clear() {
         eventName.setText(null);

@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="336.0" prefWidth="675.0" stylesheets="@/client/css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.StartPageCtrl">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="700.0" stylesheets="@/client/css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.StartPageCtrl">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="header" text="Splitty">
          <font>
@@ -68,6 +68,11 @@
                         <Insets bottom="10.0" left="10.0" top="5.0" />
                      </VBox.margin>
                   </Text>
+                  <Text fx:id="invalidInviteCode" fill="#ff2020" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-error" text="Invalid invite code" visible="false">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" top="5.0" />
+                     </VBox.margin>
+                  </Text>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
                         <Button accessibleText="Settings" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" styleClass="button-icon">
@@ -90,9 +95,9 @@
                         </Button>
                         <MenuButton mnemonicParsing="false" text="Language">
                           <items>
-                            <MenuItem fx:id="switch_en" onAction="#changeLangEn" mnemonicParsing="false" text="English" />
-                            <MenuItem fx:id="switch_nl" onAction="#changeLangNl"  mnemonicParsing="false" text="Dutch" />
-                             <MenuItem fx:id="add_new_lang" onAction="#addNewLang" mnemonicParsing="false" text="Add new Language" />
+                            <MenuItem fx:id="switch_en" mnemonicParsing="false" onAction="#changeLangEn" text="English" />
+                            <MenuItem fx:id="switch_nl" mnemonicParsing="false" onAction="#changeLangNl" text="Dutch" />
+                             <MenuItem fx:id="add_new_lang" mnemonicParsing="false" onAction="#addNewLang" text="Add new Language" />
                           </items>
                         </MenuButton>
                      </children>
