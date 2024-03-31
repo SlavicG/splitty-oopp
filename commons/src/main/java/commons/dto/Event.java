@@ -25,6 +25,14 @@ public class Event {
         this.tags = tags;
     }
 
+    public Event(Event event) {
+        this.id = event.getId();
+        this.title = event.getTitle();
+        this.usersIds = event.getUserIds();
+        this.expenses = event.getExpenses();
+        this.tags = event.getTags();
+    }
+
 
     public Integer getId() {
         return id;

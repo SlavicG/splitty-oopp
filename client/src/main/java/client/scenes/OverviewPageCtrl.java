@@ -157,6 +157,10 @@ public class OverviewPageCtrl implements Initializable {
         mainCtrl.statisticsPage();
     }
 
+    public void editEventName() {
+        mainCtrl.editEventName(eventId);
+    }
+
     public void refresh() {
         // Set up expenses table.
         expenseTable.getSelectionModel().clearSelection();

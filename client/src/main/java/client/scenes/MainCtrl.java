@@ -39,6 +39,7 @@ public class MainCtrl {
     private AddParticipantCtrl addParticipantPageCtrl;
     private Scene addExpensePage;
     private Scene statisticsPage;
+    private Scene editEventNamePage;
 
     private AddQuoteCtrl addCtrl;
 
@@ -46,6 +47,7 @@ public class MainCtrl {
     private AddExpenseCtrl addExpenseCtrl;
     private LoginPageCtrl loginPageCtrl;
     private AdminDashboardCtrl adminDashboardCtrl;
+    private EditEventNameCtrl editEventNameCtrl;
     private Scene adminPage;
     private Scene loginPage;
     private Scene add;
@@ -61,7 +63,8 @@ public class MainCtrl {
                            Pair<AddExpenseCtrl, Parent> addExpensePage,
                            Pair<StatisticsPageCtrl, Parent> statisticsPage,
                            Pair<LoginPageCtrl, Parent> loginPage,
-                           Pair<AdminDashboardCtrl, Parent> adminPage) {
+                           Pair<AdminDashboardCtrl, Parent> adminPage,
+                           Pair<EditEventNameCtrl, Parent> editEventNamePage) {
 
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
@@ -87,6 +90,8 @@ public class MainCtrl {
         this.loginPageCtrl = loginPage.getKey();
         this.adminPage = new Scene(adminPage.getValue());
         this.adminDashboardCtrl = adminPage.getKey();
+        this.editEventNamePage = new Scene(editEventNamePage.getValue());
+        this.editEventNameCtrl = editEventNamePage.getKey();
 
         startPage();
         primaryStage.show();
@@ -160,6 +165,11 @@ public class MainCtrl {
     {
         primaryStage.setTitle("Admin Dashboard");
         primaryStage.setScene(adminPage);
+    }
+    public void editEventName(Integer eventId) {
+        primaryStage.setTitle("Edit Event Name");
+        primaryStage.setScene(editEventNamePage);
+        editEventNameCtrl.setEvent(eventId);
     }
 
     public void addUndoFunction(Runnable undoFunction) {
