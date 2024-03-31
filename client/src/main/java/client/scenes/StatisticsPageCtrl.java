@@ -14,7 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 
 import java.awt.*;
-import java.awt.color.ColorSpace;
 import java.net.URL;
 import java.util.*;
 import java.util.List;
@@ -90,8 +89,8 @@ public class StatisticsPageCtrl implements Initializable {
     public void CreatePieChart(){
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
         for(Map.Entry<Tag,Integer> entry: map.entrySet()){
-                PieChart.Data data = new PieChart.Data(entry.getKey().getName(),entry.getValue());
-                pieChartData.add(data);
+            PieChart.Data data = new PieChart.Data(entry.getKey().getName(),entry.getValue());
+            pieChartData.add(data);
         }
 
         pieChart.setData(pieChartData);
