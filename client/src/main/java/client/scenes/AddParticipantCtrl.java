@@ -93,7 +93,8 @@ public class AddParticipantCtrl implements Initializable {
             User oldUser = new User(user);
             User changedUser = server.updateUser(event.getId(), new User(oldUser.getId(),
                     name.getText(),
-                    email.getText(), iban.getText(), bic.getText(), Double.valueOf(debt.getText())));
+                    email.getText(), iban.getText(), bic.getText(),
+                    (debt == null ? 0.0 : Double.valueOf(debt.getText()))));
             server.send("/app/users", changedUser);
             mainCtrl.addUndoFunction(() -> {
                 try {
