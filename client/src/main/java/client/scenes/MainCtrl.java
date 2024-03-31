@@ -156,6 +156,9 @@ public class MainCtrl {
     public void statisticsPage(Integer eventId) {
         primaryStage.setTitle("Statistics Page");
         statisticsPageCtrl.setEvent(eventId);
+        statisticsPageCtrl.clear();
+        statisticsPageCtrl.setTotalCost(statisticsPageCtrl.totalCost());
+        statisticsPageCtrl.mapTagToTotalCostPerTag();
         primaryStage.setScene(statisticsPage);
     }
 
