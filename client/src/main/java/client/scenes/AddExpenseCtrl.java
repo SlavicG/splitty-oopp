@@ -37,10 +37,12 @@ public class AddExpenseCtrl implements Initializable {
     public Text title;
     @FXML
     public Button create;
+    @FXML
+    public Button remove;
 
 
     private Event event;
-    private Integer expenseId;
+    private Expense expense;
 
     private List<Integer> splitBetweenId;
     private ResourceBundle resourceBundle;
@@ -80,20 +82,39 @@ public class AddExpenseCtrl implements Initializable {
         invalid.setVisible(false);
 
         Expense newExpense = new Expense(
-                expenseId, howMuch.getValue(), whatFor.getText(), whoPaid.getValue().getId(), when.getValue(),
-                splitBetweenId, tag.getValue().getId());
+            expense == null ? null : expense.getId(), howMuch.getValue(), whatFor.getText(), whoPaid.getValue().getId(),
+                when.getValue(), splitBetweenId, tag.getValue().getId());
 
-        if (expenseId == null) {
+        if (expense == null) {
             Expense result = server.addExpense(newExpense, event.getId());
             mainCtrl.addUndoFunction(() -> server.deleteExpense(result, event.getId()));
 
-        } else {
-            int oldExpenseId = expenseId;
-            Expense oldExpense = server.getExpenseById(event.getId(), oldExpenseId);
+        } else {;
             server.updateExpense(newExpense, event.getId());
-            mainCtrl.addUndoFunction(() -> server.updateExpense(oldExpense, event.getId()));
+            Expense oldExpense = new Expense(expense);
+            mainCtrl.addUndoFunction(() -> {
+                try {
+                    server.updateExpense(oldExpense, event.getId());
+                }
+                catch (RuntimeException e) {
+                    var alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Could not undo edit operation.");
+                    alert.setHeaderText("Undo of expense edit not possible anymore.");
+                    alert.setContentText(
+                        "Undoing an expense edit is no longer possible after previously deleting that expense.");
+                    alert.show();
+                }
+            });
         }
 
+        mainCtrl.eventPage(event.getId());
+    }
+
+    public void onRemove() {
+        assert(expense != null);
+        server.deleteExpense(expense, event.getId());
+        Expense oldExpense = new Expense(expense);
+        mainCtrl.addUndoFunction(() -> server.addExpense(oldExpense, event.getId()));
         mainCtrl.eventPage(event.getId());
     }
 
@@ -135,13 +156,14 @@ public class AddExpenseCtrl implements Initializable {
     }
 
     public void setExpenseId(Integer id) {
-        expenseId = id;
         title.setText(resourceBundle.getString(id == null ? "new_expense" : "edit_expense"));
         create.setText(resourceBundle.getString(id == null ? "create" : "edit"));
+        remove.setVisible(id != null);
         if (id == null) {
+            expense = null;
             return;
         }
-        Expense expense = server.getExpenseById(event.getId(), expenseId);
+        expense = server.getExpenseById(event.getId(), id);
         whoPaid.setValue(server.getUserById(event.getId(), expense.getPayerId()));
         whatFor.setText(expense.getDescription());
         howMuch.getValueFactory().setValue(expense.getAmount());

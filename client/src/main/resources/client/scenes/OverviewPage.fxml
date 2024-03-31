@@ -31,6 +31,15 @@
                   <Font name="System Bold" size="25.0" />
                </font>
             </Label>
+            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#editEventName" prefHeight="32.0" prefWidth="32.0" styleClass="button-icon">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/client/images/pencil.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
          <VBox.margin>
             <Insets />

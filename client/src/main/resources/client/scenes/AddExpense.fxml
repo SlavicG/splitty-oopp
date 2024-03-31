@@ -58,7 +58,7 @@
       <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
          <children>
             <Label fx:id="invalid" prefHeight="26.0" text="Label" textAlignment="RIGHT" textFill="#f20909" visible="false" />
-            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onCancel" prefHeight="32.0" styleClass="button-red" text="%remove">
+            <Button fx:id="remove" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onRemove" prefHeight="32.0" styleClass="button-red" text="%remove">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>

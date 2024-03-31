@@ -4,8 +4,10 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.dto.Event;
 import commons.dto.User;
+import jakarta.ws.rs.core.Response;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -34,6 +36,8 @@ public class AddParticipantCtrl implements Initializable {
     private Label title;
     @FXML
     private Button confirm;
+    @FXML
+    private Button remove;
 
     private Event event;
     private User user;
@@ -54,6 +58,7 @@ public class AddParticipantCtrl implements Initializable {
             user = null;
             title.setText(resourceBundle.getString("add_participant"));
             confirm.setText(resourceBundle.getString("ok"));
+            remove.setVisible(false);
             return;
         }
         user = server.getUserById(event.getId(), userId);
@@ -61,8 +66,10 @@ public class AddParticipantCtrl implements Initializable {
         email.setText(user.getEmail());
         iban.setText(user.getIban());
         bic.setText(user.getBic());
+        debt.setText(String.valueOf(user.getDebt()));
         title.setText(resourceBundle.getString("edit_participant"));
         confirm.setText(resourceBundle.getString("edit"));
+        remove.setVisible(true);
     }
 
     public void onCancel() {
@@ -78,7 +85,8 @@ public class AddParticipantCtrl implements Initializable {
         if (user == null) {
             User newUser =
                     server.createUser(event.getId(),
-                        new User(null, name.getText(), email.getText(), iban.getText(), bic.getText()));
+                        new User(null, name.getText(), email.getText(), iban.getText(),
+                                bic.getText(), Double.valueOf(debt.getText())));
             server.send("/app/users", newUser);
             mainCtrl.addUndoFunction(() -> server.deleteUser(event.getId(), newUser.getId()));
             user = null;
@@ -86,12 +94,42 @@ public class AddParticipantCtrl implements Initializable {
             User oldUser = new User(user);
             User changedUser = server.updateUser(event.getId(), new User(oldUser.getId(),
                     name.getText(),
-                    email.getText(), iban.getText(), bic.getText()));
+                    email.getText(), iban.getText(), bic.getText(), Double.valueOf(debt.getText())));
             server.send("/app/users", changedUser);
-            mainCtrl.addUndoFunction(() -> server.updateUser(event.getId(), oldUser));
+            mainCtrl.addUndoFunction(() -> {
+                try {
+                    server.updateUser(event.getId(), oldUser);
+                }
+                catch (RuntimeException e) {
+                    var alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Could not undo edit operation.");
+                    alert.setHeaderText("Undo of participant edit not possible anymore.");
+                    alert.setContentText(
+                        "Undoing a participant edit is no longer possible after previously deleting that participant.");
+                    alert.show();
+                }
+            });
             user = null;
         }
         mainCtrl.eventPage(event.getId());
+    }
+
+    public void onRemove() {
+        assert(user != null);
+        Response response = server.deleteUser(event.getId(), user.getId());
+        if (response.getStatus() == 204) {
+            User oldUser = new User(user);
+            mainCtrl.addUndoFunction(() -> server.createUser(event.getId(), oldUser));
+            mainCtrl.eventPage(event.getId());
+        }
+        else {
+            var alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Failed to remove participant");
+            alert.setHeaderText("Could not remove participant");
+            alert.setContentText("This participant is involved in (several) expenses(s). " +
+                "Please remove these expenses before removing the participant.");
+            alert.show();
+        }
     }
 
     public void clear() {
