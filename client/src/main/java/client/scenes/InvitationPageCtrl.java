@@ -4,6 +4,7 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.dto.Event;
 import commons.dto.Mail;
+import commons.dto.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -53,11 +54,17 @@ public class InvitationPageCtrl implements Initializable {
             return;
         }
         String[] emails = toEmails.split(System.lineSeparator());
-        for(int i = 0; i < emails.length; ++i) {
-            Mail mailRequest = new Mail(emails[i],
+        for(String email : emails) {
+            Mail mailRequest = new Mail(email,
                     "Invite Code to Splitty!",
                     "Here is the invite code to the Event: " + code.getText());
             server.sendEmail(mailRequest);
+            String nickName = email.split("@")[0];
+            User user = new User();
+            user.setName(nickName);
+            System.out.println(nickName);
+            user.setEmail(email);
+            server.createUser(event.getId(), user);
         }
         emails_box.clear();
     }
