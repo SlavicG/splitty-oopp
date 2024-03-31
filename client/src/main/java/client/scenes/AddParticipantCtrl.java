@@ -79,7 +79,8 @@ public class AddParticipantCtrl implements Initializable {
         if (user == null) {
             User newUser =
                     server.createUser(event.getId(),
-                        new User(null, name.getText(), email.getText(), iban.getText(), bic.getText(), Double.valueOf(debt.getText())));
+                        new User(null, name.getText(), email.getText(), iban.getText(),
+                                bic.getText(), Double.valueOf(debt.getText())));
             server.send("/app/users", newUser);
             mainCtrl.addUndoFunction(() -> server.deleteUser(event.getId(), newUser.getId()));
             user = null;
