@@ -281,10 +281,39 @@ public class EventService {
         }
         userRepository.saveAll(usersDatabase);
         return userList;
-
-
     }
-
+    // update all users
+    public void updateAllDebtsInEvent(Integer event_id) {
+        Event event = getEventById(event_id);
+        List<Integer> userIds = event.getUserIds();
+        for (int i = 0; i < userIds.size(); i++) {
+            User user = userRepository.findById(userIds.get(i)).orElse(null);
+            double newDebt = getDebtOfaUser(userIds.get(i), event_id);
+            user.setDebt(newDebt);
+            userRepository.save(user);
+        }
+    }
+//
+//    //settle all debts for a given user in an event
+//    public commons.dto.User settleDebtUser(Integer eventId, Integer userId){
+//
+//        commons.dto.User userC = getUser(eventId,userId);
+//
+//        Event event = getEventById(eventId);
+//        List<Expense> listOfExpenses = event.getExpenses().stream().
+//                filter(expense -> expense.getSplitBetween().contains(userId)).
+//                filter(expense -> !expense.getPayerId().equals(userId)).
+//                collect(Collectors.toList());
+//
+//        userC.setDebt(0.0);
+//
+//        User userToUpdate = userRepository.findById(userId).orElse(null);
+//        userToUpdate.setDebt(0.0);
+//        userRepository.save(userToUpdate);
+//        return userC;
+//
+//
+//    }
 }
 
 

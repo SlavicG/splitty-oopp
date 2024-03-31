@@ -68,3 +68,7 @@ Accept: application/json
 ### Settle debts for all users in an event
 GET http://localhost:8080/rest/events/1/settle_debts
 Accept: application/json
+
+### Settle debts for a given user in an event
+GET http://localhost:8080/rest/events/1/settle_debts/users/1
+Accept: application/json
