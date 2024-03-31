@@ -8,7 +8,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
-
+import com.google.gson.Gson;
+import javafx.stage.FileChooser;
+import javafx.scene.control.Alert.AlertType;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.net.URL;
 import java.util.Comparator;
 import java.util.List;
@@ -85,4 +91,55 @@ public class AdminDashboardCtrl implements Initializable {
             });
         }
     }
+    @FXML
+    private void downloadBackupAction() {
+        Event selectedEvent = eventListAdmin.getSelectionModel().getSelectedItem();
+        if (selectedEvent == null) {
+            showAlert("No Selection", "No event selected",
+                    "Please select an event to download its backup.", AlertType.WARNING);
+            return;
+        }
+
+        String eventJson = convertEventToJson(selectedEvent);
+        if (eventJson != null) {
+            saveEventJsonToFile(eventJson);
+        }
+    }
+
+    private String convertEventToJson(Event event) {
+        try {
+            Gson gson = new Gson();
+            return gson.toJson(event);
+        } catch (Exception e) {
+            showAlert("Conversion Error", "Error converting event to JSON",
+                    "Could not convert the selected event to JSON: " + e.getMessage(), AlertType.ERROR);
+            return null;
+        }
+    }
+
+    private void saveEventJsonToFile(String json) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Event Backup");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
+        File file = fileChooser.showSaveDialog(null);
+        if (file != null) {
+            try (Writer writer = new FileWriter(file)) {
+                writer.write(json);
+                showAlert("Success", "Backup Saved",
+                        "Event backup saved successfully!", AlertType.INFORMATION);
+            } catch (IOException e) {
+                showAlert("File Error", "Error saving file",
+                        "Could not save the file: " + e.getMessage(), AlertType.ERROR);
+            }
+        }
+    }
+
+    private void showAlert(String title, String header, String content, Alert.AlertType type) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
 }
