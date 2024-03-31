@@ -160,6 +160,7 @@ public class MainCtrl {
         statisticsPageCtrl.setTotalCost(statisticsPageCtrl.totalCost());
         statisticsPageCtrl.mapTagToTotalCostPerTag();
         statisticsPageCtrl.CreatePieChart();
+        statisticsPageCtrl.pieChartColors();
         primaryStage.setScene(statisticsPage);
     }
 

@@ -13,11 +13,11 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 
+import java.awt.*;
+import java.awt.color.ColorSpace;
 import java.net.URL;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
 
 public class StatisticsPageCtrl implements Initializable {
     private final ServerUtils server;
@@ -45,6 +45,7 @@ public class StatisticsPageCtrl implements Initializable {
 
     public void clear() {
         text.setText(null);
+        pieChart.setData(null);
     }
 
     public int totalCost() {
@@ -89,17 +90,29 @@ public class StatisticsPageCtrl implements Initializable {
     public void CreatePieChart(){
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
         for(Map.Entry<Tag,Integer> entry: map.entrySet()){
-            if(entry.getValue() != 0) {
-                pieChartData.add(new PieChart.Data(entry.getKey().getName(),entry.getValue()));
-            }
+                PieChart.Data data = new PieChart.Data(entry.getKey().getName(),entry.getValue());
+                pieChartData.add(data);
         }
-        pieChartData.add(new PieChart.Data("hello", 1000));
+
         pieChart.setData(pieChartData);
         pieChart.setTitle("TotalCost per Tag");
         pieChart.getData().forEach(data -> {
-            String percentage = String.format("%.2f%%",((data.getPieValue()/totalCost())*100));
+            String percentage = String.format("%.2f%%",((data.getPieValue()/5000)*100));
             Tooltip tooltip = new Tooltip(percentage);
             Tooltip.install(data.getNode(), tooltip);
         });
     }
+
+    public void pieChartColors() {
+        ArrayList<Color> colors = new ArrayList<>();
+        for(Map.Entry<Tag,Integer> entry: map.entrySet()) {
+            colors.add(entry.getKey().getColor());
+        }
+        int i = 0;
+        for (PieChart.Data data : pieChart.getData()) {
+            data.getNode().setStyle("-fx-pie-color: " + colors.get(i % colors.size()) + ";");
+            i++;
+        }
+    }
 }
+
