@@ -140,7 +140,7 @@ public class ExpenseService {
                 expense.getSplitBetween(),
                 expense.getTagId());
         updateAllDebtsInEvent(eventId);
-        return  expenseCreated;
+        return expenseCreated;
 
 
     }
@@ -157,7 +157,7 @@ public class ExpenseService {
             existingExpense.setPayer(getUserById(expense.getPayerId()));
             existingExpense.setTag(getTagById(expense.getTagId()));
             server.model.Expense savedExpense = expenseRepository.save(existingExpense);
-            Expense expenseUpdated=  mapper.apply(savedExpense);
+            Expense expenseUpdated = mapper.apply(savedExpense);
             updateAllDebtsInEvent(eventId);
 
             return expenseUpdated;
