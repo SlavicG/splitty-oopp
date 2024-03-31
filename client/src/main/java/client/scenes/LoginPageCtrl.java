@@ -26,12 +26,11 @@ public class LoginPageCtrl {
     // Method to handle login action
     @FXML
     protected void onLoginButtonClick() {
-        String username = usernameField.getText();
         String password = passwordField.getText();
 
         // Now, authenticate with the backend. This is a simplified example.
         // You'd replace this with actual logic to send a request to your backend.
-        boolean isAuthenticated = server.login(username, password);
+        boolean isAuthenticated = server.login(password);
         if (isAuthenticated) {
             mainCtrl.adminPage();
         } else {
