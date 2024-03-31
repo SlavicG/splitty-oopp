@@ -293,27 +293,36 @@ public class EventService {
             userRepository.save(user);
         }
     }
-//
-//    //settle all debts for a given user in an event
-//    public commons.dto.User settleDebtUser(Integer eventId, Integer userId){
-//
-//        commons.dto.User userC = getUser(eventId,userId);
-//
-//        Event event = getEventById(eventId);
-//        List<Expense> listOfExpenses = event.getExpenses().stream().
-//                filter(expense -> expense.getSplitBetween().contains(userId)).
-//                filter(expense -> !expense.getPayerId().equals(userId)).
-//                collect(Collectors.toList());
-//
-//        userC.setDebt(0.0);
-//
-//        User userToUpdate = userRepository.findById(userId).orElse(null);
-//        userToUpdate.setDebt(0.0);
-//        userRepository.save(userToUpdate);
-//        return userC;
-//
-//
-//    }
+
+    //settle all debts for a given user in an event
+    public commons.dto.User settleDebtUser(Integer eventId, Integer userId){
+
+        commons.dto.User userC = getUser(eventId,userId);
+
+        Event event = getEventById(eventId);
+        List<Expense> listOfExpenses = event.getExpenses().stream().
+                filter(expense -> expense.getSplitBetween().contains(userId)).
+                filter(expense -> !expense.getPayerId().equals(userId)).
+                collect(Collectors.toList());
+
+        for(Expense e: listOfExpenses){
+            Double debtInExpense = e.getAmount()/e.getSplitBetween().size();
+            commons.dto.User userToUpdateDto = getUser(eventId, e.getPayerId());
+            userToUpdateDto.setDebt(userToUpdateDto.getDebt() + debtInExpense);
+            User userToUpdate = userRepository.findById(e.getPayerId()).orElse(null);
+            userToUpdate.setDebt(userToUpdate.getDebt() + debtInExpense);
+            userRepository.save(userToUpdate);
+
+        }
+        Double debtRn = userC.getDebt()>0?0.0:userC.getDebt();
+        userC.setDebt(debtRn);
+        User userToUpdate = userRepository.findById(userId).orElse(null);
+        userToUpdate.setDebt(debtRn);
+        userRepository.save(userToUpdate);
+        return userC;
+
+
+    }
 }
 
 
