@@ -18,8 +18,8 @@ public class DebtTest {
 
     @BeforeEach
     void setup() {
-        owed = new User(1, "Kinga", "kinga@tudelft.nl", "123", "456");
-        indebted = new User(2, "Maya", "Maya@tudelft.nl", "123", "456");
+        owed = new User(1, "Kinga", "kinga@tudelft.nl", "123", "456",0.0);
+        indebted = new User(2, "Maya", "Maya@tudelft.nl", "123", "456",0.0);
         amount = 14.;
         id = 1;
         d1 = new Debt(id, owed, indebted, amount);
@@ -45,7 +45,7 @@ public class DebtTest {
 
     @Test
     void setOwed() {
-        User newOwed = new User(3, "Ilker", "Ilker@tudelft.nl", "321", "987");
+        User newOwed = new User(3, "Ilker", "Ilker@tudelft.nl", "321", "987",0.0);
         d1.setOwed(newOwed);
         assertEquals(newOwed, d1.getOwed());
     }
@@ -57,7 +57,7 @@ public class DebtTest {
 
     @Test
     void setIndebted() {
-        User user = new User(4, "Miruna", "miruna@tudelft.nl", "345", "178");
+        User user = new User(4, "Miruna", "miruna@tudelft.nl", "345", "178",0.0);
         d1.setIndebted(user);
         assertEquals(user, d1.getIndebted());
     }

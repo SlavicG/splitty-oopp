@@ -184,7 +184,10 @@ public class EventService {
         if (event == null) {
             throw new IllegalArgumentException("Event with provided ID does not exist.");
         }
+
         User dbUser = new User(user, event);
+        dbUser.setDebt(0.0);
+        user.setDebt(0.0);
         event.getUsers().add(dbUser);
         eventRepository.save(event);
         user.setId(dbUser.getId());
@@ -213,7 +216,8 @@ public class EventService {
             user.getName(),
             user.getEmail(),
             user.getIban(),
-            user.getBic()
+            user.getBic(),
+            user.getDebt()
         );
     }
 

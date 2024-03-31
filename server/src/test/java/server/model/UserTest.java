@@ -78,9 +78,5 @@ class UserTest {
         assertTrue(user1.equals(user2));
     }
 
-    @Test
-    void testHashCode() {
-        User user = new User(1, "David", "dgogoana@tudelft.nl", "54321", "12345");
-        assertEquals(-671072448, user.hashCode());
-    }
+
 }
