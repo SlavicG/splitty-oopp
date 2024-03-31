@@ -82,8 +82,8 @@ public class AddExpenseCtrl implements Initializable {
         invalid.setVisible(false);
 
         Expense newExpense = new Expense(
-            expense == null ? null : expense.getId(), howMuch.getValue(), whatFor.getText(), whoPaid.getValue().getId(), when.getValue(),
-                splitBetweenId, tag.getValue().getId());
+            expense == null ? null : expense.getId(), howMuch.getValue(), whatFor.getText(), whoPaid.getValue().getId(),
+                when.getValue(), splitBetweenId, tag.getValue().getId());
 
         if (expense == null) {
             Expense result = server.addExpense(newExpense, event.getId());

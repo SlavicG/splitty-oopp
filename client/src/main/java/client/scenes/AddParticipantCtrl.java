@@ -104,7 +104,7 @@ public class AddParticipantCtrl implements Initializable {
                         "Undoing a participant edit is no longer possible after previously deleting that participant.");
                     alert.show();
                 }
-                });
+            });
             user = null;
         }
         mainCtrl.eventPage(event.getId());
