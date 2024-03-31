@@ -262,9 +262,9 @@ public class ServerUtils {
     }
 
 
-    public static boolean login(String username, String password) {
+    public static boolean login(String password) {
         try {
-            String auth = username + ":" + password;
+            String auth = "user" + ":" + password;
             String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes());
             String authHeader = "Basic " + encodedAuth;
 

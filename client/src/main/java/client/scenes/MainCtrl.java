@@ -165,6 +165,8 @@ public class MainCtrl {
     {
         primaryStage.setTitle("Admin Dashboard");
         primaryStage.setScene(adminPage);
+        if(adminDashboardCtrl != null)
+            adminDashboardCtrl.refresh();
     }
     public void editEventName(Integer eventId) {
         primaryStage.setTitle("Edit Event Name");
