@@ -266,6 +266,8 @@ public class EventService {
             expense.getDate(),
             expense.getSplitBetween(),
             0);
+
+
 }
 
 

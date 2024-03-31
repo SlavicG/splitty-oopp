@@ -30,7 +30,11 @@ public class User {
         this.iban = user.getIban();
         this.bic = user.getBic();
         this.debt = user.getDebt();
+
     }
+
+
+
 
     public Double getDebt() {
         return debt;
