@@ -61,7 +61,6 @@ public class AddParticipantCtrl implements Initializable {
         email.setText(user.getEmail());
         iban.setText(user.getIban());
         bic.setText(user.getBic());
-        debt.setText(String.valueOf(user.getDebt()));
         title.setText(resourceBundle.getString("edit_participant"));
         confirm.setText(resourceBundle.getString("edit"));
     }
@@ -79,8 +78,7 @@ public class AddParticipantCtrl implements Initializable {
         if (user == null) {
             User newUser =
                     server.createUser(event.getId(),
-                        new User(null, name.getText(), email.getText(), iban.getText(),
-                                bic.getText(), Double.valueOf(debt.getText())));
+                        new User(null, name.getText(), email.getText(), iban.getText(), bic.getText()));
             server.send("/app/users", newUser);
             mainCtrl.addUndoFunction(() -> server.deleteUser(event.getId(), newUser.getId()));
             user = null;
@@ -88,7 +86,7 @@ public class AddParticipantCtrl implements Initializable {
             User oldUser = new User(user);
             User changedUser = server.updateUser(event.getId(), new User(oldUser.getId(),
                     name.getText(),
-                    email.getText(), iban.getText(), bic.getText(), Double.valueOf(debt.getText())));
+                    email.getText(), iban.getText(), bic.getText()));
             server.send("/app/users", changedUser);
             mainCtrl.addUndoFunction(() -> server.updateUser(event.getId(), oldUser));
             user = null;

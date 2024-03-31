@@ -23,6 +23,15 @@ public class User {
         this.debt = debt;
     }
 
+    public User(Integer id, String name, String email, String iban, String bic) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.iban = iban;
+        this.bic = bic;
+
+    }
+
     public User(User user) {
         this.id = user.getId();
         this.name = user.getName();
@@ -30,7 +39,11 @@ public class User {
         this.iban = user.getIban();
         this.bic = user.getBic();
         this.debt = user.getDebt();
+
     }
+
+
+
 
     public Double getDebt() {
         return debt;
