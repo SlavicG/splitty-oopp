@@ -112,7 +112,9 @@ public class ExpenseService {
         List<Integer> userIds = event.getUserIds();
         for (int i = 0; i < userIds.size(); i++) {
             User user = userRepository.findById(userIds.get(i)).orElse(null);
-            user.setDebt(getDebtOfaUser(userIds.get(i), event_id));
+            double newDebt = getDebtOfaUser(userIds.get(i), event_id);
+            user.setDebt(newDebt);
+            userRepository.save(user);
         }
     }
 
@@ -157,6 +159,7 @@ public class ExpenseService {
             server.model.Expense savedExpense = expenseRepository.save(existingExpense);
             Expense expenseUpdated=  mapper.apply(savedExpense);
             updateAllDebtsInEvent(eventId);
+
             return expenseUpdated;
 
         }

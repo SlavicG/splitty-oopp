@@ -187,6 +187,7 @@ public class EventService {
 
         User dbUser = new User(user, event);
         dbUser.setDebt(0.0);
+        user.setDebt(0.0);
         event.getUsers().add(dbUser);
         eventRepository.save(event);
         user.setId(dbUser.getId());
