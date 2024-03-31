@@ -39,6 +39,7 @@ public class MainCtrl {
     private AddParticipantCtrl addParticipantPageCtrl;
     private Scene addExpensePage;
     private Scene statisticsPage;
+    private StatisticsPageCtrl statisticsPageCtrl;
     private Scene editEventNamePage;
 
     private AddQuoteCtrl addCtrl;
@@ -86,6 +87,7 @@ public class MainCtrl {
         this.addExpenseCtrl = addExpensePage.getKey();
         this.addExpensePage = new Scene(addExpensePage.getValue());
         this.statisticsPage = new Scene(statisticsPage.getValue());
+        this.statisticsPageCtrl = statisticsPage.getKey();
         this.loginPage = new Scene(loginPage.getValue());
         this.loginPageCtrl = loginPage.getKey();
         this.adminPage = new Scene(adminPage.getValue());
@@ -152,8 +154,14 @@ public class MainCtrl {
         primaryStage.setScene(addExpensePage);
     }
 
-    public void statisticsPage() {
+    public void statisticsPage(Integer eventId) {
         primaryStage.setTitle("Statistics Page");
+        statisticsPageCtrl.setEvent(eventId);
+        statisticsPageCtrl.clear();
+        statisticsPageCtrl.setTotalCost(statisticsPageCtrl.totalCost());
+        statisticsPageCtrl.mapTagToTotalCostPerTag();
+        statisticsPageCtrl.CreatePieChart();
+        statisticsPageCtrl.pieChartColors();
         primaryStage.setScene(statisticsPage);
     }
 
