@@ -103,5 +103,26 @@ class EventTest {
         assertEquals(event, event2);
     }
 
+    @Test
+    public void EventInEventTest() {
+        Event event = new Event(1, "party", null, null, null);
+        Event event1 = new Event(event);
+        assertEquals(event1,event);
+    }
 
+    @Test
+    public void toStringTest() {
+        Event event = new Event(1, "party", null, null, null);
+        assertEquals("party",event.toString());
+    }
+
+    @Test
+    public void getCodeTest() {
+        Event event = new Event(1, "party", null, null, null);
+        Event event2 = new Event(2, "party", null, null, null);
+        Event event3 = new Event(20, "party", null, null, null);
+        assertEquals(event.getCode(),"BAAAAAAAAA");
+        assertEquals(event2.getCode(),"CAAAAAAAAA");
+        assertEquals(event3.getCode(),"ACAAAAAAAA");
+    }
 }
