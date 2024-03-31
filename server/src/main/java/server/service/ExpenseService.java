@@ -20,6 +20,13 @@ public class ExpenseService {
     private UserRepository userRepository;
     private EventRepository eventRepository;
     private TagRepository tagRepository;
+
+    private Function<server.model.Tag, commons.dto.Tag> mapper2 = tag -> new commons.dto.Tag(
+            tag.getId(),
+            tag.getName(),
+            tag.getColor(),
+            tag.getEvent().getId());
+
     private Function<server.model.Expense, Expense> mapper = expense -> new commons.dto.Expense(
             expense.getId(),
             expense.getAmount(),
@@ -62,6 +69,56 @@ public class ExpenseService {
         return expenseRepository.findById(id).map(mapper).orElse(null);
     }
 
+    public Event getEventById(Integer id) {
+        server.model.Event event = eventRepository.findById(id).orElse(null);
+        Event returnEvent = new Event();
+        returnEvent.setId(event.getId());
+        returnEvent.setTitle(event.getTitle());
+        returnEvent.setUsers(getUserIds(event.getUsers()));
+        if(event.getExpenses()!=null){
+            returnEvent.setExpenses(event.getExpenses().stream()
+                    .map(mapper).toList());
+        }
+        if (event.getTags() != null){
+            returnEvent.setTags(tagRepository.findAll().stream().
+                    map(mapper2).toList());
+        }
+        return returnEvent;
+    }
+
+
+    //calculate a debt of a give user
+    public Double getDebtOfaUser(Integer id,Integer event_id){
+        Event event = getEventById(event_id);
+        double fullAmount = event.getExpenses().stream()
+                .filter(expense -> expense.getSplitBetween().contains(id))
+                .mapToDouble(expense -> expense.getAmount()/expense.getSplitBetween().size())
+                .sum();
+
+        //Amount of money spend on expenses in all the
+        double amountPayed = event.getExpenses().stream().
+                filter(expense -> expense.getPayerId().equals(id))
+                .mapToDouble(expense -> expense.getAmount())
+                .sum();
+
+        double debt = fullAmount - amountPayed;
+        return debt;
+    }
+
+
+    // update all users
+    public void updateAllDebtsInEvent(Integer event_id) {
+        Event event = getEventById(event_id);
+        List<Integer> userIds = event.getUserIds();
+        for (int i = 0; i < userIds.size(); i++) {
+            User user = userRepository.findById(userIds.get(i)).orElse(null);
+            double newDebt = getDebtOfaUser(userIds.get(i), event_id);
+            user.setDebt(newDebt);
+            userRepository.save(user);
+        }
+    }
+
+
     public Expense createExpense(Integer eventId, Expense expense) {
         server.model.Event event = eventRepository.findById(eventId).orElse(null);
         server.model.Expense expenseEntity = new server.model.Expense(
@@ -75,13 +132,15 @@ public class ExpenseService {
                 getTagById(expense.getTagId()));
 //        event.getExpenses().add(expenseEntity);
         server.model.Expense createdEntity = expenseRepository.save(expenseEntity);
-        return new Expense(createdEntity.getId(),
+        Expense expenseCreated = new Expense(createdEntity.getId(),
                 expense.getAmount(),
                 expense.getDescription(),
                 expense.getPayerId(),
                 expense.getDate(),
                 expense.getSplitBetween(),
                 expense.getTagId());
+        updateAllDebtsInEvent(eventId);
+        return expenseCreated;
 
 
     }
@@ -98,7 +157,11 @@ public class ExpenseService {
             existingExpense.setPayer(getUserById(expense.getPayerId()));
             existingExpense.setTag(getTagById(expense.getTagId()));
             server.model.Expense savedExpense = expenseRepository.save(existingExpense);
-            return mapper.apply(savedExpense);
+            Expense expenseUpdated = mapper.apply(savedExpense);
+            updateAllDebtsInEvent(eventId);
+
+            return expenseUpdated;
+
         }
         return null;
     }
