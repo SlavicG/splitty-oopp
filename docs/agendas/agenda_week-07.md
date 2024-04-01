@@ -37,9 +37,14 @@ Note taker:     David
 2. Confirm the date of the next meeting. (1 min)
 
 # Meeting Notes
-1. Presence: everyone is here except Slavic. 
+1. Presence: everyone present excepting Slavic. 
 2. Almost everyone has managed to finish their last week's issues. Uncompleted issues are moved in this week's priority list.
-3. Discussing this week's issues: Kinga will continue working on the Debts + ServiceLayer (Backend), IIker will work on Users, trying to implement them locally (Backend), Abdullah will work on Statistics + Tags (Frontend), David will continue with implementing features in the Admin Dashboard (Frontend + Backend).
-4. We'll try to complete some issues from the Implemented Features Assignment by 28th of March.
-5. Product Pitch: We will use Powerpoint as our presentation method. 
-6. Extra-meetings on Wednesday + Friday at 12:00
+3. Discussing this week's issues.
+4. Kinga will continue working on the Debts + ServiceLayer (Backend)
+5. IIker will work on Users, trying to implement them locally (Backend)
+6. Abdullah will work on Statistics + Tags (Frontend)
+7. David will continue with implementing features in the Admin Dashboard (Frontend + Backend).
+8. We will figure out more issues during this week's future meetings. 
+9. We'll try to complete some issues from the Implemented Features Assignment by 28th of March.
+10. Product Pitch: We will use Powerpoint as our presentation method. 
+11. Team agrees to have two extra-meeting on Wednesday and Friday 12:00-13:00 at the Library.
