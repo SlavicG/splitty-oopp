@@ -327,7 +327,7 @@ public class EventService {
     public List<commons.dto.User> settleExpense(Integer eventId, Integer expense_id){
         server.model.Expense expense = expenseRepository.findById(expense_id).orElse(null);
         Event event = getEventById(eventId);
-        Expense  expenseC = expenseRepository.findById(expense_id).map(mapper).orElse(null);
+        Expense expenseC = expenseRepository.findById(expense_id).map(mapper).orElse(null);
 
         Double debtPPerson = expense.getAmount()/(expenseC.getSplitBetween().size());
 
