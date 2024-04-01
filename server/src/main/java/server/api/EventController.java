@@ -149,5 +149,11 @@ public class EventController {
                                      @PathVariable(name = "user_id") Integer userId) {
         return eventService.settleDebtUser(eventId, userId);
     }
+    @GetMapping("/{event_id}/settle_debts/expenses/{expense_id}")
+    @ResponseBody
+    public List<User> settleExpense(@PathVariable(name = "event_id") Integer eventId,
+                                    @PathVariable(name = "expense_id") Integer userId) {
+        return eventService.settleExpense(eventId, userId);
+    }
 
 }
