@@ -323,6 +323,38 @@ public class EventService {
 
 
     }
+    // Settle debts for one expense in an event
+    public List<commons.dto.User> settleExpense(Integer eventId, Integer expense_id){
+        server.model.Expense expense = expenseRepository.findById(expense_id).orElse(null);
+        Event event = getEventById(eventId);
+        Expense expenseC = expenseRepository.findById(expense_id).map(mapper).orElse(null);
+
+        Double debtPPerson = expense.getAmount()/(expenseC.getSplitBetween().size());
+
+        for(Integer u: expense.getSplitBetween()){
+            if(!expense.getPayer().getId().equals(u)) {
+
+
+                commons.dto.User userToUpdateDto = getUser(eventId, u);
+                userToUpdateDto.setDebt(userToUpdateDto.getDebt() - debtPPerson);
+
+                User user = userRepository.findById(u).orElse(null);
+                user.setDebt(user.getDebt() - debtPPerson);
+                userRepository.save(user);
+
+                commons.dto.User payerToUpdateDto = getUser(eventId,expense.getPayer().getId());
+                payerToUpdateDto.setDebt(payerToUpdateDto.getDebt() + debtPPerson);
+
+                User payer = userRepository.findById(expense.getPayer().getId()).orElse(null);
+                payer.setDebt(payer.getDebt() + debtPPerson);
+                userRepository.save(payer);
+            }
+        }
+        return getUsers(eventId);
+
+    }
+
+
 }
 
 
