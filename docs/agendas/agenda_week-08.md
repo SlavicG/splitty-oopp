@@ -1,10 +1,7 @@
 ## Week 8
 Date:           02-04-2024
-
 Main focus:     Basic requirements 
-
 Chair:          Kinga
-
 Note taker:     Veaceslav
 
 
