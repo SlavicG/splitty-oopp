@@ -163,4 +163,13 @@ public class EventController {
     public User addMessage(User user) throws BadRequestException {
         return user;
     }
+
+    @GetMapping("/{event_id}/settle_debts/payers/{payer_id}/users/{user_id}")
+    @ResponseBody
+    public List<User> settleDebtAB(@PathVariable(name = "event_id") Integer eventId,
+                                   @PathVariable(name = "payer_id") Integer payer_Id,
+                                   @PathVariable(name = "user_id") Integer userId) {
+        return eventService.settleAB(eventId, payer_Id,userId);
+    }
+
 }

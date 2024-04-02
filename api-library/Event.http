@@ -77,3 +77,7 @@ Accept: application/json
 GET http://localhost:8080/rest/events/1/settle_debts/expenses/1
 Accept: application/json
 
+### Settle debts between a user A and B
+GET http://localhost:8080/rest/events/1/settle_debts/payers/1/users/2
+Accept: application/json
+

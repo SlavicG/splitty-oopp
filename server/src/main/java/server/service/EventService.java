@@ -354,7 +354,45 @@ public class EventService {
 
     }
 
+    // settle debt between person A - paid and B - to settle
+    public List<commons.dto.User> settleAB(Integer eventId, Integer user1_id, Integer user2_id){
+        List<Expense> expensesA = expensesUserPaid(user1_id, eventId);
+        List<Expense> expensesB = expenseIncludeUser(user2_id, eventId);
+        List<Expense> expensesAB = expensesA.stream()
+                .filter(expense -> expensesB.contains(expense))
+                .toList();
 
+        if(!expensesAB.isEmpty()){
+            double debtUserB = expensesAB.stream()
+                    .mapToDouble(expense -> expense.getAmount()/expense.getSplitBetween().size())
+                    .sum();
+
+
+            commons.dto.User userToUpdateDto = getUser(eventId, user2_id);
+            userToUpdateDto.setDebt(userToUpdateDto.getDebt() - debtUserB);
+
+            User user = userRepository.findById(user2_id).orElse(null);
+            user.setDebt(user.getDebt() - debtUserB);
+            userRepository.save(user);
+
+            commons.dto.User payerToUpdateDto = getUser(eventId,user1_id);
+            payerToUpdateDto.setDebt(payerToUpdateDto.getDebt() + debtUserB);
+
+            User payer = userRepository.findById(user1_id).orElse(null);
+            payer.setDebt(payer.getDebt() + debtUserB);
+            userRepository.save(payer);
+
+
+        }
+        List<commons.dto.User> userAB = new ArrayList<>();
+        userAB.add(getUser(eventId,user1_id));
+        userAB.add(getUser(eventId,user2_id));
+
+
+        return userAB;
+
+
+    }
 }
 
 
