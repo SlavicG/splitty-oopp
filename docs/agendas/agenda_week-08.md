@@ -24,7 +24,7 @@ Note taker:     Veaceslav
 8. Feedback for Project Pitch - discussion (4 min)
 9. Test coverage - division of creating issues and tests itself. (7 min)
 10. What we have to fix in an app. (3 min)
-11. Check if anybody needs work with their issues. (3 min)
+11. Check if anybody needs help with their issues. (3 min)
 
 
 
