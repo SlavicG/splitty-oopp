@@ -391,8 +391,24 @@ public class EventService {
 
         return userAB;
 
-
     }
+
+    // show users who still owe money
+    public List<commons.dto.User> oweMoney(Integer eventId){
+
+        Event event = getEventById(eventId);
+
+        List<commons.dto.User> listUser = new ArrayList<>();
+
+        for(Integer u: event.getUserIds()){
+            if(getUser(eventId,u).getDebt()>0.0){
+                listUser.add(getUser(eventId,u));
+            }
+        }
+
+        return listUser;
+    }
+
 }
 
 
