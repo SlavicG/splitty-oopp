@@ -1,8 +1,12 @@
 ## Week 8
 Date:           02-04-2024
+
 Main focus:     Basic requirements 
+
 Chair:          Kinga
+
 Note taker:     Veaceslav
+
 
 ## Opening
 
@@ -45,6 +49,6 @@ Note taker:     Veaceslav
 16. Would anyone like to add something?
 
 
-##Closing (1 min)
+## Closing (1 min)
 
 Confirm the date of the next meeting. (1 min)
