@@ -19,7 +19,7 @@ Note taker:     Veaceslav
 ## Agenda Items
 
 5. Perform a demo run + everybody will show what was being added by them. (7 min)
-6. Basic requirements: Deadline + division making issues to do it. What's our progress right now? (6 min)
+6. Basic requirements: include setting a deadline and assigning tasks to address the issues. How is our progress? (6 min)
 7. Review open issues and their division among team members. (4 min)
 8. Feedback for Project Pitch - discussion (4 min)
 9. Test coverage - division of creating issues and tests itself. (7 min)
@@ -30,7 +30,7 @@ Note taker:     Veaceslav
 
 ## Action points for next week (5 min)
 
-12. Discussion of who is doing what for the next week.
+12. Discussion of who is doing what issues.
 13. Start preparing for the presentation of our app.
 
 
