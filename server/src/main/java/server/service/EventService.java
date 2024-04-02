@@ -356,8 +356,8 @@ public class EventService {
 
     // settle debt between person A - paid and B - to settle
     public List<commons.dto.User> settleAB(Integer eventId, Integer user1_id, Integer user2_id){
-        List<Expense> expensesA =  expensesUserPaid(user1_id, eventId);
-        List<Expense> expensesB =  expenseIncludeUser(user2_id, eventId);
+        List<Expense> expensesA = expensesUserPaid(user1_id, eventId);
+        List<Expense> expensesB = expenseIncludeUser(user2_id, eventId);
         List<Expense> expensesAB = expensesA.stream()
                 .filter(expense -> expensesB.contains(expense))
                 .toList();
@@ -389,7 +389,7 @@ public class EventService {
         userAB.add(getUser(eventId,user2_id));
 
 
-        return  userAB;
+        return userAB;
 
 
     }
