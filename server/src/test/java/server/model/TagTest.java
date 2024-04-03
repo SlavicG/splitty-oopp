@@ -25,16 +25,14 @@ class TagTest {
 
     @BeforeEach
     void setup() {
-        color1 = new Color(255);
-        color2 = new Color(0);
         event1 = new Event(1, "party", null, null,null);
         event2 = new Event(2, "party2", null, null, null);
         user1 = new User(1, "Miruna", "mcoroi@tudelft.nl", "123", "567");
         user2 = new User(1, "Slavic", "slavic@tudelft.nl", "123", "567");
         date1 = LocalDate.of(2021, 10, 24);
         date2 = LocalDate.of(2022, 10, 24);
-        tag1 = new Tag(1, "food", color1, event1);
-        tag2 = new Tag(2, "travel", color2, event2);
+        tag1 = new Tag(1, "food", 0, 0,0, event1);
+        tag2 = new Tag(2, "travel", 0, 0, 0, event2);
     }
     @Test
     void getId() {
@@ -44,11 +42,6 @@ class TagTest {
     @Test
     void getName() {
         assertEquals("food", tag1.getName());
-    }
-
-    @Test
-    void getColor() {
-        assertEquals(color1, tag1.getColor());
     }
 
     @Test
@@ -66,13 +59,6 @@ class TagTest {
     void setName() {
         tag1.setName("food2");
         assertEquals("food2", tag1.getName());
-    }
-
-    @Test
-    void setColor() {
-        Color color3 = new Color(2);
-        tag1.setColor(color3);
-        assertEquals(color3, tag1.getColor());
     }
 
     @Test
