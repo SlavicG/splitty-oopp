@@ -51,10 +51,12 @@ import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class ServerUtils {
     private final Configuration configuration;
-    private static final String SERVER_URL = "http://localhost:8080";
+    private final StompSession session;
+
     @Inject
     public ServerUtils(Configuration configuration) {
         this.configuration = configuration;
+        this.session = connect(configuration.getWebsocketServerUrl());
     }
 
     public void getQuotesTheHardWay() throws IOException, URISyntaxException {
@@ -348,7 +350,6 @@ public class ServerUtils {
                 .delete();
     }
 
-    private StompSession session = connect("ws://localhost:8080/websocket");
     private StompSession connect(String url) {
         var client = new StandardWebSocketClient();
         var stomp = new WebSocketStompClient(client);
