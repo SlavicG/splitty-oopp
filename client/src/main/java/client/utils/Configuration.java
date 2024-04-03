@@ -50,9 +50,23 @@ public class Configuration {
     }
 
     /**
-     * @return Splitty backend server URL.
+     * @return Splitty backend server URL for HTTP requests.
      */
-    public String getServerURL() {
+    public String getHttpServerUrl() {
+        return String.format("http://%s/", properties.getProperty("server.url"));
+    }
+
+    /**
+     * @return Splitty backend server URL for Websocket requests.
+     */
+    public String getWebsocketServerUrl() {
+        return String.format("ws://%s/websocket", properties.getProperty("server.url"));
+    }
+
+    /**
+     * @return Splitty backend server URL base.
+     */
+    public String getBaseServerUrl() {
         return properties.getProperty("server.url");
     }
 
@@ -70,7 +84,7 @@ public class Configuration {
         Properties defaults = new Properties();
 
         // Set new (default) configuration properties here.
-        defaults.setProperty("server.url", "http://localhost:8080/");
+        defaults.setProperty("server.url", "localhost:8080");
         defaults.setProperty("language.locale", "en");
 
         return defaults;
