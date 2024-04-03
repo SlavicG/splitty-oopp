@@ -13,10 +13,11 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 
-import java.awt.*;
 import java.net.URL;
-import java.util.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 public class StatisticsPageCtrl implements Initializable {
     private final ServerUtils server;
@@ -103,6 +104,8 @@ public class StatisticsPageCtrl implements Initializable {
     }
 
     public void pieChartColors() {
+        //Change things upp since now we do not use colors.
+        /*
         ArrayList<Color> colors = new ArrayList<>();
         for(Map.Entry<Tag,Integer> entry: map.entrySet()) {
             colors.add(entry.getKey().getColor());
@@ -112,6 +115,7 @@ public class StatisticsPageCtrl implements Initializable {
             data.getNode().setStyle("-fx-pie-color: " + colors.get(i % colors.size()) + ";");
             i++;
         }
+         */
     }
 }
 

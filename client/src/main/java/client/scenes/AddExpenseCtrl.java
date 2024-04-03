@@ -89,7 +89,7 @@ public class AddExpenseCtrl implements Initializable {
             Expense result = server.addExpense(newExpense, event.getId());
             mainCtrl.addUndoFunction(() -> server.deleteExpense(result, event.getId()));
 
-        } else {;
+        } else {
             server.updateExpense(newExpense, event.getId());
             Expense oldExpense = new Expense(expense);
             mainCtrl.addUndoFunction(() -> {
