@@ -1,5 +1,6 @@
 package client.scenes;
 
+import client.utils.Configuration;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.dto.Event;
@@ -41,6 +42,9 @@ public class InvitationPageCtrl implements Initializable {
         String s = "ABCDE";
         if(event != null) s = event.getCode();
         code.setText(s);
+
+        Configuration configuration = new Configuration();
+        server.setEmailConfig(configuration.getMailConfig());
     }
     public void overview() {
         mainCtrl.overviewPage();
@@ -61,7 +65,8 @@ public class InvitationPageCtrl implements Initializable {
         for(String email : emails) {
             Mail mailRequest = new Mail(email,
                     "Invite Code to Splitty!",
-                    "Here is the invite code to the Event: " + code.getText());
+                    "Here is the invite code to the Event: " + code.getText() + ".\n\n\n"
+                + "Access it on the server:" + server.getServerUrl());
             mc.execute(() -> server.sendEmail(mailRequest));
             String nickName = email.split("@")[0];
             User user = new User();

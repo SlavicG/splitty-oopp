@@ -15,6 +15,8 @@
  */
 package client.utils;
 
+import commons.dto.MailConfig;
+
 import java.io.*;
 import java.util.Locale;
 import java.util.Properties;
@@ -72,6 +74,8 @@ public class Configuration {
         // Set new (default) configuration properties here.
         defaults.setProperty("server.url", "http://localhost:8080/");
         defaults.setProperty("language.locale", "en");
+        defaults.setProperty("mail.username", "splittyteam32@gmail.com");
+        defaults.setProperty("mail.password", "fwtzctblnpxlnhny");
 
         return defaults;
     }
@@ -93,6 +97,29 @@ public class Configuration {
         } catch (Error e) {
             System.out.println("Something went wrong. Using Default Language");
             return "en";
+        }
+    }
+    public MailConfig getMailConfig() {
+        try {
+            MailConfig mailConfig = new MailConfig();
+            String username = properties.getProperty("mail.username");
+            String password = properties.getProperty("mail.password");
+            String port = properties.getProperty("mail.port");
+            String host = properties.getProperty("mail.host");
+            if(username == null || password == null || username.isBlank() || password.isBlank()
+                || port == null || port.isBlank() || host == null || host.isBlank()) {
+                throw new Error();
+            }
+            mailConfig.setUsername(username);
+            mailConfig.setPassword(password);
+            mailConfig.setHost(host);
+            mailConfig.setPort(Integer.parseInt(port));
+            mailConfig.setProps(MailConfig.getDefault().getProps());
+            System.out.println("???");
+            return mailConfig;
+        } catch(Error e) {
+            System.out.println("Something went wrong. Using default Email");
+            return MailConfig.getDefault();
         }
     }
 }
