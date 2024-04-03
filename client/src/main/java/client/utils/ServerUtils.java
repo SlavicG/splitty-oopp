@@ -264,7 +264,7 @@ public class ServerUtils {
     }
 
 
-    public static boolean login(String password) {
+    public boolean login(String password) {
         try {
             String auth = "user" + ":" + password;
             String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes());
@@ -272,7 +272,7 @@ public class ServerUtils {
 
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(SERVER_URL + "/admin/dashboard"))
+                    .uri(URI.create(configuration.getHttpServerUrl() + "/admin/dashboard"))
                     .header("Authorization", authHeader)
                     .GET() // Or POST, if you're testing a specific action
                     .build();
