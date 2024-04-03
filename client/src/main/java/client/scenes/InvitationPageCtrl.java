@@ -45,6 +45,11 @@ public class InvitationPageCtrl implements Initializable {
 
         Configuration configuration = new Configuration();
         server.setEmailConfig(configuration.getMailConfig());
+
+        Mail mailRequest = new Mail(configuration.getMailConfig().getUsername(),
+                "Testing E-mail Configuration",
+                "Test to check if E-mails are being sent.");
+        mc.execute(() -> server.sendEmail(mailRequest));
     }
     public void overview() {
         mainCtrl.overviewPage();
