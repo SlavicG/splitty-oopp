@@ -272,7 +272,7 @@ public class ServerUtils {
 
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(configuration.getHttpServerUrl() + "/admin/dashboard"))
+                    .uri(URI.create(configuration.getHttpServerUrl() + "admin/dashboard"))
                     .header("Authorization", authHeader)
                     .GET() // Or POST, if you're testing a specific action
                     .build();
