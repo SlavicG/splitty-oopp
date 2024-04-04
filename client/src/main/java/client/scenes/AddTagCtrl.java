@@ -53,7 +53,8 @@ public class AddTagCtrl {
         }
         javafx.scene.paint.Color fx = color.getValue();
         if(tag == null) {
-            Tag newTag = server.addTag(new Tag(null, name.getText(), (float)fx.getRed(), (float)fx.getGreen(), (float) fx.getBlue(), event.getId()), event.getId());
+            Tag newTag = server.addTag(new Tag(null, name.getText(),
+             (float)fx.getRed(), (float)fx.getGreen(), (float) fx.getBlue(), event.getId()), event.getId());
         }
         else {
             Tag changedTag = server.updateTag(new Tag(tag.getId(), name.getText(),
