@@ -51,15 +51,12 @@ import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class ServerUtils {
     private final Configuration configuration;
-<<<<<<< client/src/main/java/client/utils/ServerUtils.java
-    private static final String SERVER_URL = "http://localhost:8080";
-    public String getServerUrl() {
-        return configuration.getServerURL();
-    }
-=======
     private final StompSession session;
 
->>>>>>> client/src/main/java/client/utils/ServerUtils.java
+    private static final String SERVER_URL = "http://localhost:8080";
+    public String getServerUrl() {
+        return configuration.getHttpServerUrl();
+    }
     @Inject
     public ServerUtils(Configuration configuration) {
         this.configuration = configuration;
@@ -358,13 +355,11 @@ public class ServerUtils {
     }
     public MailConfig setEmailConfig(MailConfig mailConfig) {
         return ClientBuilder.newClient(new ClientConfig())
-                .target(configuration.getServerURL()).path("/rest/mail/config")
+                .target(configuration.getHttpServerUrl()).path("/rest/mail/config")
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .post(Entity.entity(mailConfig, APPLICATION_JSON), MailConfig.class);
     }
-    private StompSession session = connect("ws://localhost:8080/websocket");
-
     private StompSession connect(String url) {
         var client = new StandardWebSocketClient();
         var stomp = new WebSocketStompClient(client);
