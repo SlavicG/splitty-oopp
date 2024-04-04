@@ -15,7 +15,7 @@
 
 <VBox prefHeight="481.0" prefWidth="855.0" spacing="10.0" stylesheets="@/client/css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.OverviewPageCtrl">
    <children>
-      <HBox alignment="CENTER_LEFT" prefWidth="200.0" spacing="10.0">
+      <HBox alignment="CENTER_LEFT" prefWidth="200.0" spacing="10.0" stylesheets="@/client/css/style.css">
          <children>
             <Button accessibleText="Back" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#startPage" prefHeight="32.0" prefWidth="32.0" styleClass="button-icon">
                <graphic>
@@ -47,7 +47,7 @@
       </HBox>
       <HBox spacing="20.0">
          <children>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#invitation" text="%send_invites">
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#invitation" stylesheets="@../css/style.css" text="%send_invites">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -72,6 +72,15 @@
                      </image>
                   </ImageView>
                </graphic></Button>
+            <Button mnemonicParsing="false" onAction="#addTagPage" styleClass="button-green">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/client/images/price-tag (1).png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
          <VBox.margin>
             <Insets />
