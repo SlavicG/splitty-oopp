@@ -3,7 +3,7 @@ package commons.dto;
 import java.util.Objects;
 
 public class Tag {
-    private int id;
+    private Integer id;
     private String name;
     private float r, g, b;
     private int eventId;
@@ -12,7 +12,7 @@ public class Tag {
 
     }
 
-    public Tag(int id, String name, float r, float g, float b, int eventId) {
+    public Tag(Integer id, String name, float r, float g, float b, int eventId) {
         this.id = id;
         this.name = name;
         this.r = r;
@@ -21,7 +21,7 @@ public class Tag {
         this.eventId = eventId;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -31,7 +31,7 @@ public class Tag {
 
 
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

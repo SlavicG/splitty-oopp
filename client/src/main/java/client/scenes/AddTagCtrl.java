@@ -51,17 +51,13 @@ public class AddTagCtrl {
             invalid.setText(resourceBundle.getString("invalid_tag_name"));
             return;
         }
-        javafx.scene.paint.Color fx = color.getValue();
-        java.awt.Color awtColor = new java.awt.Color((float) fx.getRed(),
-                (float) fx.getGreen(),
-                (float) fx.getBlue(),
-                (float) fx.getOpacity());
+
         if(tag == null) {
-            Tag newTag = server.addTag(new Tag(null, name.getText(), awtColor, event.getId()), event.getId());
+            Tag newTag = server.addTag(new Tag(null, name.getText(), 0, 0, 0, event.getId()), event.getId());
         }
         else {
             Tag changedTag = server.updateTag(new Tag(tag.getId(), name.getText(), 
-                awtColor, event.getId()), event.getId());
+                0, 0, 0, event.getId()), event.getId());
             tag = null;
         }
         mainCtrl.eventPage(event.getId());
