@@ -8,6 +8,8 @@ import javafx.scene.control.*;
 import com.google.inject.Inject;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+
 import java.util.ResourceBundle;
 
 public class AddTagCtrl {
@@ -52,15 +54,18 @@ public class AddTagCtrl {
             return;
         }
         javafx.scene.paint.Color fx = color.getValue();
-        if(tag == null) {
-            Tag newTag = server.addTag(new Tag(null, name.getText(),
-                    (float)fx.getRed(), (float)fx.getGreen(), (float) fx.getBlue(), event.getId()), event.getId());
-        }
-        else {
-            Tag changedTag = server.updateTag(new Tag(tag.getId(), name.getText(),
-                    (float)fx.getRed(), (float)fx.getGreen(), (float) fx.getBlue(), event.getId()), event.getId());
+        float red = (float) fx.getRed() * 255;
+        float green = (float) fx.getGreen() * 255;
+        float blue = (float) fx.getBlue() * 255;
+
+        if (tag == null) {
+            Tag newTag = server.addTag(new Tag(null, name.getText(), red, green, blue, event.getId()), event.getId());
+        } else {
+            Tag changedTag = server.updateTag(
+                    new Tag(tag.getId(), name.getText(), red, green, blue, event.getId()), event.getId());
             tag = null;
         }
+        clear();
         mainCtrl.eventPage(event.getId());
     }
 
@@ -74,12 +79,10 @@ public class AddTagCtrl {
             invalid.setText(resourceBundle.getString("invalid_tag_name"));
             return;
         }
-        //Tag tag = new Tag();
-        //server.deleteTag();
     }
     public void clear() {
         name.setText(null);
-        color.setValue(null);
+        color.setValue(Color.WHITE);
         invalid.setVisible(false);
     }
 
