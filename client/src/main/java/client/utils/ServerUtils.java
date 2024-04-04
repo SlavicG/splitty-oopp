@@ -311,7 +311,6 @@ public class ServerUtils {
     public void stop() {
         EXEC.shutdown();
     }
-
     public List<Tag> getTags(int eventId) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(configuration.getHttpServerUrl()).path("/rest/events/" + eventId + "/tags")

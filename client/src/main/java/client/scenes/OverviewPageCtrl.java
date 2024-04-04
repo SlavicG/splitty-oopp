@@ -181,6 +181,11 @@ public class OverviewPageCtrl implements Initializable {
         mainCtrl.statisticsPage(eventId);
     }
 
+
+    public void addTagPage() {
+        mainCtrl.addTagPage(eventId, null);
+    }
+
     public void editEventName() {
         mainCtrl.editEventName(eventId);
     }

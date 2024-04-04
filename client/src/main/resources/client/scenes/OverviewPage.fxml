@@ -110,9 +110,9 @@
                   <Button fx:id="including" accessibleText="New Expense" minHeight="32.0" minWidth="32.0" mnemonicParsing="false" onAction="#addExpense" prefHeight="32.0" prefWidth="32.0" styleClass="button-green" HBox.hgrow="ALWAYS">
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@/client/images/plus.png" />
-                           </image>
+                            <image>
+                                <Image url="@../images/arrow-left.png" />
+                            </image>
                         </ImageView>
                      </graphic>
                   </Button>

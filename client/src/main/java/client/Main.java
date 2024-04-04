@@ -49,6 +49,7 @@ public class Main extends Application {
         var overviewPage = FXML.load(OverviewPageCtrl.class, bundle, "client", "scenes", "OverviewPage.fxml");
         var invitationPage = FXML.load(InvitationPageCtrl.class, bundle, "client", "scenes", "InvitationPage.fxml");
         var addParticipant = FXML.load(AddParticipantCtrl.class, bundle, "client", "scenes", "AddParticipantPage.fxml");
+        var addTagPage = FXML.load(AddTagCtrl.class, bundle, "client", "scenes", "AddTagPage.fxml");
         var addExpensePage = FXML.load(AddExpenseCtrl.class, bundle, "client", "scenes", "AddExpense.fxml");
         var statisticsPage = FXML.load(StatisticsPageCtrl.class, bundle, "client", "scenes", "StatisticsPage.fxml");
         var loginPage = FXML.load(LoginPageCtrl.class, bundle,"client", "scenes", "AdminLogin.fxml");
@@ -56,8 +57,7 @@ public class Main extends Application {
         var editEventName = FXML.load(EditEventNameCtrl.class, bundle, "client", "scenes", "EditEventName.fxml");
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, overview, add, startPage, overviewPage, invitationPage,
-                addParticipant, addExpensePage, statisticsPage, loginPage, adminPage,editEventName);
-
+                addParticipant, addExpensePage, statisticsPage, loginPage, adminPage,editEventName, addTagPage);
         primaryStage.setOnCloseRequest(e -> {
             startPage.getKey().stop();
         });
