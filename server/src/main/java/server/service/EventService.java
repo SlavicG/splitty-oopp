@@ -60,11 +60,11 @@ public class EventService {
 
         TagService tagService = new TagService(tagRepository, eventRepository, userRepository);
         tagService.createTag(createdEvent.getId(), new commons.dto.Tag(1, "food",
-                0, 0, 0, createdEvent.getId()));
+                255, 255, 0, createdEvent.getId()));
         tagService.createTag(createdEvent.getId(), new commons.dto.Tag(2, "entrance fees",
-                0, 0, 0, createdEvent.getId()));
+                255, 0, 255, createdEvent.getId()));
         tagService.createTag(createdEvent.getId(), new commons.dto.Tag(3, "travel",
-                0, 0, 0, createdEvent.getId()));
+                0, 255, 255, createdEvent.getId()));
         Event returnEvent = getEvent(createdEvent);
 
         listeners.forEach((k, l) -> {
