@@ -21,19 +21,25 @@ public class TagService {
     private Function<server.model.Tag, Tag> mapper = tag -> new commons.dto.Tag(
             tag.getId(),
             tag.getName(),
-            tag.getColor(),
+            tag.getR(),
+            tag.getG(),
+            tag.getB(),
             tag.getEvent().getId());
     private Function<Tag, server.model.Tag> mapperInv = tag -> new server.model.Tag(
             tag.getId(),
             tag.getName(),
-            tag.getColor(),
+            tag.getR(),
+            tag.getG(),
+            tag.getB(),
             eventRepository.getById(tag.getId()));
 
     private server.model.Tag mapperInv(Tag tag) {
         return new server.model.Tag(
                 tag.getId(),
                 tag.getName(),
-                tag.getColor(),
+                tag.getR(),
+                tag.getG(),
+                tag.getB(),
                 eventRepository.getById(tag.getId()));
     }
 
@@ -58,7 +64,9 @@ public class TagService {
         server.model.Tag tagEntity = new server.model.Tag(
                 null,
                 tag.getName(),
-                tag.getColor(),
+                tag.getR(),
+                tag.getG(),
+                tag.getB(),
                 event);
         List<server.model.Tag> listTagsPrev = event.getTags();
         if (listTagsPrev != null) {
@@ -70,7 +78,9 @@ public class TagService {
         server.model.Tag createdEntity = tagRepository.save(tagEntity);
         return new Tag(createdEntity.getId(),
                 createdEntity.getName(),
-                createdEntity.getColor(),
+                createdEntity.getR(),
+                createdEntity.getG(),
+                createdEntity.getB(),
                 createdEntity.getEvent().getId());
     }
 
@@ -81,7 +91,9 @@ public class TagService {
             throw new IllegalArgumentException("Tag doesn't belong with provided event");
         if (existingTag != null) {
             existingTag.setName(tag.getName());
-            existingTag.setColor(tag.getColor());
+            existingTag.setR(tag.getR());
+            existingTag.setG(tag.getG());
+            existingTag.setB(tag.getB());
             server.model.Tag savedTag = tagRepository.save(existingTag);
             return mapper.apply(savedTag);
         }

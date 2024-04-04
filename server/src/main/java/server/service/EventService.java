@@ -38,7 +38,9 @@ public class EventService {
     private Function<server.model.Tag, commons.dto.Tag> mapper2 = tag -> new commons.dto.Tag(
             tag.getId(),
             tag.getName(),
-            tag.getColor(),
+            tag.getR(),
+            tag.getG(),
+            tag.getB(),
             tag.getEvent().getId());
 
     public EventService(EventRepository eventRepository, ExpenseRepository expenseRepository,
@@ -58,11 +60,11 @@ public class EventService {
 
         TagService tagService = new TagService(tagRepository, eventRepository, userRepository);
         tagService.createTag(createdEvent.getId(), new commons.dto.Tag(1, "food",
-                null, createdEvent.getId()));
+                0, 0, 0, createdEvent.getId()));
         tagService.createTag(createdEvent.getId(), new commons.dto.Tag(2, "entrance fees",
-                null, createdEvent.getId()));
+                0, 0, 0, createdEvent.getId()));
         tagService.createTag(createdEvent.getId(), new commons.dto.Tag(3, "travel",
-                null, createdEvent.getId()));
+                0, 0, 0, createdEvent.getId()));
         Event returnEvent = getEvent(createdEvent);
 
         listeners.forEach((k, l) -> {

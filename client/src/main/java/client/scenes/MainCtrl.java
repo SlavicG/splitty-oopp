@@ -148,21 +148,17 @@ public class MainCtrl {
 
     public void addExpensePage(Integer eventId, Integer expenseId) {
         primaryStage.setTitle("Add Expense");
-        addExpenseCtrl.setEvent(eventId);
         addExpenseCtrl.clear();
+        addExpenseCtrl.setEvent(eventId);
         addExpenseCtrl.setExpenseId(expenseId);
         primaryStage.setScene(addExpensePage);
     }
 
     public void statisticsPage(Integer eventId) {
-        primaryStage.setTitle("Statistics Page");
+        primaryStage.setTitle("Statistics of " + eventId);
         statisticsPageCtrl.setEvent(eventId);
-        statisticsPageCtrl.clear();
-        statisticsPageCtrl.setTotalCost(statisticsPageCtrl.totalCost());
-        statisticsPageCtrl.mapTagToTotalCostPerTag();
-        statisticsPageCtrl.CreatePieChart();
-        statisticsPageCtrl.pieChartColors();
         primaryStage.setScene(statisticsPage);
+        statisticsPageCtrl.refresh();
     }
 
     public void loginPage(){
@@ -179,8 +175,8 @@ public class MainCtrl {
     }
     public void editEventName(Integer eventId) {
         primaryStage.setTitle("Edit Event Name");
-        primaryStage.setScene(editEventNamePage);
         editEventNameCtrl.setEvent(eventId);
+        primaryStage.setScene(editEventNamePage);
     }
 
     public void addUndoFunction(Runnable undoFunction) {
