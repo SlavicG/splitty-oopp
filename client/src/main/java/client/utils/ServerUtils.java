@@ -53,6 +53,10 @@ public class ServerUtils {
     private final Configuration configuration;
     private final StompSession session;
 
+    private static final String SERVER_URL = "http://localhost:8080";
+    public String getServerUrl() {
+        return configuration.getHttpServerUrl();
+    }
     @Inject
     public ServerUtils(Configuration configuration) {
         this.configuration = configuration;
@@ -349,7 +353,13 @@ public class ServerUtils {
                 .accept(APPLICATION_JSON) 
                 .delete();
     }
-
+    public MailConfig setEmailConfig(MailConfig mailConfig) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(configuration.getHttpServerUrl()).path("/rest/mail/config")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(mailConfig, APPLICATION_JSON), MailConfig.class);
+    }
     private StompSession connect(String url) {
         var client = new StandardWebSocketClient();
         var stomp = new WebSocketStompClient(client);
