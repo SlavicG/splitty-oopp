@@ -24,7 +24,9 @@ public class ExpenseService {
     private Function<server.model.Tag, commons.dto.Tag> mapper2 = tag -> new commons.dto.Tag(
             tag.getId(),
             tag.getName(),
-            tag.getColor(),
+            tag.getR(),
+            tag.getG(),
+            tag.getB(),
             tag.getEvent().getId());
 
     private Function<server.model.Expense, Expense> mapper = expense -> new commons.dto.Expense(

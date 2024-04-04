@@ -39,6 +39,7 @@ public class MainCtrl {
     private AddParticipantCtrl addParticipantPageCtrl;
     private Scene addExpensePage;
     private Scene statisticsPage;
+    private StatisticsPageCtrl statisticsPageCtrl;
     private Scene addTagPage;
     private AddTagCtrl addTagCtrl;
     private Scene editEventNamePage;
@@ -90,6 +91,7 @@ public class MainCtrl {
         this.addExpenseCtrl = addExpensePage.getKey();
         this.addExpensePage = new Scene(addExpensePage.getValue());
         this.statisticsPage = new Scene(statisticsPage.getValue());
+        this.statisticsPageCtrl = statisticsPage.getKey();
         this.loginPage = new Scene(loginPage.getValue());
         this.loginPageCtrl = loginPage.getKey();
         this.adminPage = new Scene(adminPage.getValue());
@@ -122,6 +124,7 @@ public class MainCtrl {
     public void overviewPage() {
         primaryStage.setTitle("Overview Page");
         primaryStage.setScene(overviewPage);
+        overviewPageCtrl.refresh();
     }
 
     public void invitationPage(Label name, Integer eventId) {
@@ -149,15 +152,17 @@ public class MainCtrl {
 
     public void addExpensePage(Integer eventId, Integer expenseId) {
         primaryStage.setTitle("Add Expense");
-        addExpenseCtrl.setEvent(eventId);
         addExpenseCtrl.clear();
+        addExpenseCtrl.setEvent(eventId);
         addExpenseCtrl.setExpenseId(expenseId);
         primaryStage.setScene(addExpensePage);
     }
 
-    public void statisticsPage() {
-        primaryStage.setTitle("Statistics Page");
+    public void statisticsPage(Integer eventId) {
+        primaryStage.setTitle("Statistics of " + eventId);
+        statisticsPageCtrl.setEvent(eventId);
         primaryStage.setScene(statisticsPage);
+        statisticsPageCtrl.refresh();
     }
 
     public void loginPage(){
@@ -173,8 +178,8 @@ public class MainCtrl {
     }
     public void editEventName(Integer eventId) {
         primaryStage.setTitle("Edit Event Name");
-        primaryStage.setScene(editEventNamePage);
         editEventNameCtrl.setEvent(eventId);
+        primaryStage.setScene(editEventNamePage);
     }
 
     public void addTagPage(Integer eventId, Integer tagId) {

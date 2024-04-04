@@ -107,4 +107,14 @@ public class Event {
         }
         return s;
     }
+
+    public static Integer getIdFromCode(String code) {
+        Integer eventId = 0;
+        for(int i = 0; i < 10; ++i) {
+            Character c = code.charAt(i);
+            if (c > 'A' && c <= 'Z')
+                eventId = eventId * 10 + (c - 'A');
+        }
+        return eventId;
+    }
 }

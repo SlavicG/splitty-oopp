@@ -6,6 +6,8 @@ import commons.dto.User;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -148,6 +150,32 @@ public class EventController {
     public User settleUser(@PathVariable(name = "event_id") Integer eventId,
                                      @PathVariable(name = "user_id") Integer userId) {
         return eventService.settleDebtUser(eventId, userId);
+    }
+    @GetMapping("/{event_id}/settle_debts/expenses/{expense_id}")
+    @ResponseBody
+    public List<User> settleExpense(@PathVariable(name = "event_id") Integer eventId,
+                                    @PathVariable(name = "expense_id") Integer userId) {
+        return eventService.settleExpense(eventId, userId);
+    }
+
+    @MessageMapping("/users")
+    @SendTo("/topic/users")
+    public User addMessage(User user) throws BadRequestException {
+        return user;
+    }
+
+    @GetMapping("/{event_id}/settle_debts/payers/{payer_id}/users/{user_id}")
+    @ResponseBody
+    public List<User> settleDebtAB(@PathVariable(name = "event_id") Integer eventId,
+                                   @PathVariable(name = "payer_id") Integer payer_Id,
+                                   @PathVariable(name = "user_id") Integer userId) {
+        return eventService.settleAB(eventId, payer_Id,userId);
+    }
+
+    @GetMapping("/{event_id}/users/indebted")
+    @ResponseBody
+    public List<User> settleExpense(@PathVariable(name = "event_id") Integer eventId){
+        return eventService.oweMoney(eventId);
     }
 
 }

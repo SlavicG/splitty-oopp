@@ -1,22 +1,23 @@
 package commons.dto;
 
-import java.awt.*;
 import java.util.Objects;
 
 public class Tag {
     private int id;
     private String name;
-    private Color color;
+    private float r, g, b;
     private int eventId;
 
     public Tag() {
 
     }
 
-    public Tag(Integer id, String name, Color color, int eventId) {
+    public Tag(int id, String name, float r, float g, float b, int eventId) {
         this.id = id;
         this.name = name;
-        this.color = color;
+        this.r = r;
+        this.g = g;
+        this.b = b;
         this.eventId = eventId;
     }
 
@@ -28,9 +29,7 @@ public class Tag {
         return name;
     }
 
-    public Color getColor() {
-        return color;
-    }
+
 
     public void setId(int id) {
         this.id = id;
@@ -40,9 +39,6 @@ public class Tag {
         this.name = name;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
-    }
 
     public int getEventId() {
         return eventId;
@@ -52,17 +48,44 @@ public class Tag {
         this.eventId = eventId;
     }
 
+    public float getR() {
+        return r;
+    }
+
+    public void setR(float r) {
+        this.r = r;
+    }
+
+    public float getG() {
+        return g;
+    }
+
+    public void setG(float g) {
+        this.g = g;
+    }
+
+    public float getB() {
+        return b;
+    }
+
+    public void setB(float b) {
+        this.b = b;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Tag tag)) return false;
-        return getId() == tag.getId() &&
-                Objects.equals(getName(), tag.getName()) &&
-                Objects.equals(getColor(), tag.getColor());
+        if (o == null || getClass() != o.getClass()) return false;
+        Tag tag = (Tag) o;
+        return id == tag.id && Float.compare(r, tag.r) == 0 &&
+                Float.compare(g, tag.g) == 0 &&
+                Float.compare(b, tag.b) == 0 &&
+                eventId == tag.eventId &&
+                Objects.equals(name, tag.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getColor());
+        return Objects.hash(id, name, r, g, b, eventId);
     }
 }

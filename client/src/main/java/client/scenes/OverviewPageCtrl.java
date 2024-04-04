@@ -154,7 +154,7 @@ public class OverviewPageCtrl implements Initializable {
     }
 
     public void statisticsPage() {
-        mainCtrl.statisticsPage();
+        mainCtrl.statisticsPage(eventId);
     }
 
 

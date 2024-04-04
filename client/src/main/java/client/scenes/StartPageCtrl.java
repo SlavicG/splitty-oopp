@@ -18,6 +18,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.prefs.BackingStoreException;
@@ -38,17 +39,14 @@ public class StartPageCtrl implements Initializable {
     private ListView<Event> eventList;
     @FXML
     private Text invalidEventName;
+    @FXML
+    private Text invalidInviteCode;
 
     @Inject
     public StartPageCtrl(ServerUtils server, MainCtrl mainCtrl, Configuration configuration) {
         this.server = server;
         this.mainCtrl = mainCtrl;
         this.configuration = configuration;
-    }
-
-    public void onJoin() {
-        // todo: Get the event corresponding to this invite code.
-        inviteCode.setText(null);
     }
 
     public void refresh() {
@@ -75,6 +73,27 @@ public class StartPageCtrl implements Initializable {
             return;
         }
         mainCtrl.eventPage(selection.getId());
+    }
+
+    public void onJoin() {
+        if (inviteCode.getText().isEmpty() || inviteCode.getText().length() != 10) {
+            invalidInviteCode.setVisible(true);
+            return;
+        }
+        String text = inviteCode.getText();
+        for(int i = 0; i < 10; ++i)
+            if (text.charAt(i) < 'A' || text.charAt(i) > 'Z') {
+                invalidInviteCode.setVisible(true);
+                return;
+            }
+        invalidInviteCode.setVisible(false);
+        Integer eventId = Event.getIdFromCode(inviteCode.getText());
+        List<Integer> ids = server.getEvents().stream().map(x -> x.getId()).toList();
+        if (!ids.contains(eventId)) {
+            invalidInviteCode.setVisible(true);
+            return;
+        }
+        mainCtrl.eventPage(eventId);
     }
 
     public void onCreateEvent() {

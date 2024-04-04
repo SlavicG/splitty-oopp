@@ -38,7 +38,9 @@ public class EventService {
     private Function<server.model.Tag, commons.dto.Tag> mapper2 = tag -> new commons.dto.Tag(
             tag.getId(),
             tag.getName(),
-            tag.getColor(),
+            tag.getR(),
+            tag.getG(),
+            tag.getB(),
             tag.getEvent().getId());
 
     public EventService(EventRepository eventRepository, ExpenseRepository expenseRepository,
@@ -58,11 +60,11 @@ public class EventService {
 
         TagService tagService = new TagService(tagRepository, eventRepository, userRepository);
         tagService.createTag(createdEvent.getId(), new commons.dto.Tag(1, "food",
-                null, createdEvent.getId()));
+                0, 0, 0, createdEvent.getId()));
         tagService.createTag(createdEvent.getId(), new commons.dto.Tag(2, "entrance fees",
-                null, createdEvent.getId()));
+                0, 0, 0, createdEvent.getId()));
         tagService.createTag(createdEvent.getId(), new commons.dto.Tag(3, "travel",
-                null, createdEvent.getId()));
+                0, 0, 0, createdEvent.getId()));
         Event returnEvent = getEvent(createdEvent);
 
         listeners.forEach((k, l) -> {
@@ -323,6 +325,92 @@ public class EventService {
 
 
     }
+    // Settle debts for one expense in an event
+    public List<commons.dto.User> settleExpense(Integer eventId, Integer expense_id){
+        server.model.Expense expense = expenseRepository.findById(expense_id).orElse(null);
+        Event event = getEventById(eventId);
+        Expense expenseC = expenseRepository.findById(expense_id).map(mapper).orElse(null);
+
+        Double debtPPerson = expense.getAmount()/(expenseC.getSplitBetween().size());
+
+        for(Integer u: expense.getSplitBetween()){
+            if(!expense.getPayer().getId().equals(u)) {
+
+
+                commons.dto.User userToUpdateDto = getUser(eventId, u);
+                userToUpdateDto.setDebt(userToUpdateDto.getDebt() - debtPPerson);
+
+                User user = userRepository.findById(u).orElse(null);
+                user.setDebt(user.getDebt() - debtPPerson);
+                userRepository.save(user);
+
+                commons.dto.User payerToUpdateDto = getUser(eventId,expense.getPayer().getId());
+                payerToUpdateDto.setDebt(payerToUpdateDto.getDebt() + debtPPerson);
+
+                User payer = userRepository.findById(expense.getPayer().getId()).orElse(null);
+                payer.setDebt(payer.getDebt() + debtPPerson);
+                userRepository.save(payer);
+            }
+        }
+        return getUsers(eventId);
+
+    }
+
+    // settle debt between person A - paid and B - to settle
+    public List<commons.dto.User> settleAB(Integer eventId, Integer user1_id, Integer user2_id){
+        List<Expense> expensesA = expensesUserPaid(user1_id, eventId);
+        List<Expense> expensesB = expenseIncludeUser(user2_id, eventId);
+        List<Expense> expensesAB = expensesA.stream()
+                .filter(expense -> expensesB.contains(expense))
+                .toList();
+
+        if(!expensesAB.isEmpty()){
+            double debtUserB = expensesAB.stream()
+                    .mapToDouble(expense -> expense.getAmount()/expense.getSplitBetween().size())
+                    .sum();
+
+
+            commons.dto.User userToUpdateDto = getUser(eventId, user2_id);
+            userToUpdateDto.setDebt(userToUpdateDto.getDebt() - debtUserB);
+
+            User user = userRepository.findById(user2_id).orElse(null);
+            user.setDebt(user.getDebt() - debtUserB);
+            userRepository.save(user);
+
+            commons.dto.User payerToUpdateDto = getUser(eventId,user1_id);
+            payerToUpdateDto.setDebt(payerToUpdateDto.getDebt() + debtUserB);
+
+            User payer = userRepository.findById(user1_id).orElse(null);
+            payer.setDebt(payer.getDebt() + debtUserB);
+            userRepository.save(payer);
+
+
+        }
+        List<commons.dto.User> userAB = new ArrayList<>();
+        userAB.add(getUser(eventId,user1_id));
+        userAB.add(getUser(eventId,user2_id));
+
+
+        return userAB;
+
+    }
+
+    // show users who still owe money
+    public List<commons.dto.User> oweMoney(Integer eventId){
+
+        Event event = getEventById(eventId);
+
+        List<commons.dto.User> listUser = new ArrayList<>();
+
+        for(Integer u: event.getUserIds()){
+            if(getUser(eventId,u).getDebt()>0.0){
+                listUser.add(getUser(eventId,u));
+            }
+        }
+
+        return listUser;
+    }
+
 }
 
 
