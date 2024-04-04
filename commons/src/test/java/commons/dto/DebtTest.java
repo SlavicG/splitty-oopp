@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DebtTest {
     private Integer id;
-    private User owed;
     private User indebted;
     private Double amount;
 
@@ -18,13 +17,12 @@ public class DebtTest {
 
     @BeforeEach
     void setup() {
-        owed = new User(1, "Kinga", "kinga@tudelft.nl", "123", "456",0.0);
         indebted = new User(2, "Maya", "Maya@tudelft.nl", "123", "456",0.0);
         amount = 14.;
         id = 1;
-        d1 = new Debt(id, owed, indebted, amount);
-        d2 = new Debt(id, owed, indebted, amount);
-        d3 = new Debt(id, owed, indebted, amount);
+        d1 = new Debt(id, indebted, amount);
+        d2 = new Debt(id, indebted, amount);
+        d3 = new Debt(id, indebted, amount);
     }
 
     @Test
@@ -36,18 +34,6 @@ public class DebtTest {
     void testSetId() {
         d1.setId(2);
         assertEquals(2, d1.getId());
-    }
-
-    @Test
-    void getOwed() {
-        assertEquals(owed, d1.getOwed());
-    }
-
-    @Test
-    void setOwed() {
-        User newOwed = new User(3, "Ilker", "Ilker@tudelft.nl", "321", "987",0.0);
-        d1.setOwed(newOwed);
-        assertEquals(newOwed, d1.getOwed());
     }
 
     @Test
