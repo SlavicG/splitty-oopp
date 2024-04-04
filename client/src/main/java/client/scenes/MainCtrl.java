@@ -155,12 +155,10 @@ public class MainCtrl {
     }
 
     public void statisticsPage(Integer eventId) {
-        primaryStage.setTitle("Statistics Page");
+        primaryStage.setTitle("Statistics of " + eventId);
         statisticsPageCtrl.setEvent(eventId);
-        statisticsPageCtrl.clear();
-        statisticsPageCtrl.mapTagToTotalCostPerTag();
-        statisticsPageCtrl.pieChartColors();
         primaryStage.setScene(statisticsPage);
+        statisticsPageCtrl.refresh();
     }
 
     public void loginPage(){
