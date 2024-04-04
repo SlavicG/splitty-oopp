@@ -74,7 +74,7 @@
                </graphic></Button>
             <Button mnemonicParsing="false" styleClass="button-green">
                <graphic>
-                  <ImageView fitHeight="24.0" fitWidth="24.0" onMouseClicked="#addTagPage" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="24.0" fitWidth="24.0" onAction="#addTagPage" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/price-tag%20(1).png" />
                      </image>
