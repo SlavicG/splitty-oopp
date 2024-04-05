@@ -95,6 +95,15 @@ public class Event {
     public String toString() {
         return title;
     }
+    public String toJSON() {
+        return "{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", usersIds=" + usersIds +
+                ", expenses=" + expenses +
+                ", tags=" + tags +
+                '}';
+    }
 
     @JsonIgnore
     public String getCode() {

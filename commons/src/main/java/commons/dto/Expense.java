@@ -128,4 +128,17 @@ public class Expense {
     public int hashCode() {
         return Objects.hash(id, amount, description, payerId, date, splitBetween, tagId);
     }
+
+    @Override
+    public String toString() {
+        return "Expense{" +
+                "id=" + id +
+                ", amount=" + amount +
+                ", description='" + description + '\'' +
+                ", payerId=" + payerId +
+                ", tagId=" + tagId +
+                ", splitBetween=" + splitBetween +
+                ", date=" + date +
+                '}';
+    }
 }

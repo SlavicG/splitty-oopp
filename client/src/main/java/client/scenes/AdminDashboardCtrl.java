@@ -11,6 +11,8 @@ import javafx.scene.control.ListView;
 import com.google.gson.Gson;
 import javafx.stage.FileChooser;
 import javafx.scene.control.Alert.AlertType;
+
+import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,12 +22,29 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializer;
 
+import java.time.LocalDate;
 public class AdminDashboardCtrl implements Initializable {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
     @FXML
     private ListView<Event> eventListAdmin;
+    private static final Gson GSON = new GsonBuilder()
+            // Custom serializer for LocalDate (if still needed)
+            .registerTypeAdapter(LocalDate.class, (JsonSerializer<LocalDate>) (src, typeOfSrc, context) -> new
+                    JsonPrimitive(src.toString()))
+            .registerTypeAdapter(LocalDate.class, (JsonDeserializer<LocalDate>) (json, typeOfT, context) ->
+                    LocalDate.parse(json.getAsString()))
+            // Custom serializer for java.awt.Color
+            .registerTypeAdapter(Color.class, (JsonSerializer<Color>) (src, typeOfSrc, context) ->
+                    new JsonPrimitive("#" + Integer.toHexString(src.getRGB()).substring(2)))
+            .registerTypeAdapter(Color.class, (JsonDeserializer<Color>) (json, typeOfT, context) ->
+                    Color.decode(json.getAsString()))
+            .create();
     @Inject
     public AdminDashboardCtrl(ServerUtils server, MainCtrl mainCtrl)
     {
@@ -108,14 +127,16 @@ public class AdminDashboardCtrl implements Initializable {
 
     private String convertEventToJson(Event event) {
         try {
-            Gson gson = new Gson();
-            return gson.toJson(event);
+            return GSON.toJson(event);
         } catch (Exception e) {
             showAlert("Conversion Error", "Error converting event to JSON",
                     "Could not convert the selected event to JSON: " + e.getMessage(), AlertType.ERROR);
             return null;
         }
     }
+//    public static String convertEventToJson(Event event) {
+//        return event.toJSON();
+//    }
 
     private void saveEventJsonToFile(String json) {
         FileChooser fileChooser = new FileChooser();
