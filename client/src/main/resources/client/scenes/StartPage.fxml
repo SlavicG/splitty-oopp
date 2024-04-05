@@ -97,6 +97,7 @@
                           <items>
                             <MenuItem fx:id="switch_en" mnemonicParsing="false" onAction="#changeLangEn" text="English" />
                             <MenuItem fx:id="switch_nl" mnemonicParsing="false" onAction="#changeLangNl" text="Dutch" />
+                              <MenuItem fx:id="switch_ro" mnemonicParsing="false" onAction="#changeLangRo" text="Romanian" />
                              <MenuItem fx:id="add_new_lang" mnemonicParsing="false" onAction="#addNewLang" text="Add new Language" />
                           </items>
                         </MenuButton>

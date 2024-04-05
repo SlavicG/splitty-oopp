@@ -120,6 +120,13 @@ public class StartPageCtrl implements Initializable {
         configuration.setLangConfig("nl");
         switchLocale("nl");
     }
+
+    public void changeLangRo() throws BackingStoreException {
+        configuration.setLangConfig("ro");
+        switchLocale("ro");
+
+    }
+
     public void addNewLang() throws IOException {
         Properties newLang = new Properties();
         try (BufferedReader reader =
