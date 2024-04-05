@@ -17,8 +17,8 @@ class TagTest {
     void setup() {
         color1 = new Color(255);
         color2 = new Color(0);
-        tag1 = new Tag(1, "food", color1,1);
-        tag2 = new Tag(2, "travel", color2,1);
+        tag1 = new Tag(1, "food", 0, 0, 0, 1);
+        tag2 = new Tag(2, "travel", 0, 0,0,1);
     }
 
     @Test
@@ -29,11 +29,6 @@ class TagTest {
     @Test
     void getName() {
         assertEquals("food", tag1.getName());
-    }
-
-    @Test
-    void getColor() {
-        assertEquals(color1, tag1.getColor());
     }
 
     @Test
@@ -48,12 +43,6 @@ class TagTest {
         assertEquals("food2", tag1.getName());
     }
 
-    @Test
-    void setColor() {
-        Color color3 = new Color(2);
-        tag1.setColor(color3);
-        assertEquals(color3, tag1.getColor());
-    }
 
     @Test
     void testEquals() {

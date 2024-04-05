@@ -40,6 +40,8 @@ public class MainCtrl {
     private Scene addExpensePage;
     private Scene statisticsPage;
     private StatisticsPageCtrl statisticsPageCtrl;
+    private Scene addTagPage;
+    private AddTagCtrl addTagCtrl;
     private Scene editEventNamePage;
 
     private AddQuoteCtrl addCtrl;
@@ -65,7 +67,7 @@ public class MainCtrl {
                            Pair<StatisticsPageCtrl, Parent> statisticsPage,
                            Pair<LoginPageCtrl, Parent> loginPage,
                            Pair<AdminDashboardCtrl, Parent> adminPage,
-                           Pair<EditEventNameCtrl, Parent> editEventNamePage) {
+                           Pair<EditEventNameCtrl, Parent> editEventNamePage, Pair<AddTagCtrl, Parent> addTagPage) {
 
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
@@ -84,6 +86,8 @@ public class MainCtrl {
         this.addParticipantPage = new Scene(addParticipantPage.getValue());
         this.addParticipantPageCtrl = addParticipantPage.getKey();
         this.invitationPageCtrl = invitationPage.getKey();
+        this.addTagPage = new Scene(addTagPage.getValue());
+        this.addTagCtrl = addTagPage.getKey();
         this.addExpenseCtrl = addExpensePage.getKey();
         this.addExpensePage = new Scene(addExpensePage.getValue());
         this.statisticsPage = new Scene(statisticsPage.getValue());
@@ -148,21 +152,17 @@ public class MainCtrl {
 
     public void addExpensePage(Integer eventId, Integer expenseId) {
         primaryStage.setTitle("Add Expense");
-        addExpenseCtrl.setEvent(eventId);
         addExpenseCtrl.clear();
+        addExpenseCtrl.setEvent(eventId);
         addExpenseCtrl.setExpenseId(expenseId);
         primaryStage.setScene(addExpensePage);
     }
 
     public void statisticsPage(Integer eventId) {
-        primaryStage.setTitle("Statistics Page");
+        primaryStage.setTitle("Statistics of " + eventId);
         statisticsPageCtrl.setEvent(eventId);
-        statisticsPageCtrl.clear();
-        statisticsPageCtrl.setTotalCost(statisticsPageCtrl.totalCost());
-        statisticsPageCtrl.mapTagToTotalCostPerTag();
-        statisticsPageCtrl.CreatePieChart();
-        statisticsPageCtrl.pieChartColors();
         primaryStage.setScene(statisticsPage);
+        statisticsPageCtrl.refresh();
     }
 
     public void loginPage(){
@@ -170,8 +170,7 @@ public class MainCtrl {
         primaryStage.setScene(loginPage);
     }
 
-    public void adminPage()
-    {
+    public void adminPage() {
         primaryStage.setTitle("Admin Dashboard");
         primaryStage.setScene(adminPage);
         if(adminDashboardCtrl != null)
@@ -179,8 +178,15 @@ public class MainCtrl {
     }
     public void editEventName(Integer eventId) {
         primaryStage.setTitle("Edit Event Name");
-        primaryStage.setScene(editEventNamePage);
         editEventNameCtrl.setEvent(eventId);
+        primaryStage.setScene(editEventNamePage);
+    }
+
+    public void addTagPage(Integer eventId, Integer tagId) {
+        primaryStage.setTitle("AddTag Page");
+        addTagCtrl.setEvent(eventId);
+        addTagCtrl.setTag(tagId);
+        primaryStage.setScene(addTagPage);
     }
 
     public void addUndoFunction(Runnable undoFunction) {

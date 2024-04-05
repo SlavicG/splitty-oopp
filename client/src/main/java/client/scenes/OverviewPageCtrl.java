@@ -22,7 +22,10 @@ import javafx.util.StringConverter;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
 public class OverviewPageCtrl implements Initializable {
     private final ServerUtils server;
@@ -78,7 +81,28 @@ public class OverviewPageCtrl implements Initializable {
 
         tagColumn.setCellValueFactory(
                 expense -> new ReadOnlyObjectWrapper<>(tagCache.get(expense.getValue().getTagId())));
+        tagColumn.setCellFactory(column -> new TableCell<>() {
+            @Override
+            protected void updateItem(String tagName, boolean empty) {
+                super.updateItem(tagName, empty);
+                if (empty || tagName == null) {
+                    setText(null);
+                    setStyle(null); // Clear any existing styles
+                } else {
+                    setText(tagName); // Display the tag name as text
+                    Tag tagObj = server.getTags(eventId).stream()
+                            .filter(t -> t.getName().equals(tagName)).findFirst().orElse(null);
 
+                    if (tagObj != null) {
+                        int r = Math.round(tagObj.getR());
+                        int g = Math.round(tagObj.getG());
+                        int b = Math.round(tagObj.getB());
+                        String cssColor = String.format("rgba(%d, %d, %d, 0.2)", r, g, b);
+                        setStyle("-fx-background-color: " + cssColor + ";");
+                    }
+                }
+            }
+        });
         expenseTable.setPlaceholder(new Label(resources.getString("add_expense_hint")));
 
         // Add column with a button to edit the expense.
@@ -155,6 +179,11 @@ public class OverviewPageCtrl implements Initializable {
 
     public void statisticsPage() {
         mainCtrl.statisticsPage(eventId);
+    }
+
+
+    public void addTagPage() {
+        mainCtrl.addTagPage(eventId, null);
     }
 
     public void editEventName() {

@@ -15,16 +15,40 @@
  */
 package server;
 
-import java.util.Random;
-
+import commons.dto.MailConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.Properties;
+import java.util.Random;
 
 @Configuration
 public class Config {
-
     @Bean
     public Random getRandom() {
         return new Random();
+    }
+
+    private static JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+
+    public static JavaMailSender getJavaMailSender() {
+        return mailSender;
+    }
+    public static String getEmailUsername() {
+        return mailSender.getUsername();
+    }
+    public static void changeMailSenderConfig(@RequestBody MailConfig mailConfig) {
+        mailSender.setHost(mailConfig.getHost());
+        mailSender.setPort(mailConfig.getPort());
+        mailSender.setPassword(mailConfig.getPassword());
+        mailSender.setUsername(mailConfig.getUsername());
+        Properties props = mailSender.getJavaMailProperties();
+        props.put("mail.transport.protocol", mailConfig.getProps().getProperty("mail.transport.protocol"));
+        props.put("mail.smtp.auth", mailConfig.getProps().getProperty("mail.smtp.auth"));
+        props.put("mail.smtp.starttls.enable", mailConfig.getProps().getProperty("mail.smtp.starttls.enable"));
+        props.put("mail.debug", mailConfig.getProps().getProperty("mail.debug"));
     }
 }
