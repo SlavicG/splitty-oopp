@@ -32,7 +32,7 @@
                   <Label alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" styleClass="paragraph" text="%what_for" />
                   <Label alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" styleClass="paragraph" text="%how_much" textAlignment="RIGHT" />
                   <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="104.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" styleClass="paragraph" text="%when" textAlignment="RIGHT" />
-                  <Label styleClass="paragraph" text="Tag" />
+                  <Label styleClass="paragraph" text="%tag" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="269.0" prefWidth="250.0" spacing="10.0">
