@@ -89,13 +89,4 @@ public class Tag {
         return Objects.hash(id, name, r, g, b, eventId);
     }
 
-    @Override
-    public String toString() {
-        return "Tag{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", color=" + color +
-                ", eventId=" + eventId +
-                '}';
-    }
 }
