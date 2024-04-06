@@ -260,12 +260,6 @@ public class ServerUtils {
                 .get(new GenericType<List<Person>>() {
                 });
     }
-    public Mail sendEmail(Mail mailRequest) {
-        return ClientBuilder.newClient(new ClientConfig()).
-                target(configuration.getHttpServerUrl())
-                .path("rest/mail").request(APPLICATION_JSON).accept(APPLICATION_JSON)
-                .post(Entity.entity(mailRequest, APPLICATION_JSON), Mail.class);
-    }
 
 
     public boolean login(String password) {

@@ -19,7 +19,7 @@ java {
 
 dependencies {
 	implementation project(":commons")
-	
+	implementation 'org.springframework.boot:spring-boot-starter-mail:3.2.2'
 	implementation group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '3.0.3'
 	implementation group: 'org.glassfish.jersey.inject', name: 'jersey-hk2', version: '3.0.3'
 	implementation group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: '3.0.3'
@@ -27,9 +27,9 @@ dependencies {
 	implementation group: 'jakarta.activation', name: 'jakarta.activation-api', version: '2.0.1'
 	
 	implementation 'com.google.inject:guice:5.0.1'
-	
-	
-	
+
+
+
 	implementation 'org.openjfx:javafx-controls:17.0.2'
 	implementation 'org.openjfx:javafx-fxml:17.0.2'
 	
