@@ -1,5 +1,6 @@
 package client.scenes;
 
+import client.utils.Configuration;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.dto.Event;
@@ -52,6 +53,8 @@ public class OverviewPageCtrl implements Initializable {
     private TableColumn<Expense, String> payerColumn;
     @FXML
     private TableColumn<Expense, String> tagColumn;
+    @FXML
+    private Button invitation;
     private Integer eventId;
     private ObservableList<User> data;
     private FilteredList<Expense> expenses;
@@ -148,6 +151,12 @@ public class OverviewPageCtrl implements Initializable {
         searchBox.textProperty().addListener(((observableValue, s, t1) -> refreshFilter()));
 
         mainCtrl.clearUndoStack();
+
+        Configuration configuration = new Configuration();
+        if (configuration.getMailConfig() == null) {
+            invitation.setDisable(true);
+            invitation.setStyle("-fx-opacity: 0.5;");
+        }
     }
 
     private void handleNewUser(User newUser) {
