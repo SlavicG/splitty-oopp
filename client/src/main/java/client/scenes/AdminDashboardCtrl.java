@@ -14,7 +14,6 @@ import javafx.scene.control.ListView;
 import javafx.stage.FileChooser;
 import javafx.scene.control.Alert.AlertType;
 
-import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.awt.*;
 import java.io.File;
@@ -23,7 +22,6 @@ import java.io.IOException;
 import java.io.Writer;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
@@ -39,6 +37,7 @@ public class AdminDashboardCtrl implements Initializable {
     @FXML
     private ListView<Event> eventListAdmin;
     private static final Gson GSON = new GsonBuilder()
+            .serializeNulls()
             // Custom serializer for LocalDate (if still needed)
             .registerTypeAdapter(LocalDate.class, (JsonSerializer<LocalDate>) (src, typeOfSrc, context) -> new
                     JsonPrimitive(src.toString()))
