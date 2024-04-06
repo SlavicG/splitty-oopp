@@ -47,7 +47,7 @@
       </HBox>
       <HBox spacing="20.0">
          <children>
-            <Button fx:id="invitation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#invitation" stylesheets="@../css/style.css" text="%send_invites">
+            <Button fx:id="invitation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#invitation" text="%send_invites">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -72,11 +72,11 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button mnemonicParsing="false" onAction="#addTagPage" styleClass="button-green">
+            <Button maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addTagPage" styleClass="button-green" text="%tags">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@/client/images/price-tag (1).png" />
+                        <Image url="@/client/images/tag.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -127,7 +127,7 @@
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../images/arrow-left.png" />
+                                <Image url="@/client/images/plus.png" />
                             </image>
                         </ImageView>
                      </graphic>

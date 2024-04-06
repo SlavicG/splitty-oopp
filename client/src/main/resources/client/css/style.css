@@ -79,6 +79,16 @@
     -fx-text-fill: #ffffff;
 }
 
+.button-green:hover {
+    -fx-background-color: #3d8d29;
+    -fx-text-fill: #ffffff;
+}
+
+.button-green:focused {
+    -fx-background-color: #317223;
+    -fx-text-fill: #ffffff;
+}
+
 .button-red {
     -fx-background-color: #d20f39;
     -fx-text-fill: #ffffff;
