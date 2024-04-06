@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="481.0" prefWidth="855.0" spacing="10.0" stylesheets="@/client/css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.OverviewPageCtrl">
+<VBox prefHeight="555.0" prefWidth="900.0" spacing="10.0" stylesheets="@/client/css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.OverviewPageCtrl">
    <children>
       <HBox alignment="CENTER_LEFT" prefWidth="200.0" spacing="10.0" stylesheets="@/client/css/style.css">
          <children>
@@ -85,6 +85,13 @@
          <VBox.margin>
             <Insets />
          </VBox.margin>
+      </HBox>
+      <HBox prefHeight="29.0" prefWidth="860.0">
+         <children>
+            <Label styleClass="paragraph" text="%event_code" />
+            <HBox prefHeight="30.0" prefWidth="14.0" />
+            <Label fx:id="code" styleClass="paragraph" text="Event Code" />
+         </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
