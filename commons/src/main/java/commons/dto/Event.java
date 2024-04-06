@@ -67,7 +67,7 @@ public class Event {
     }
 
     public List<Tag> getTags() {
-        return tags;
+        return this.tags;
     }
 
     public void setTags(List<Tag> tags) {
@@ -94,6 +94,15 @@ public class Event {
     @Override
     public String toString() {
         return title;
+    }
+    public String toJSON() {
+        return "{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", usersIds=" + usersIds +
+                ", expenses=" + expenses +
+                ", tags=" + tags +
+                '}';
     }
 
     @JsonIgnore

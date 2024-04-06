@@ -22,7 +22,7 @@ public class Tag {
     }
 
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public String getName() {
@@ -88,4 +88,5 @@ public class Tag {
     public int hashCode() {
         return Objects.hash(id, name, r, g, b, eventId);
     }
+
 }

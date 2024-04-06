@@ -30,15 +30,15 @@ public class Expense {
         this.splitBetween = splitBetween;
         this.tagId = tagId;
     }
-    public Expense(Integer id, Double amount, String description,
-                   Integer payerId, LocalDate date, List<Integer> splitBetween ) {
-        this.id = id;
-        this.amount = amount;
-        this.description = description;
-        this.payerId = payerId;
-        this.date = date;
-        this.splitBetween = splitBetween;
-    }
+//    public Expense(Integer id, Double amount, String description,
+//                   Integer payerId, LocalDate date, List<Integer> splitBetween ) {
+//        this.id = id;
+//        this.amount = amount;
+//        this.description = description;
+//        this.payerId = payerId;
+//        this.date = date;
+//        this.splitBetween = splitBetween;
+//    }
 
     public Expense(Expense expense) {
         this.id = expense.getId();
@@ -103,7 +103,7 @@ public class Expense {
     }
 
     public Integer getTagId() {
-        return tagId;
+        return this.tagId;
     }
 
     public void setTagId(Integer tagId) {
@@ -127,5 +127,18 @@ public class Expense {
     @Override
     public int hashCode() {
         return Objects.hash(id, amount, description, payerId, date, splitBetween, tagId);
+    }
+
+    @Override
+    public String toString() {
+        return "Expense{" +
+                "id=" + id +
+                ", amount=" + amount +
+                ", description='" + description + '\'' +
+                ", payerId=" + payerId +
+                ", tagId=" + tagId +
+                ", splitBetween=" + splitBetween +
+                ", date=" + date +
+                '}';
     }
 }
