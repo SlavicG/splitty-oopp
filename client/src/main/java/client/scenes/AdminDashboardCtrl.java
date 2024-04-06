@@ -2,6 +2,7 @@ package client.scenes;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.dto.Event;
+import commons.dto.EventSnapshot;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,13 +12,14 @@ import javafx.scene.control.ListView;
 import com.google.gson.Gson;
 import javafx.stage.FileChooser;
 import javafx.scene.control.Alert.AlertType;
-
+import java.nio.file.Files;
 import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -39,11 +41,11 @@ public class AdminDashboardCtrl implements Initializable {
                     JsonPrimitive(src.toString()))
             .registerTypeAdapter(LocalDate.class, (JsonDeserializer<LocalDate>) (json, typeOfT, context) ->
                     LocalDate.parse(json.getAsString()))
-            // Custom serializer for java.awt.Color
-            .registerTypeAdapter(Color.class, (JsonSerializer<Color>) (src, typeOfSrc, context) ->
-                    new JsonPrimitive("#" + Integer.toHexString(src.getRGB()).substring(2)))
-            .registerTypeAdapter(Color.class, (JsonDeserializer<Color>) (json, typeOfT, context) ->
-                    Color.decode(json.getAsString()))
+//            // Custom serializer for java.awt.Color
+//            .registerTypeAdapter(Color.class, (JsonSerializer<Color>) (src, typeOfSrc, context) ->
+//                    new JsonPrimitive("#" + Integer.toHexString(src.getRGB()).substring(2)))
+//            .registerTypeAdapter(Color.class, (JsonDeserializer<Color>) (json, typeOfT, context) ->
+//                    Color.decode(json.getAsString()))
             .create();
     @Inject
     public AdminDashboardCtrl(ServerUtils server, MainCtrl mainCtrl)
@@ -113,19 +115,23 @@ public class AdminDashboardCtrl implements Initializable {
     @FXML
     private void downloadBackupAction() {
         Event selectedEvent = eventListAdmin.getSelectionModel().getSelectedItem();
-        if (selectedEvent == null) {
+        EventSnapshot selectedEventJson = new EventSnapshot(selectedEvent.getId(), selectedEvent.getTitle(),
+                selectedEvent.getUserIds(), selectedEvent.getExpenses(), selectedEvent.getTags());
+        selectedEventJson.setUserList(server.getUserByEvent(selectedEvent.getId()));
+
+        if (selectedEventJson == null) {
             showAlert("No Selection", "No event selected",
                     "Please select an event to download its backup.", AlertType.WARNING);
             return;
         }
 
-        String eventJson = convertEventToJson(selectedEvent);
+        String eventJson = convertEventToJson(selectedEventJson);
         if (eventJson != null) {
             saveEventJsonToFile(eventJson);
         }
     }
 
-    private String convertEventToJson(Event event) {
+    private String convertEventToJson(EventSnapshot event) {
         try {
             return GSON.toJson(event);
         } catch (Exception e) {
@@ -162,5 +168,58 @@ public class AdminDashboardCtrl implements Initializable {
         alert.setContentText(content);
         alert.showAndWait();
     }
+    @FXML
+    private void selectAndUploadBackupAction() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Event Backup");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
+        File file = fileChooser.showOpenDialog(null); // Replace null with your stage reference
+        if (file != null) {
+            uploadEventSnapshotFromFile(file);
+        }
+    }
+    private String readJsonFromFile(File file) {
+        try {
+            return new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            showAlert("File Error", "Error reading file",
+                    "Could not read the file: " + e.getMessage(), AlertType.ERROR);
+            return null;
+        }
+    }
+    private EventSnapshot deserializeJsonToSnapshot(String json) {
+        try {
+            Gson gson = new Gson();
+            return gson.fromJson(json, EventSnapshot.class);
+        } catch (Exception e) {
+            showAlert("Conversion Error", "Error converting JSON to EventSnapshot",
+                    "Could not convert the JSON to an EventSnapshot: " + e.getMessage(), AlertType.ERROR);
+            return null;
+        }
+    }
+    private void uploadEventSnapshotFromFile(File file) {
+        String json = readJsonFromFile(file);
+        if (json != null) {
+            EventSnapshot snapshot = deserializeJsonToSnapshot(json);
+            if (snapshot != null) {
+                // Process the Event part of the snapshot
+                // Assuming you have a method in ServerUtils to add or update an event
+                server.addEvent(snapshot.getEvent());
+
+                // Process each User in the snapshot
+                // Assuming you have a method in ServerUtils to add or update users
+                snapshot.getUserList().forEach(user -> server.createUser(snapshot.getId(), user));
+
+                // Refresh the UI or perform other actions as needed after successful upload
+                refresh(); // Assuming refresh updates your UI with the latest data
+
+                showAlert("Success", "Backup Uploaded",
+                        "The event and associated users have been successfully restored from the backup.",
+                        AlertType.INFORMATION);
+            }
+        }
+    }
+
+
 
 }
