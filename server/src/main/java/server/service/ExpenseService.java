@@ -141,7 +141,7 @@ public class ExpenseService {
                 expense.getDate(),
                 expense.getSplitBetween(),
                 expense.getTagId());
-        updateAllDebtsInEvent(eventId);
+//        updateAllDebtsInEvent(eventId);
         return expenseCreated;
 
 

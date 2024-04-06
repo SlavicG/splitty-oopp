@@ -109,6 +109,18 @@ class EventTest {
         Event event1 = new Event(event);
         assertEquals(event1,event);
     }
+    @Test
+    public void eventTestOutput()
+    {
+        Expense newExpense = new Expense(1,2.0,"da",1,java.time.LocalDate.now(),null,1);
+        ArrayList<Expense> expenses = new ArrayList<>();
+        expenses.add(newExpense);
+        User newUser = new User(1,"da","da","da","da");
+        ArrayList<Integer> users = new ArrayList<>();
+        users.add(newUser.getId());
+        Event newEvent = new Event(1,"t",users,expenses,null);
+        System.out.println(newEvent);
+    }
 
     @Test
     public void toStringTest() {

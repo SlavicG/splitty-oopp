@@ -56,8 +56,9 @@
                <contextMenu>
                   <ContextMenu onHiding="#refresh">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#downloadBackupAction" text="Download Backup" />
-                        <MenuItem mnemonicParsing="false" onAction="#deleteSelectedEvent" text="Delete Event" />
+                       <MenuItem mnemonicParsing="false" onAction="#selectAndUploadBackupAction" text="Upload Backup" />
+                       <MenuItem mnemonicParsing="false" onAction="#downloadBackupAction" text="Download Backup" />
+                       <MenuItem mnemonicParsing="false" onAction="#deleteSelectedEvent" text="Delete Event" />
                     </items>
                   </ContextMenu>
                </contextMenu>

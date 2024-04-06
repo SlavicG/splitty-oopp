@@ -107,9 +107,14 @@ public class StartPageCtrl implements Initializable {
         Event event = new Event();
         event.setTitle(eventName.getText());
         Event finalEvent = server.addEvent(event);
+        server.addTag(new commons.dto.Tag(1, "food",
+                255, 255, 0, finalEvent.getId()), finalEvent.getId());
+        server.addTag(new commons.dto.Tag(2, "entrance fees",
+                255, 0, 255, finalEvent.getId()), finalEvent.getId());
+        server.addTag(new commons.dto.Tag(3, "travel",
+                0, 255, 255, finalEvent.getId()), finalEvent.getId());
         mainCtrl.eventPage(finalEvent.getId());
         eventName.setText(null);
-
     }
     public void changeLangEn() throws BackingStoreException {
         configuration.setLangConfig("en");

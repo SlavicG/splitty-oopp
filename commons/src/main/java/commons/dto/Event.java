@@ -67,7 +67,7 @@ public class Event {
     }
 
     public List<Tag> getTags() {
-        return tags;
+        return this.tags;
     }
 
     public void setTags(List<Tag> tags) {

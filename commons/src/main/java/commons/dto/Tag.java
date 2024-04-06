@@ -22,7 +22,7 @@ public class Tag {
     }
 
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public String getName() {
