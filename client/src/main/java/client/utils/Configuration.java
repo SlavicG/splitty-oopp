@@ -132,8 +132,8 @@ public class Configuration {
             System.out.println("???");
             return mailConfig;
         } catch(Error e) {
-            System.out.println("Something went wrong. Using default Email");
-            return MailConfig.getDefault();
+            System.out.println("Something went wrong. Disabling e-mail features");
+            return null;
         }
     }
 }

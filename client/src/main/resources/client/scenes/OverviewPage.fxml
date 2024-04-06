@@ -47,7 +47,7 @@
       </HBox>
       <HBox spacing="20.0">
          <children>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#invitation" stylesheets="@../css/style.css" text="%send_invites">
+            <Button fx:id="invitation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#invitation" stylesheets="@../css/style.css" text="%send_invites">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>

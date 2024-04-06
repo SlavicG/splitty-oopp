@@ -72,9 +72,10 @@ public class InvitationPageCtrl implements Initializable {
         if(event != null) s = event.getCode();
         code.setText(s);
 
-        Configuration configuration = new Configuration();
-        setMailConfig(configuration.getMailConfig());
+        Configuration configuration = new Configuration();;
+        if(configuration.getMailConfig() == null) return;
 
+        setMailConfig(configuration.getMailConfig());
         Mail mailRequest = new Mail(configuration.getMailConfig().getUsername(),
                 "Testing E-mail Configuration",
                 "Test to check if E-mails are being sent.");
@@ -97,6 +98,8 @@ public class InvitationPageCtrl implements Initializable {
         return matcher.matches();
     }
     public void sendEmails() throws InterruptedException {
+        Configuration configuration = new Configuration();
+        if(configuration.getMailConfig() == null) return;
         String toEmails = emails_box.getText();
         if(toEmails == null || toEmails.isBlank()) {
             System.out.println("Bad email request");
