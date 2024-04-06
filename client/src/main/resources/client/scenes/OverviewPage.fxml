@@ -72,11 +72,11 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button mnemonicParsing="false" onAction="#addTagPage" styleClass="button-green">
+            <Button maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addTagPage" prefWidth="35.0" styleClass="button-green">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@/client/images/price-tag (1).png" />
+                        <Image url="@/client/images/tag.png" />
                      </image>
                   </ImageView>
                </graphic>
