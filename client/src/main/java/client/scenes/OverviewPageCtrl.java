@@ -36,6 +36,8 @@ public class OverviewPageCtrl implements Initializable {
     @FXML
     private Label eventName;
     @FXML
+    private Label code;
+    @FXML
     private HBox participants;
     @FXML
     private ChoiceBox<Optional<User>> userFilter;
@@ -206,6 +208,7 @@ public class OverviewPageCtrl implements Initializable {
         expenses = new FilteredList<>(FXCollections.observableList(server.getExpenses(eventId)));
         expenseTable.setItems(expenses);
         eventName.setText(event.getTitle());
+        code.setText(event.getCode());
 
         List<Optional<Tag>> tags = server.getTags(eventId).stream().map(Optional::of).toList();
         tagCache.clear();
