@@ -72,7 +72,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addTagPage" prefWidth="35.0" styleClass="button-green">
+            <Button maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addTagPage" styleClass="button-green" text="%tags">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
