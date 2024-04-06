@@ -41,45 +41,47 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="298.0" prefWidth="480.0" spacing="10.0" stylesheets="/client/css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AddTagCtrl">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="253.0" prefWidth="480.0" spacing="10.0" stylesheets="@/client/css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AddTagCtrl">
    <children>
+      <Label styleClass="header" text="Add A New Tag" />
       <HBox alignment="TOP_CENTER" prefHeight="111.0" prefWidth="414.0" spacing="10.0">
          <children>
-            <VBox alignment="TOP_RIGHT" prefHeight="111.0" prefWidth="150.0" spacing="10.0" stylesheets="/client/css/style.css">
+            <VBox alignment="TOP_RIGHT" prefHeight="111.0" prefWidth="150.0" spacing="10.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="150.0" styleClass="paragraph" stylesheets="/client/css/style.css" text="%tag_color" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="paragraph" text="%tag_name" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="paragraph" />
+                  <Label alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="150.0" styleClass="paragraph" text="%tag_color" />
+                  <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="150.0" styleClass="paragraph" text="%tag_name" />
                </children>
             </VBox>
             <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="93.0" prefWidth="250.0" spacing="10.0">
                <children>
-                  <ColorPicker fx:id="color" prefHeight="30.0" prefWidth="178.0" stylesheets="/client/css/style.css" />
+                  <ColorPicker fx:id="color" prefHeight="35.0" prefWidth="200.0" />
                   <HBox alignment="CENTER_LEFT" maxHeight="30.0" prefHeight="30.0">
                      <children>
-                        <TextField fx:id="name" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" promptText="%tag_name" stylesheets="/client/css/style.css" />
+                        <TextField fx:id="name" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="200.0" promptText="%tag_name" />
                      </children>
                   </HBox>
                </children>
             </VBox>
          </children>
+         <padding>
+            <Insets top="20.0" />
+         </padding>
       </HBox>
-      <HBox alignment="BOTTOM_RIGHT" prefHeight="70.0" prefWidth="459.0" spacing="10.0" VBox.vgrow="ALWAYS">
+      <HBox alignment="BOTTOM_RIGHT" spacing="10.0" VBox.vgrow="ALWAYS">
          <children>
             <Label fx:id="invalid" prefHeight="26.0" text="Label" textAlignment="RIGHT" textFill="#f20909" visible="false" />
-            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onDelete" prefHeight="32.0" styleClass="button-red" stylesheets="/client/css/style.css" text="%remove">
+            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onDelete" prefHeight="32.0" styleClass="button-red" text="%remove" visible="false">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="/client/images/trash.png" />
+                        <Image url="@/client/images/trash.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button minHeight="34.0" mnemonicParsing="false" onAction="#OverviewPage" stylesheets="/client/css/style.css" text="%cancel" />
-            <Button fx:id="create" minHeight="34.0" mnemonicParsing="false" onAction="#onCreate" styleClass="button-green" stylesheets="/client/css/style.css" text="%create" />
+            <Button minHeight="34.0" mnemonicParsing="false" onAction="#OverviewPage" text="%cancel" />
+            <Button fx:id="create" minHeight="34.0" mnemonicParsing="false" onAction="#onCreate" styleClass="button-green" text="%create" />
          </children>
          <VBox.margin>
             <Insets bottom="10.0" />
