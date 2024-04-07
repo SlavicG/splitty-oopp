@@ -3,7 +3,6 @@ package client.scenes;
 import client.utils.ServerUtils;
 import commons.dto.Event;
 import commons.dto.Tag;
-import commons.dto.User;
 import jakarta.ws.rs.core.Response;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
