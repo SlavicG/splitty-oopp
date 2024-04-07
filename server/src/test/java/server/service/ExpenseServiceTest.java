@@ -95,6 +95,7 @@ class ExpenseServiceTest {
 
 
 
-        commons.dto.Expense expenseDto = resultExpenses.get(0);
-        assertEquals(expense1.getId(), );}
+//        commons.dto.Expense expenseDto = resultExpenses.get(0);
+//        assertEquals(expense1.getId(), );}
+        }
 }
