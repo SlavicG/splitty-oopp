@@ -47,8 +47,10 @@ class ExpenseServiceTest {
         LocalDate date = LocalDate.of(2021, 10, 24);
         event1 = new Event(1, "party", null, null, null);
         event2 = new Event(2, "party2", null, null, null);
-        expense1 = new Expense(1, 1.0, "description1", new User(), date, new server.model.Event(), new ArrayList<>(), null);
-        expense2 = new Expense(1, 1.0, "description1", new User(), date,new server.model.Event(), new ArrayList<>(),null);
+        expense1 = new Expense(1, 1.0, "description1",
+                new User(), date, new server.model.Event(), new ArrayList<>(), null);
+        expense2 = new Expense(1, 1.0, "description1",
+                new User(), date,new server.model.Event(), new ArrayList<>(),null);
 //        expense3 = new Expense(1, 1.0, "description1", 3, date, new ArrayList<>(), 1);
 
 
@@ -83,7 +85,7 @@ class ExpenseServiceTest {
 
         List<Expense> mockExpenses = Arrays.asList(expense1);
         commons.dto.Expense expenseDto = new commons.dto.Expense(1,15.0,"Food",
-               1, date ,new ArrayList<>(),1);
+                1, date ,new ArrayList<>(),1);
 
 
 
@@ -94,8 +96,5 @@ class ExpenseServiceTest {
 //        List<commons.dto.Expense> resultExpenses = expenseService.getExpenseById(e);
 
 
-
-//        commons.dto.Expense expenseDto = resultExpenses.get(0);
-//        assertEquals(expense1.getId(), );}
-        }
+    }
 }
