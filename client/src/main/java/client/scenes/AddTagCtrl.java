@@ -65,7 +65,6 @@ public class AddTagCtrl implements Initializable {
     }
 
     public void onCreate() {
-        invalid.setVisible(true);
         if (color.getValue() == null){
             invalid.setText(resourceBundle.getString("invalid_Tag_colour"));
             return;
@@ -80,6 +79,7 @@ public class AddTagCtrl implements Initializable {
         float blue = (float) fx.getBlue() * 255;
 
         if (tag == null) {
+            invalid.setVisible(true);
             Tag newTag = server.addTag(new Tag(null, name.getText(), red, green, blue, event.getId()), event.getId());
         } else {
             Tag changedTag = server.updateTag(
@@ -91,12 +91,13 @@ public class AddTagCtrl implements Initializable {
     }
 
     public void onDelete2() {
-        invalid.setVisible(true);
         if (color.getValue() == null) {
+            invalid.setVisible(true);
             invalid.setText(resourceBundle.getString("invalid_Tag_colour"));
             return;
         }
         if (name.getText() == null || name.getText().isEmpty()) {
+            invalid.setVisible(true);
             invalid.setText(resourceBundle.getString("invalid_tag_name"));
             return;
         }
@@ -108,6 +109,8 @@ public class AddTagCtrl implements Initializable {
             Tag oldTag = new Tag(tag);
             mainCtrl.addUndoFunction(() -> server.createTag(event.getId(), oldTag));
             mainCtrl.tagsPage(event.getId());
+            clear();
+            tag = null;
         }
         else {
             var alert = new Alert(Alert.AlertType.ERROR);
