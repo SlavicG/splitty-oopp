@@ -2,18 +2,11 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
-import commons.dto.Event;
 import commons.dto.Tag;
-import commons.dto.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 
-import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
