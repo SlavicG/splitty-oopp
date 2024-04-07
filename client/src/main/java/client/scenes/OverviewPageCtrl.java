@@ -21,12 +21,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.util.StringConverter;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.prefs.BackingStoreException;
+
+import static client.Main.switchLocale;
 
 public class OverviewPageCtrl implements Initializable {
     private final ServerUtils server;
@@ -61,11 +64,13 @@ public class OverviewPageCtrl implements Initializable {
     private ObservableList<User> data;
     private FilteredList<Expense> expenses;
     private ResourceBundle resources;
+    Configuration configuration;
 
     @Inject
-    public OverviewPageCtrl(ServerUtils server, MainCtrl mainCtrl) {
+    public OverviewPageCtrl(ServerUtils server, MainCtrl mainCtrl, Configuration configuration) {
         this.server = server;
         this.mainCtrl = mainCtrl;
+        this.configuration = configuration;
         userNamesCache = new HashMap<>();
         tagCache = new HashMap<>();
         data = FXCollections.observableArrayList();
@@ -267,5 +272,56 @@ public class OverviewPageCtrl implements Initializable {
         String search = searchBox.getText();
         expenses.setPredicate(expense -> expense.getDescription().toLowerCase().contains(search.toLowerCase()) &&
                 (user == null || user.isEmpty() || expense.getPayerId().equals(user.get().getId())));
+    }
+
+    public void changeLangEn() throws BackingStoreException {
+        configuration.setLangConfig("en");
+        switchLocale("en");
+
+    }
+
+    public void changeLangNl() throws BackingStoreException {
+        configuration.setLangConfig("nl");
+        switchLocale("nl");
+    }
+
+    public void changeLangRo() throws BackingStoreException {
+        configuration.setLangConfig("ro");
+        switchLocale("ro");
+
+    }
+
+    public void addNewLang() {
+        try {
+            String saveDir = createLanguageTemplate();
+            var alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Created new language template");
+            alert.setHeaderText("Created new language template");
+            alert.setContentText("Your new language template can be found at \"" + saveDir + "\".");
+            alert.show();
+        }
+        catch (IOException e) {
+            var alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Failed creating new language template");
+            alert.setHeaderText("Failed creating new language template");
+            alert.setContentText("Something went wrong while creating a new language template:\n" + e);
+            alert.show();
+        }
+    }
+
+    public String createLanguageTemplate() throws IOException {
+        String path = String.format("%s/Downloads/template.properties", System.getProperty("user.home"));
+        createLanguageTemplate(new FileWriter(path));
+        return path;
+    }
+
+    public void createLanguageTemplate(Writer writer) throws IOException {
+        ResourceBundle bundle = ResourceBundle.getBundle("client.language", Locale.forLanguageTag("en"));
+        writer.write("# Add the name of your new language to the first line of this file as a comment!\n"+
+                "# Send the final version to splittyteam32@gmail.com\n");
+        for (String key : bundle.keySet()) {
+            writer.write(String.format("%s = %s\n", key, bundle.getString(key)));
+        }
+        writer.flush();
     }
 }
