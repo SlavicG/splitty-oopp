@@ -93,7 +93,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <MenuButton mnemonicParsing="false" text="Language">
+                        <MenuButton mnemonicParsing="false" styleClass="choice-box" text="Language">
                           <items>
                             <MenuItem fx:id="switch_en" mnemonicParsing="false" onAction="#changeLangEn" text="English">
                                  <graphic>

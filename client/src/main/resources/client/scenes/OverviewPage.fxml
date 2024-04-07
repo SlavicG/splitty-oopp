@@ -44,7 +44,7 @@
             </Button>
             <VBox alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="597.0">
                <children>
-                  <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="125.0" text="Language">
+                  <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="125.0" styleClass="choice-box" text="Language">
                      <items>
                         <MenuItem fx:id="switch_en" mnemonicParsing="false" onAction="#changeLangEn" text="English">
                            <graphic>
