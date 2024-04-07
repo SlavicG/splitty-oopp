@@ -85,7 +85,7 @@ class ExpenseServiceTest {
 
         List<Expense> mockExpenses = Arrays.asList(expense1);
         commons.dto.Expense expenseDto = new commons.dto.Expense(1,15.0,"Food",
-                1, date ,new ArrayList<>(),1);
+                1, date, new ArrayList<>(),1);
 
 
 
