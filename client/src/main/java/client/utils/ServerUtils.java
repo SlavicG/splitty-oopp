@@ -305,6 +305,14 @@ public class ServerUtils {
     public void stop() {
         EXEC.shutdown();
     }
+
+    public Tag createTag(int eventId, Tag tag) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(configuration.getHttpServerUrl()).path("/rest/events/" + eventId + "/tags")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(tag, APPLICATION_JSON), Tag.class);
+    }
     public List<Tag> getTags(int eventId) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(configuration.getHttpServerUrl()).path("/rest/events/" + eventId + "/tags")

@@ -3,6 +3,8 @@ package client.scenes;
 import client.utils.ServerUtils;
 import commons.dto.Event;
 import commons.dto.Tag;
+import commons.dto.User;
+import jakarta.ws.rs.core.Response;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -88,7 +90,7 @@ public class AddTagCtrl implements Initializable {
         mainCtrl.tagsPage(event.getId());
     }
 
-    public void onDelete() {
+    public void onDelete2() {
         invalid.setVisible(true);
         if (color.getValue() == null) {
             invalid.setText(resourceBundle.getString("invalid_Tag_colour"));
@@ -97,6 +99,23 @@ public class AddTagCtrl implements Initializable {
         if (name.getText() == null || name.getText().isEmpty()) {
             invalid.setText(resourceBundle.getString("invalid_tag_name"));
             return;
+        }
+    }
+    public void onDelete() {
+        assert(tag != null);
+        Response response = server.deleteTag(event.getId(), tag.getId());
+        if (response.getStatus() == 200) {
+            Tag oldTag = new Tag(tag);
+            mainCtrl.addUndoFunction(() -> server.createTag(event.getId(), oldTag));
+            mainCtrl.tagsPage(event.getId());
+        }
+        else {
+            var alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Failed to remove tag");
+            alert.setHeaderText("Could not remove tag");
+            alert.setContentText("This tag is involved in (several) expenses(s). " +
+                    "Please remove these expenses before removing the tag.");
+            alert.show();
         }
     }
     public void clear() {
