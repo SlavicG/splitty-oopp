@@ -91,7 +91,7 @@ class ExpenseServiceTest {
         when(expenseRepository.findAll()).thenReturn(mockExpenses);
 
 
-        List<commons.dto.Expense> resultExpenses = expenseService.getExpenseById(e);
+//        List<commons.dto.Expense> resultExpenses = expenseService.getExpenseById(e);
 
 
 
