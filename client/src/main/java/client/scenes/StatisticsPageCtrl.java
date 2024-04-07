@@ -29,12 +29,13 @@ public class StatisticsPageCtrl implements Initializable {
     ObservableList<PieChart.Data> pieChartData;
     private HashMap<Tag, Integer> map;
     private ResourceBundle resourceBundle;
+    private StatisticsPageLogic logic;
 
     @Inject
-    public StatisticsPageCtrl(ServerUtils server, MainCtrl mainCtrl, HashMap<Tag, Integer> map) {
-        this.map = new HashMap<>();
+    public StatisticsPageCtrl(ServerUtils server, MainCtrl mainCtrl, StatisticsPageLogic logic) {
         this.server = server;
         this.mainCtrl = mainCtrl;
+        this.logic = logic;
     }
 
     public void OverviewPage() {
@@ -65,8 +66,7 @@ public class StatisticsPageCtrl implements Initializable {
 
     private void createData(List<Expense> expenses, List<Tag> tags) {
         for (Tag tag : tags) {
-            double amount = expenses.stream().filter(x -> x.getTagId().equals(tag.getId()))
-                    .mapToDouble(x -> (double) x.getAmount()).sum();
+            double amount = logic.TotalCostPerTag(event,tag.getId());
             if (Double.compare(amount, 0) != 0) {
                 pieChartData.add(new PieChart.Data(tag.getName() + ": " + amount, amount));
             }
@@ -92,29 +92,9 @@ public class StatisticsPageCtrl implements Initializable {
         text.setText("" + totalAmount);
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.resourceBundle = resourceBundle;
     }
-
-    public int totalExpensePerTag(int tagId) {
-        List<Expense> expenses = server.getExpenses(event.getId());
-        var expensesPerTag = expenses.stream().filter(d -> d.getTagId() == tagId).toList();
-        if (!expensesPerTag.isEmpty()) {
-            int totalCostPerTag = (int) expensesPerTag.stream().mapToDouble(Expense::getAmount).sum();
-            return totalCostPerTag;
-        } else {
-            return 0;
-        }
-    }
-
-    public void mapTagToTotalCostPerTag() {
-        List<Tag> tags = server.getTags(event.getId());
-        for (Tag tag : tags) {
-            map.put(tag, totalExpensePerTag(tag.getId()));
-        }
-    }
-
 }
 

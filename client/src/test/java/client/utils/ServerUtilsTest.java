@@ -1,10 +1,21 @@
 package client.utils;
 
+import commons.dto.Event;
+import commons.dto.Expense;
+import commons.dto.User;
+import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 class ServerUtilsTest {
-    /*
+
     Configuration configuration = new Configuration();
     ServerUtils server = new ServerUtils(configuration);
 
+    /*
     static User user = new User(1, "Abdullah", "@email.com", "504", "2323");
     static User user2 = new User(1, "Abdullah", "@email.com", "504", "5000");
     //User user3= server.addUsers(user);
@@ -97,4 +108,13 @@ class ServerUtilsTest {
         //assertTrue(quote1.contains(debt));
     }
     */
+
+    @Test
+    public void test() {
+        LocalDate now = LocalDate.now();
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        server.addExpense(new Expense(null, 505.0, "sdsdfsdnbjhvh", 1, now,list,0),1);
+    }
 }
