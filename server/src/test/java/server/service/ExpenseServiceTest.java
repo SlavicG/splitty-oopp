@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import server.database.ExpenseRepository;
 import server.model.Expense;
 
+import server.model.Tag;
 import server.model.User;
 
 
@@ -48,9 +49,9 @@ class ExpenseServiceTest {
         event1 = new Event(1, "party", null, null, null);
         event2 = new Event(2, "party2", null, null, null);
         expense1 = new Expense(1, 1.0, "description1",
-                new User(), date, new server.model.Event(), new ArrayList<>(), null);
+                new User(), date, new server.model.Event(), new ArrayList<>(), new Tag());
         expense2 = new Expense(1, 1.0, "description1",
-                new User(), date,new server.model.Event(), new ArrayList<>(),null);
+                new User(), date,new server.model.Event(), new ArrayList<>(),new Tag());
 //        expense3 = new Expense(1, 1.0, "description1", 3, date, new ArrayList<>(), 1);
 
 
