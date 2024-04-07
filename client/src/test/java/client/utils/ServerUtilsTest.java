@@ -1,15 +1,5 @@
 package client.utils;
 
-import commons.dto.Event;
-import commons.dto.Expense;
-import commons.dto.User;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
 class ServerUtilsTest {
 
     Configuration configuration = new Configuration();
@@ -108,13 +98,4 @@ class ServerUtilsTest {
         //assertTrue(quote1.contains(debt));
     }
     */
-
-    @Test
-    public void test() {
-        LocalDate now = LocalDate.now();
-        List<Integer> list = new ArrayList<>();
-        list.add(1);
-        list.add(2);
-        server.addExpense(new Expense(null, 505.0, "sdsdfsdnbjhvh", 1, now,list,0),1);
-    }
 }
