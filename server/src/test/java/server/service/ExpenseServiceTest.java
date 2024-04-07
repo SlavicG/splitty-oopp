@@ -18,9 +18,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import server.database.ExpenseRepository;
 import server.model.Expense;
-import server.model.Tag;
+
 import server.model.User;
-import server.service.ExpenseService;
+
 
 @ExtendWith(MockitoExtension.class)
 class ExpenseServiceTest {
