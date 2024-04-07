@@ -22,8 +22,6 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class InvitationPageCtrl implements Initializable {
     private final ServerUtils server;
