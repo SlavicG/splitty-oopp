@@ -26,6 +26,8 @@ public class AddTagCtrl {
     private Tag tag;
     @FXML
     private Button create;
+    @FXML
+    private Label title;
     private Integer eventId;
 
     @Inject
@@ -47,7 +49,7 @@ public class AddTagCtrl {
         name.setText(server.getTagById(tagId, eventId).getName());
         color.setValue(Color.color(tag.getR()/255, tag.getG()/255, tag.getB()/255));
         create.setText("Edit");
-
+        title.setText("Edit Tag");
     }
 
     public void onCreate() {
