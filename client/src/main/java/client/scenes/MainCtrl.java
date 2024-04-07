@@ -54,6 +54,8 @@ public class MainCtrl {
     private Scene adminPage;
     private Scene loginPage;
     private Scene add;
+    private Scene tagsPage;
+    private TagsPageCtrl tagsPageCtrl;
 
     private final Stack<Runnable> undoFunctionHistory = new Stack<>();
 
@@ -67,7 +69,8 @@ public class MainCtrl {
                            Pair<StatisticsPageCtrl, Parent> statisticsPage,
                            Pair<LoginPageCtrl, Parent> loginPage,
                            Pair<AdminDashboardCtrl, Parent> adminPage,
-                           Pair<EditEventNameCtrl, Parent> editEventNamePage, Pair<AddTagCtrl, Parent> addTagPage) {
+                           Pair<EditEventNameCtrl, Parent> editEventNamePage, Pair<AddTagCtrl, Parent> addTagPage,
+                           Pair<TagsPageCtrl, Parent> tagsPage) {
 
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
@@ -98,6 +101,8 @@ public class MainCtrl {
         this.adminDashboardCtrl = adminPage.getKey();
         this.editEventNamePage = new Scene(editEventNamePage.getValue());
         this.editEventNameCtrl = editEventNamePage.getKey();
+        this.tagsPage = new Scene(tagsPage.getValue());
+        this.tagsPageCtrl = tagsPage.getKey();
 
         startPage();
         primaryStage.show();
@@ -187,6 +192,10 @@ public class MainCtrl {
         addTagCtrl.setEvent(eventId);
         addTagCtrl.setTag(tagId);
         primaryStage.setScene(addTagPage);
+    }
+
+    public void tagsPage(Integer eventId) {
+
     }
 
     public void addUndoFunction(Runnable undoFunction) {

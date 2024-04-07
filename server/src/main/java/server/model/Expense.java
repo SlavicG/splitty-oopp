@@ -21,7 +21,7 @@ public class Expense {
 
     private @ManyToOne
         @JoinColumn(name = "event_id") Event event;
-    private @ManyToOne Tag tag = null;
+    private @ManyToOne Tag tag;
 
     public Expense() {
 
