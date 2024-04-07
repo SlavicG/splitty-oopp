@@ -190,12 +190,20 @@ public class MainCtrl {
     public void addTagPage(Integer eventId, Integer tagId) {
         primaryStage.setTitle("AddTag Page");
         addTagCtrl.setEvent(eventId);
-        addTagCtrl.setTag(tagId);
+        addTagCtrl.setTag(tagId, eventId);
+        primaryStage.setScene(addTagPage);
+    }
+    public void addTagPage2(Integer eventId, Integer tagId) {
+        primaryStage.setTitle("AddTag Page");
+        addTagCtrl.setEvent(eventId);
+        addTagCtrl.setTag(eventId, tagId);
         primaryStage.setScene(addTagPage);
     }
 
     public void tagsPage(Integer eventId) {
-
+        primaryStage.setTitle("Tags Page");
+        tagsPageCtrl.setEvent(eventId);
+        primaryStage.setScene(tagsPage);
     }
 
     public void addUndoFunction(Runnable undoFunction) {
