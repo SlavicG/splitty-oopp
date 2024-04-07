@@ -89,18 +89,6 @@ public class AddTagCtrl implements Initializable {
         mainCtrl.tagsPage(event.getId());
     }
 
-    public void onDelete2() {
-        if (color.getValue() == null) {
-            invalid.setVisible(true);
-            invalid.setText(resourceBundle.getString("invalid_Tag_colour"));
-            return;
-        }
-        if (name.getText() == null || name.getText().isEmpty()) {
-            invalid.setVisible(true);
-            invalid.setText(resourceBundle.getString("invalid_tag_name"));
-            return;
-        }
-    }
     public void onDelete() {
         assert(tag != null);
         Response response = server.deleteTag(event.getId(), tag.getId());
