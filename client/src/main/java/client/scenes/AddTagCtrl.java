@@ -110,7 +110,6 @@ public class AddTagCtrl implements Initializable {
             mainCtrl.addUndoFunction(() -> server.createTag(event.getId(), oldTag));
             mainCtrl.tagsPage(event.getId());
             clear();
-            tag = null;
         }
         else {
             var alert = new Alert(Alert.AlertType.ERROR);
@@ -125,6 +124,7 @@ public class AddTagCtrl implements Initializable {
         name.setText(null);
         color.setValue(Color.WHITE);
         invalid.setVisible(false);
+        tag = null;
     }
 
     public void OverviewPage(){
