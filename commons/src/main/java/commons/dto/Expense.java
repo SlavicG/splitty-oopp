@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,6 +32,8 @@ public class Expense {
         this.splitBetween = splitBetween;
         this.tagId = tagId;
     }
+
+
 //    public Expense(Integer id, Double amount, String description,
 //                   Integer payerId, LocalDate date, List<Integer> splitBetween ) {
 //        this.id = id;
@@ -53,6 +57,9 @@ public class Expense {
     public Expense() {
 
     }
+
+
+
 
     public Integer getId() {
         return id;
