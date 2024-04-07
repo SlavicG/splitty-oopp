@@ -34,7 +34,7 @@ public class EventService {
             expense.getPayer().getId(),
             expense.getDate(),
             expense.getSplitBetween(),
-            0);
+            expense.getTag().getId());
     private Function<server.model.Tag, commons.dto.Tag> mapper2 = tag -> new commons.dto.Tag(
             tag.getId(),
             tag.getName(),
@@ -267,7 +267,7 @@ public class EventService {
             expense.getPayer().getId(),
             expense.getDate(),
             expense.getSplitBetween(),
-            0);
+            expense.getTag().getId());
 
     //settle all debts in an event
     public List<commons.dto.User> settleAllDebtsEvent(Integer eventId){
