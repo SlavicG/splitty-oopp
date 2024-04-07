@@ -4,15 +4,17 @@ import client.utils.ServerUtils;
 import commons.dto.Event;
 import commons.dto.Tag;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import com.google.inject.Inject;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
+import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AddTagCtrl {
+public class AddTagCtrl implements Initializable {
     private ResourceBundle resourceBundle;
     private ServerUtils server;
     private MainCtrl mainCtrl;
@@ -28,6 +30,8 @@ public class AddTagCtrl {
     private Button create;
     @FXML
     private Label title;
+    @FXML
+    private Button remove;
     private Integer eventId;
 
     @Inject
@@ -43,13 +47,19 @@ public class AddTagCtrl {
 
     public void setTag(Integer tagId, Integer eventId) {
         if (tagId == null) {
+            remove.setVisible(false);
+            create.setText(resourceBundle.getString("ok"));
+            title.setText(resourceBundle.getString("add_tag"));
+            name.setText(null);
+            color.setValue(Color.WHITE);
             return;
         }
         tag = server.getTagById(tagId, eventId);
         name.setText(server.getTagById(tagId, eventId).getName());
         color.setValue(Color.color(tag.getR()/255, tag.getG()/255, tag.getB()/255));
-        create.setText("Edit");
-        title.setText("Edit Tag");
+        create.setText(resourceBundle.getString("ok"));
+        title.setText(resourceBundle.getString("edit_tag"));
+        remove.setVisible(true);
     }
 
     public void onCreate() {
@@ -97,5 +107,9 @@ public class AddTagCtrl {
 
     public void OverviewPage(){
         mainCtrl.tagsPage(eventId);
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.resourceBundle = resourceBundle;
     }
 }
