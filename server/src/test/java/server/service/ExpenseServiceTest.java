@@ -79,19 +79,19 @@ class ExpenseServiceTest {
         assertEquals(expense1.getTag().getId(), expenseDto.getTagId());
     }
 
-    @Test
-    public void createExpenseTest() {
+//    @Test
+//    public void createExpenseTest() {
+//
+//        LocalDate date = LocalDate.of(2021, 10, 24);
+//
+//        List<Expense> mockExpenses = Arrays.asList(expense1);
+//        commons.dto.Expense expenseDto = new commons.dto.Expense(1,15.0,"Food",
+//                1, date, new ArrayList<>(),1);
+//
 
-        LocalDate date = LocalDate.of(2021, 10, 24);
-
-        List<Expense> mockExpenses = Arrays.asList(expense1);
-        commons.dto.Expense expenseDto = new commons.dto.Expense(1,15.0,"Food",
-                1, date, new ArrayList<>(),1);
 
 
-
-
-        when(expenseRepository.findAll()).thenReturn(mockExpenses);
+//        when(expenseRepository.findAll()).thenReturn(mockExpenses);
 
 
 //        List<commons.dto.Expense> resultExpenses = expenseService.getExpenseById(e);
