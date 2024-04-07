@@ -60,7 +60,8 @@ public class TagService {
 
     @Transactional
     public Tag createTag(Integer eventId, Tag tag) {
-        server.model.Event event = eventRepository.getById(eventId);
+        server.model.Event event = new server.model.Event();
+        event.setId(eventId);
         server.model.Tag tagEntity = new server.model.Tag(
                 null,
                 tag.getName(),
@@ -68,13 +69,7 @@ public class TagService {
                 tag.getG(),
                 tag.getB(),
                 event);
-        List<server.model.Tag> listTagsPrev = event.getTags();
-        if (listTagsPrev != null) {
-            listTagsPrev.add(tagEntity);
-            event.setTags(listTagsPrev);
-        }
 
-        eventRepository.save(event);
         server.model.Tag createdEntity = tagRepository.save(tagEntity);
         return new Tag(createdEntity.getId(),
                 createdEntity.getName(),

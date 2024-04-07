@@ -56,8 +56,10 @@ public class Main extends Application {
         var adminPage = FXML.load(AdminDashboardCtrl.class, bundle, "client", "scenes", "AdminDashboard.fxml");
         var editEventName = FXML.load(EditEventNameCtrl.class, bundle, "client", "scenes", "EditEventName.fxml");
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
+        var tagsPage = FXML.load(TagsPageCtrl.class, bundle,"client", "scenes", "TagsPage.fxml");
         mainCtrl.initialize(primaryStage, overview, add, startPage, overviewPage, invitationPage,
-                addParticipant, addExpensePage, statisticsPage, loginPage, adminPage,editEventName, addTagPage);
+                addParticipant, addExpensePage, statisticsPage, loginPage, adminPage,editEventName,
+                addTagPage, tagsPage);
         primaryStage.setOnCloseRequest(e -> {
             startPage.getKey().stop();
         });

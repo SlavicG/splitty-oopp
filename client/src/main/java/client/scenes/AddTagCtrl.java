@@ -24,6 +24,9 @@ public class AddTagCtrl {
     public Label invalid;
     private Event event;
     private Tag tag;
+    @FXML
+    private Button create;
+    private Integer eventId;
 
     @Inject
     public AddTagCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -33,14 +36,18 @@ public class AddTagCtrl {
 
     public void setEvent(Integer eventId) {
         this.event = server.getEventById(eventId);
+        this.eventId = eventId;
     }
 
-    public void setTag(Integer tagId) {
+    public void setTag(Integer tagId, Integer eventId) {
         if (tagId == null) {
             return;
         }
-        tag = server.getTagById(tagId, event.getId());
-        name.setText(tag.getName());
+        tag = server.getTagById(tagId, eventId);
+        name.setText(server.getTagById(tagId, eventId).getName());
+        color.setValue(Color.color(tag.getR()/255, tag.getG()/255, tag.getB()/255));
+        create.setText("Edit");
+
     }
 
     public void onCreate() {
@@ -66,7 +73,7 @@ public class AddTagCtrl {
             tag = null;
         }
         clear();
-        mainCtrl.eventPage(event.getId());
+        mainCtrl.tagsPage(event.getId());
     }
 
     public void onDelete() {
@@ -87,6 +94,6 @@ public class AddTagCtrl {
     }
 
     public void OverviewPage(){
-        mainCtrl.overviewPage();
+        mainCtrl.tagsPage(eventId);
     }
 }
