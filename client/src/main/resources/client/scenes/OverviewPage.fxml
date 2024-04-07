@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -40,6 +42,39 @@
                   </ImageView>
                </graphic>
             </Button>
+            <VBox alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="597.0">
+               <children>
+                  <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="125.0" styleClass="choice-box" text="Language">
+                     <items>
+                        <MenuItem fx:id="switch_en" mnemonicParsing="false" onAction="#changeLangEn" text="English">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@/client/images/english.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></MenuItem>
+                        <MenuItem fx:id="switch_nl" mnemonicParsing="false" onAction="#changeLangNl" text="Dutch">
+                           <graphic>
+                              <ImageView fitHeight="27.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@/client/images/dutch.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></MenuItem>
+                        <MenuItem fx:id="switch_ro" mnemonicParsing="false" onAction="#changeLangRo" text="Romanian">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@/client/images/romania.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></MenuItem>
+                        <MenuItem fx:id="add_new_lang" mnemonicParsing="false" onAction="#addNewLang" text="Add new Language" />
+                     </items>
+                  </MenuButton>
+               </children>
+            </VBox>
          </children>
          <VBox.margin>
             <Insets />
@@ -47,7 +82,7 @@
       </HBox>
       <HBox spacing="20.0">
          <children>
-            <Button fx:id="invitation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#invitation" text="%send_invites">
+            <Button fx:id="invitation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#invitation" stylesheets="@../css/style.css" text="%send_invites">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -72,11 +107,11 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button mnemonicParsing="false" onAction="#tagsPage"  maxWidth="-Infinity" minWidth="-Infinity" styleClass="button-green">
+            <Button mnemonicParsing="false" onAction="#tagsPage" styleClass="button-green">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@/client/images/tag.png" />
+                        <Image url="@/client/images/price-tag (1).png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -127,7 +162,7 @@
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@/client/images/plus.png" />
+                                <Image url="@../images/arrow-left.png" />
                             </image>
                         </ImageView>
                      </graphic>
