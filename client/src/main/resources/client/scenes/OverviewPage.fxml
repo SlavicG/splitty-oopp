@@ -50,7 +50,7 @@
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@/client/images/english.png" />
+                                    <Image url="@/client/images/en.png" />
                                  </image>
                               </ImageView>
                            </graphic></MenuItem>
@@ -58,7 +58,7 @@
                            <graphic>
                               <ImageView fitHeight="27.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@/client/images/dutch.png" />
+                                    <Image url="@/client/images/nl.png" />
                                  </image>
                               </ImageView>
                            </graphic></MenuItem>
@@ -66,7 +66,7 @@
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@/client/images/romania.png" />
+                                    <Image url="@/client/images/ro.png" />
                                  </image>
                               </ImageView>
                            </graphic></MenuItem>
