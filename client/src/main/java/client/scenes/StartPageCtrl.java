@@ -12,8 +12,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -38,6 +41,8 @@ public class StartPageCtrl implements Initializable {
     private Text invalidEventName;
     @FXML
     private Text invalidInviteCode;
+    @FXML
+    private ImageView currentLanguage;
 
     @Inject
     public StartPageCtrl(ServerUtils server, MainCtrl mainCtrl, Configuration configuration, StartPageLogic logic) {
@@ -60,6 +65,12 @@ public class StartPageCtrl implements Initializable {
                 data.add(q);
             });
         });
+        String l = configuration.getLangConfig();
+        String s = System.getProperty("user.dir");
+        File file = new File(s + "\\client\\src\\main\\resources\\client\\images\\" + l + ".png");
+        Image image = new Image(file.toURI().toString());
+        currentLanguage.setImage(image);
+//        this.currentLanguage = new ImageView(image);
     }
     public void stop() {
         server.stop();

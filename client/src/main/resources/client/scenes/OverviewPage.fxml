@@ -42,15 +42,15 @@
                   </ImageView>
                </graphic>
             </Button>
-            <VBox alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="597.0">
+            <VBox alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="586.0">
                <children>
-                  <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="125.0" styleClass="choice-box" text="Language">
+                  <MenuButton mnemonicParsing="false" prefHeight="30.0" prefWidth="162.0" styleClass="choice-box" text="%language">
                      <items>
                         <MenuItem fx:id="switch_en" mnemonicParsing="false" onAction="#changeLangEn" text="English">
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@/client/images/english.png" />
+                                    <Image url="@/client/images/en.png" />
                                  </image>
                               </ImageView>
                            </graphic></MenuItem>
@@ -58,7 +58,7 @@
                            <graphic>
                               <ImageView fitHeight="27.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@/client/images/dutch.png" />
+                                    <Image url="@/client/images/nl.png" />
                                  </image>
                               </ImageView>
                            </graphic></MenuItem>
@@ -66,12 +66,15 @@
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@/client/images/romania.png" />
+                                    <Image url="@/client/images/ro.png" />
                                  </image>
                               </ImageView>
                            </graphic></MenuItem>
                         <MenuItem fx:id="add_new_lang" mnemonicParsing="false" onAction="#addNewLang" text="Add new Language" />
                      </items>
+                     <graphic>
+                        <ImageView fx:id="currentLanguage" fitHeight="22.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
                   </MenuButton>
                </children>
             </VBox>
