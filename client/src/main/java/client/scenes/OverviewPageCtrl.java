@@ -21,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.util.StringConverter;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -65,6 +66,8 @@ public class OverviewPageCtrl implements Initializable {
     private FilteredList<Expense> expenses;
     private ResourceBundle resources;
     Configuration configuration;
+    @FXML
+    private ImageView currentLanguage;
 
     @Inject
     public OverviewPageCtrl(ServerUtils server, MainCtrl mainCtrl, Configuration configuration) {
@@ -164,6 +167,11 @@ public class OverviewPageCtrl implements Initializable {
             invitation.setDisable(true);
             invitation.setStyle("-fx-opacity: 0.5;");
         }
+        String l = configuration.getLangConfig();
+        String s = System.getProperty("user.dir");
+        File file = new File(s + "\\client\\src\\main\\resources\\client\\images\\" + l + ".png");
+        Image image = new Image(file.toURI().toString());
+        currentLanguage.setImage(image);
     }
 
     private void handleNewUser(User newUser) {
