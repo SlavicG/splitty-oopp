@@ -21,6 +21,15 @@ public class Tag {
         this.eventId = eventId;
     }
 
+    public Tag(Tag tag) {
+        this.id = tag.getId();
+        this.name = tag.getName();
+        this.r = tag.getR();
+        this.g = tag.getG();
+        this.b = tag.getB();
+        this.eventId = tag.getEventId();
+    }
+
     public Integer getId() {
         return this.id;
     }

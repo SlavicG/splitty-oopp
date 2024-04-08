@@ -30,6 +30,6 @@ Accept: application/json
 Content-Type: application/json
 
 ### Delete Tag
-DELETE  http://localhost:8080/rest/events/2/tags/2
+DELETE  http://localhost:8080/rest/events/1/tags/2
 Accept: application/json
 Content-Type: application/json
