@@ -110,11 +110,11 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button mnemonicParsing="false" onAction="#tagsPage" styleClass="button-green">
+            <Button maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#tagsPage" styleClass="button-green" text="%tags">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@/client/images/price-tag (1).png" />
+                        <Image url="@/client/images/tag.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -165,7 +165,7 @@
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../images/arrow-left.png" />
+                                <Image url="@../images/plus.png" />
                             </image>
                         </ImageView>
                      </graphic>
