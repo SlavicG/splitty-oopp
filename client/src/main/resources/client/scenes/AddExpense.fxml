@@ -26,7 +26,7 @@
             <Insets top="5.0" />
          </VBox.margin>
       </Text>
-      <HBox alignment="TOP_CENTER" prefHeight="413.0" prefWidth="601.0" spacing="10.0">
+      <HBox alignment="TOP_CENTER" prefHeight="447.0" prefWidth="601.0" spacing="10.0">
          <children>
             <VBox alignment="TOP_RIGHT" prefHeight="374.0" prefWidth="150.0" spacing="10.0">
                <children>
@@ -54,9 +54,9 @@
                   </HBox>
                   <DatePicker fx:id="when" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" />
                   <ChoiceBox fx:id="tag" prefHeight="30.0" prefWidth="200.0" />
-                  <VBox prefHeight="174.0" prefWidth="250.0">
+                  <VBox prefHeight="194.0" prefWidth="250.0">
                      <children>
-                        <CheckBox fx:id="everybody" alignment="TOP_LEFT" mnemonicParsing="false" onMouseClicked="#handleEverybody" prefHeight="36.0" prefWidth="255.0" text="%everybody">
+                        <CheckBox fx:id="everybody" alignment="TOP_LEFT" mnemonicParsing="false" onMouseClicked="#handleEverybody" prefHeight="36.0" prefWidth="255.0" styleClass="paragraph" text="%everybody">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -64,12 +64,12 @@
                               <Insets bottom="18.0" />
                            </padding>
                         </CheckBox>
-                        <CheckBox fx:id="not_everybody" mnemonicParsing="false" onMouseClicked="#handleNotEverybody" prefHeight="36.0" prefWidth="254.0" text="%not_everybody">
+                        <CheckBox fx:id="not_everybody" mnemonicParsing="false" onMouseClicked="#handleNotEverybody" prefHeight="36.0" prefWidth="254.0" styleClass="paragraph" text="%not_everybody">
                            <padding>
                               <Insets bottom="18.0" />
                            </padding>
                         </CheckBox>
-                        <ListView fx:id="menu" prefHeight="200.0" prefWidth="200.0" />
+                        <ListView fx:id="menu" prefHeight="120.0" prefWidth="250.0" styleClass="checkbox" />
                      </children>
                   </VBox>
                </children>

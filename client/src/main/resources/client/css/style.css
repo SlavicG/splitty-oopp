@@ -137,6 +137,21 @@
     -fx-font-size: 16px;
 }
 
+.list-view .list-cell .checkbox {
+    -fx-text-fill: #3b3c52; /* Text color */
+    -fx-font-family: 'Inter Tight Medium'; /* Font family */
+    -fx-font-size: 16px; /* Font size */
+    -fx-background-color: #eff1f5; /* Background color */
+    -fx-border-width: 2px; /* Border width */
+    -fx-border-color: #ccd0da; /* Border color */
+    -fx-border-radius: 5px; /* Border radius */
+}
+
+.list-view .list-cell .checkbox:selected {
+    -fx-background-color: #7287fd; /* Background color when selected */
+    -fx-text-fill: #ffffff; /* Text color when selected */
+}
+
 .choice-box {
     -fx-text-fill: #3b3c52;
     -fx-prompt-text-fill: #9ca0b0;

@@ -6,6 +6,7 @@ import commons.dto.Event;
 import commons.dto.Expense;
 import commons.dto.Tag;
 import commons.dto.User;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -57,7 +58,6 @@ public class AddExpenseCtrl implements Initializable {
     private List<Integer> splitBetweenId;
     @FXML
     private ListView<CheckBox> menu;
-    ObservableList<CheckBox> splitOptions = FXCollections.observableArrayList();
     private ResourceBundle resourceBundle;
 
     @Inject
@@ -100,7 +100,7 @@ public class AddExpenseCtrl implements Initializable {
         }
         else {
             List<Optional<User>> users = server.getUserByEvent(event.getId()).stream().map(Optional::of).toList();
-            for (CheckBox c: splitOptions) {
+            for (CheckBox c: menu.getItems()) {
                 if (c.isSelected()) {
                     String name = c.getText();
                     for (Optional<User> u: users) {
@@ -188,11 +188,8 @@ public class AddExpenseCtrl implements Initializable {
                 continue;
             }
             CheckBox checkBox = new CheckBox(user.get().getName());
-            checkBox.setBackground(null);
-            splitOptions.add(checkBox);
+            menu.getItems().add(checkBox);
         }
-        menu.setItems(splitOptions);
-
     }
 
     public void setExpenseId(Integer id) {
@@ -227,7 +224,6 @@ public class AddExpenseCtrl implements Initializable {
 //            }
         }
         List<Optional<User>> users = server.getUserByEvent(event.getId()).stream().map(Optional::of).toList();
-        splitOptions = FXCollections.observableArrayList();
         menu.getItems().clear();
         for (Optional<User> user : users) {
             if (user.isEmpty()) {
@@ -238,9 +234,8 @@ public class AddExpenseCtrl implements Initializable {
             if (expense.getSplitBetween().contains(user.get().getId()))
                 checkBox.setSelected(true);
             else checkBox.setSelected(false);
-            splitOptions.add(checkBox);
+            Platform.runLater(() -> menu.getItems().add(checkBox));
         }
-        menu.setItems(splitOptions);
     }
 
     @Override
@@ -294,7 +289,7 @@ public class AddExpenseCtrl implements Initializable {
 
     public void handleEverybody() {
         not_everybody.setSelected(false);
-        splitOptions.forEach(x -> x.setSelected(true));
+        menu.getItems().forEach(x -> x.setSelected(true));
     }
 
     public void handleNotEverybody() {
