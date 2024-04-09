@@ -29,3 +29,17 @@ Note taker:
 - Summary of what has been discussed and what we will be doing during this week. (2 min)
 
 # Meeting Notes
+1. Everyone is present.
+2. Code deadline is moved to sunday, self-reflection and buddycheck deadline is still friday.
+3. Kinga is working on front-end settling debts.
+4. David has fixed the jasonbuilder to upload and download with the help of miruna and slavic.
+5. Slavic has changed tag structure and helped with the statistics page and with the admin page.
+6. Miruna added flags and romanian and a new tagpage and helped david with his problems.
+7. Ilker Made a start with the fornt-end tests and dictated the Front-end test-structure. 
+8. Abdullah has made a test class and helped Kinga with her problems.
+9. Kinga had problems with the javafx but is now fixed and.
+10. Kinga also is doing settle-debts.
+11. Ilker and david will help Kinga with Front-end.
+12. Showed the Ta a demo run.
+13. We will finish the app and then make a product pitch vid.
+14. Product pitch is 10 min and Q&A after that.
