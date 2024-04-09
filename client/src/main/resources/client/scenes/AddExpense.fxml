@@ -18,7 +18,7 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0" prefWidth="621.0" spacing="10.0" stylesheets="@/client/css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AddExpenseCtrl">
    <children>
-      <Text fx:id="title" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="header" text="%new_expense" wrappingWidth="119.7158203125">
+      <Text fx:id="title" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="header" text="%new_expense" wrappingWidth="248.51580047607422">
          <font>
             <Font size="18.0" />
          </font>
@@ -56,7 +56,7 @@
                   <ChoiceBox fx:id="tag" prefHeight="30.0" prefWidth="200.0" />
                   <VBox prefHeight="174.0" prefWidth="250.0">
                      <children>
-                        <CheckBox fx:id="everybody" alignment="TOP_LEFT" mnemonicParsing="false" onMouseClicked="#handleEverybody" prefHeight="36.0" prefWidth="255.0" styleClass="paragraph" text="%everybody">
+                        <CheckBox fx:id="everybody" alignment="TOP_LEFT" mnemonicParsing="false" onMouseClicked="#handleEverybody" prefHeight="36.0" prefWidth="255.0" text="%everybody">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -64,7 +64,7 @@
                               <Insets bottom="18.0" />
                            </padding>
                         </CheckBox>
-                        <CheckBox fx:id="not_everybody" mnemonicParsing="false" onKeyReleased="#handleNotEverybody" onMouseClicked="#handleNotEverybody" prefHeight="36.0" prefWidth="254.0" styleClass="paragraph" text="%not_everybody">
+                        <CheckBox fx:id="not_everybody" mnemonicParsing="false" onMouseClicked="#handleNotEverybody" prefHeight="36.0" prefWidth="254.0" text="%not_everybody">
                            <padding>
                               <Insets bottom="18.0" />
                            </padding>

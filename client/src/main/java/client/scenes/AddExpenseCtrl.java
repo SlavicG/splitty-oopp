@@ -209,6 +209,38 @@ public class AddExpenseCtrl implements Initializable {
         howMuch.getValueFactory().setValue(expense.getAmount());
         when.setValue(expense.getDate());
         tag.setValue(server.getTagById(event.getId(), expense.getTagId()));
+        if (expense.getSplitBetween().size() == event.getUserIds().size()) {
+            everybody.setSelected(true);
+            not_everybody.setSelected(false);
+            //splitOptions.forEach(x -> x.setSelected(true));
+
+        }
+        else {
+            not_everybody.setSelected(true);
+            everybody.setSelected(false);
+//            for (CheckBox c: splitOptions) {
+//                for (Integer u: expense.getSplitBetween()) {
+//                    if (server.getUserById(event.getId(), u).getName().equals(c.getText()))
+//                        c.setSelected(true);
+//                    else c.setSelected(false);
+//                }
+//            }
+        }
+        List<Optional<User>> users = server.getUserByEvent(event.getId()).stream().map(Optional::of).toList();
+        splitOptions = FXCollections.observableArrayList();
+        menu.getItems().clear();
+        for (Optional<User> user : users) {
+            if (user.isEmpty()) {
+                continue;
+            }
+            CheckBox checkBox = new CheckBox(user.get().getName());
+            checkBox.setBackground(null);
+            if (expense.getSplitBetween().contains(user.get().getId()))
+                checkBox.setSelected(true);
+            else checkBox.setSelected(false);
+            splitOptions.add(checkBox);
+        }
+        menu.setItems(splitOptions);
     }
 
     @Override
