@@ -6,21 +6,25 @@ import commons.dto.Event;
 import commons.dto.Expense;
 import commons.dto.Tag;
 import commons.dto.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.StringConverter;
 
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class AddExpenseCtrl implements Initializable {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
+    private final HashMap<Integer, String> userNamesCache;
     @FXML
     public ChoiceBox<User> whoPaid;
     @FXML
@@ -39,18 +43,28 @@ public class AddExpenseCtrl implements Initializable {
     public Button create;
     @FXML
     public Button remove;
+    @FXML
+    public CheckBox everybody;
+    @FXML
+    public CheckBox not_everybody;
+    @FXML
+    public FlowPane participants;
 
 
     private Event event;
     private Expense expense;
 
     private List<Integer> splitBetweenId;
+    @FXML
+    private ListView<CheckBox> menu;
+    ObservableList<CheckBox> splitOptions = FXCollections.observableArrayList();
     private ResourceBundle resourceBundle;
 
     @Inject
     public AddExpenseCtrl(MainCtrl mainCtrl, ServerUtils server) {
         this.mainCtrl = mainCtrl;
         this.server = server;
+        userNamesCache = new HashMap<>();
     }
 
     public void onCancel() {
@@ -80,7 +94,21 @@ public class AddExpenseCtrl implements Initializable {
             return;
         }
         invalid.setVisible(false);
-
+        splitBetweenId = new ArrayList<>();
+        if (everybody.isSelected()) {
+            splitBetweenId = event.getUserIds();
+        }
+        else {
+            List<Optional<User>> users = server.getUserByEvent(event.getId()).stream().map(Optional::of).toList();
+            for (CheckBox c: splitOptions) {
+                if (c.isSelected()) {
+                    String name = c.getText();
+                    for (Optional<User> u: users) {
+                        if (u.get().getName().equals(name)) splitBetweenId.add(u.get().getId());
+                    }
+                }
+            }
+        }
         Expense newExpense = new Expense(
             expense == null ? null : expense.getId(), howMuch.getValue(), whatFor.getText(), whoPaid.getValue().getId(),
                 when.getValue(), splitBetweenId, tag.getValue().getId());
@@ -153,6 +181,18 @@ public class AddExpenseCtrl implements Initializable {
             }
         });
         tag.getItems().addAll(server.getTags(eventId));
+        List<Optional<User>> users = server.getUserByEvent(event.getId()).stream().map(Optional::of).toList();
+        menu.getItems().clear();
+        for (Optional<User> user : users) {
+            if (user.isEmpty()) {
+                continue;
+            }
+            CheckBox checkBox = new CheckBox(user.get().getName());
+            checkBox.setBackground(null);
+            splitOptions.add(checkBox);
+        }
+        menu.setItems(splitOptions);
+
     }
 
     public void setExpenseId(Integer id) {
@@ -218,5 +258,14 @@ public class AddExpenseCtrl implements Initializable {
         when.setValue(null);
         tag.setValue(null);
         invalid.setVisible(false);
+    }
+
+    public void handleEverybody() {
+        not_everybody.setSelected(false);
+        splitOptions.forEach(x -> x.setSelected(true));
+    }
+
+    public void handleNotEverybody() {
+        everybody.setSelected(false);
     }
 }

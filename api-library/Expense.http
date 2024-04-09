@@ -22,11 +22,12 @@ Content-Type: application/json
   "description": "salut",
   "payerId": 1,
   "date": "2024-03-28",
+  "split-between": null,
   "tagId": 2
 }
 
 ### Get Expenses
-GET http://localhost:8080/rest/events/1/expenses/1
+GET http://localhost:8080/rest/events/1/expenses/10
 Accept: application/json
 Content-Type: application/json
 

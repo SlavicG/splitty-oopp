@@ -56,7 +56,7 @@
                   <ChoiceBox fx:id="tag" prefHeight="30.0" prefWidth="200.0" />
                   <VBox prefHeight="174.0" prefWidth="250.0">
                      <children>
-                        <CheckBox alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="36.0" prefWidth="255.0" styleClass="paragraph" text="%everybody">
+                        <CheckBox fx:id="everybody" alignment="TOP_LEFT" mnemonicParsing="false" onMouseClicked="#handleEverybody" prefHeight="36.0" prefWidth="255.0" styleClass="paragraph" text="%everybody">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -64,12 +64,12 @@
                               <Insets bottom="18.0" />
                            </padding>
                         </CheckBox>
-                        <CheckBox mnemonicParsing="false" prefHeight="36.0" prefWidth="254.0" styleClass="paragraph" text="%not_everybody">
+                        <CheckBox fx:id="not_everybody" mnemonicParsing="false" onKeyReleased="#handleNotEverybody" onMouseClicked="#handleNotEverybody" prefHeight="36.0" prefWidth="254.0" styleClass="paragraph" text="%not_everybody">
                            <padding>
                               <Insets bottom="18.0" />
                            </padding>
                         </CheckBox>
-                        <ListView fx:id="participants" prefHeight="82.0" prefWidth="250.0" />
+                        <ListView fx:id="menu" prefHeight="200.0" prefWidth="200.0" />
                      </children>
                   </VBox>
                </children>
