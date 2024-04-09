@@ -3,7 +3,7 @@
 Date:           09-04-2024\
 Main focus:     Final touches and solving debts\
 Chair:          David \
-Note taker:     
+Note taker:     Abdullah
 
 # Opening
 1. Presence: To be noted during the meeting. How is everyone doing? (1 min)
