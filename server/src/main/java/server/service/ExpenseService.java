@@ -158,6 +158,7 @@ public class ExpenseService {
             existingExpense.setDescription(expense.getDescription());
             existingExpense.setPayer(getUserById(expense.getPayerId()));
             existingExpense.setTag(getTagById(expense.getTagId()));
+            existingExpense.setSplitBetween(expense.getSplitBetween());
             server.model.Expense savedExpense = expenseRepository.save(existingExpense);
             Expense expenseUpdated = mapper.apply(savedExpense);
             updateAllDebtsInEvent(eventId);
