@@ -15,13 +15,14 @@ import javafx.scene.text.Text;
 import javafx.util.StringConverter;
 
 import java.net.URL;
-import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.*;
 
 public class AddExpenseCtrl implements Initializable {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
+    private final AddExpenseLogic logic;
     private final HashMap<Integer, String> userNamesCache;
     @FXML
     public ChoiceBox<User> whoPaid;
@@ -58,9 +59,10 @@ public class AddExpenseCtrl implements Initializable {
     private ResourceBundle resourceBundle;
 
     @Inject
-    public AddExpenseCtrl(MainCtrl mainCtrl, ServerUtils server) {
+    public AddExpenseCtrl(MainCtrl mainCtrl, ServerUtils server, AddExpenseLogic logic) {
         this.mainCtrl = mainCtrl;
         this.server = server;
+        this.logic = logic;
         userNamesCache = new HashMap<>();
     }
 
@@ -69,28 +71,18 @@ public class AddExpenseCtrl implements Initializable {
     }
 
     public void onCreate() {
-        invalid.setVisible(true);
-        if (howMuch.getValue() == null || howMuch.getValue() <= 0.0) {
-            invalid.setText(resourceBundle.getString("invalid_expense_amount"));
+        // Validate data entries
+        Optional<String> validation = logic.validateNewExpense(howMuch.getValue(), whatFor.getText(),
+                whoPaid.getValue(), tag.getValue(), when.getValue());
+        if (validation.isEmpty()) {
+            invalid.setVisible(false);
+        }
+        else {
+            invalid.setVisible(true);
+            invalid.setText(resourceBundle.getString(validation.get()));
             return;
         }
-        if (whatFor.getText() == null || whatFor.getText().isEmpty()) {
-            invalid.setText(resourceBundle.getString("invalid_expense_description"));
-            return;
-        }
-        if (whoPaid.getValue() == null) {
-            invalid.setText(resourceBundle.getString("invalid_expense_payer"));
-            return;
-        }
-        if (tag.getValue() == null) {
-            invalid.setText(resourceBundle.getString("invalid_tag"));
-            return;
-        }
-        if (when.getValue() == null) {
-            invalid.setText(resourceBundle.getString("invalid_expense_date"));
-            return;
-        }
-        invalid.setVisible(false);
+
         splitBetweenId = new ArrayList<>();
         if (everybody.isSelected()) {
             splitBetweenId = event.getUserIds();
@@ -106,41 +98,28 @@ public class AddExpenseCtrl implements Initializable {
                 }
             }
         }
+
         Expense newExpense = new Expense(
             expense == null ? null : expense.getId(), howMuch.getValue(), whatFor.getText(), whoPaid.getValue().getId(),
                 when.getValue(), splitBetweenId, tag.getValue().getId());
 
-        if (expense == null) {
-            Expense result = server.addExpense(newExpense, event.getId());
-            mainCtrl.addUndoFunction(() -> server.deleteExpense(result, event.getId()));
-
-        } else {
-            server.updateExpense(newExpense, event.getId());
-            Expense oldExpense = new Expense(expense);
-            mainCtrl.addUndoFunction(() -> {
-                try {
-                    server.updateExpense(oldExpense, event.getId());
-                }
-                catch (RuntimeException e) {
-                    var alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Could not undo edit operation.");
-                    alert.setHeaderText("Undo of expense edit not possible anymore.");
-                    alert.setContentText(
-                        "Undoing an expense edit is no longer possible after previously deleting that expense.");
-                    alert.show();
-                }
-            });
+        try {
+            logic.updateExpense(expense, newExpense, event);
+        }
+        catch (RuntimeException e) {
+            var alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Could not undo edit operation.");
+            alert.setHeaderText("Undo of expense edit not possible anymore.");
+            alert.setContentText(
+                "Undoing an expense edit is no longer possible after previously deleting that expense.");
+            alert.show();
         }
 
         mainCtrl.eventPage(event.getId());
     }
 
     public void onRemove() {
-        assert(expense != null);
-        server.deleteExpense(expense, event.getId());
-        Expense oldExpense = new Expense(expense);
-        mainCtrl.addUndoFunction(() -> server.addExpense(oldExpense, event.getId()));
-        mainCtrl.eventPage(event.getId());
+        logic.removeExpense(expense, event);
     }
 
     public void setEvent(Integer eventId) {
@@ -240,7 +219,7 @@ public class AddExpenseCtrl implements Initializable {
         this.resourceBundle = resourceBundle;
         howMuch.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1000000.0, 0.0, 1.0));
         howMuch.getValueFactory().setConverter(new StringConverter<>() {
-            private final DecimalFormat df = new DecimalFormat("#.##");
+            private final NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.FRANCE);
 
             @Override
             public String toString(Double value) {
@@ -249,7 +228,7 @@ public class AddExpenseCtrl implements Initializable {
                     return "";
                 }
 
-                return df.format(value);
+                return nf.format(value);
             }
 
             @Override
@@ -267,7 +246,7 @@ public class AddExpenseCtrl implements Initializable {
                     }
 
                     // Perform the requested parsing
-                    return df.parse(value).doubleValue();
+                    return nf.parse(value).doubleValue();
                 } catch (ParseException ex) {
                     throw new RuntimeException(ex);
                 }
