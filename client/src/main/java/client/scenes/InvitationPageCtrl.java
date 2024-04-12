@@ -22,8 +22,6 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class InvitationPageCtrl implements Initializable {
     private final ServerUtils server;
@@ -39,10 +37,12 @@ public class InvitationPageCtrl implements Initializable {
     @FXML
     Button send_emails;
     private Executor mc;
+    private MailPageLogic logic;
     @Inject
-    public InvitationPageCtrl(ServerUtils server, MainCtrl mainCtrl) {
+    public InvitationPageCtrl(ServerUtils server, MainCtrl mainCtrl, MailPageLogic logic) {
         this.server = server;
         this.mainCtrl = mainCtrl;
+        this.logic = logic;
     }
     private static JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
     public void setMailConfig(MailConfig mailConfig) {
@@ -92,10 +92,7 @@ public class InvitationPageCtrl implements Initializable {
     }
 
     boolean isValidEmail(String email) {
-        String regex = "^(.+)@(.+)$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
+        return logic.isValidEmail(email);
     }
     public void sendEmails() throws InterruptedException {
         Configuration configuration = new Configuration();

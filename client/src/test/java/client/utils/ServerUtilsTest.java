@@ -1,10 +1,11 @@
 package client.utils;
 
 class ServerUtilsTest {
-    /*
+
     Configuration configuration = new Configuration();
     ServerUtils server = new ServerUtils(configuration);
 
+    /*
     static User user = new User(1, "Abdullah", "@email.com", "504", "2323");
     static User user2 = new User(1, "Abdullah", "@email.com", "504", "5000");
     //User user3= server.addUsers(user);
