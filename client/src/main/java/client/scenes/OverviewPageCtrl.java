@@ -332,4 +332,8 @@ public class OverviewPageCtrl implements Initializable {
         }
         writer.flush();
     }
+
+    public void onSettleDebts() {
+        mainCtrl.settleDebtsPage(eventId);
+    }
 }

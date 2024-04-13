@@ -56,6 +56,8 @@ public class MainCtrl {
     private Scene add;
     private Scene tagsPage;
     private TagsPageCtrl tagsPageCtrl;
+    private Scene settleDebtsPage;
+    private SettleDebtsCtrl settleDebtsCtrl;
 
     private final Stack<Runnable> undoFunctionHistory = new Stack<>();
 
@@ -70,7 +72,8 @@ public class MainCtrl {
                            Pair<LoginPageCtrl, Parent> loginPage,
                            Pair<AdminDashboardCtrl, Parent> adminPage,
                            Pair<EditEventNameCtrl, Parent> editEventNamePage, Pair<AddTagCtrl, Parent> addTagPage,
-                           Pair<TagsPageCtrl, Parent> tagsPage) {
+                           Pair<TagsPageCtrl, Parent> tagsPage,
+                           Pair<SettleDebtsCtrl, Parent> settleDebtsPage) {
 
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
@@ -103,6 +106,8 @@ public class MainCtrl {
         this.editEventNameCtrl = editEventNamePage.getKey();
         this.tagsPage = new Scene(tagsPage.getValue());
         this.tagsPageCtrl = tagsPage.getKey();
+        this.settleDebtsCtrl = settleDebtsPage.getKey();
+        this.settleDebtsPage = new Scene(settleDebtsPage.getValue());
 
         startPage();
         primaryStage.show();
@@ -204,6 +209,12 @@ public class MainCtrl {
         primaryStage.setTitle("Tags Page");
         tagsPageCtrl.setEvent(eventId);
         primaryStage.setScene(tagsPage);
+    }
+
+    public void settleDebtsPage(Integer eventId) {
+        primaryStage.setTitle("Settle Debts");
+        settleDebtsCtrl.setEventId(eventId);
+        primaryStage.setScene(settleDebtsPage);
     }
 
     public void addUndoFunction(Runnable undoFunction) {
