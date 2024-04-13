@@ -34,6 +34,12 @@
     -fx-font-size: 16px;
 }
 
+.paragraph-bold {
+    -fx-text-fill: #3b3c52;
+    -fx-font-family: 'Inter Tight Bold';
+    -fx-font-size: 16px;
+}
+
 .subheader {
     -fx-text-fill: #3b3c52;
     -fx-font-family: 'Inter Tight Bold';
@@ -218,6 +224,15 @@
 .inner-pannel {
     -fx-background-radius: 5px;
     -fx-background-color: #dce0e8;
+}
+
+.scroll-pane {
+    -fx-background-color: #eff1f5;
+    -fx-background-radius: 10px;
+    -fx-border-width: 2px;
+    -fx-border-insets: -2px;
+    -fx-border-color: #ccd0da;
+    -fx-border-radius: 10px;
 }
 
 .table-view {
