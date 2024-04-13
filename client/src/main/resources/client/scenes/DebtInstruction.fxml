@@ -35,14 +35,14 @@
             <HBox alignment="CENTER" spacing="5.0">
                <children>
                   <Label fx:id="indebted" styleClass="paragraph-bold" text="Mik" />
-                  <Label styleClass="paragraph" text="gives" />
+                  <Label styleClass="paragraph" text="%gives" />
                   <Label fx:id="amount" styleClass="paragraph-bold" text="€2,00" />
-                  <Label styleClass="paragraph" text="to" />
+                  <Label styleClass="paragraph" text="%to" />
                   <Label fx:id="owed" styleClass="paragraph-bold" text="Superbos" />
                </children>
             </HBox>
             <Pane visible="false" HBox.hgrow="ALWAYS" />
-            <Button mnemonicParsing="false" onAction="#onMarkReceived" scaleShape="false" styleClass="button-green" text="Mark Received" />
+            <Button mnemonicParsing="false" onAction="#onMarkReceived" scaleShape="false" styleClass="button-green" text="%mark_received" />
          </children>
       </HBox>
       <VBox fx:id="infoBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
@@ -50,7 +50,7 @@
             <Label fx:id="bankInfo" styleClass="paragraph" text="Bank Information" />
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                <children>
-                  <Button fx:id="sendReminder" mnemonicParsing="false" onAction="#onSendReminder" text="Send Reminder" />
+                  <Button fx:id="sendReminder" mnemonicParsing="false" onAction="#onSendReminder" text="%send_reminder" />
                   <Label fx:id="emailUnknown" styleClass="text-error" text="Email Unknown" />
                </children>
             </HBox>
