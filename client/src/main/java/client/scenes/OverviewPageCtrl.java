@@ -3,10 +3,7 @@ package client.scenes;
 import client.utils.Configuration;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
-import commons.dto.Event;
-import commons.dto.Expense;
-import commons.dto.Tag;
-import commons.dto.User;
+import commons.dto.*;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -20,6 +17,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.util.StringConverter;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -28,6 +27,8 @@ import java.io.Writer;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.prefs.BackingStoreException;
 
 import static client.Main.switchLocale;
@@ -68,6 +69,7 @@ public class OverviewPageCtrl implements Initializable {
     Configuration configuration;
     @FXML
     private ImageView currentLanguage;
+    private Executor mc;
 
     @Inject
     public OverviewPageCtrl(ServerUtils server, MainCtrl mainCtrl, Configuration configuration) {
@@ -173,6 +175,7 @@ public class OverviewPageCtrl implements Initializable {
         File file = new File(s + "\\client\\src\\main\\resources\\client\\images\\" + l + ".png");
         Image image = new Image(file.toURI().toString());
         currentLanguage.setImage(image);
+
     }
 
     private void handleNewUser(User newUser) {
@@ -341,5 +344,42 @@ public class OverviewPageCtrl implements Initializable {
 
     public void onSettleDebts() {
         mainCtrl.settleDebtsPage(eventId);
+    }
+    public void testEmail() {
+        mc = Executors.newVirtualThreadPerTaskExecutor();
+        if(configuration.getMailConfig() == null) return;
+
+        setMailConfig(configuration.getMailConfig());
+        Mail mailRequest = new Mail(configuration.getMailConfig().getUsername(),
+                "Testing E-mail",
+                "Test for sending e-mails.");
+        mc.execute(() -> sendEmail(mailRequest));
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Email Sending Result");
+        alert.setHeaderText(null);
+        alert.setContentText("Email Test was sent succesfully.");
+        alert.showAndWait();
+    }
+    public void sendEmail(Mail mail) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setFrom(mailSender.getUsername());
+        mailMessage.setCc(mailSender.getUsername());
+        mailMessage.setTo(mail.getToMail());
+        mailMessage.setText(mail.getBody());
+        mailMessage.setSubject(mail.getSubject());
+        mailSender.send(mailMessage);
+    }
+    private static JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+    public void setMailConfig(MailConfig mailConfig) {
+        mailSender.setHost(mailConfig.getHost());
+        mailSender.setPort(mailConfig.getPort());
+        mailSender.setPassword(mailConfig.getPassword());
+        mailSender.setUsername(mailConfig.getUsername());
+        Properties props = mailSender.getJavaMailProperties();
+        props.put("mail.transport.protocol", mailConfig.getProps().getProperty("mail.transport.protocol"));
+        props.put("mail.smtp.auth", mailConfig.getProps().getProperty("mail.smtp.auth"));
+        props.put("mail.smtp.starttls.enable", mailConfig.getProps().getProperty("mail.smtp.starttls.enable"));
+        props.put("mail.debug", mailConfig.getProps().getProperty("mail.debug"));
     }
 }
