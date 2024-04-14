@@ -123,7 +123,7 @@
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@/client/images/email.png" />
+                        <Image url="@../images/mail.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
