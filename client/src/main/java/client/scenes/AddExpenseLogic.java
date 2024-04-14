@@ -24,7 +24,7 @@ public class AddExpenseLogic {
         if (howMuch == null || howMuch <= 0.0) {
             return Optional.of("invalid_expense_amount");
         }
-        if (whatFor == null || whatFor.isEmpty()) {
+        if (whatFor == null || whatFor.isEmpty() || whatFor.equals("Settle Debts")) {
             return Optional.of("invalid_expense_description");
         }
         if (whoPaid == null) {
