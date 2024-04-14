@@ -20,7 +20,6 @@ import javafx.util.StringConverter;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -171,11 +170,10 @@ public class OverviewPageCtrl implements Initializable {
             invitation.setStyle("-fx-opacity: 0.5;");
         }
         String l = configuration.getLangConfig();
-        String s = System.getProperty("user.dir");
-        File file = new File(s + "\\client\\src\\main\\resources\\client\\images\\" + l + ".png");
-        Image image = new Image(file.toURI().toString());
+        URL imageUrl = getClass().getResource("/client/images/" + l + ".png");
+        assert imageUrl != null;
+        Image image = new Image(imageUrl.toExternalForm());
         currentLanguage.setImage(image);
-
     }
 
     private void handleNewUser(User newUser) {

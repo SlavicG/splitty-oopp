@@ -16,7 +16,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -66,11 +65,10 @@ public class StartPageCtrl implements Initializable {
             });
         });
         String l = configuration.getLangConfig();
-        String s = System.getProperty("user.dir");
-        File file = new File(s + "\\client\\src\\main\\resources\\client\\images\\" + l + ".png");
-        Image image = new Image(file.toURI().toString());
+        URL imageUrl = getClass().getResource("/client/images/" + l + ".png");
+        assert imageUrl != null;
+        Image image = new Image(imageUrl.toExternalForm());
         currentLanguage.setImage(image);
-//        this.currentLanguage = new ImageView(image);
     }
     public void stop() {
         server.stop();

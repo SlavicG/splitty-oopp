@@ -53,11 +53,10 @@ public class AdminDashboardCtrl implements Initializable {
         for (Event event : server.getEvents()) {
             eventListAdmin.getItems().add(event);
         }
-        Configuration configuration = new Configuration();
         String l = configuration.getLangConfig();
-        String s = System.getProperty("user.dir");
-        File file = new File(s + "\\client\\src\\main\\resources\\client\\images\\" + l + ".png");
-        Image image = new Image(file.toURI().toString());
+        URL imageUrl = getClass().getResource("/client/images/" + l + ".png");
+        assert imageUrl != null;
+        Image image = new Image(imageUrl.toExternalForm());
         currentLanguage.setImage(image);
     }
 
