@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -61,17 +63,11 @@ class ExpenseServiceTest {
     private Expense expense1;
     private Expense expense2;
     private commons.dto.Expense expense3;
-//
 
-//    private java.util.function.Function<Expense, commons.dto.Expense> mapper = expense -> new commons.dto.Expense(
-//            expense.getId(),
-//            expense.getAmount(),
-//            expense.getDescription(),
-//            expense.getPayer().getId(),
-//            expense.getDate(),
-//            expense.getSplitBetween(),
-//            expense.getTag().getId());
+    private User firstUser;
+    private User secondUser;
 
+    private Tag tag;
 
 
     @BeforeEach
@@ -84,11 +80,11 @@ class ExpenseServiceTest {
         server.model.Event event = new server.model.Event(1,"birthday",new ArrayList<>(),new ArrayList<>(),
                 null);
 
-        Tag tag = new Tag(1, "Food",1,2,8,new server.model.Event());
+        tag = new Tag(1, "Food",1,2,8,new server.model.Event());
 
-//        when(userRepository.findById(1)).thenReturn(Optional.of(payer));
-//        when(eventRepository.findById(1)).thenReturn(Optional.of(event));
-//        when(tagRepository.findById(1)).thenReturn(Optional.of(tag));
+
+        firstUser = new User(1,"Slavic","Slavic@gmail.com","123","777");
+        secondUser = new User(2,"David","Daviid@gmail.com","124","677");
 
     }
 
@@ -170,6 +166,14 @@ class ExpenseServiceTest {
     @Test
     public void getTagById() {
 
+        when(tagRepository.findById(1)).thenReturn(Optional.of(tag));
+
+        Tag tagg = expenseService.getTagById(1);
+
+
+        assertEquals(tagg.getId(), tag.getId());
+        assertEquals(tag.getName(), tagg.getName());
+
     }
     @Test
     public void getModelEvent() {
@@ -177,11 +181,28 @@ class ExpenseServiceTest {
     }
     @Test
     public void getUserIds() {
+        List<User> users = Arrays.asList(firstUser, secondUser);
+        List<Integer> userL = expenseService.getUserIds(users);
+
+        assertEquals(Integer.valueOf(1), userL.get(0));
+        assertEquals(Integer.valueOf(2), userL.get(1));
 
     }
 
     @Test
     void getUsers() {
+
+        when(userRepository.findById(1)).thenReturn(Optional.of(firstUser));
+        when(userRepository.findById(2)).thenReturn(Optional.of(secondUser));
+
+        List<Integer> userL = Arrays.asList(1, 2);
+        List<User> users = expenseService.getUsers(userL);
+
+
+        assertEquals(2, users.size());
+        assertTrue(users.containsAll(Arrays.asList(firstUser, secondUser)));
+        verify(userRepository).findById(1);
+        verify(userRepository).findById(2);
 
     }
 }
