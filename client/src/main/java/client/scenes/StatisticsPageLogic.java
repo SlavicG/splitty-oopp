@@ -19,7 +19,8 @@ public class StatisticsPageLogic {
     }
 
     public int TotalCostPerTag(Event event,int tagId) {
-        List<Expense> expenses = server.getExpenses(event.getId());
+        List<Expense> expenses = server.getExpenses(event.getId()).stream()
+                .filter(expense -> !expense.getDescription().equals("Settle Debts")).toList();
         var expensesPerTag = expenses.stream().filter(d -> d.getTagId() == tagId).toList();
         if (!expensesPerTag.isEmpty()) {
             int totalCostPerTag = (int) expensesPerTag.stream().mapToDouble(Expense::getAmount).sum();
