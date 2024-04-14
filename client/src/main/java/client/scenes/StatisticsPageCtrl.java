@@ -64,7 +64,9 @@ public class StatisticsPageCtrl implements Initializable {
         text.setText("" + totalAmount);
     }
 
-    private void createData(List<Expense> expenses, List<Tag> tags) {
+    private void createData(List<Expense> expenses2, List<Tag> tags) {
+        var expenses1 = expenses2.stream().
+                filter(expense -> expense.getDescription().equals("Settle Debts")).toList();
         for (Tag tag : tags) {
             double amount = logic.TotalCostPerTag(event,tag.getId());
             if (Double.compare(amount, 0) != 0) {
