@@ -174,8 +174,9 @@ public class EventController {
 
     @GetMapping("/{event_id}/users/indebted")
     @ResponseBody
-    public List<User> settleExpense(@PathVariable(name = "event_id") Integer eventId){
+    public List<User> showIndepted(@PathVariable(name = "event_id") Integer eventId){
         return eventService.oweMoney(eventId);
     }
+
 
 }

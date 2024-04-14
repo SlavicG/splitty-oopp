@@ -411,6 +411,18 @@ public class EventService {
         return listUser;
     }
 
+    public Map<commons.dto.User, Double> getAllDebtsInEventUser(Integer event_id) {
+        Event event = getEventById(event_id);
+        server.model.Event eventForUsers = eventRepository.getById(event_id);
+        List<Integer> userIds = event.getUserIds();
+        List<commons.dto.User> users = userIds.stream().map(id -> getUser(event_id, id)).toList();
+        Map<commons.dto.User, Double> mapa = new HashMap<>();
+        for (int i = 0; i < userIds.size(); i++) {
+            mapa.put(users.get(i), getDebtOfaUser(userIds.get(i), event_id));
+        }
+        return mapa;
+    }
+
 }
 
 
