@@ -159,7 +159,9 @@
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                <children>
                   <Label styleClass="paragraph" text="%payer_colon" />
-                  <ChoiceBox fx:id="userFilter" prefWidth="150.0" />
+                  <ChoiceBox fx:id="userFilter" prefHeight="26.0" prefWidth="151.0" />
+                  <Label prefHeight="18.0" prefWidth="74.0" styleClass="paragraph" text="%paid_for" />
+                  <ChoiceBox fx:id="userFilter2" prefHeight="26.0" prefWidth="162.0" />
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@/client/images/search.png" />
@@ -168,7 +170,7 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </ImageView>
-                  <TextField fx:id="searchBox" accessibleText="Search Bar" promptText="%search_description" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="searchBox" accessibleText="Search Bar" prefHeight="26.0" prefWidth="179.0" promptText="%search_description" HBox.hgrow="ALWAYS" />
                   <Button fx:id="including" accessibleText="New Expense" minHeight="32.0" minWidth="32.0" mnemonicParsing="false" onAction="#addExpense" prefHeight="32.0" prefWidth="32.0" styleClass="button-green" HBox.hgrow="ALWAYS">
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
