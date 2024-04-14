@@ -53,11 +53,10 @@ public class AdminDashboardCtrl implements Initializable {
         for (Event event : server.getEvents()) {
             eventListAdmin.getItems().add(event);
         }
-        Configuration configuration = new Configuration();
         String l = configuration.getLangConfig();
-        String s = System.getProperty("user.dir");
-        File file = new File(s + "\\client\\src\\main\\resources\\client\\images\\" + l + ".png");
-        Image image = new Image(file.toURI().toString());
+        URL imageUrl = getClass().getResource("/client/images/" + l + ".png");
+        assert imageUrl != null;
+        Image image = new Image(imageUrl.toExternalForm());
         currentLanguage.setImage(image);
     }
 
@@ -71,18 +70,19 @@ public class AdminDashboardCtrl implements Initializable {
     public void changeLangEn() throws BackingStoreException {
         configuration.setLangConfig("en");
         switchLocale("en");
-
+        mainCtrl.restart(MainCtrl::adminPage);
     }
 
     public void changeLangNl() throws BackingStoreException {
         configuration.setLangConfig("nl");
         switchLocale("nl");
+        mainCtrl.restart(MainCtrl::adminPage);
     }
 
     public void changeLangRo() throws BackingStoreException {
         configuration.setLangConfig("ro");
         switchLocale("ro");
-
+        mainCtrl.restart(MainCtrl::adminPage);
     }
 
     public void addNewLang() {
