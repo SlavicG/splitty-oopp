@@ -119,7 +119,15 @@
                   </ImageView>
                </graphic>
             </Button>
-         </children>
+            <Button maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#testEmail" text="%test_email">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/client/images/email.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            </children>
          <VBox.margin>
             <Insets />
          </VBox.margin>

@@ -1,37 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.InvitationPageCtrl">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@/client/css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.InvitationPageCtrl">
    <children>
-      <Label fx:id="eventName" layoutX="69.0" layoutY="49.0" prefHeight="33.0" prefWidth="118.0" text="%event_name">
+      <HBox alignment="TOP_RIGHT" prefHeight="32.0" prefWidth="539.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#overview" text="%back" />
+         </children>
+      </HBox>
+      <Label fx:id="eventName" prefHeight="33.0" prefWidth="118.0" text="%event_name">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
       </Label>
-      <Text layoutX="69.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%give_people_code" wrappingWidth="236.232421875">
+      <HBox prefHeight="34.0" prefWidth="539.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%give_people_code" wrappingWidth="278.6324462890625">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Label fx:id="code" prefHeight="20.0" prefWidth="153.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%invite_by_email" wrappingWidth="390.63238525390625">
          <font>
             <Font size="14.0" />
          </font>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
       </Text>
-      <Label fx:id="code" layoutX="315.0" layoutY="90.0" prefHeight="18.0" prefWidth="90.0">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font></Label>
-      <Text layoutX="69.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%invite_by_email" wrappingWidth="390.63238525390625">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Text>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="115.0" layoutX="69.0" layoutY="170.0" stroke="BLACK" strokeType="INSIDE" width="391.0" />
-      <TextArea fx:id="emails_box" layoutX="69.0" layoutY="170.0" prefHeight="115.0" prefWidth="391.0" />
-      <Button fx:id="send_invites" onAction="#sendEmails" layoutX="374.0" layoutY="297.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="%send_invites" />
-      <Button layoutX="500.0" layoutY="37.0" mnemonicParsing="false" onAction="#overview" text="%back" />
+      <TextArea fx:id="emails_box" prefHeight="115.0" prefWidth="546.0">
+         <VBox.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </VBox.margin>
+      </TextArea>
+      <Button fx:id="send_invites" mnemonicParsing="false" onAction="#sendEmails" prefHeight="31.0" prefWidth="156.0" text="%send_invites">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin></Button>
    </children>
-</AnchorPane>
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+</VBox>
