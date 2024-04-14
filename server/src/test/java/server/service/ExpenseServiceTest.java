@@ -86,9 +86,9 @@ class ExpenseServiceTest {
 
         Tag tag = new Tag(1, "Food",1,2,8,new server.model.Event());
 
-        when(userRepository.findById(1)).thenReturn(Optional.of(payer));
-        when(eventRepository.findById(1)).thenReturn(Optional.of(event));
-        when(tagRepository.findById(1)).thenReturn(Optional.of(tag));
+//        when(userRepository.findById(1)).thenReturn(Optional.of(payer));
+//        when(eventRepository.findById(1)).thenReturn(Optional.of(event));
+//        when(tagRepository.findById(1)).thenReturn(Optional.of(tag));
 
     }
 
@@ -181,7 +181,7 @@ class ExpenseServiceTest {
     }
 
     @Test
-    public void getUsers() {
+    void getUsers() {
 
     }
 }
