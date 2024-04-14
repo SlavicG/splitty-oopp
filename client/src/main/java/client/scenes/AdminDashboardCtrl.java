@@ -55,12 +55,12 @@ public class AdminDashboardCtrl implements Initializable {
 
     public void onCreationClick() {
 
-        refresh(Comparator.comparing(Event::getTitle));
+        refresh(Comparator.comparing(Event::findEarliestDate));
     }
 
     public void onLastDateClick() {
 
-        refresh(Comparator.comparing(Event::getTitle));
+        refresh(Comparator.comparing(Event::findLatestDate));
     }
 
     public void backToStart() {

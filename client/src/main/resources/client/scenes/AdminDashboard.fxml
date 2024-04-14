@@ -39,7 +39,8 @@
                   <MenuButton mnemonicParsing="false" style="-fx-background-color: #ffffff; -fx-border-color: #797777; -fx-border-width: 0px;" stylesheets="@../css/style.css" text="Sort By">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#onTitleClick" text="Title" />
-                      <MenuItem mnemonicParsing="false" text="Creation Date" />
+                      <MenuItem mnemonicParsing="false" onAction="#onCreationClick" text="Creation Date" />
+                        <MenuItem mnemonicParsing="false" onAction="#onLastDateClick" text="Last Activity" />
                     </items>
                      <font>
                         <Font name="Inter Tight Medium" size="12.0" />
