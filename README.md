@@ -62,3 +62,55 @@ After the client has been started, you will be shown the Start Page.
 - For undo: CTRL+Z
 - For navigation: TAB + Space
 
+### Configuration
+
+#### Server
+To configure the server, please access application.properties in server/main/recourses
+The configuration we are using in the following file is:
+
+```properties
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+
+# use one of these alternatives...
+# ... purely in-memory, wiped on restart, but great for testing
+#spring.datasource.url=jdbc:h2:mem:testdb
+# ... persisted on disk (in project directory)
+spring.datasource.url=jdbc:h2:file:./h2-database
+
+# enable DB view on http://localhost:8080/h2-console
+spring.h2.console.enabled=true
+
+# strategy for table (re-)generation 
+spring.jpa.hibernate.ddl-auto=update
+# show auto-generated SQL commands
+#spring.jpa.hibernate.show_sql=true
+
+admin.username=user
+admin.password=password
+```
+#### Client
+To configure the client, please edit the config.properties file that should exist directly in the root project folder. In case it isn't present or one can't find it, simply changing the language will create a config.properties file that will be responsible for the configuration.
+
+The application works by not changing the configuration file at all, but also adding language, server and e-mail functionality.
+
+```properties
+language.locale=
+mail.host=
+mail.password=
+mail.port=
+mail.username=
+server.url=
+```
+
+And the config.properties file we are using to run our application is the following:
+
+```properties
+language.locale=en
+mail.host=smtp.gmail.com
+mail.password=fwtzctblnpxlnhny
+mail.port=587
+mail.username=splittyteam32@gmail.com
+```
