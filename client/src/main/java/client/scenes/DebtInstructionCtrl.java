@@ -68,7 +68,7 @@ public class DebtInstructionCtrl {
             debt.getOwed().getIban().isBlank() ? bundle.getString("unknown") : debt.getOwed().getIban(),
             debt.getOwed().getBic().isBlank() ? bundle.getString("unknown") : debt.getOwed().getBic()));
 
-        boolean validEmail = logic.isValidEmail(debt.getOwed().getEmail());
+        boolean validEmail = logic.isValidEmail(debt.getIndebted().getEmail());
         sendReminder.setDisable(true);
         if (!validEmail) {
             emailUnknown.setText(bundle.getString("email_unknown"));
