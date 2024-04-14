@@ -41,6 +41,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -392,5 +393,99 @@ public class ServerUtils {
     
     public void send(String dest, Object o) {
         session.send(dest, o);
+    }
+
+    public Map<Integer, Double> getAllDebtsInEvent(Integer eventId) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(configuration.getHttpServerUrl())
+                .path("/rest/events/" + eventId + "/debts")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<Map<Integer, Double>>() {});
+    }
+
+    public List<User> fetchAllUsers(Integer eventId) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(configuration.getHttpServerUrl())
+                .path("/rest/events/" + eventId + "/users")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<User>>() {});
+    }
+
+    public List<Expense> getAllExpenses(Integer eventId) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(configuration.getHttpServerUrl())
+                .path("/rest/events/" + eventId + "/allexpenses")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<Expense>>() {});
+    }
+
+    public List<Expense> getExpensesUserPaid(Integer userId, Integer eventId) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(configuration.getHttpServerUrl())
+                .path("/rest/events/" + eventId + "/paid/user/" + userId)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<Expense>>() {});
+    }
+
+
+    public List<Expense> getExpensesIncludeUser(Integer userId, Integer eventId) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(configuration.getHttpServerUrl())
+                .path("/rest/events/" + eventId + "/include/user/" + userId)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<Expense>>() {});
+    }
+
+
+    public List<User> settleAllUsers(Integer eventId) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(configuration.getHttpServerUrl())
+                .path("/rest/events/" + eventId + "/settle_debts")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<User>>() {});
+    }
+
+    public User settleUser(Integer eventId, Integer userId) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(configuration.getHttpServerUrl())
+                .path("/rest/events/" + eventId + "/settle_debts/users/" + userId)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(User.class);
+    }
+
+
+    public List<User> settleExpense(Integer eventId, Integer expenseId) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(configuration.getHttpServerUrl())
+                .path("/rest/events/" + eventId + "/settle_debts/expenses/" + expenseId)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<User>>() {});
+    }
+
+
+    public List<User> settleDebtAB(Integer eventId, Integer payerId, Integer userId) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(configuration.getHttpServerUrl())
+                .path("/rest/events/" + eventId + "/settle_debts/payers/" + payerId + "/users/" + userId)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<User>>() {});
+    }
+
+    public List<User> showIndebted(Integer eventId) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(configuration.getHttpServerUrl())
+                .path("/rest/events/" + eventId + "/users/indebted")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<User>>() {});
     }
 }
