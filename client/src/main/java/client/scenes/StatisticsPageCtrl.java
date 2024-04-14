@@ -104,14 +104,20 @@ public class StatisticsPageCtrl implements Initializable {
             if (user.isEmpty()) {
                 continue;
             }
-            Label label = new Label(user.get().getName() + " is owed " + getAmount(user.get().getId()));
-            debts.getItems().add(label);
+            Double amount = getAmount(user.get().getId());
+
+            if(amount >= 0) {
+                Label label = new Label(user.get().getName() + " owes " + String.format("%.2f", amount));
+                debts.getItems().add(label);
+            } else if(amount < 0) {
+                Label label = new Label(user.get().getName() + " is owed " + String.format("%.2f", -amount));
+                debts.getItems().add(label);
+            }
         }
     }
 
-    public Integer getAmount(Integer userId) {
-        //TO DO
-        return 0;
+    public Double getAmount(Integer userId) {
+        return server.getAllDebtsInEvent(event.getId()).get(userId);
     }
 
     @Override
