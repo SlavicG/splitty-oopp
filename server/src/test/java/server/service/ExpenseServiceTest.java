@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -100,7 +102,7 @@ class ExpenseServiceTest {
 
     @Test
     public void testCreateExpense() {
-        // Mock dependencies setup
+
         User payer = new User(1, "Slavic", "S@gmail.com", "123", "777");
         server.model.Event event = new server.model.Event(1, "birthday", new ArrayList<>(), new ArrayList<>(), null);
         Tag tag = new Tag(1, "Food", 1, 2, 8, event);
@@ -129,6 +131,10 @@ class ExpenseServiceTest {
         verify(userRepository).findById(1);
         verify(tagRepository).findById(1);
     }
+
+
+
+
 
 
 }
