@@ -294,18 +294,19 @@ public class OverviewPageCtrl implements Initializable {
     public void changeLangEn() throws BackingStoreException {
         configuration.setLangConfig("en");
         switchLocale("en");
-
+        mainCtrl.restart(ctrl -> ctrl.eventPage(eventId));
     }
 
     public void changeLangNl() throws BackingStoreException {
         configuration.setLangConfig("nl");
         switchLocale("nl");
+        mainCtrl.restart(ctrl -> ctrl.eventPage(eventId));
     }
 
     public void changeLangRo() throws BackingStoreException {
         configuration.setLangConfig("ro");
         switchLocale("ro");
-
+        mainCtrl.restart(ctrl -> ctrl.eventPage(eventId));
     }
 
     public void addNewLang() {

@@ -71,18 +71,19 @@ public class AdminDashboardCtrl implements Initializable {
     public void changeLangEn() throws BackingStoreException {
         configuration.setLangConfig("en");
         switchLocale("en");
-
+        mainCtrl.restart(MainCtrl::adminPage);
     }
 
     public void changeLangNl() throws BackingStoreException {
         configuration.setLangConfig("nl");
         switchLocale("nl");
+        mainCtrl.restart(MainCtrl::adminPage);
     }
 
     public void changeLangRo() throws BackingStoreException {
         configuration.setLangConfig("ro");
         switchLocale("ro");
-
+        mainCtrl.restart(MainCtrl::adminPage);
     }
 
     public void addNewLang() {

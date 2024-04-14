@@ -25,6 +25,7 @@ import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import java.util.Stack;
+import java.util.function.Consumer;
 
 public class MainCtrl {
     private Stage primaryStage;
@@ -58,10 +59,12 @@ public class MainCtrl {
     private TagsPageCtrl tagsPageCtrl;
     private Scene settleDebtsPage;
     private SettleDebtsCtrl settleDebtsCtrl;
+    private Consumer<Pair<Stage,Consumer<MainCtrl>>> restart;
 
     private final Stack<Runnable> undoFunctionHistory = new Stack<>();
 
-    public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
+    public void initialize(Stage primaryStage, Consumer<Pair<Stage, Consumer<MainCtrl>>> restart,
+                           Pair<QuoteOverviewCtrl, Parent> overview,
                            Pair<AddQuoteCtrl, Parent> add,
                            Pair<StartPageCtrl, Parent> startPage,
                            Pair<OverviewPageCtrl, Parent> overviewPage,
@@ -76,6 +79,7 @@ public class MainCtrl {
                            Pair<SettleDebtsCtrl, Parent> settleDebtsPage) {
 
         this.primaryStage = primaryStage;
+        this.restart = restart;
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());
 
@@ -108,9 +112,6 @@ public class MainCtrl {
         this.tagsPageCtrl = tagsPage.getKey();
         this.settleDebtsCtrl = settleDebtsPage.getKey();
         this.settleDebtsPage = new Scene(settleDebtsPage.getValue());
-
-        startPage();
-        primaryStage.show();
     }
 
     public void showOverview() {
@@ -231,5 +232,9 @@ public class MainCtrl {
 
     public void clearUndoStack() {
         undoFunctionHistory.clear();
+    }
+
+    public void restart(Consumer<MainCtrl> sessionRestore) {
+        restart.accept(new Pair<>(primaryStage, sessionRestore));
     }
 }
