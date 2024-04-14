@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -131,6 +132,69 @@ class ExpenseServiceTest {
         verify(userRepository).findById(1);
         verify(tagRepository).findById(1);
     }
+
+    @Test
+    public void getExpenses() {
+
+    }
+
+    @Test
+    public void getExpenseById() {
+
+    }
+
+
+    @Test
+    public void getEventById() {
+
+    }
+    @Test
+    public void getDebtOfaUser() {
+
+    }
+    @Test
+    public void updateAllDebtsInEvent() {
+
+    }
+    @Test
+    public void createExpense() {
+
+    }
+    @Test
+    public void updateExpense() {
+
+    }
+    @Test
+    public void deleteExpense() {
+
+    }
+    @Test
+    public void getUserById() {
+
+    }
+    @Test
+    public void getTagById() {
+
+    }
+    @Test
+    public void  getModelEvent() {
+
+    }
+    @Test
+    public void  getUserIds() {
+
+    }
+
+    @Test
+    public void  getUsers() {
+
+    }
+
+
+
+
+
+
 
 
 
