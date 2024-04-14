@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import java.util.List;
+
 import java.util.Optional;
 
 
@@ -177,16 +177,16 @@ class ExpenseServiceTest {
 
     }
     @Test
-    public void  getModelEvent() {
+    public void getModelEvent() {
 
     }
     @Test
-    public void  getUserIds() {
+    public void getUserIds() {
 
     }
 
     @Test
-    public void  getUsers() {
+    public void getUsers() {
 
     }
 
