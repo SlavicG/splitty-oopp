@@ -119,7 +119,8 @@
                   </ImageView>
                </graphic>
             </Button>
-         </children>
+            <Button mnemonicParsing="false" onAction="#testEmail" prefHeight="35.0" prefWidth="122.0" text="%test_email"> </Button>
+            </children>
          <VBox.margin>
             <Insets />
          </VBox.margin>
