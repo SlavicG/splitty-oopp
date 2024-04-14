@@ -12,9 +12,7 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class AdminDashboardLogic {
     private final ServerUtils server;

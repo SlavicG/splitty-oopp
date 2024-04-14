@@ -2,9 +2,11 @@ package commons.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class Event {
     private Integer id;
@@ -33,7 +35,21 @@ public class Event {
         this.tags = event.getTags();
     }
 
+    public LocalDate findEarliestDate() {
+        Optional<LocalDate> earliest = expenses.stream()
+                .map(Expense::getDate)
+                .min(LocalDate::compareTo);
 
+        return earliest.orElse(null); // Return null if no date is found (i.e., list is empty)
+    }
+    public LocalDate findLatestDate() {
+
+        Optional<LocalDate> latest = expenses.stream()
+                .map(Expense::getDate)
+                .max(LocalDate::compareTo);
+
+        return latest.orElse(null);  // Return null if no date is found
+    }
     public Integer getId() {
         return id;
     }
