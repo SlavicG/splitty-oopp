@@ -40,7 +40,8 @@ public class AdminDashboardCtrl implements Initializable {
     Configuration configuration;
 
     @Inject
-    public AdminDashboardCtrl(ServerUtils server, MainCtrl mainCtrl, AdminDashboardLogic logic, Configuration configuration) {
+    public AdminDashboardCtrl(ServerUtils server, MainCtrl mainCtrl, AdminDashboardLogic logic,
+                              Configuration configuration) {
         this.server = server;
         this.mainCtrl = mainCtrl;
         this.logic = logic;
