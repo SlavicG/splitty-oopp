@@ -52,7 +52,7 @@ class ExpenseServiceTest {
                 new User(), date, new server.model.Event(), new ArrayList<>(), new Tag());
         expense2 = new Expense(1, 1.0, "description1",
                 new User(), date,new server.model.Event(), new ArrayList<>(),new Tag());
-//        expense3 = new Expense(1, 1.0, "description1", 3, date, new ArrayList<>(), 1);
+
 
 
     }
