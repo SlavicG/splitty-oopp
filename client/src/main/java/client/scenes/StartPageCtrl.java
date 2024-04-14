@@ -98,18 +98,19 @@ public class StartPageCtrl implements Initializable {
     public void changeLangEn() throws BackingStoreException {
         configuration.setLangConfig("en");
         switchLocale("en");
-
+        mainCtrl.restart(null);
     }
 
     public void changeLangNl() throws BackingStoreException {
         configuration.setLangConfig("nl");
         switchLocale("nl");
+        mainCtrl.restart(null);
     }
 
     public void changeLangRo() throws BackingStoreException {
         configuration.setLangConfig("ro");
         switchLocale("ro");
-
+        mainCtrl.restart(null);
     }
 
     public void addNewLang() {
