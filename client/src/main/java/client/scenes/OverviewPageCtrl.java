@@ -90,6 +90,7 @@ public class OverviewPageCtrl implements Initializable {
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         payerColumn.setCellValueFactory(
+
                 expense -> new ReadOnlyObjectWrapper<>(userNamesCache.get(expense.getValue().getPayerId())));
 
         tagColumn.setCellValueFactory(
@@ -217,7 +218,12 @@ public class OverviewPageCtrl implements Initializable {
         // Set up expenses table.
         expenseTable.getSelectionModel().clearSelection();
         Event event = server.getEventById(eventId);
-        expenses = new FilteredList<>(FXCollections.observableList(server.getExpenses(eventId)));
+        var temp_expenses = server.getExpenses(eventId).
+                stream().
+                filter(expense
+                        ->!expense.
+                        getDescription().equals("Settle Debts")).toList();
+        expenses = new FilteredList<>(FXCollections.observableList(temp_expenses));
         expenseTable.setItems(expenses);
         eventName.setText(event.getTitle());
         code.setText(event.getCode());
