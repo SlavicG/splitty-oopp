@@ -89,7 +89,9 @@ public class TestEventRepository implements EventRepository {
     }
 
     @Override
-    public <S extends Event, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends Event, R> R findBy(Example<S> example,
+                                         Function<FluentQuery.FetchableFluentQuery<S>, R>
+                                                 queryFunction) {
         return null;
     }
 
