@@ -46,7 +46,7 @@
                <children>
                   <MenuButton mnemonicParsing="false" prefHeight="30.0" prefWidth="162.0" styleClass="choice-box" text="%language">
                      <items>
-                        <MenuItem fx:id="switch_en" mnemonicParsing="false" onAction="#changeLangEn" text="English">
+                        <MenuItem fx:id="switch_en" mnemonicParsing="false" onAction="#changeLangEn" text="%en">
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -54,7 +54,7 @@
                                  </image>
                               </ImageView>
                            </graphic></MenuItem>
-                        <MenuItem fx:id="switch_nl" mnemonicParsing="false" onAction="#changeLangNl" text="Dutch">
+                        <MenuItem fx:id="switch_nl" mnemonicParsing="false" onAction="#changeLangNl" text="%nl">
                            <graphic>
                               <ImageView fitHeight="27.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -62,7 +62,7 @@
                                  </image>
                               </ImageView>
                            </graphic></MenuItem>
-                        <MenuItem fx:id="switch_ro" mnemonicParsing="false" onAction="#changeLangRo" text="Romanian">
+                        <MenuItem fx:id="switch_ro" mnemonicParsing="false" onAction="#changeLangRo" text="%ro">
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
