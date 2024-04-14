@@ -20,29 +20,35 @@ import client.utils.Configuration;
 import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 import java.util.prefs.BackingStoreException;
 
 import static com.google.inject.Guice.createInjector;
 
 public class Main extends Application {
-
     private static final Injector INJECTOR = createInjector(new MyModule());
     private static final MyFXML FXML = new MyFXML(INJECTOR);
     private static ResourceBundle bundle;
 
     public static void main(String[] args) throws URISyntaxException, IOException {
-        Configuration configuration = INJECTOR.getInstance(Configuration.class);
-        bundle = ResourceBundle.getBundle("client.language", configuration.getLocale());
         launch();
     }
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+        initialize(new Pair<>(primaryStage, null));
+    }
+
+    public void initialize(Pair<Stage, Consumer<MainCtrl>> stageIntegerPair) {
+        Stage primaryStage = stageIntegerPair.getKey();
+        Configuration configuration = INJECTOR.getInstance(Configuration.class);
+        bundle = ResourceBundle.getBundle("client.language", configuration.getLocale());
         var overview = FXML.load(QuoteOverviewCtrl.class, bundle, "client", "scenes", "QuoteOverview.fxml");
         var add = FXML.load(AddQuoteCtrl.class, bundle, "client", "scenes", "AddQuote.fxml");
         var startPage = FXML.load(StartPageCtrl.class, bundle, "client", "scenes", "StartPage.fxml");
@@ -58,9 +64,16 @@ public class Main extends Application {
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         var tagsPage = FXML.load(TagsPageCtrl.class, bundle,"client", "scenes", "TagsPage.fxml");
         var settleDebts = FXML.load(SettleDebtsCtrl.class, bundle,"client", "scenes", "SettleDebts.fxml");
-        mainCtrl.initialize(primaryStage, overview, add, startPage, overviewPage, invitationPage,
-                addParticipant, addExpensePage, statisticsPage, loginPage, adminPage,editEventName,
-                addTagPage, tagsPage, settleDebts);
+        mainCtrl.initialize(primaryStage, this::initialize, overview, add, startPage, overviewPage, invitationPage,
+            addParticipant, addExpensePage, statisticsPage, loginPage, adminPage,editEventName,
+            addTagPage, tagsPage, settleDebts);
+        if (stageIntegerPair.getValue() != null) {
+            stageIntegerPair.getValue().accept(mainCtrl);
+        }
+        else {
+            mainCtrl.startPage();
+        }
+        primaryStage.show();
         primaryStage.setOnCloseRequest(e -> {
             startPage.getKey().stop();
         });

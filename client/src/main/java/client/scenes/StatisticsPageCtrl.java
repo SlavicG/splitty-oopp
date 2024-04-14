@@ -5,16 +5,19 @@ import com.google.inject.Inject;
 import commons.dto.Event;
 import commons.dto.Expense;
 import commons.dto.Tag;
+import commons.dto.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class StatisticsPageCtrl implements Initializable {
@@ -30,6 +33,8 @@ public class StatisticsPageCtrl implements Initializable {
     private HashMap<Tag, Integer> map;
     private ResourceBundle resourceBundle;
     private StatisticsPageLogic logic;
+    @FXML
+    private ListView<Label> debts;
 
     @Inject
     public StatisticsPageCtrl(ServerUtils server, MainCtrl mainCtrl, StatisticsPageLogic logic) {
@@ -64,7 +69,9 @@ public class StatisticsPageCtrl implements Initializable {
         text.setText("" + totalAmount);
     }
 
-    private void createData(List<Expense> expenses, List<Tag> tags) {
+    private void createData(List<Expense> expenses2, List<Tag> tags) {
+        var expenses1 = expenses2.stream().
+                filter(expense -> expense.getDescription().equals("Settle Debts")).toList();
         for (Tag tag : tags) {
             double amount = logic.TotalCostPerTag(event,tag.getId());
             if (Double.compare(amount, 0) != 0) {
@@ -90,6 +97,27 @@ public class StatisticsPageCtrl implements Initializable {
         }
         pieChart.setData(pieChartData);
         text.setText("" + totalAmount);
+
+        List<Optional<User>> users = server.getUserByEvent(event.getId()).stream().map(Optional::of).toList();
+        debts.getItems().clear();
+        for (Optional<User> user : users) {
+            if (user.isEmpty()) {
+                continue;
+            }
+            Double amount = getAmount(user.get().getId());
+
+            if(amount >= 0) {
+                Label label = new Label(user.get().getName() + " owes " + String.format("%.2f", amount));
+                debts.getItems().add(label);
+            } else if(amount < 0) {
+                Label label = new Label(user.get().getName() + " is owed " + String.format("%.2f", -amount));
+                debts.getItems().add(label);
+            }
+        }
+    }
+
+    public Double getAmount(Integer userId) {
+        return server.getAllDebtsInEvent(event.getId()).get(userId);
     }
 
     @Override
