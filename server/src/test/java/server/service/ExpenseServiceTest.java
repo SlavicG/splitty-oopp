@@ -79,11 +79,6 @@ class ExpenseServiceTest {
         LocalDate date = LocalDate.of(2021, 10, 24);
         event1 = new Event(1, "party", null, null, null);
         event2 = new Event(2, "party2", null, null, null);
-//        expense1 = new Expense(1, 1.0, "description1",
-//                new User(), date, new server.model.Event(), new ArrayList<>(), new Tag());
-//        expense2 = new Expense(1, 1.0, "description1",
-//                new User(), date,new server.model.Event(), new ArrayList<>(),new Tag());
-//        expense3 = new Expense(1, 1.0, "description1", 3, date, new ArrayList<>(), 1);
 
         User payer = new User(1,"Slavic","S@gmail.com","123","777");
         server.model.Event event = new server.model.Event(1,"birthday",new ArrayList<>(),new ArrayList<>(),
