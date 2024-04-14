@@ -46,6 +46,8 @@ public class OverviewPageCtrl implements Initializable {
     @FXML
     private ChoiceBox<Optional<User>> userFilter;
     @FXML
+    private ChoiceBox<Optional<User>> userFilter2;
+    @FXML
     private TextField searchBox;
     @FXML
     private TableView<Expense> expenseTable;
@@ -160,6 +162,7 @@ public class OverviewPageCtrl implements Initializable {
 
         // Listen for changes in the user filter and search box
         userFilter.setOnAction(actionEvent -> refreshFilter());
+        userFilter2.setOnAction(actionEvent -> refreshFilter());
         searchBox.textProperty().addListener(((observableValue, s, t1) -> refreshFilter()));
 
         mainCtrl.clearUndoStack();
@@ -265,9 +268,30 @@ public class OverviewPageCtrl implements Initializable {
         });
         userFilter.getItems().addAll(users);
 
+        userFilter2.getItems().clear();
+        userFilter2.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Optional<User> user) {
+                if (user == null || user.isEmpty()) {
+                    return resources.getString("everyone");
+                }
+                return user.get().getName();
+            }
+
+            @Override
+            public Optional<User> fromString(String s) {
+                return Optional.empty();
+            }
+        });
+        userFilter2.getItems().addAll(users);
+
         // This empty is the 'All Users' option
         userFilter.getItems().addFirst(Optional.empty());
         userFilter.setValue(userFilter.getItems().getFirst());
+
+        userFilter2.getItems().addFirst(Optional.empty());
+        userFilter2.setValue(userFilter2.getItems().getFirst());
+
 
         // Add 'edit' buttons for each user
         participants.getChildren().clear();
@@ -284,9 +308,12 @@ public class OverviewPageCtrl implements Initializable {
 
     public void refreshFilter() {
         Optional<User> user = userFilter.getValue();
+        Optional<User> user2 = userFilter2.getValue();
         String search = searchBox.getText();
         expenses.setPredicate(expense -> expense.getDescription().toLowerCase().contains(search.toLowerCase()) &&
-                (user == null || user.isEmpty() || expense.getPayerId().equals(user.get().getId())));
+                (user == null || user.isEmpty() || expense.getPayerId().equals(user.get().getId())) &&
+                (user2 == null || user2.isEmpty() || expense.getSplitBetween().contains(user2.get().getId())));
+
     }
 
     public void changeLangEn() throws BackingStoreException {
