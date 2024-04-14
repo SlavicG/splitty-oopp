@@ -79,9 +79,12 @@ public class AdminDashboardLogic {
                     });
                 snapshot.getExpenses().forEach(expense ->
                 {
+                    List<Integer> newSplitBetween = new ArrayList<>();
+                    for(var x: expense.getSplitBetween())
+                        newSplitBetween.add(userMap.get(x));
                     server.addExpense(new Expense(null, expense.getAmount(),
                         expense.getDescription(), userMap.get(expense.getPayerId()), expense.getDate(),
-                        expense.getSplitBetween(), tagMap.get(expense.getTagId())), newEvent.getId());
+                        newSplitBetween, tagMap.get(expense.getTagId())), newEvent.getId());
                 });
             }
         }

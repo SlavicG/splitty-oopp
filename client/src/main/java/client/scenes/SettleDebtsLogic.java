@@ -4,13 +4,15 @@ import client.utils.Configuration;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.dto.Expense;
+import commons.dto.Mail;
+import commons.dto.MailConfig;
 import commons.dto.User;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -117,10 +119,41 @@ public class SettleDebtsLogic {
         }
         return debts;
     }
-
-
+    private static JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+    public void setMailConfig(MailConfig mailConfig) {
+        mailSender.setHost(mailConfig.getHost());
+        mailSender.setPort(mailConfig.getPort());
+        mailSender.setPassword(mailConfig.getPassword());
+        mailSender.setUsername(mailConfig.getUsername());
+        Properties props = mailSender.getJavaMailProperties();
+        props.put("mail.transport.protocol", mailConfig.getProps().getProperty("mail.transport.protocol"));
+        props.put("mail.smtp.auth", mailConfig.getProps().getProperty("mail.smtp.auth"));
+        props.put("mail.smtp.starttls.enable", mailConfig.getProps().getProperty("mail.smtp.starttls.enable"));
+        props.put("mail.debug", mailConfig.getProps().getProperty("mail.debug"));
+    }
+    public void sendEmail(Mail mail) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setFrom(mailSender.getUsername());
+        mailMessage.setCc(mailSender.getUsername());
+        mailMessage.setTo(mail.getToMail());
+        mailMessage.setText(mail.getBody());
+        mailMessage.setSubject(mail.getSubject());
+        mailSender.send(mailMessage);
+    }
     public void sendReminder(Debt debt) {
-        // COMPLETE THIS
+        var mc = Executors.newVirtualThreadPerTaskExecutor();
+
+        Configuration configuration = new Configuration();;
+        if(configuration.getMailConfig() == null) return;
+
+        setMailConfig(configuration.getMailConfig());
+        Mail mailRequest = new Mail(debt.getIndebted().getEmail(),
+                "Payment Reminder",
+                "Hello, " + debt.getIndebted().getName() +
+                        "! You still owe " + debt.getAmount() +
+                        " to " + debt.getOwed().getName() +
+                        "! Don't forget to pay your debts!");
+        mc.execute(() -> sendEmail(mailRequest));
     }
 
     public void markReceived(Debt debt) {

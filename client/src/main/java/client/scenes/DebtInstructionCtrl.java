@@ -7,6 +7,7 @@ import javafx.scene.layout.VBox;
 
 import java.text.NumberFormat;
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class DebtInstructionCtrl {
     @FXML
@@ -56,27 +57,23 @@ public class DebtInstructionCtrl {
         logic.sendReminder(debt);
     }
 
-    public void initialize(SettleDebtsLogic.Debt debt, SettleDebtsLogic logic) {
+    public void initialize(SettleDebtsLogic.Debt debt, SettleDebtsLogic logic, ResourceBundle bundle) {
         this.debt = debt;
         this.logic = logic;
         owed.setText(debt.getOwed().getName());
         amount.setText(NumberFormat.getCurrencyInstance(Locale.FRANCE).format(debt.getAmount()));
         indebted.setText(debt.getIndebted().getName());
-        bankInfo.setText(String.format("""
-            Bank information:
-            Account holder: %s
-            IBAN: %s
-            BIC: %s""",
-            debt.getOwed().getName().isBlank() ? "Unknown" : debt.getOwed().getName(),
-            debt.getOwed().getIban().isBlank() ? "Unknown" : debt.getOwed().getIban(),
-            debt.getOwed().getBic().isBlank() ? "Unknown" : debt.getOwed().getBic()));
+        bankInfo.setText(String.format(bundle.getString("debt_info"),
+            debt.getOwed().getName().isBlank() ? bundle.getString("unknown") : debt.getOwed().getName(),
+            debt.getOwed().getIban().isBlank() ? bundle.getString("unknown") : debt.getOwed().getIban(),
+            debt.getOwed().getBic().isBlank() ? bundle.getString("unknown") : debt.getOwed().getBic()));
 
-        boolean validEmail = logic.isValidEmail(debt.getOwed().getEmail());
+        boolean validEmail = logic.isValidEmail(debt.getIndebted().getEmail());
         sendReminder.setDisable(true);
         if (!validEmail) {
-            emailUnknown.setText("Email address unknown.");
+            emailUnknown.setText(bundle.getString("email_unknown"));
         } else if (!logic.isEmailConfigured()) {
-            emailUnknown.setText("Email is not configured.");
+            emailUnknown.setText(bundle.getString("email_unconfigured"));
         }
         else {
             emailUnknown.setVisible(false);

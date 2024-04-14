@@ -23,7 +23,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Label styleClass="header" text="Settle Debts" />
+            <Label styleClass="header" text="%settle_debts" />
          </children>
       </HBox>
       <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
