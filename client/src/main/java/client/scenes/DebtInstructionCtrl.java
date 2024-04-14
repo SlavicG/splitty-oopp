@@ -64,11 +64,15 @@ public class DebtInstructionCtrl {
         amount.setText(NumberFormat.getCurrencyInstance(Locale.FRANCE).format(debt.getAmount()));
         indebted.setText(debt.getIndebted().getName());
         bankInfo.setText(String.format(bundle.getString("debt_info"),
-            debt.getOwed().getName().isBlank() ? bundle.getString("unknown") : debt.getOwed().getName(),
-            debt.getOwed().getIban().isBlank() ? bundle.getString("unknown") : debt.getOwed().getIban(),
-            debt.getOwed().getBic().isBlank() ? bundle.getString("unknown") : debt.getOwed().getBic()));
+                (debt.getOwed().getName() == null || debt.getOwed().getName().isBlank()) ?
+                        bundle.getString("unknown") : debt.getOwed().getName(),
+                (debt.getOwed().getIban() == null || debt.getOwed().getIban().isBlank()) ?
+                        bundle.getString("unknown") : debt.getOwed().getIban(),
+                (debt.getOwed().getBic() == null || debt.getOwed().getBic().isBlank()) ?
+                        bundle.getString("unknown") : debt.getOwed().getBic()));
 
-        boolean validEmail = logic.isValidEmail(debt.getIndebted().getEmail());
+        boolean validEmail = logic.isValidEmail((debt.getIndebted().getEmail() == null) ?
+                "" : debt.getIndebted().getEmail());
         sendReminder.setDisable(true);
         if (!validEmail) {
             emailUnknown.setText(bundle.getString("email_unknown"));
