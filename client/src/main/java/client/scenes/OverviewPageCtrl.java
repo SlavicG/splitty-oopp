@@ -218,7 +218,11 @@ public class OverviewPageCtrl implements Initializable {
         // Set up expenses table.
         expenseTable.getSelectionModel().clearSelection();
         Event event = server.getEventById(eventId);
-        var temp_expenses = server.getExpenses(eventId).stream().filter(expense ->!expense.getDescription().equals("Settle Debts")).toList();
+        var temp_expenses = server.getExpenses(eventId).
+                stream().
+                filter(expense
+                        ->!expense.
+                        getDescription().equals("Settle Debts")).toList();
         expenses = new FilteredList<>(FXCollections.observableList(temp_expenses));
         expenseTable.setItems(expenses);
         eventName.setText(event.getTitle());

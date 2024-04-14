@@ -127,7 +127,10 @@ public class SettleDebtsLogic {
         var ls = new ArrayList<Integer>();
         ls.add(debt.getOwed().getId());
         Expense expense = new Expense(debt.getEventId(), debt.getAmount(),
-                "Settle Debts", debt.getIndebted().getId(), LocalDate.now(), ls, server.getEventById(debt.getEventId()).getTags().get(0).getId());
+                "Settle Debts",
+                debt.getIndebted().getId(),
+                LocalDate.now(), ls,
+                server.getEventById(debt.getEventId()).getTags().get(0).getId());
         server.addExpense(expense, debt.getEventId());
                 /*
                 Integer id, Double amount, String description,
