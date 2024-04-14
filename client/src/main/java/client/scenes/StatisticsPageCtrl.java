@@ -5,16 +5,20 @@ import com.google.inject.Inject;
 import commons.dto.Event;
 import commons.dto.Expense;
 import commons.dto.Tag;
+import commons.dto.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class StatisticsPageCtrl implements Initializable {
@@ -30,6 +34,8 @@ public class StatisticsPageCtrl implements Initializable {
     private HashMap<Tag, Integer> map;
     private ResourceBundle resourceBundle;
     private StatisticsPageLogic logic;
+    @FXML
+    private ListView<Label> debts;
 
     @Inject
     public StatisticsPageCtrl(ServerUtils server, MainCtrl mainCtrl, StatisticsPageLogic logic) {
@@ -90,6 +96,21 @@ public class StatisticsPageCtrl implements Initializable {
         }
         pieChart.setData(pieChartData);
         text.setText("" + totalAmount);
+
+        List<Optional<User>> users = server.getUserByEvent(event.getId()).stream().map(Optional::of).toList();
+        debts.getItems().clear();
+        for (Optional<User> user : users) {
+            if (user.isEmpty()) {
+                continue;
+            }
+            Label label = new Label(user.get().getName() + " is owed " + getAmount(user.get().getId()));
+            debts.getItems().add(label);
+        }
+    }
+
+    public Integer getAmount(Integer userId) {
+        //TO DO
+        return 0;
     }
 
     @Override
