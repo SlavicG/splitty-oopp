@@ -191,7 +191,7 @@ public class ExpenseService {
         return user;
     }
 
-    private Tag getTagById(Integer it) {
+    Tag getTagById(Integer it) {
         Tag tag = tagRepository.findById(it).orElse(null);
         if (tag == null) throw new IllegalArgumentException("Tag not found. ID: " + it);
         return tag;
@@ -209,11 +209,11 @@ public class ExpenseService {
         return newEvent;
     }
 
-    private List<Integer> getUserIds(List<User> users) {
+    List<Integer> getUserIds(List<User> users) {
         return users.stream().map(it -> it.getId()).toList();
     }
 
-    private List<User> getUsers(List<Integer> userIds) {
+    List<User> getUsers(List<Integer> userIds) {
         return userIds.stream().map(it -> getUserById(it)).toList();
     }
 }
